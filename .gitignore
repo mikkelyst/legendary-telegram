@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Debug
+/.vs/camapgen/v14
+/camapgen.vcxproj.user 
+/camapgen.VC.VC.opendb
+/camapgen.VC.db 
+/camapgen.vcxproj.user
+/camapgen.VC.db
