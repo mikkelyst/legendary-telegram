@@ -1,10 +1,16 @@
-#include "imgui.h"
-#include "imgui_impl_glfw_gl3.h"
+//////////////////////////////////////
 #include <stdio.h>
+#include <iostream> 
 #include <GL/gl3w.h>   
-#include <GLFW/glfw3.h>
-
+#include <GLFW/glfw3.h> 
+#include <glm.hpp>
+#include <gtc\matrix_transform.hpp>
+#include <gtc\random.hpp>
+//////////////////////////////////////
+#include "imgui.h"
+#include "imgui_impl_glfw_gl3.h" 
 #include "Simulation.h"
+////////////////////////////////////// 
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -23,7 +29,7 @@ int main(int, char**)
 #if __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-    GLFWwindow* window = glfwCreateWindow(1600, 1400, "ImGui GLFW+OpenGL3 example", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1600, 900, "ImGui GLFW+OpenGL3 example", NULL, NULL);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
     gl3wInit();
@@ -33,28 +39,33 @@ int main(int, char**)
     ImGuiIO& io = ImGui::GetIO(); (void)io; 
     ImGui_ImplGlfwGL3_Init(window, true);
 
-    // Setup style
+    // Setup ImGui style
     ImGui::StyleColorsDark(); 
 
     bool show_demo_window = false; 
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f); 
+	 
 
 
-	// FLAKGL
-	static const GLfloat g_vertex_buffer_data[] = {
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f,  1.0f, 0.0f,
+	GLuint tex;
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	// Black/white checkerboard
+	float pixels[] = {
+		0.0f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f,
+		1.0f, 0.0f, 1.0f,   0.0f, 1.0f, 0.0f
 	};
-	// This will identify our vertex buffer
-	GLuint vertexbuffer;
-	// Generate 1 buffer, put the resulting identifier in vertexbuffer
-	glGenBuffers(1, &vertexbuffer);
-	// The following commands will talk about our 'vertexbuffer' buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	// Give our vertices to OpenGL.
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-	// END FLAKGL
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+	float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_FLOAT, pixels);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -78,6 +89,8 @@ int main(int, char**)
             ImGui::Text("counter = %d", counter);
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+			ImGui::Image(reinterpret_cast<void*>(tex), ImVec2(500.f, 500.f));
         }  
 
         if (show_demo_window)
@@ -92,24 +105,8 @@ int main(int, char**)
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
+
 		 
-
-		
-		// 1st attribute buffer : vertices
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-		glVertexAttribPointer(
-			0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*)0            // array buffer offset
-		);
-		// Draw the triangle !
-		glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
-		glDisableVertexAttribArray(0);
-
 
 		// Render gui
         ImGui::Render();
