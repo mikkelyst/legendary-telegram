@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 #include <GLFW\glfw3.h>
 
 #include "imgui\imgui.h"
@@ -44,7 +44,9 @@ public:
 			ImGui::Checkbox("Simulation  Window", &show_ca_window);
 			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
-			ImGui::Checkbox("Cell (2,3) is ", &my_pixel);
+			std::string text = "Cell (2,3) is ";
+			text += std::to_string(my_pixel);
+			ImGui::Checkbox(text.c_str(), &my_pixel);
 		}
 
 		if (show_demo_window)
@@ -54,14 +56,13 @@ public:
 		}
 	}
 
-	void UpdateCellGrid(ImTextureID image) {
+	void UpdateCellsWindow(ImTextureID image) {
 		if (show_ca_window)
 		{
 			ImGui::SetNextWindowPos(ImVec2(600, 20), ImGuiCond_FirstUseEver);
 			if (ImGui::Begin("Generation Window", &show_ca_window,
 				ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings))
 			{
-				// cg1->ChangePixel(2, 3, my_pixel);
 				ImGui::Image(image, ImVec2(800.f, 800.f));
 				ImGui::End();
 			}

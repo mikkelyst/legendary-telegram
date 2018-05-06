@@ -5,7 +5,9 @@
 #include <GLFW\glfw3.h> 
 
 #include "MapGenUI.h"
-#include "CellGrid.h"
+#include "GridTexture.h"
+
+GLFWwindow* window;
 
 
  
@@ -14,25 +16,35 @@ void glfw_error_callback(int error, const char* description)
     fprintf(stderr, "Error %d: %s\n", error, description);
 }
 
+unsigned int glfw_setup()
+{
+	// Setup window
+	glfwSetErrorCallback(glfw_error_callback);
+	if (!glfwInit())
+	{
+		return 1;
+	}
+	else {
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#if __APPLE__
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+		window = glfwCreateWindow(1600, 900, "Cellular Automata Map Generator 152017", NULL, NULL);
+		glfwMakeContextCurrent(window);
+		glfwSwapInterval(1); // Enable vsync
+		gl3wInit();
+		return 0;
+	}
+}
+
 int main(int, char**)
 {
-    // Setup window
-    glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
-        return 1;
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#if __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-    GLFWwindow* window = glfwCreateWindow(1600, 900, "Cellular Automata Map Generator 152017", NULL, NULL);
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
-    gl3wInit();
+	if (glfw_setup()) return 1;
 
 	MapGenUI *uiWindow = new MapGenUI(window);
-	CellGrid *cg1 = new CellGrid();
+	GridTexture *gridWindowTex = new GridTexture();
 
     
 	while (!glfwWindowShouldClose(window)) // Main loop
@@ -40,18 +52,19 @@ int main(int, char**)
 		glfwPollEvents();
 		
 		uiWindow->UpdateInterface();
-		uiWindow->UpdateCellGrid( reinterpret_cast<void*>(cg1->UpdateTexture()) );
+		uiWindow->UpdateCellsWindow( reinterpret_cast<void*>(gridWindowTex->Update()) );
 		uiWindow->RenderInterface();
 
-		//cg1->ChangePixel()
+		// Now, based on ui settings, make changes to map texture
+		gridWindowTex->ChangeTexelState(2, 3, uiWindow->my_pixel);
 		
         glfwSwapBuffers(window);
     }
 
     delete uiWindow;
+	delete gridWindowTex;
 
     glfwDestroyWindow(window);
     glfwTerminate();
-
     return 0;
 }
