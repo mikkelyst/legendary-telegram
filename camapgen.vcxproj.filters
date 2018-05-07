@@ -80,6 +80,9 @@
     <ClInclude Include="GridTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CellGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

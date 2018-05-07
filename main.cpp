@@ -51,9 +51,9 @@ int main(int, char**)
 	{
 		glfwPollEvents();
 		
-		uiWindow->UpdateInterface();
+		uiWindow->Update();
 		uiWindow->UpdateCellsWindow( reinterpret_cast<void*>(gridWindowTex->Update()) );
-		uiWindow->RenderInterface();
+		uiWindow->Render();
 
 		// Now, based on ui settings, make changes to map texture
 		gridWindowTex->ChangeTexelState(2, 3, uiWindow->my_pixel);

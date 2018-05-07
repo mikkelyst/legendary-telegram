@@ -35,7 +35,7 @@ public:
 		ImGui::DestroyContext();
 	}
 
-	void UpdateInterface() {
+	void Update() {
 		ImGui_ImplGlfwGL3_NewFrame();
 		{ 
 			ImGui::Text(build_str);
@@ -69,7 +69,7 @@ public:
 		}
 	}
 
-	void RenderInterface() {
+	void Render() {
 		// Rendering
 		int display_w, display_h;
 		glfwGetFramebufferSize(chosenWindow, &display_w, &display_h);
