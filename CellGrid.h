@@ -7,6 +7,15 @@ enum CellState {
 	CELL_OFF = 0
 };
 
+enum Neighborhood5 {
+	CELL_ALL_OFF   = 0,
+	CELL_NORTH_ON  = 1, 
+	CELL_WEST_ON   = 2,
+	CELL_MID_ON    = 4,
+	CELL_EAST_ON   = 8,
+	CELL_SOUTH_ON  = 16
+};
+
 class CellGrid
 {
 private:
@@ -16,14 +25,26 @@ private:
 
 public:
 
-	CellGrid(unsigned int x, unsigned int y)
+	CellGrid(unsigned int width, unsigned int height)
 	{
-		sizex = x;
-		sizey = y;
-		cells = new std::vector<CellState>(x*y);
+		sizex = width;
+		sizey = height;
+		cells = new std::vector<CellState>(sizex*sizey);
+	}
+
+	CellGrid(CellGrid* previous)
+	{
+		sizex = previous->sizex;
+		sizey = previous->sizey;
+		*cells = *previous->cells;
 	}
 
 	~CellGrid() = default;
+
+	CellState CellAt(unsigned int col, unsigned int row) 
+	{
+		return cells->at(sizex * row + col);
+	}
 
 
 	void ApplyRule(unsigned int rule)
@@ -41,7 +62,7 @@ public:
 
 	CellGrid* NextStep() 
 	{
-		CellGrid *next = new CellGrid(sizex, sizey);
+		CellGrid *next = new CellGrid(this);
 
 		// For every cell in grid excluding edges
 			// Check Neighborhood, calculate rule

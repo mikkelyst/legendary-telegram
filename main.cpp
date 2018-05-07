@@ -6,6 +6,7 @@
 
 #include "MapGenUI.h"
 #include "GridTexture.h"
+#include "CellGrid.h"
 
 GLFWwindow* window;
 
@@ -46,6 +47,9 @@ int main(int, char**)
 	MapGenUI *uiWindow = new MapGenUI(window);
 	GridTexture *gridWindowTex = new GridTexture();
 
+	CellGrid a(4, 4);
+	CellGrid b(a);
+	b.ApplyRule(CELL_ALL_OFF);
     
 	while (!glfwWindowShouldClose(window)) // Main loop
 	{
