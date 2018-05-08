@@ -45,11 +45,10 @@ int main(int, char**)
 	if (glfw_setup()) return 1;
 
 	MapGenUI *uiWindow = new MapGenUI(window);
-	GridTexture *gridWindowTex = new GridTexture();
+	GridTexture *gridWindowTex = new GridTexture(25, 25);
 
-	CellGrid a(4, 4);
-	CellGrid b(a);
-	b.ApplyRule(CELL_ALL_OFF);
+	CellGrid* a = new CellGrid(4, 4); 
+	CellGrid* b = a->NextStep();
     
 	while (!glfwWindowShouldClose(window)) // Main loop
 	{
@@ -60,7 +59,7 @@ int main(int, char**)
 		uiWindow->Render();
 
 		// Now, based on ui settings, make changes to map texture
-		gridWindowTex->ChangeTexelState(2, 3, uiWindow->my_pixel);
+		gridWindowTex->SetTexelColor(2, 3, GT_RED);
 		
         glfwSwapBuffers(window);
     }

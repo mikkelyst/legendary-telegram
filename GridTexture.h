@@ -1,6 +1,14 @@
 #pragma once  
 #include <vector> 
  
+#include <GLFW\glfw3.h>
+
+#define GT_BLACK 0.0f, 0.0f, 0.0f
+#define GT_WHITE 1.0f, 1.0f, 1.0f
+#define GT_RED   1.0f, 0.0f, 0.0f
+#define GT_GREEN 0.0f, 1.0f, 0.0f
+#define GT_BLUE  0.0f, 0.0f, 1.0f
+
 class GridTexture
 {
 private:
@@ -13,8 +21,8 @@ public:
 
 	GridTexture(unsigned int x = 4, unsigned int y = 4)
 	{
-		sizex = (unsigned int)pow(2, x);
-		sizey = (unsigned int)pow(2, y);
+		sizex = x;
+		sizey = y;
 		glGenTextures(1, &texID); 
 		texelRGBs = std::vector<float>(3 * sizex * sizey, 1.0);
 		for (unsigned int i = 0; i < sizex * sizey; i++) {   
@@ -38,25 +46,14 @@ public:
 		return texID;
 	}
 
-	void ChangeTexelState(unsigned int col, unsigned int row, bool state)
+	void SetTexelColor(unsigned int x, unsigned int y, float r, float g, float b)
 	{
-		if (col < sizey && row < sizex)
-		{
-			if (state) {
-				texelRGBs[3 * (sizex * row + col) + 0] = 1.0f; // R
-				texelRGBs[3 * (sizex * row + col) + 1] = 1.0f; // G
-				texelRGBs[3 * (sizex * row + col) + 2] = 1.0f; // B
-			}
-			else {
-				texelRGBs[3 * (sizex * row + col) + 0] = 0.0f; // R
-				texelRGBs[3 * (sizex * row + col) + 1] = 0.0f; // G
-				texelRGBs[3 * (sizex * row + col) + 2] = 0.0f; // B
-			}
-		}else{
-			std::cout << "Nonexistent cell at " << col << ',' << row << std::endl;
-		}
-		
-
+		if (x < sizey && y < sizex) {
+			texelRGBs[3 * (sizex * y + x) + 0] = r; // R
+			texelRGBs[3 * (sizex * y + x) + 1] = g; // G
+			texelRGBs[3 * (sizex * y + x) + 2] = b; // B
+		} 
+		return;
 	}
 
 	 

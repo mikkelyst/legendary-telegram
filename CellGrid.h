@@ -8,20 +8,46 @@ enum CellState {
 };
 
 enum Neighborhood5 {
-	CELL_ALL_OFF   = 0,
-	CELL_NORTH_ON  = 1, 
-	CELL_WEST_ON   = 2,
-	CELL_MID_ON    = 4,
-	CELL_EAST_ON   = 8,
-	CELL_SOUTH_ON  = 16
+	ALL_OFF   = 0,
+	CT		  = 1, // top cell
+	CL		  = 2, // left cell
+	CM		  = 4, // mid cell, center
+	CR		  = 8, // right cell
+	CB		  = 16 // bottom cell
 };
 
 class CellGrid
 {
 private:
-	std::vector<CellState> *cells;
+	std::vector<CellState> cells;
 	unsigned int sizex;
 	unsigned int sizey;
+
+	CellState CellAt(unsigned int x, unsigned int y)
+	{
+		return cells.at(sizex * y + x);
+	}
+
+	void SetCellAt(unsigned int x, unsigned int y, CellState newState)
+	{
+		cells.at(sizex * y + x) = newState;
+		return;
+	}
+
+	CellState ApplyRule(unsigned int rule)
+	{
+		switch (rule) {
+		case ALL_OFF:		return CELL_OFF; // Rule Zero: all cells are dead
+		
+		case CT:			return CELL_OFF;
+		case CL:			return CELL_ON;
+		case CM:			return CELL_OFF;
+		case CR:			return CELL_OFF;
+		case CB:			return CELL_ON;
+
+		default:			return CELL_OFF;
+		}
+	}
 
 public:
 
@@ -29,46 +55,30 @@ public:
 	{
 		sizex = width;
 		sizey = height;
-		cells = new std::vector<CellState>(sizex*sizey);
+		cells.assign((sizex*sizey), CELL_OFF);
 	}
 
 	CellGrid(CellGrid* previous)
 	{
 		sizex = previous->sizex;
 		sizey = previous->sizey;
-		*cells = *previous->cells;
+		cells = previous->cells;
 	}
 
-	~CellGrid() = default;
-
-	CellState CellAt(unsigned int col, unsigned int row) 
-	{
-		return cells->at(sizex * row + col);
-	}
-
-
-	void ApplyRule(unsigned int rule)
-	{
-		switch (rule) {
-		case 1: 
-			// Rule 1 is 0 000 1
-			break;
-		case 2: 
-			// Rule 2 is 0 001 0
-			break;
-		default: //Error!
-		}
-	}
+	~CellGrid() = default;	
 
 	CellGrid* NextStep() 
 	{
-		CellGrid *next = new CellGrid(this);
+		CellGrid* nextGridState = new CellGrid(this);
 
 		// For every cell in grid excluding edges
-			// Check Neighborhood, calculate rule
+			// Check Neighborhood, calculate rule value
 			// Apply rule to cell
+		unsigned int neighbors = CT | CB | CT | CM;
+		unsigned int test = CL;
+		nextGridState->SetCellAt(2, 3, ApplyRule(test));
 
-		return next;
+		return nextGridState;
 	}
 };
 
