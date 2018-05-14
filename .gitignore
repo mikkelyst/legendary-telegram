@@ -10,3 +10,4 @@
 /camapgen.vcxproj.user
 /camapgen.VC.db
 *.ini
+/imgui_log.txt
