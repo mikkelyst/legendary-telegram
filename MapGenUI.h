@@ -5,27 +5,24 @@
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_glfw_gl3.h"  
 
-#include "GridTexture.h"
-#include "CellGrid.h"
+#include "BoardTexture.h"
+#include "CellGrid.h" 
 
-
-
-const char *build_str = "Build date: " __DATE__ " " __TIME__;
+const char *build_str = "Build date: " __DATE__ " " __TIME__; 
 
 class MapGenUI
 {
 private:
   GLFWwindow* chosenWindow;
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-  GridTexture *gridWindowTex;
+  
+  BoardTexture *cellGridTex;
 
   bool show_demo_window = false;
   bool show_control_window = true;
   bool show_ca_texture_window = true;
-  bool my_pixel = true; // remove this later
 
-  void ConstructMainMenu()
+  void MainMenu()
   {
     if (ImGui::BeginMainMenuBar())
     {
@@ -53,7 +50,7 @@ private:
     } 
   }
 
-  void ConstructControlWindow(int x, int y)
+  void ControlWindow(int x, int y)
   {
     if (show_control_window)
     {
@@ -63,21 +60,24 @@ private:
         ImGui::Text(build_str);
         ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
         ImGui::Separator();
-
         
-        std::string text = "Cell (2,3) is ";
+
+        // remove this later
+        std::string text = "Cell (2,3) is "; 
+        static bool my_pixel = true; 
         text += std::to_string(my_pixel);
         ImGui::Checkbox(text.c_str(), &my_pixel);
-        if (my_pixel) gridWindowTex->SetTexelColor(2, 3, GT_RED);
-        else gridWindowTex->SetTexelColor(2, 3, GT_GREEN);
-
+        if (my_pixel) cellGridTex->SetTexelColor(2, 3, C_RED);
+        else cellGridTex->SetTexelColor(2, 3, C_GREEN);
+        //
+        if (ImGui::Button("TextureUpdateTest")) { cellGridTex->Test(); }
 
         ImGui::End();
       }
     }
   }
 
-  void ConstructTilePresentationWindow(int x, int y)
+  void TilePresentationWindow(int x, int y)
   {
     if (show_ca_texture_window)
     {
@@ -85,16 +85,16 @@ private:
       if (ImGui::Begin("Generated Map Tile", &show_ca_texture_window,
         ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
       {
-        ImGui::Image(reinterpret_cast<void*>(gridWindowTex->Update()), ImVec2(600.f, 600.f));
+        static int selectedStep = 5; 
+        ImGui::Image(reinterpret_cast<void*>(cellGridTex->Update()), ImVec2(600.f, 600.f));
         ImGui::Separator();
-        static int step = 5;
-        ImGui::SliderInt("Step", &step, 1, 10);
+        ImGui::SliderInt("Step", &selectedStep, 1, 10);
         ImGui::End();
       }
     }
   }
 
-  void ConstructImguiDemoWindow(int x, int y)
+  void ImguiDemoWindow(int x, int y)
   {
     if (show_demo_window)
     {
@@ -104,6 +104,8 @@ private:
   }
 
 public:
+  std::vector<CellGrid*> steps;
+
   MapGenUI(GLFWwindow* window)
   {
     chosenWindow = window;
@@ -111,8 +113,12 @@ public:
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImGui_ImplGlfwGL3_Init(chosenWindow, true);
-    ImGui::StyleColorsDark();
-    gridWindowTex = new GridTexture(25, 25);
+    ImGui::StyleColorsDark(); 
+
+    cellGridTex = new BoardTexture(16, 16);
+
+    //
+    //steps.assign(10, nullptr);
   }
 
   ~MapGenUI()
@@ -122,13 +128,18 @@ public:
     ImGui::DestroyContext();
   }
 
-  void RebindTexture()
+  void STEPS()
   {
 
-
-    CellGrid* a = new CellGrid(4, 4);
-    CellGrid* b = a->NextStep();
+    steps.at(0) = new CellGrid(16, 16);
+    for (int it = 1; it < 10; it++)
+    {
+      steps.at(it) = steps.at(it - 1)->NextStep();
+    }
+    
   }
+
+
 
   void Update() {
     ImGui_ImplGlfwGL3_NewFrame();
@@ -136,12 +147,12 @@ public:
       ImGui::ColorEdit3("clear color", (float*)&clear_color);
     }
     // System Window top: 
-    ConstructMainMenu();
+    MainMenu();
     // System Window contents:
-    ConstructControlWindow(10, 10); 
-    ConstructTilePresentationWindow(300, 50);
+    ControlWindow(10, 10); 
+    TilePresentationWindow(300, 50);
     // Imgui demo for reference
-    ConstructImguiDemoWindow(10, 150);
+    ImguiDemoWindow(10, 150);
   }
 
   void Render() {
