@@ -13,37 +13,38 @@ const char *build_str = "Build date: " __DATE__ " " __TIME__;
 class MapGenUI
 {
 private:
-  GLFWwindow* chosenWindow;
+  GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
   BoardTexture *cellGridTex;
 
-  bool show_demo_window = false;
-  bool show_control_window = true;
-  bool show_ca_texture_window = true;
+  bool show_demo_window       = false;
+  bool show_control_window    = true;
+  bool show_ca_texture_window = true; 
+  bool is_program_terminated  = false;
 
   void MainMenu()
   {
     if (ImGui::BeginMainMenuBar())
     {
-      if (ImGui::BeginMenu("Map File"))
+      if (ImGui::BeginMenu("System:"))
       {
-        if (ImGui::MenuItem("New map...", "CTRL+N")) {}
-        if (ImGui::MenuItem("Quit"), "ALT+F4") {} // no implementation needed on windows
+        if (ImGui::MenuItem("New map...", "CTRL+N"));
+        if (ImGui::MenuItem("Quit", "ALT+F4", &is_program_terminated));
         ImGui::EndMenu();
       }
-      if (ImGui::BeginMenu("Editing"))
+      if (ImGui::BeginMenu("Editing:"))
       {
-        if (ImGui::MenuItem("Undo", "CTRL+Z", false, false)) {}  // Disabled item
-        if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item 
+        if (ImGui::MenuItem("Undo", "CTRL+Z", false, false));  // Disabled item
+        if (ImGui::MenuItem("Redo", "CTRL+Y", false, false));  // Disabled item 
         ImGui::EndMenu();
       }
-      if (ImGui::BeginMenu("View"))
+      if (ImGui::BeginMenu("View:"))
       {
-        if (ImGui::MenuItem("Window: Parameters Control", NULL, &show_control_window, &show_control_window)) {}
-        if (ImGui::MenuItem("Window: Generated Map Tile", NULL, &show_ca_texture_window, &show_ca_texture_window)) {}
+        if (ImGui::MenuItem("Window: Parameters Control", NULL, &show_control_window, &show_control_window));
+        if (ImGui::MenuItem("Window: Generated Map Tile", NULL, &show_ca_texture_window, &show_ca_texture_window));
         ImGui::Separator();
-        if (ImGui::MenuItem("Window: ImGui Demo", NULL, &show_demo_window, &show_demo_window)) {}
+        if (ImGui::MenuItem("Window: ImGui Demo", NULL, &show_demo_window, &show_demo_window));
         ImGui::EndMenu();
       }
       ImGui::EndMainMenuBar();
@@ -87,10 +88,12 @@ private:
       if (ImGui::Begin("Generated Map Tile", &show_ca_texture_window,
         ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
       {
-        static int selectedStep = 5;
         ImGui::Image(reinterpret_cast<void*>(cellGridTex->Update()), ImVec2(600.f, 600.f));
         ImGui::Separator();
-        ImGui::SliderInt("Step", &selectedStep, 1, 10);
+        static int selectedStep = 5;
+        if (ImGui::SliderInt("Step", &selectedStep, 1, 10)) {
+          // update board tex with current cellgrid
+        }
         ImGui::End();
       }
     }
@@ -106,21 +109,21 @@ private:
   }
 
 public:
-  std::vector<CellGrid*> steps;
+ 
 
   MapGenUI(GLFWwindow* window)
   {
-    chosenWindow = window;
+    glfwFocusWindow(system_window = window);
+   
     // Setup ImGui binding
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    ImGui_ImplGlfwGL3_Init(chosenWindow, true);
+    ImGui_ImplGlfwGL3_Init(system_window, true);
     ImGui::StyleColorsDark();
 
-    cellGridTex = new BoardTexture(32, 32);
-
-    //
-    //steps.assign(10, nullptr);
+    // Setup default cell board texture for rendering
+    cellGridTex = new BoardTexture(); 
+    
   }
 
   ~MapGenUI()
@@ -130,18 +133,17 @@ public:
     ImGui::DestroyContext();
   }
 
-  void STEPS()
-  {
-
-    steps.at(0) = new CellGrid(16, 16);
-    for (int it = 1; it < 10; it++)
-    {
-      steps.at(it) = steps.at(it - 1)->NextStep();
-    }
-    
+  void Render() {
+    // Rendering
+    int display_w, display_h;
+    glfwGetFramebufferSize(system_window, &display_w, &display_h);
+    glViewport(0, 0, display_w, display_h);
+    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
+    // Render gui
+    ImGui::Render();
+    ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
   }
-
-
 
   void Update() {
     ImGui_ImplGlfwGL3_NewFrame();
@@ -155,18 +157,8 @@ public:
     TilePresentationWindow(300, 50);
     // Imgui demo for reference
     ImguiDemoWindow(10, 150);
+    if(is_program_terminated) glfwSetWindowShouldClose(system_window, GLFW_TRUE);
   }
-
-  void Render() {
-    // Rendering
-    int display_w, display_h;
-    glfwGetFramebufferSize(chosenWindow, &display_w, &display_h);
-    glViewport(0, 0, display_w, display_h);
-    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-    glClear(GL_COLOR_BUFFER_BIT);
-    // Render gui
-    ImGui::Render();
-    ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
-  }
+   
 };
 

@@ -2,10 +2,12 @@
 
 #include <vector>
 
-enum CellState {
-  CELL_ON = 1,
+enum CELL {
+  CELL_ON  = 1,
   CELL_OFF = 0
 };
+// we may need to make a class Cell{}
+// with a better way to compute neighborhood val than...
 
 enum Neighborhood5 {
   ALL_OFF = 0,
@@ -19,22 +21,22 @@ enum Neighborhood5 {
 class CellGrid
 {
 private:
-  std::vector<CellState> cells;
+  std::vector<CELL> cells;
   unsigned int sizex;
   unsigned int sizey;
 
-  CellState CellAt(unsigned int x, unsigned int y)
+  CELL At(unsigned int x, unsigned int y)
   {
     return cells.at(sizex * y + x);
   }
 
-  void SetCellAt(unsigned int x, unsigned int y, CellState newState)
+  void SetCellAt(unsigned int x, unsigned int y, CELL newState)
   {
     cells.at(sizex * y + x) = newState;
     return;
   }
 
-  CellState ApplyRule(unsigned int rule)
+  CELL ApplyRule(unsigned int rule)
   {
     switch (rule) {
     case ALL_OFF:		return CELL_OFF; // Rule Zero: all cells are dead

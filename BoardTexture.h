@@ -26,7 +26,7 @@ private:
 
 public:
 
-  BoardTexture(unsigned int x = 4, unsigned int y = 4)
+  BoardTexture(unsigned int x = 64, unsigned int y = 64)
   {
     sizex = x;
     sizey = y;

@@ -37,16 +37,19 @@ bool glfwSetupWindow(unsigned int width, unsigned int height, const char* title)
 int main(int, char**)
 {
   if (!glfwSetupWindow(800, 600, "Cellular Automata Map Generator 152017")) return 1;
-  MapGenUI missionControls = MapGenUI(window);
-  while (!glfwWindowShouldClose(window)) // Main loop
+  else
   {
-    glfwPollEvents();
+    MapGenUI missionControls = MapGenUI(window);
+    while (!glfwWindowShouldClose(window)) // Main loop
     {
-      missionControls.Update();
-      missionControls.Render();
+      glfwPollEvents();
+      {
+        missionControls.Update();
+        missionControls.Render();
+      }
+      glfwSwapBuffers(window);
     }
-    glfwSwapBuffers(window);
-  }
+  } 
   glfwDestroyWindow(window);
   glfwTerminate();
   return 0;
