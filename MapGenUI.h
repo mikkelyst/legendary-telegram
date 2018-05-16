@@ -18,10 +18,11 @@ private:
 
   BoardTexture *cellGridTex;
 
-  bool show_demo_window       = false;
-  bool show_control_window    = true;
-  bool show_ca_texture_window = true; 
-  bool is_program_terminated  = false;
+  bool show_control_window = true;
+  bool show_ca_texture_window = true;
+  bool show_imgui_demo_window = false;
+  bool is_program_terminated = false;
+  int boardsize[2] = { 0,0 };
 
   void MainMenu()
   {
@@ -29,28 +30,33 @@ private:
     {
       if (ImGui::BeginMenu("System:"))
       {
-        if (ImGui::MenuItem("New map...", "CTRL+N"));
-        if (ImGui::MenuItem("Quit", "ALT+F4", &is_program_terminated));
+        ImGui::MenuItem("New map...", "CTRL+N", false, false);// Disabled item
+        ImGui::MenuItem("Quit", "ALT+F4", &is_program_terminated);
         ImGui::EndMenu();
       }
       if (ImGui::BeginMenu("Editing:"))
       {
-        if (ImGui::MenuItem("Undo", "CTRL+Z", false, false));  // Disabled item
-        if (ImGui::MenuItem("Redo", "CTRL+Y", false, false));  // Disabled item 
+        ImGui::MenuItem("Undo", "CTRL+Z", false, false);  // Disabled item
+        ImGui::MenuItem("Redo", "CTRL+Y", false, false);  // Disabled item 
         ImGui::EndMenu();
       }
       if (ImGui::BeginMenu("View:"))
       {
-        if (ImGui::MenuItem("Window: Parameters Control", NULL, &show_control_window, &show_control_window));
-        if (ImGui::MenuItem("Window: Generated Map Tile", NULL, &show_ca_texture_window, &show_ca_texture_window));
+        ImGui::MenuItem("Window: Parameters Control", NULL, &show_control_window, &show_control_window);
+        ImGui::MenuItem("Window: Generated Map Tile", NULL, &show_ca_texture_window, &show_ca_texture_window);
         ImGui::Separator();
-        if (ImGui::MenuItem("Window: ImGui Demo", NULL, &show_demo_window, &show_demo_window));
+        ImGui::MenuItem("Window: ImGui Demo", NULL, &show_imgui_demo_window, &show_imgui_demo_window);
+        ImGui::EndMenu();
+      }
+      if (ImGui::BeginMenu("About:"))
+      {
+        ImGui::MenuItem("Author", NULL, false, false); // Disabled item
+        ImGui::MenuItem("Used libraries", NULL, false, false);// Disabled item
         ImGui::EndMenu();
       }
       ImGui::EndMainMenuBar();
     }
   }
-
   void ControlWindow(int x, int y)
   {
     if (show_control_window)
@@ -70,16 +76,20 @@ private:
         ImGui::Checkbox(text.c_str(), &my_pixel);
         if (my_pixel) cellGridTex->SetTexelColor(2, 3, C_RED);
         else cellGridTex->SetTexelColor(2, 3, C_GREEN);
+        ImGui::Separator();
         //
-        if (ImGui::Button("Test: Chessboard")) { cellGridTex->Test(); }
+        ImGui::Text("Board Controls:"); 
+        ImGui::SliderInt2("Int2", boardsize, 1, 10);
+        if (ImGui::Button("Draw a chessboard")) { cellGridTex->Test(); }
         if (ImGui::Button("Clear: White")) { cellGridTex->Clear(C_WHITE); }
+        ImGui::SameLine();
         if (ImGui::Button("Clear: Black")) { cellGridTex->Clear(C_BLACK); }
+        ImGui::Separator();
 
         ImGui::End();
       }
     }
   }
-
   void TilePresentationWindow(int x, int y)
   {
     if (show_ca_texture_window)
@@ -98,37 +108,31 @@ private:
       }
     }
   }
-
   void ImguiDemoWindow(int x, int y)
   {
-    if (show_demo_window)
+    if (show_imgui_demo_window)
     {
       ImGui::SetNextWindowPos(ImVec2(x, y), ImGuiCond_FirstUseEver);
-      ImGui::ShowDemoWindow(&show_demo_window);
+      ImGui::ShowDemoWindow(&show_imgui_demo_window);
     }
   }
 
-public:
- 
-
+public: 
   MapGenUI(GLFWwindow* window)
   {
     glfwFocusWindow(system_window = window);
-   
     // Setup ImGui binding
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImGui_ImplGlfwGL3_Init(system_window, true);
     ImGui::StyleColorsDark();
-
     // Setup default cell board texture for rendering
-    cellGridTex = new BoardTexture(); 
-    
+    cellGridTex = new BoardTexture();
   }
 
   ~MapGenUI()
   {
     // Cleanup
+    delete cellGridTex;
     ImGui_ImplGlfwGL3_Shutdown();
     ImGui::DestroyContext();
   }
@@ -148,17 +152,15 @@ public:
   void Update() {
     ImGui_ImplGlfwGL3_NewFrame();
     {
-      ImGui::ColorEdit3("clear color", (float*)&clear_color);
-    }
-    // System Window top: 
-    MainMenu();
-    // System Window contents:
-    ControlWindow(10, 10);
-    TilePresentationWindow(300, 50);
-    // Imgui demo for reference
-    ImguiDemoWindow(10, 150);
-    if(is_program_terminated) glfwSetWindowShouldClose(system_window, GLFW_TRUE);
+      ImGui::ColorEdit3(" background clear color", (float*)&clear_color);
+    } 
+    { //// UI: 
+      MainMenu(); // on top of system window, main menu.
+      ControlWindow(10, 10); // parameters for user to change
+      TilePresentationWindow(300, 50); // displaying generated tiles
+      ImguiDemoWindow(10, 150); // Imgui demo for reference to ImGui examples
+    } 
+    if (is_program_terminated) glfwSetWindowShouldClose(system_window, GLFW_TRUE);
   }
-   
 };
 

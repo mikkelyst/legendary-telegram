@@ -3,7 +3,7 @@
 #include <vector>
 
 enum CELL {
-  CELL_ON  = 1,
+  CELL_ON = 1,
   CELL_OFF = 0
 };
 // we may need to make a class Cell{}
