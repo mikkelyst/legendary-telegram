@@ -62,7 +62,7 @@ public:
     texelsRGBA.assign(sizex * sizey, clearColor);
   }
 
-  void Test()
+  void ChessClear()
   { 
     for (unsigned int x = 0; x < sizex; x++) {
       for (unsigned int y = 0; y < sizey; y++) {

@@ -16,13 +16,13 @@ private:
   GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-  BoardTexture *cellGridTex;
+  BoardTexture *boardImage;
 
   bool show_control_window = true;
   bool show_ca_texture_window = true;
   bool show_imgui_demo_window = false;
   bool is_program_terminated = false;
-  int boardsize[2] = { 0,0 };
+  int boardsize[2] = { 64,64 };
 
   void MainMenu()
   {
@@ -64,27 +64,52 @@ private:
       ImGui::SetNextWindowPos(ImVec2(x, y), ImGuiCond_FirstUseEver);
       if (ImGui::Begin("Generation Parameters Control", &show_control_window))
       {
-        ImGui::Text(build_str);
-        ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+        {
+          ImGui::Text(build_str);
+          ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate); 
+        } 
         ImGui::Separator();
+        {
+          ImGui::Text("Board Size:");
+          ImGui::SliderInt2("(Width, Height)", boardsize, 2, 128);
+          if(ImGui::Button("Construct new Cell Board with chosen size")) {
+            // TODO: call construct new board
+          }
+        }
+        ImGui::Separator();
+        {
+          ImGui::Text("Board Clearing:");
+          if (ImGui::Button("Clear: White")) { boardImage->Clear(C_WHITE); }
+          ImGui::SameLine();
+          if (ImGui::Button("Clear: Black")) { boardImage->Clear(C_BLACK); }
+          ImGui::SameLine();
+          if (ImGui::Button("Clear: Chessboard")) { boardImage->ChessClear(); } 
+        }
+        ImGui::Separator();
+        {
+          ImGui::Text("Cell Types: (unimplemented)");
+          ImGui::Text("CELLTYPE : initial % on board : <button-remove>");
+          ImGui::Text("<fields>"); ImGui::SameLine(); ImGui::Button("ADD TYPE");
+        }
+        ImGui::Separator();
+        {
+          // TODO: move this to new window
+          ImGui::Text("Rules:");
+          ImGui::Text("R1 : neighbors : condition : new cell");
+          ImGui::Text("R2 : neighbors : condition : new cell");
+        }
+        // ImGui::Separator();
 
-
-        // remove this later
-        std::string text = "Cell (2,3) is ";
-        static bool my_pixel = true;
-        text += std::to_string(my_pixel);
-        ImGui::Checkbox(text.c_str(), &my_pixel);
-        if (my_pixel) cellGridTex->SetTexelColor(2, 3, C_RED);
-        else cellGridTex->SetTexelColor(2, 3, C_GREEN);
-        ImGui::Separator();
-        //
-        ImGui::Text("Board Controls:"); 
-        ImGui::SliderInt2("Int2", boardsize, 1, 10);
-        if (ImGui::Button("Draw a chessboard")) { cellGridTex->Test(); }
-        if (ImGui::Button("Clear: White")) { cellGridTex->Clear(C_WHITE); }
-        ImGui::SameLine();
-        if (ImGui::Button("Clear: Black")) { cellGridTex->Clear(C_BLACK); }
-        ImGui::Separator();
+        // TODO : refactor into pixel editing with mouse
+        {
+          std::string text = "Cell (2,3) is ";
+          static bool my_pixel = true;
+          text += std::to_string(my_pixel);
+          ImGui::Checkbox(text.c_str(), &my_pixel);
+          if (my_pixel) boardImage->SetTexelColor(2, 3, C_RED);
+          else boardImage->SetTexelColor(2, 3, C_GREEN);
+          ImGui::Separator();
+        }
 
         ImGui::End();
       }
@@ -98,10 +123,10 @@ private:
       if (ImGui::Begin("Generated Map Tile", &show_ca_texture_window,
         ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
       {
-        ImGui::Image(reinterpret_cast<void*>(cellGridTex->Update()), ImVec2(600.f, 600.f));
+        ImGui::Image(reinterpret_cast<void*>(boardImage->Update()), ImVec2(600.f, 600.f));
         ImGui::Separator();
-        static int selectedStep = 5;
-        if (ImGui::SliderInt("Step", &selectedStep, 1, 10)) {
+        static int selectedStep = 0;
+        if (ImGui::SliderInt("CA Step", &selectedStep, 0, 10)) {
           // update board tex with current cellgrid
         }
         ImGui::End();
@@ -117,7 +142,7 @@ private:
     }
   }
 
-public: 
+public:
   MapGenUI(GLFWwindow* window)
   {
     glfwFocusWindow(system_window = window);
@@ -126,13 +151,13 @@ public:
     ImGui_ImplGlfwGL3_Init(system_window, true);
     ImGui::StyleColorsDark();
     // Setup default cell board texture for rendering
-    cellGridTex = new BoardTexture();
+    boardImage = new BoardTexture();
   }
 
   ~MapGenUI()
   {
     // Cleanup
-    delete cellGridTex;
+    delete boardImage;
     ImGui_ImplGlfwGL3_Shutdown();
     ImGui::DestroyContext();
   }
@@ -153,13 +178,13 @@ public:
     ImGui_ImplGlfwGL3_NewFrame();
     {
       ImGui::ColorEdit3(" background clear color", (float*)&clear_color);
-    } 
+    }
     { //// UI: 
       MainMenu(); // on top of system window, main menu.
       ControlWindow(10, 10); // parameters for user to change
       TilePresentationWindow(300, 50); // displaying generated tiles
       ImguiDemoWindow(10, 150); // Imgui demo for reference to ImGui examples
-    } 
+    }
     if (is_program_terminated) glfwSetWindowShouldClose(system_window, GLFW_TRUE);
   }
 };
