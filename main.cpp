@@ -1,4 +1,3 @@
-
 #include <iostream> 
 
 #include <GL\gl3w.h>   
@@ -8,49 +7,49 @@
 
 GLFWwindow* window;
 
-void glfw_error_callback(int error, const char* description)
+void glfw_error_callback (int error, const char* description)
 {
   std::cerr << "GLFW Error " << error << ": " << description << std::endl;
 }
 
-bool glfwSetupWindow(unsigned int width, unsigned int height, const char* title)
+bool glfwSetupWindow (unsigned int width, unsigned int height, const char* title)
 {
-  glfwSetErrorCallback(glfw_error_callback);
-  if (glfwInit())
+  glfwSetErrorCallback (glfw_error_callback);
+  if ( glfwInit () )
   {
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint (GLFW_MAXIMIZED, GLFW_TRUE);
 #if __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint (GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-    window = glfwCreateWindow(width, height, title, NULL, NULL);
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
-    gl3wInit();
+    window = glfwCreateWindow (width, height, title, NULL, NULL);
+    glfwMakeContextCurrent (window);
+    glfwSwapInterval (1); // Enable vsync
+    gl3wInit ();
     return true;
   }
   return false;
 }
 
-int main(int, char**)
+int main (int, char**)
 {
-  if (!glfwSetupWindow(800, 600, "Cellular Automata Map Generator 152017")) return 1;
+  if ( !glfwSetupWindow (800, 600, "Cellular Automata Map Generator 152017") ) return 1;
   else
   {
-    MapGenUI missionControls = MapGenUI(window);
-    while (!glfwWindowShouldClose(window)) // Main loop
+    MapGenUI missionControls = MapGenUI (window);
+    while ( !glfwWindowShouldClose (window) ) // Main loop
     {
-      glfwPollEvents();
+      glfwPollEvents ();
       {
-        missionControls.Update();
-        missionControls.Render();
+        missionControls.Update ();
+        missionControls.Render ();
       }
-      glfwSwapBuffers(window);
+      glfwSwapBuffers (window);
     }
-  } 
-  glfwDestroyWindow(window);
-  glfwTerminate();
+  }
+  glfwDestroyWindow (window);
+  glfwTerminate ();
   return 0;
 }

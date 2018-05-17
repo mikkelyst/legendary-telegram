@@ -8,22 +8,21 @@ private:
   std::vector<CellGrid*> steps;
 
 public:
-  CellGridAutomaton()
+  CellGridAutomaton ()
   {
-    
   }
-  ~CellGridAutomaton()
+  ~CellGridAutomaton ()
   {
 
   }
-  void STEPS()
+  void STEPS ()
   {
-    steps.at(0) = new CellGrid(16, 16);
-    for (int it = 1; it < 10; it++)
+    steps.at (0) = new CellGrid (16, 16);
+    for ( int it = 1; it < 10; it++ )
     {
-      steps.at(it) = steps.at(it - 1)->NextStep();
+      steps.at (it) = steps.at (it - 1)->NextStep ();
     }
-    
+
   }
 };
 
