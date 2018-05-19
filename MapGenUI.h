@@ -151,25 +151,28 @@ private:
   }
   void WindowGenerationControls( int x, int y )
   {
-    ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
-    if ( ImGui::Begin( w_cagen.title, &w_cagen.show, ImGuiWindowFlags_NoCollapse ) )
-    {
+    if ( w_cagen.show )
+    { 
+      ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
+      if ( ImGui::Begin( w_cagen.title, &w_cagen.show, ImGuiWindowFlags_NoCollapse ) )
       {
-        ImGui::Text( "Cell Types: (unimplemented)" );
-        ImGui::Text( "CELLTYPE1 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
-        ImGui::Text( "CELLTYPE2 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
-        ImGui::Text( "CELLTYPE3 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
-        ImGui::Text( "<fields>" ); ImGui::SameLine(); ImGui::Button( "ADD TYPE" );
+        {
+          ImGui::Text( "Cell Types: (unimplemented)" );
+          ImGui::Text( "CELLTYPE1 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
+          ImGui::Text( "CELLTYPE2 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
+          ImGui::Text( "CELLTYPE3 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
+          ImGui::Text( "<fields>" ); ImGui::SameLine(); ImGui::Button( "ADD TYPE" );
+        }
+        ImGui::Separator();
+        {
+          ImGui::Text( "Rules:" );
+          ImGui::Text( "R1 : neighbors : condition : new cell" );
+          ImGui::Text( "R2 : neighbors : condition : new cell" );
+          ImGui::Text( "R3 : neighbors : condition : new cell" );
+        }
+        ImGui::Separator();
+        ImGui::End();
       }
-      ImGui::Separator();
-      {
-        ImGui::Text( "Rules:" );
-        ImGui::Text( "R1 : neighbors : condition : new cell" );
-        ImGui::Text( "R2 : neighbors : condition : new cell" );
-        ImGui::Text( "R3 : neighbors : condition : new cell" );
-      }
-      ImGui::Separator();
-      ImGui::End();
     }
   }
   void WindowImguiDemo( int x, int y )
