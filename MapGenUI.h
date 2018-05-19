@@ -5,8 +5,9 @@
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_glfw_gl3.h"  
 
+#include "Board.h"
 #include "BoardTexture.h"
-#include "CellGrid.h" 
+#include "BoardAutomaton.h" 
 
 const char *build_str = "Build date: " __DATE__ " " __TIME__;
 

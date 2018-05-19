@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "CellGrid.h"
+#include "Board.h"
 
 class BoardAutomaton
 {
