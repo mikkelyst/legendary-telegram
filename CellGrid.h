@@ -20,7 +20,7 @@ enum Neighborhood5
   CB = 16 // bottom cell
 };
 
-class CellGrid
+class Board
 {
 private:
   std::vector<CELL> cells;
@@ -56,25 +56,25 @@ private:
 
 public:
 
-  CellGrid (unsigned int width, unsigned int height)
+  Board (unsigned int width, unsigned int height)
   {
     sizex = width;
     sizey = height;
     cells.assign ((sizex*sizey), CELL_OFF);
   }
 
-  CellGrid (CellGrid* previous)
+  Board (Board* previous)
   {
     sizex = previous->sizex;
     sizey = previous->sizey;
     cells = previous->cells;
   }
 
-  ~CellGrid () = default;
+  ~Board () = default;
 
-  CellGrid* NextStep ()
+  Board* NextStep ()
   {
-    CellGrid* nextGridState = new CellGrid (this);
+    Board* nextGridState = new Board (this);
 
     // For every cell in grid excluding edges
         // Check Neighborhood, calculate rule value

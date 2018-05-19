@@ -2,22 +2,22 @@
 #include <vector>
 #include "CellGrid.h"
 
-class CellGridAutomaton
+class BoardAutomaton
 {
 private:
-  std::vector<CellGrid*> steps;
+  std::vector<Board*> steps;
 
 public:
-  CellGridAutomaton ()
+  BoardAutomaton ()
   {
   }
-  ~CellGridAutomaton ()
+  ~BoardAutomaton ()
   {
 
   }
   void STEPS ()
   {
-    steps.at (0) = new CellGrid (16, 16);
+    steps.at (0) = new Board (16, 16);
     for ( int it = 1; it < 10; it++ )
     {
       steps.at (it) = steps.at (it - 1)->NextStep ();

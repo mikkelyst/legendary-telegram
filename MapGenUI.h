@@ -87,6 +87,8 @@ private:
           if ( ImGui::Button( "construct new board" ) )
           {
             // TODO: call construct new board
+
+            // then, a texture with its size
             delete boardImage;
             boardImage = new BoardTexture( boardSize[0], boardSize[1] );
           }
@@ -101,7 +103,7 @@ private:
           ImGui::Text( "Board clearing:" );
           if ( ImGui::Button( "clear: white" ) ) { boardImage->Clear( C_WHITE ); }
           ImGui::SameLine();
-          if ( ImGui::Button( "clear: wlack" ) ) { boardImage->Clear( C_BLACK ); }
+          if ( ImGui::Button( "clear: black" ) ) { boardImage->Clear( C_BLACK ); }
           ImGui::SameLine();
           if ( ImGui::Button( "clear: chessboard" ) ) { boardImage->ChessClear(); }
         }
