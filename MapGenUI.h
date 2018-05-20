@@ -17,7 +17,7 @@ typedef struct MapGenUIwindow
   const char* title;
   const char* menutitle;
 };
- 
+
 class MapGenUI
 {
 private:
@@ -33,7 +33,7 @@ private:
   MapGenUIwindow w_imgui = { false, "ImGui Demo", "Show Window: ImGui Demo" };
 
   bool  is_program_terminated = false;
-  int   boardSize[2] = { 64,64 }; 
+  int   boardSize[2] = { 64,64 };
 
   void MainMenu()
   {
@@ -87,7 +87,7 @@ private:
           if ( ImGui::Button( "construct new board" ) )
           {
             //// TODO: call construct new board
-            
+
             //b.Step(1);
 
 
@@ -99,7 +99,7 @@ private:
         ImGui::Separator();
         {
           ImGui::Text( "Board image display: " );
-          ImGui::SliderFloat( "zoom/scale", &boardImage->displayScale, 1.f, 12.f );
+          ImGui::SliderFloat( "zoom/scale", &boardImage->displayScale, 2.f, 20.f );
         }
         ImGui::Separator();
         {
@@ -143,21 +143,31 @@ private:
         );
         ImGui::Separator();
         static int selectedStep = 0;
-        if ( ImGui::SliderInt( "CA Step", &selectedStep, 0, tileGenerator->LastGenIndex() ) )
+        int stepZero = 0;
+        int stepLast = tileGenerator->LastGenIndex();
         {
-          // TODO: update board tex with current cellgrid
-          for ( unsigned int x = 1; x < tileGenerator->Generation(selectedStep)->cellsX; x++ )
+          if ( ImGui::SliderInt( "CA Step", &selectedStep, 0, tileGenerator->LastGenIndex() ) );
+          if ( ImGui::Button( "<<< 5 STEP" ) && selectedStep > stepZero + 5 ) { selectedStep -= 5; }
+          ImGui::SameLine();
+          if ( ImGui::Button( "<<< 1 STEP" ) && selectedStep > stepZero + 0 ) { selectedStep--; }
+          ImGui::SameLine();
+          if ( ImGui::Button( "1 STEP >>>" ) && selectedStep < stepLast - 0 ) { selectedStep++; }
+          ImGui::SameLine();
+          if ( ImGui::Button( "5 STEP >>>" ) && selectedStep < stepLast - 5 ) { selectedStep += 5; }
+          ImGui::End();
+        }
+        // TODO: update board tex with current cellgrid
+        for ( unsigned int x = 1; x < tileGenerator->Generation( selectedStep )->cellsX; x++ )
+        {
+          for ( unsigned int y = 1; y < tileGenerator->Generation( selectedStep )->cellsY; y++ )
           {
-            for ( unsigned int y = 1; y < tileGenerator->Generation( selectedStep )->cellsY; y++ )
-            {
-              if( tileGenerator->Generation( selectedStep )->CellAt(x,y) == CELL_OFF )
-                boardImage->SetTexelColor( x, y, color_BLACK );
-              else
-                boardImage->SetTexelColor( x, y, color_WHITE );
-            }
+            if ( tileGenerator->Generation( selectedStep )->CellAt( x, y ) == CELL_OFF )
+              boardImage->SetTexelColor( x, y, color_BLACK );
+            else
+              boardImage->SetTexelColor( x, y, color_WHITE );
           }
         }
-        ImGui::End();
+        // 
       }
     }
   }

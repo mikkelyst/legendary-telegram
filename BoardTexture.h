@@ -25,7 +25,7 @@ private:
   unsigned int texelCountY;
 
 public:
-  float displayScale = 5.0f;
+  float displayScale = 8.0f;
   BoardTexture2D( unsigned int x = 64, unsigned int y = 64 )
   {
     texelCountX = x;
