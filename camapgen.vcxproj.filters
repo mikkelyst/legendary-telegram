@@ -77,13 +77,13 @@
     <ClInclude Include="MapGenUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CellGrid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BoardTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CellGridAutomaton.h">
+    <ClInclude Include="Board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardAutomaton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

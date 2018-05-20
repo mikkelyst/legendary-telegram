@@ -87,12 +87,15 @@ private:
           ImGui::SliderInt2( "width, height", boardSize, 4, 128 );
           if ( ImGui::Button( "construct new board" ) )
           {
-            // TODO: call construct new board
+            //// TODO: call construct new board
+            BoardAutomaton b( 64, 64 );
+            //b.Step(1);
+            
 
             // then, a texture with its size
             delete boardImage;
             boardImage = new BoardTexture( boardSize[0], boardSize[1] );
-          }
+          } 
         }
         ImGui::Separator();
         {

@@ -113,9 +113,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CellGrid.h" />
+    <ClInclude Include="Board.h" />
     <ClInclude Include="BoardTexture.h" />
-    <ClInclude Include="CellGridAutomaton.h" />
+    <ClInclude Include="BoardAutomaton.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_glfw_gl3.h" />
