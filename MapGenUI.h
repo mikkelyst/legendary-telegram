@@ -17,8 +17,7 @@ typedef struct MapGenUIwindow
   const char* title;
   const char* menutitle;
 };
-
-
+ 
 class MapGenUI
 {
 private:
@@ -26,6 +25,7 @@ private:
   ImVec4 clear_color = ImVec4( 0.45f, 0.55f, 0.60f, 1.00f );
 
   BoardTexture2D *boardImage;
+  BoardAutomaton *tileGenerator;
 
   MapGenUIwindow w_board = { true, "Board Controls", "Show Window: Board Controls" };
   MapGenUIwindow w_cagen = { true, "Generator Parameters", "Show Window: Generator Parameters" };
@@ -33,8 +33,7 @@ private:
   MapGenUIwindow w_imgui = { false, "ImGui Demo", "Show Window: ImGui Demo" };
 
   bool  is_program_terminated = false;
-  int   boardSize[2] = { 64,64 };
-  //float boardImageScale = 5.0f;
+  int   boardSize[2] = { 64,64 }; 
 
   void MainMenu()
   {
@@ -88,14 +87,14 @@ private:
           if ( ImGui::Button( "construct new board" ) )
           {
             //// TODO: call construct new board
-            BoardAutomaton b( 64, 64 );
-            //b.Step(1);
             
+            //b.Step(1);
+
 
             // then, a texture with its size
             delete boardImage;
             boardImage = new BoardTexture2D( boardSize[0], boardSize[1] );
-          } 
+          }
         }
         ImGui::Separator();
         {
@@ -105,9 +104,9 @@ private:
         ImGui::Separator();
         {
           ImGui::Text( "Board clearing:" );
-          if ( ImGui::Button( "clear: white" ) ) { boardImage->Clear( C_WHITE ); }
+          if ( ImGui::Button( "clear: white" ) ) { boardImage->Clear( color_WHITE ); }
           ImGui::SameLine();
-          if ( ImGui::Button( "clear: black" ) ) { boardImage->Clear( C_BLACK ); }
+          if ( ImGui::Button( "clear: black" ) ) { boardImage->Clear( color_BLACK ); }
           ImGui::SameLine();
           if ( ImGui::Button( "clear: chessboard" ) ) { boardImage->ChessClear(); }
         }
@@ -124,8 +123,8 @@ private:
           static bool my_pixel = true;
           text += std::to_string( my_pixel );
           ImGui::Checkbox( text.c_str(), &my_pixel );
-          if ( my_pixel ) boardImage->SetTexelColor( 2, 3, C_RED );
-          else boardImage->SetTexelColor( 2, 3, C_GREEN );
+          if ( my_pixel ) boardImage->SetTexelColor( 2, 3, color_RED );
+          else boardImage->SetTexelColor( 2, 3, color_GREEN );
         }
         ImGui::End();
       }
@@ -144,9 +143,19 @@ private:
         );
         ImGui::Separator();
         static int selectedStep = 0;
-        if ( ImGui::SliderInt( "CA Step", &selectedStep, 0, 10 ) )
+        if ( ImGui::SliderInt( "CA Step", &selectedStep, 0, tileGenerator->LastGenIndex() ) )
         {
           // TODO: update board tex with current cellgrid
+          for ( unsigned int x = 1; x < tileGenerator->Generation(selectedStep)->cellsX; x++ )
+          {
+            for ( unsigned int y = 1; y < tileGenerator->Generation( selectedStep )->cellsY; y++ )
+            {
+              if( tileGenerator->Generation( selectedStep )->CellAt(x,y) == CELL_OFF )
+                boardImage->SetTexelColor( x, y, color_BLACK );
+              else
+                boardImage->SetTexelColor( x, y, color_WHITE );
+            }
+          }
         }
         ImGui::End();
       }
@@ -155,7 +164,7 @@ private:
   void WindowGenerationControls( int x, int y )
   {
     if ( w_cagen.show )
-    { 
+    {
       ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
       if ( ImGui::Begin( w_cagen.title, &w_cagen.show, ImGuiWindowFlags_NoCollapse ) )
       {
@@ -196,12 +205,14 @@ public:
     ImGui_ImplGlfwGL3_Init( system_window, true );
     ImGui::StyleColorsDark();
     // Setup default cell board texture for rendering
-    boardImage = new BoardTexture2D();
+    boardImage = new BoardTexture2D( boardSize[0], boardSize[1] );
+    tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], 250 );
   }
 
   ~MapGenUI()
   {
     // Cleanup
+    delete tileGenerator;
     delete boardImage;
     ImGui_ImplGlfwGL3_Shutdown();
     ImGui::DestroyContext();
@@ -226,8 +237,8 @@ public:
     { //// UI: 
       MainMenu(); // on top of system window, main menu.
       WindowBoardControls( 10, 10 ); // parameters for user to change
-      WindowGenerationControls( 20, 20 );
-      WindowMapTileImage( 300, 50 ); // displaying generated tiles
+      WindowGenerationControls( 20, 200 );
+      WindowMapTileImage( 300, 150 ); // displaying generated tiles
       WindowImguiDemo( 10, 150 ); // Imgui demo for reference to ImGui examples
     }
     if ( is_program_terminated ) glfwSetWindowShouldClose( system_window, GLFW_TRUE );
