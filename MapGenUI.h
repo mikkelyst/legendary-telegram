@@ -25,7 +25,7 @@ private:
   GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4( 0.45f, 0.55f, 0.60f, 1.00f );
 
-  BoardTexture *boardImage;
+  BoardTexture2D *boardImage;
 
   MapGenUIwindow w_board = { true, "Board Controls", "Show Window: Board Controls" };
   MapGenUIwindow w_cagen = { true, "Generator Parameters", "Show Window: Generator Parameters" };
@@ -34,7 +34,7 @@ private:
 
   bool  is_program_terminated = false;
   int   boardSize[2] = { 64,64 };
-  float boardImageScale = 5.0f;
+  //float boardImageScale = 5.0f;
 
   void MainMenu()
   {
@@ -94,13 +94,13 @@ private:
 
             // then, a texture with its size
             delete boardImage;
-            boardImage = new BoardTexture( boardSize[0], boardSize[1] );
+            boardImage = new BoardTexture2D( boardSize[0], boardSize[1] );
           } 
         }
         ImGui::Separator();
         {
           ImGui::Text( "Board image display: " );
-          ImGui::SliderFloat( "zoom/scale", &boardImageScale, 1.f, 12.f );
+          ImGui::SliderFloat( "zoom/scale", &boardImage->displayScale, 1.f, 12.f );
         }
         ImGui::Separator();
         {
@@ -140,10 +140,7 @@ private:
       {
         ImGui::Image(
           reinterpret_cast<void*>( boardImage->Update() ),
-          ImVec2(
-            boardImageScale*float( boardImage->SizeX() ),
-            boardImageScale*float( boardImage->SizeY() )
-          )
+          ImVec2( boardImage->ScaledSizeX(), boardImage->ScaledSizeY() )
         );
         ImGui::Separator();
         static int selectedStep = 0;
@@ -199,7 +196,7 @@ public:
     ImGui_ImplGlfwGL3_Init( system_window, true );
     ImGui::StyleColorsDark();
     // Setup default cell board texture for rendering
-    boardImage = new BoardTexture();
+    boardImage = new BoardTexture2D();
   }
 
   ~MapGenUI()
