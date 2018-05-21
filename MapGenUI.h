@@ -117,15 +117,8 @@ private:
         }
         ImGui::Separator();
 
-        // TODO : refactor into pixel editing with mouse
-        {
-          std::string text = "Cell (2,3) is ";
-          static bool my_pixel = true;
-          text += std::to_string( my_pixel );
-          ImGui::Checkbox( text.c_str(), &my_pixel );
-          if ( my_pixel ) boardImage->SetTexelColor( 2, 3, color_RED );
-          else boardImage->SetTexelColor( 2, 3, color_GREEN );
-        }
+        // TODO : add pixel editing with mouse enable/disable
+         
         ImGui::End();
       }
     }
