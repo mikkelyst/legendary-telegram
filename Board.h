@@ -38,16 +38,7 @@ public:
     cells.at( cellsX * y + x ) = newState;
     return;
   }
-  void RandomState()
-  {
-    int a = cellsX / 2;
-    int b = cellsY / 2;
-    SetCellAt( a + 0, b + 2, CELL_ON );
-    SetCellAt( a + 1, b + 2, CELL_ON );
-    SetCellAt( a + 2, b + 0, CELL_ON );
-    SetCellAt( a + 2, b + 1, CELL_ON );
-    SetCellAt( a + 2, b + 2, CELL_ON );
-  }
+  
 
   // NeighborsOf(x,y){ return neighbors; }
 };

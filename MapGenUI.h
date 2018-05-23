@@ -4,9 +4,7 @@
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_glfw_gl3.h"  
-
-#include "Board.h"
-#include "BoardTexture.h"
+ 
 #include "BoardAutomaton.h" 
 
 const char *build_str = "Build date: " __DATE__ " " __TIME__;
@@ -23,8 +21,6 @@ class MapGenUI
 private:
   GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4( 0.45f, 0.55f, 0.60f, 1.00f );
-
-  BoardTexture2D *boardImage;
   BoardAutomaton *tileGenerator;
 
   MapGenUIwindow w_board = { true, "Board Controls", "Show Window: Board Controls" };
@@ -33,7 +29,9 @@ private:
   MapGenUIwindow w_imgui = { false, "ImGui Demo", "Show Window: ImGui Demo" };
 
   bool  is_program_terminated = false;
-  int   boardSize[2] = { 64,64 };
+  int   boardSize[2] = { 32,32 };
+  int   boardSteps = 100;
+  float tileImageScale = 8.0f;
 
   void MainMenu()
   {
@@ -73,7 +71,7 @@ private:
   {
     if ( w_board.show )
     {
-      ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
+      ImGui::SetNextWindowPos( ImVec2( float(x), float(y) ), ImGuiCond_FirstUseEver );
       if ( ImGui::Begin( w_board.title, &w_board.show, ImGuiWindowFlags_NoCollapse ) )
       {
         {
@@ -82,33 +80,30 @@ private:
         }
         ImGui::Separator();
         {
-          ImGui::Text( "Board size:" );
+          ImGui::Text( "Board parameters:" );
           ImGui::SliderInt2( "width, height", boardSize, 4, 128 );
-          if ( ImGui::Button( "construct new board" ) )
+          ImGui::SliderInt( "simulation step count", &boardSteps, 10, 500 );
+          if ( ImGui::Button( "reconstruct board (may take time with many steps)" ) )
           {
-            //// TODO: call construct new board
-
-            //b.Step(1);
-
-
-            // then, a texture with its size
-            delete boardImage;
-            boardImage = new BoardTexture2D( boardSize[0], boardSize[1] );
+            delete tileGenerator;
+            tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], boardSteps );
           }
         }
         ImGui::Separator();
         {
           ImGui::Text( "Board image display: " );
-          ImGui::SliderFloat( "zoom/scale", &boardImage->displayScale, 2.f, 20.f );
+          ImGui::SliderFloat( "zoom/scale", &tileImageScale, 2.f, 20.f );
         }
         ImGui::Separator();
         {
           ImGui::Text( "Board clearing:" );
-          if ( ImGui::Button( "clear: white" ) ) { boardImage->Clear( color_WHITE ); }
+          if ( ImGui::Button( "clear: white" ) ) { tileGenerator->InitialState( CLEAR_ALL_ON ); }
           ImGui::SameLine();
-          if ( ImGui::Button( "clear: black" ) ) { boardImage->Clear( color_BLACK ); }
+          if ( ImGui::Button( "clear: black" ) ) { tileGenerator->InitialState( CLEAR_ALL_OFF ); }
           ImGui::SameLine();
-          if ( ImGui::Button( "clear: chessboard" ) ) { boardImage->ChessClear(); }
+          if ( ImGui::Button( "clear: chess" ) ) { tileGenerator->InitialState( CLEAR_CHESS ); }
+          ImGui::SameLine();
+          if ( ImGui::Button( "clear: glidertest" ) ) { tileGenerator->InitialState( CLEAR_CHESS ); }
         }
         ImGui::Separator();
         {
@@ -118,7 +113,7 @@ private:
         ImGui::Separator();
 
         // TODO : add pixel editing with mouse enable/disable
-         
+
         ImGui::End();
       }
     }
@@ -127,19 +122,20 @@ private:
   {
     if ( w_image.show )
     {
-      ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
+      ImGui::SetNextWindowPos( ImVec2( float(x), float(y) ), ImGuiCond_FirstUseEver );
       if ( ImGui::Begin( w_image.title, &w_image.show, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize ) )
       {
-        ImGui::Image(
-          reinterpret_cast<void*>( boardImage->Update() ),
-          ImVec2( boardImage->ScaledSizeX(), boardImage->ScaledSizeY() )
-        );
-        ImGui::Separator();
         static int selectedStep = 0;
+        ImGui::Image( tileGenerator->DrawBoardAtStep( unsigned int( selectedStep )),
+          ImVec2(
+            tileGenerator->SizeX()*tileImageScale,
+            tileGenerator->SizeY()*tileImageScale
+          ) );
+        ImGui::Separator();
         int stepZero = 0;
         int stepLast = tileGenerator->LastGenIndex();
         {
-          if ( ImGui::SliderInt( "CA Step", &selectedStep, 0, tileGenerator->LastGenIndex() ) );
+          if ( ImGui::SliderInt( "CA Step", &selectedStep, 0, tileGenerator->LastGenIndex() ) ) {}
           if ( ImGui::Button( "<<< 5 STEP" ) && selectedStep > stepZero + 5 ) { selectedStep -= 5; }
           ImGui::SameLine();
           if ( ImGui::Button( "<<< 1 STEP" ) && selectedStep > stepZero + 0 ) { selectedStep--; }
@@ -149,18 +145,6 @@ private:
           if ( ImGui::Button( "5 STEP >>>" ) && selectedStep < stepLast - 5 ) { selectedStep += 5; }
           ImGui::End();
         }
-        // TODO: update board tex with current cellgrid
-        for ( unsigned int x = 1; x < tileGenerator->Generation( selectedStep )->cellsX; x++ )
-        {
-          for ( unsigned int y = 1; y < tileGenerator->Generation( selectedStep )->cellsY; y++ )
-          {
-            if ( tileGenerator->Generation( selectedStep )->CellAt( x, y ) == CELL_OFF )
-              boardImage->SetTexelColor( x, y, color_BLACK );
-            else
-              boardImage->SetTexelColor( x, y, color_WHITE );
-          }
-        }
-        // 
       }
     }
   }
@@ -197,8 +181,7 @@ private:
       ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
       ImGui::ShowDemoWindow( &w_imgui.show );
     }
-  }
-
+  } 
 public:
   MapGenUI( GLFWwindow* window )
   {
@@ -207,16 +190,14 @@ public:
     ImGui::CreateContext();
     ImGui_ImplGlfwGL3_Init( system_window, true );
     ImGui::StyleColorsDark();
-    // Setup default cell board texture for rendering
-    boardImage = new BoardTexture2D( boardSize[0], boardSize[1] );
-    tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], 250 );
+    // Initialize automaton with default data
+    tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], boardSteps );
   }
 
   ~MapGenUI()
   {
     // Cleanup
     delete tileGenerator;
-    delete boardImage;
     ImGui_ImplGlfwGL3_Shutdown();
     ImGui::DestroyContext();
   }

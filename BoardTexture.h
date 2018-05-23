@@ -25,7 +25,6 @@ private:
   unsigned int texelCountY;
 
 public:
-  float displayScale = 8.0f;
   BoardTexture2D( unsigned int x = 64, unsigned int y = 64 )
   {
     texelCountX = x;
@@ -44,14 +43,12 @@ public:
   {
     glDeleteTextures( 1, &texID );
   }
-  GLuint Update()
+  GLuint Render()
   {
     glBindTexture( GL_TEXTURE_2D, texID );
     glTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0, texelCountX, texelCountY, GL_RGB, GL_FLOAT, texelsRGBA.data() );
     return texID;
   }
-  float ScaledSizeX() { return texelCountX*displayScale; }
-  float ScaledSizeY() { return texelCountY*displayScale; }
   void SetTexelColor( unsigned int x, unsigned int y, Color_RGB_3GLf color )
   {
     if ( ( x < texelCountX ) && ( y < texelCountY ) ) texelsRGBA.at( texelCountX * y + x ) = color;
@@ -61,18 +58,6 @@ public:
   {
     texelsRGBA.assign( texelCountX * texelCountY, clearColor );
   }
-  void ChessClear()
-  {
-    for ( unsigned int x = 0; x < texelCountX; x++ )
-    {
-      for ( unsigned int y = 0; y < texelCountY; y++ )
-      {
-        if ( ( x % 2 ) ^ ( y % 2 ) )
-          SetTexelColor( x, y, color_WHITE );
-        else
-          SetTexelColor( x, y, color_BLACK );
-      }
-    }
-  }
+
 };
 
