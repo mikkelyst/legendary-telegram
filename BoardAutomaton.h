@@ -8,7 +8,8 @@ enum BoardClears
   CLEAR_ALL_ON = 1,
   CLEAR_ALL_OFF = 2,
   CLEAR_CHESS = 3,
-  TEST_GLIDER = 4
+  TEST_GLIDER = 4,
+  CLEAR_XYMOD = 5
 };
 
 class BoardAutomaton
@@ -39,15 +40,18 @@ private:
     return;
   }
   CELL ApplyRule( unsigned int rule, CELL previous )
-  { 
+  {
     switch ( rule )
     {
     case 2:
       return previous;
     case 3:
-      return CELL_ON;
+      return CELL_WALL;
+    case 1:
+      return CELL_OTHER;
+      break;
     default:
-      return CELL_OFF;
+      return CELL_FLOOR;
     }
   }
   void GenerateSteps()
@@ -62,7 +66,7 @@ public:
   {
     boardImage = new BoardTexture2D( x, y );
     generations.assign( genCount, Board( x, y ) );
-    InitialState( TEST_GLIDER ); 
+    InitialState( TEST_GLIDER );
   }
   ~BoardAutomaton()
   {
@@ -80,7 +84,7 @@ public:
   unsigned int LastGenIndex()
   {
     return generations.size() - 1;
-  } 
+  }
   void InitialState( BoardClears chosenBoardClear )
   {
     switch ( chosenBoardClear )
@@ -90,7 +94,7 @@ public:
       {
         for ( unsigned int y = 0; y < SizeY(); y++ )
         {
-          generations.at( 0 ).SetCellAt( x, y, CELL_ON );
+          generations.at( 0 ).SetCellAt( x, y, CELL_WALL );
         }
       }
       break;
@@ -99,7 +103,7 @@ public:
       {
         for ( unsigned int y = 0; y < SizeY(); y++ )
         {
-          generations.at( 0 ).SetCellAt( x, y, CELL_OFF );
+          generations.at( 0 ).SetCellAt( x, y, CELL_FLOOR );
         }
       }
       break;
@@ -110,9 +114,22 @@ public:
         for ( unsigned int y = 0; y < SizeY(); y++ )
         {
           if ( ( x % 2 ) ^ ( y % 2 ) )
-            generations.at( 0 ).SetCellAt( x, y, CELL_ON );
+            generations.at( 0 ).SetCellAt( x, y, CELL_WALL );
           else
-            generations.at( 0 ).SetCellAt( x, y, CELL_OFF );
+            generations.at( 0 ).SetCellAt( x, y, CELL_FLOOR );
+        }
+      }
+      break;
+    case CLEAR_XYMOD:
+      InitialState( CLEAR_ALL_OFF );
+      for ( unsigned int x = 0; x < SizeX(); x++ )
+      {
+        for ( unsigned int y = 0; y < SizeY(); y++ )
+        {
+          if ( ( ( x * 3 ) % (y+1) ) % 2 )
+            generations.at( 0 ).SetCellAt( x, y, CELL_WALL );
+          else
+            generations.at( 0 ).SetCellAt( x, y, CELL_FLOOR );
         }
       }
       break;
@@ -121,12 +138,12 @@ public:
       {
         unsigned int a = generations.at( 0 ).cellsX / 2;
         unsigned int b = generations.at( 0 ).cellsY / 2;
-        generations.at( 0 ).SetCellAt( a - 1, b + 0, CELL_ON );
-        generations.at( 0 ).SetCellAt( a + 0, b + 1, CELL_ON );
-        generations.at( 0 ).SetCellAt( a + 1, b - 1, CELL_ON );
-        generations.at( 0 ).SetCellAt( a + 1, b + 0, CELL_ON );
-        generations.at( 0 ).SetCellAt( a + 1, b + 1, CELL_ON );
-      } 
+        generations.at( 0 ).SetCellAt( a - 1, b + 0, CELL_WALL );
+        generations.at( 0 ).SetCellAt( a + 0, b + 1, CELL_WALL );
+        generations.at( 0 ).SetCellAt( a + 1, b - 1, CELL_WALL );
+        generations.at( 0 ).SetCellAt( a + 1, b + 0, CELL_WALL );
+        generations.at( 0 ).SetCellAt( a + 1, b + 1, CELL_WALL );
+      }
       break;
     default:
       break;
@@ -142,7 +159,7 @@ public:
       {
         for ( unsigned int y = 0; y < SizeY(); y++ )
         {
-          if ( generations.at( step ).CellAt( x, y ) == CELL_OFF )
+          if ( generations.at( step ).CellAt( x, y ) == CELL_FLOOR )
             boardImage->SetTexelColor( x, y, color_BLACK );
           else
             boardImage->SetTexelColor( x, y, color_WHITE );

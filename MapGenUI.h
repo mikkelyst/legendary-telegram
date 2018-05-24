@@ -4,7 +4,7 @@
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_glfw_gl3.h"  
- 
+
 #include "BoardAutomaton.h" 
 
 const char *build_str = "Build date: " __DATE__ " " __TIME__;
@@ -32,6 +32,7 @@ private:
   int   boardSize[2] = { 32,32 };
   int   boardSteps = 100;
   float tileImageScale = 8.0f;
+  int selectedStep = 0;
 
   void MainMenu()
   {
@@ -71,7 +72,7 @@ private:
   {
     if ( w_board.show )
     {
-      ImGui::SetNextWindowPos( ImVec2( float(x), float(y) ), ImGuiCond_FirstUseEver );
+      ImGui::SetNextWindowPos( ImVec2( float( x ), float( y ) ), ImGuiCond_FirstUseEver );
       if ( ImGui::Begin( w_board.title, &w_board.show, ImGuiWindowFlags_NoCollapse ) )
       {
         {
@@ -80,10 +81,17 @@ private:
         }
         ImGui::Separator();
         {
+          ImGui::Text( "Display options: " );
+          ImGui::ColorEdit3( "Background clear color", (float*)&clear_color );
+          ImGui::SliderFloat( "Board zoom/scale", &tileImageScale, 2.f, 20.f );
+        }
+        ImGui::Separator();
+        {
           ImGui::Text( "Board parameters:" );
           ImGui::SliderInt2( "width, height", boardSize, 4, 128 );
           ImGui::SliderInt( "simulation step count", &boardSteps, 10, 500 );
-          if ( ImGui::Button( "reconstruct board (may take time with many steps)" ) )
+          ImGui::TextWrapped( "Warning: board memory reallocation may take some time for a big board with many steps." ); 
+          if ( ImGui::Button( "APPLY AND RECONSTRUCT BOARD" ) )
           {
             delete tileGenerator;
             tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], boardSteps );
@@ -91,28 +99,23 @@ private:
         }
         ImGui::Separator();
         {
-          ImGui::Text( "Board image display: " );
-          ImGui::SliderFloat( "zoom/scale", &tileImageScale, 2.f, 20.f );
-        }
-        ImGui::Separator();
-        {
-          ImGui::Text( "Board clearing:" );
-          if ( ImGui::Button( "clear: white" ) ) { tileGenerator->InitialState( CLEAR_ALL_ON ); }
-          ImGui::SameLine();
-          if ( ImGui::Button( "clear: black" ) ) { tileGenerator->InitialState( CLEAR_ALL_OFF ); }
-          ImGui::SameLine();
-          if ( ImGui::Button( "clear: chess" ) ) { tileGenerator->InitialState( CLEAR_CHESS ); }
-          ImGui::SameLine();
-          if ( ImGui::Button( "clear: glidertest" ) ) { tileGenerator->InitialState( CLEAR_CHESS ); }
+          ImGui::Text( "Tests:" );
+          if ( ImGui::Button( "start: whiteboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_ALL_ON ); }
+          if ( ImGui::Button( "start: blackboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_ALL_OFF ); }
+          if ( ImGui::Button( "start: chessboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_CHESS ); }
+          if ( ImGui::Button( "start: glidertest" ) ) { selectedStep = 0; tileGenerator->InitialState( TEST_GLIDER ); }
+          if ( ImGui::Button( "start: mod4?board" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_XYMOD ); }
         }
         ImGui::Separator();
         {
           ImGui::Text( "Other options: " );
-          ImGui::ColorEdit3( "Background clear color", (float*)&clear_color );
+          ImGui::Text( "--1--" );
+          ImGui::Text( "--2--" );
+          ImGui::Text( "--3--" );
         }
         ImGui::Separator();
 
-        // TODO : add pixel editing with mouse enable/disable
+        // TODO : enable/disable pixel editing with mouse (future work)
 
         ImGui::End();
       }
@@ -122,11 +125,10 @@ private:
   {
     if ( w_image.show )
     {
-      ImGui::SetNextWindowPos( ImVec2( float(x), float(y) ), ImGuiCond_FirstUseEver );
+      ImGui::SetNextWindowPos( ImVec2( float( x ), float( y ) ), ImGuiCond_FirstUseEver );
       if ( ImGui::Begin( w_image.title, &w_image.show, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize ) )
       {
-        static int selectedStep = 0;
-        ImGui::Image( tileGenerator->DrawBoardAtStep( unsigned int( selectedStep )),
+        ImGui::Image( tileGenerator->DrawBoardAtStep( unsigned int( selectedStep ) ),
           ImVec2(
             tileGenerator->SizeX()*tileImageScale,
             tileGenerator->SizeY()*tileImageScale
@@ -181,7 +183,7 @@ private:
       ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
       ImGui::ShowDemoWindow( &w_imgui.show );
     }
-  } 
+  }
 public:
   MapGenUI( GLFWwindow* window )
   {

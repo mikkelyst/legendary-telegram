@@ -5,8 +5,10 @@
 enum CELL
 {
   // we may need to make a class Cell{} perhaps, but for now, just enum
-  CELL_ON = 1,
-  CELL_OFF = 0
+  CELL_FLOOR = 0,
+  CELL_WALL = 1,
+  CELL_OTHER = 2
+  
 };
 
 class Board
@@ -20,7 +22,7 @@ public:
   {
     cellsX = width;
     cellsY = height;
-    cells.assign( ( cellsX*cellsY ), CELL_OFF );
+    cells.assign( ( cellsX*cellsY ), CELL_FLOOR );
   }
   Board( Board* other )
   {
