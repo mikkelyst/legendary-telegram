@@ -89,9 +89,8 @@ private:
         {
           ImGui::Text( "Board parameters:" );
           ImGui::SliderInt2( "width, height", boardSize, 4, 128 );
-          ImGui::SliderInt( "simulation step count", &boardSteps, 10, 500 );
-          ImGui::TextWrapped( "Warning: board memory reallocation may take some time for a big board with many steps." ); 
-          if ( ImGui::Button( "APPLY AND RECONSTRUCT BOARD" ) )
+          ImGui::SliderInt( "simulation step count", &boardSteps, 10, 500 ); 
+          if ( ImGui::Button( "RECONSTUCT BOARD" ) )
           {
             delete tileGenerator;
             tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], boardSteps );
@@ -105,6 +104,7 @@ private:
           if ( ImGui::Button( "start: chessboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_CHESS ); }
           if ( ImGui::Button( "start: glidertest" ) ) { selectedStep = 0; tileGenerator->InitialState( TEST_GLIDER ); }
           if ( ImGui::Button( "start: mod4?board" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_XYMOD ); }
+          ImGui::TextWrapped( "Warning: tests above generate all steps at once. Calling them may take some time to finish, depending on board size and step count." );
         }
         ImGui::Separator();
         {
@@ -194,6 +194,7 @@ public:
     ImGui::StyleColorsDark();
     // Initialize automaton with default data
     tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], boardSteps );
+    tileGenerator->InitialState( TEST_GLIDER );
   }
 
   ~MapGenUI()

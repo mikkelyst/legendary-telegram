@@ -14,7 +14,9 @@ enum BoardClears
 
 class BoardAutomaton
 {
-private:
+private: 
+  static BoardAutomaton *instance;
+
   BoardTexture2D *boardImage;
   std::vector<Board> generations;
   void Age( Board *before, Board *after )
@@ -56,6 +58,8 @@ private:
   }
   void GenerateSteps()
   {
+    // let us try to implement it in lazy evaluation manner.
+    // perhaps Age() can be moved to DrawBoard, and executed only when needed
     for ( unsigned int step = 1; step < generations.size(); step++ )
     {
       Age( &generations.at( step - 1 ), &generations.at( step ) );
@@ -65,13 +69,12 @@ public:
   BoardAutomaton( unsigned int x = 16, unsigned int y = 16, unsigned int genCount = 10 )
   {
     boardImage = new BoardTexture2D( x, y );
-    generations.assign( genCount, Board( x, y ) );
-    InitialState( TEST_GLIDER );
+    generations.assign( genCount, Board( x, y ) ); 
   }
   ~BoardAutomaton()
   {
     delete boardImage;
-  }
+  } 
 
   unsigned int SizeX()
   {
@@ -159,10 +162,16 @@ public:
       {
         for ( unsigned int y = 0; y < SizeY(); y++ )
         {
-          if ( generations.at( step ).CellAt( x, y ) == CELL_FLOOR )
-            boardImage->SetTexelColor( x, y, color_BLACK );
-          else
-            boardImage->SetTexelColor( x, y, color_WHITE );
+          switch ( generations.at( step ).CellAt( x, y ) )
+          {
+          case CELL_FLOOR: boardImage->SetTexelColor( x, y, color_BLACK ); break;
+          case CELL_WALL:  boardImage->SetTexelColor( x, y, color_WHITE ); break;
+          case CELL_OTHER: boardImage->SetTexelColor( x, y, color_GREEN ); break;
+          default: 
+            // red cells should never be created if all is well         
+            boardImage->SetTexelColor( x, y, color_RED );   
+            break;
+          } 
         }
       }
     }
