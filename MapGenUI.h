@@ -98,13 +98,14 @@ private:
         }
         ImGui::Separator();
         {
-          ImGui::Text( "Tests:" );
+          ImGui::Text( "Board initializers:" );
           if ( ImGui::Button( "start: whiteboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_ALL_ON ); }
           if ( ImGui::Button( "start: blackboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_ALL_OFF ); }
           if ( ImGui::Button( "start: chessboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_CHESS ); }
           if ( ImGui::Button( "start: glidertest" ) ) { selectedStep = 0; tileGenerator->InitialState( TEST_GLIDER ); }
           if ( ImGui::Button( "start: mod4?board" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_XYMOD ); }
-          ImGui::TextWrapped( "Warning: tests above generate all steps at once. Calling them may take some time to finish, depending on board size and step count." );
+          if ( ImGui::Button( "start: random    " ) ) { selectedStep = 0; tileGenerator->InitialState( RANDOM ); }
+          ImGui::TextWrapped( "Note: these functions generate all board states at once. Calling them may take some time to finish, depending on board size and step count." );
         }
         ImGui::Separator();
         {
