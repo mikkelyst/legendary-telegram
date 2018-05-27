@@ -89,7 +89,7 @@ private:
         {
           ImGui::Text( "Board parameters:" );
           ImGui::SliderInt2( "width, height", boardSize, 4, 128 );
-          ImGui::SliderInt( "simulation step count", &boardSteps, 10, 500 ); 
+          ImGui::SliderInt( "simulation step count", &boardSteps, 10, 500 );
           if ( ImGui::Button( "RECONSTUCT BOARD" ) )
           {
             delete tileGenerator;
@@ -103,7 +103,7 @@ private:
           if ( ImGui::Button( "start: blackboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_ALL_OFF ); }
           if ( ImGui::Button( "start: chessboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_CHESS ); }
           if ( ImGui::Button( "start: glidertest" ) ) { selectedStep = 0; tileGenerator->InitialState( TEST_GLIDER ); }
-          if ( ImGui::Button( "start: mod4?board" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_XYMOD ); }
+          if ( ImGui::Button( "start: modxyboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_XYMOD ); }
           if ( ImGui::Button( "start: random    " ) ) { selectedStep = 0; tileGenerator->InitialState( RANDOM ); }
           ImGui::TextWrapped( "Note: these functions generate all board states at once. Calling them may take some time to finish, depending on board size and step count." );
         }
@@ -159,7 +159,14 @@ private:
       if ( ImGui::Begin( w_cagen.title, &w_cagen.show, ImGuiWindowFlags_NoCollapse ) )
       {
         {
-          ImGui::Text( "Cell Types: (unimplemented)" );
+          ImGui::Text( "Rulesets:" );
+          if ( ImGui::Button( "Ruleset 1: Game of Life  " ) ) { tileGenerator->ChangeRuleset( 0 ); }
+          if ( ImGui::Button( "Ruleset 2: Map Generator " ) ) { tileGenerator->ChangeRuleset( 1 ); }
+          if ( ImGui::Button( "Ruleset 3: <  ... ...  > " ) ) { tileGenerator->ChangeRuleset( 2 ); }
+        }
+        ImGui::Separator();
+        {
+          ImGui::Text( "Cell Types:" );
           ImGui::Text( "CELLTYPE1 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
           ImGui::Text( "CELLTYPE2 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
           ImGui::Text( "CELLTYPE3 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );

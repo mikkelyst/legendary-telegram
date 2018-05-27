@@ -2,10 +2,12 @@
 #include <vector>
 #include <random> 
 #include <chrono> // systime as random seed
+
+#include "AutomatonRules.h"
 #include "Board.h"
 #include "BoardTexture.h"
 
-enum BoardClears
+enum BoardClearType
 {
   RANDOM = 0,
   CLEAR_ALL_ON = 1,
@@ -18,56 +20,17 @@ enum BoardClears
 class BoardAutomaton
 {
 private:
-  static BoardAutomaton *instance;
-
+  AutomatonRules *currentRuleset;
   BoardTexture2D *boardImage;
-  std::vector<Board> generations; ;
-  
+  std::vector<Board> generations;
 
-  void Age( Board *before, Board *after )
-  {
-    // For every cell in grid excluding edges, ApplyRule(r), set cell
-    for ( unsigned int x = 1; x < before->cellsX - 1; x++ )
-    {
-      for ( unsigned int y = 1; y < before->cellsY - 1; y++ )
-      {
-        int sum = 0;
-        sum += before->CellAt( x - 1, y - 1 );
-        sum += before->CellAt( x - 1, y + 0 );
-        sum += before->CellAt( x - 1, y + 1 );
-        sum += before->CellAt( x + 0, y - 1 );
-        //sum += before->CellAt( x + 0, y + 0 );
-        sum += before->CellAt( x + 0, y + 1 );
-        sum += before->CellAt( x + 1, y - 1 );
-        sum += before->CellAt( x + 1, y + 0 );
-        sum += before->CellAt( x + 1, y + 1 );
-        after->SetCellAt( x, y, ApplyRule( sum, before->CellAt( x, y ) ) );
-      }
-    }
-    return;
-  }
-  CELL ApplyRule( unsigned int rule, CELL previous )
-  {
-    switch ( rule )
-    {
-    case 2:
-      return previous;
-    case 3:
-      return CELL_WALL;
-    case 1:
-      return CELL_OTHER;
-      break;
-    default:
-      return CELL_FLOOR;
-    }
-  }
   void GenerateSteps()
   {
-    // let us try to implement it in lazy evaluation manner.
-    // perhaps Age() can be moved to DrawBoard, and executed only when needed
+    // TODO: we could try to implement this function in lazy evaluation manner. 
+    // Challenge: we could also try rules where cellstate is dependent on states before the previous one
     for ( unsigned int step = 1; step < generations.size(); step++ )
     {
-      Age( &generations.at( step - 1 ), &generations.at( step ) );
+      currentRuleset->Evolve( &generations.at( step - 1 ), &generations.at( step ) );
     }
   }
   void InitGenClearWall()
@@ -132,9 +95,9 @@ private:
     }
   }
   void InitGenAllRandom()
-  { 
+  {
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::mt19937 generator( seed ); 
+    std::mt19937 generator( seed );
     std::uniform_int_distribution<int> distribution( 1, 100 );
     distribution.reset();
     CELL c = CELL_OTHER;
@@ -146,7 +109,7 @@ private:
         {
         case 0: c = CELL_WALL; break;
         case 1: c = CELL_FLOOR; break;
-        //case 2: c = CELL_OTHER; break;
+          //case 2: c = CELL_OTHER; break;
         default:break;
         }
         generations.at( 0 ).SetCellAt( x, y, c );
@@ -154,21 +117,23 @@ private:
     }
     return;
   }
- 
+
 public:
   BoardAutomaton( unsigned int x = 16, unsigned int y = 16, unsigned int genCount = 10 )
   {
     boardImage = new BoardTexture2D( x, y );
     generations.assign( genCount, Board( x, y ) );
+    currentRuleset = new AutomatonRules_GameOfLife();
   }
   ~BoardAutomaton()
   {
     delete boardImage;
-  } 
+    delete currentRuleset;
+  }
 
-  void InitialState( BoardClears chosenBoardClear )
+  void  InitialState( BoardClearType clearMethod )
   {
-    switch ( chosenBoardClear )
+    switch ( clearMethod )
     {
     case CLEAR_ALL_ON:  InitGenClearWall(); break;
     case CLEAR_ALL_OFF: InitGenClearFloor(); break;
@@ -178,7 +143,7 @@ public:
     case RANDOM:        InitGenAllRandom(); break;
     }
     GenerateSteps();
-  } 
+  }
   void* DrawBoardAtStep( unsigned int step )
   {
     if ( step < generations.size() )
@@ -202,6 +167,16 @@ public:
       }
     }
     return reinterpret_cast<void*>( boardImage->Render() );
+  }
+  void  ChangeRuleset( int ruleset )
+  {
+    delete currentRuleset;
+    switch ( ruleset )
+    {
+    case 1:  currentRuleset = new AutomatonRules_MapGen();    break;
+    default: currentRuleset = new AutomatonRules_GameOfLife(); break;
+    }
+    GenerateSteps();
   }
 
   unsigned int SizeX()

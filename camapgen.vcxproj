@@ -129,6 +129,7 @@
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="MapGenUI.h" />
+    <ClInclude Include="AutomatonRules.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
