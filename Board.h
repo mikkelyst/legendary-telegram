@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "BoardTexture.h"
 
 enum CELL
 {
@@ -33,14 +34,37 @@ public:
   ~Board() = default;
   CELL CellAt( unsigned int x, unsigned int y )
   {
-    return cells.at( cellsX * y + x );
+    return cells.at( cellsX * (y%cellsY) + (x%cellsX) );
   }
   void SetCellAt( unsigned int x, unsigned int y, CELL newState )
   {
-    cells.at( cellsX * y + x ) = newState;
+    cells.at( cellsX * ( y%cellsY ) + ( x%cellsX ) ) = newState;
     return;
   }
-  
+  void Clear( CELL with )
+  {
+    cells.assign( ( cellsX*cellsY ), with );
+  }
+  void DrawCellsToImage( BoardTexture2D *image )
+  {
+    //  update board tex with current cellgrid 
+    for ( unsigned int x = 0; x < cellsX; x++ )
+    {
+      for ( unsigned int y = 0; y < cellsY; y++ )
+      {
+        switch ( CellAt( x, y ) )
+        {
+        case CELL_FLOOR: image->SetTexelColor( x, y, color_BLACK ); break;
+        case CELL_WALL:  image->SetTexelColor( x, y, color_WHITE ); break;
+        case CELL_OTHER: image->SetTexelColor( x, y, color_GREEN ); break;
+        default:
+          // red cells should never be created if all is well         
+          image->SetTexelColor( x, y, color_RED );
+          break;
+        }
+      }
+    }
+  }
 
   // NeighborsOf(x,y){ return neighbors; }
 };

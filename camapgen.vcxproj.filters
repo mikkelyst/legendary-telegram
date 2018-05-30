@@ -89,6 +89,9 @@
     <ClInclude Include="AutomatonRules.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MapGenWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />

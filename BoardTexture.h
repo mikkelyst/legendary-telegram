@@ -3,7 +3,7 @@
 
 #include <GLFW\glfw3.h>
 
-typedef struct Color_RGB_3GLf
+struct Color_RGB_3GLf
 {
   GLfloat r;
   GLfloat g;
@@ -25,6 +25,7 @@ private:
   unsigned int texelCountY;
 
 public:
+  
   BoardTexture2D( unsigned int x = 64, unsigned int y = 64 )
   {
     texelCountX = x;
@@ -37,7 +38,7 @@ public:
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, texelCountX, texelCountY, 0, GL_RGB, GL_FLOAT, texelsRGBA.data() );
-    glGenerateMipmap( GL_TEXTURE_2D );
+    glGenerateMipmap( GL_TEXTURE_2D ); 
   }
   ~BoardTexture2D()
   {
@@ -60,4 +61,6 @@ public:
   }
 
 };
+
+
 

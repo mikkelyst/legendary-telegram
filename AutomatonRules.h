@@ -13,9 +13,9 @@ class AutomatonRules_GameOfLife : public AutomatonRules
 public:
   void Evolve( Board *before, Board *after )
   {
-    for ( unsigned int x = 1; x < before->cellsX - 1; x++ )
+    for ( unsigned int x = 0; x < before->cellsX; x++ )
     {
-      for ( unsigned int y = 1; y < before->cellsY - 1; y++ )
+      for ( unsigned int y = 0; y < before->cellsY; y++ )
       {
         // Check neighbors
         int sum = 0;
@@ -47,9 +47,9 @@ class AutomatonRules_MapGen : public AutomatonRules
 public:
   void Evolve( Board *before, Board *after )
   {
-    for ( unsigned int x = 1; x < before->cellsX - 1; x++ )
+    for ( unsigned int x = 0; x < before->cellsX; x++ )
     {
-      for ( unsigned int y = 1; y < before->cellsY - 1; y++ )
+      for ( unsigned int y = 0; y < before->cellsY; y++ )
       {
         // Check neighbors
         int sum = 0;

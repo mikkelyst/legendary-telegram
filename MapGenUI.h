@@ -5,7 +5,8 @@
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_glfw_gl3.h"  
 
-#include "BoardAutomaton.h" 
+#include "BoardAutomaton.h"
+#include "BoardTexture.h"
 
 const char *build_str = "Build date: " __DATE__ " " __TIME__;
 
@@ -19,6 +20,7 @@ typedef struct MapGenUIwindow
 class MapGenUI
 {
 private:
+  bool  is_program_terminated = false;
   GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4( 0.45f, 0.55f, 0.60f, 1.00f );
   BoardAutomaton *tileGenerator;
@@ -26,13 +28,7 @@ private:
   MapGenUIwindow w_board = { true, "Board Controls", "Show Window: Board Controls" };
   MapGenUIwindow w_cagen = { true, "Generator Parameters", "Show Window: Generator Parameters" };
   MapGenUIwindow w_image = { true, "Generated Map Tile", "Show Window: Generated Map Tile" };
-  MapGenUIwindow w_imgui = { false, "ImGui Demo", "Show Window: ImGui Demo" };
-
-  bool  is_program_terminated = false;
-  int   boardSize[2] = { 32,32 };
-  int   boardSteps = 100;
-  float tileImageScale = 8.0f;
-  int selectedStep = 0;
+  MapGenUIwindow w_imgui = { false, "ImGui Demo", "Show Window: ImGui Demo" }; 
 
   void MainMenu()
   {
@@ -83,41 +79,47 @@ private:
         {
           ImGui::Text( "Display options: " );
           ImGui::ColorEdit3( "Background clear color", (float*)&clear_color );
-          ImGui::SliderFloat( "Board zoom/scale", &tileImageScale, 2.f, 20.f );
+          ImGui::SliderFloat( "Board zoom/scale", &BoardAutomaton::ui_imageScale, 2.f, 20.f );
         }
         ImGui::Separator();
         {
           ImGui::Text( "Board parameters:" );
-          ImGui::SliderInt2( "width, height", boardSize, 4, 128 );
-          ImGui::SliderInt( "simulation step count", &boardSteps, 10, 500 );
+          ImGui::SliderInt2( "width, height", BoardAutomaton::ui_boardSize, 16, 256 );
+          ImGui::SliderInt( "simulation step count", &BoardAutomaton::ui_stepCount, 10, 200 );
           if ( ImGui::Button( "RECONSTUCT BOARD" ) )
           {
             delete tileGenerator;
-            tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], boardSteps );
+            tileGenerator = new BoardAutomaton( BoardAutomaton::ui_boardSize[0], BoardAutomaton::ui_boardSize[1], BoardAutomaton::ui_stepCount );
           }
         }
         ImGui::Separator();
         {
           ImGui::Text( "Board initializers:" );
-          if ( ImGui::Button( "start: whiteboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_ALL_ON ); }
-          if ( ImGui::Button( "start: blackboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_ALL_OFF ); }
-          if ( ImGui::Button( "start: chessboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_CHESS ); }
-          if ( ImGui::Button( "start: glidertest" ) ) { selectedStep = 0; tileGenerator->InitialState( TEST_GLIDER ); }
-          if ( ImGui::Button( "start: modxyboard" ) ) { selectedStep = 0; tileGenerator->InitialState( CLEAR_XYMOD ); }
-          if ( ImGui::Button( "start: random    " ) ) { selectedStep = 0; tileGenerator->InitialState( RANDOM ); }
+          if ( ImGui::Button( "init : random    " ) ) { tileGenerator->RegenerateWith( CLEAR_RANDOM ); } 
+          if ( ImGui::Button( "init : chessboard" ) ) { tileGenerator->RegenerateWith( CLEAR_CHESS ); }
+          if ( ImGui::Button( "init : modxyboard" ) ) { tileGenerator->RegenerateWith( CLEAR_XYMOD ); }
+          if ( ImGui::Button( "init : glidertest" ) ) { tileGenerator->RegenerateWith( TEST_GLIDER ); }
+
           ImGui::TextWrapped( "Note: these functions generate all board states at once. Calling them may take some time to finish, depending on board size and step count." );
         }
         ImGui::Separator();
         {
-          ImGui::Text( "Other options: " );
-          ImGui::Text( "--1--" );
-          ImGui::Text( "--2--" );
-          ImGui::Text( "--3--" );
+          ImGui::Text( "Cell Types:" );
+          // TODO: stats of cell types in board. needs better cell implementation
+          // for each celltype
+          std::string cellStats; // + type name + count cells, etc
+
+          ImGui::Text( "CELLTYPE1 :  % on board " ); ImGui::SameLine();  
+          ImGui::Text( "CELLTYPE2 :  % on board " ); ImGui::SameLine();  
+          ImGui::Text( "CELLTYPE3 :  % on board " ); ImGui::SameLine();   
         }
         ImGui::Separator();
-
-        // TODO : enable/disable pixel editing with mouse (future work)
-
+        {
+          ImGui::Text( "Other options: " );
+          // TODO : (future work) enable/disable pixel editing with mouse
+          ImGui::Text( "..." );
+        }
+        ImGui::Separator();
         ImGui::End();
       }
     }
@@ -129,25 +131,24 @@ private:
       ImGui::SetNextWindowPos( ImVec2( float( x ), float( y ) ), ImGuiCond_FirstUseEver );
       if ( ImGui::Begin( w_image.title, &w_image.show, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize ) )
       {
-        ImGui::Image( tileGenerator->DrawBoardAtStep( unsigned int( selectedStep ) ),
-          ImVec2(
-            tileGenerator->SizeX()*tileImageScale,
-            tileGenerator->SizeY()*tileImageScale
-          ) );
+        ImGui::Image(
+          tileGenerator->DrawSelectedBoard(),
+          ImVec2( tileGenerator->DrawSizeX(), tileGenerator->DrawSizeY() )
+        );
         ImGui::Separator();
-        int stepZero = 0;
-        int stepLast = tileGenerator->LastGenIndex();
         {
-          if ( ImGui::SliderInt( "CA Step", &selectedStep, 0, tileGenerator->LastGenIndex() ) ) {}
-          if ( ImGui::Button( "<<< 5 STEP" ) && selectedStep > stepZero + 5 ) { selectedStep -= 5; }
-          ImGui::SameLine();
-          if ( ImGui::Button( "<<< 1 STEP" ) && selectedStep > stepZero + 0 ) { selectedStep--; }
-          ImGui::SameLine();
-          if ( ImGui::Button( "1 STEP >>>" ) && selectedStep < stepLast - 0 ) { selectedStep++; }
-          ImGui::SameLine();
-          if ( ImGui::Button( "5 STEP >>>" ) && selectedStep < stepLast - 5 ) { selectedStep += 5; }
-          ImGui::End();
+          if ( ImGui::SliderInt( "CA Step", &BoardAutomaton::ui_stepSelected, 0, tileGenerator->StepLast() ) ) {}
         }
+        ImGui::Separator();
+        {
+          if ( ImGui::Button( "    0     " ) ) { tileGenerator->StepJumpZero(); } ImGui::SameLine();
+          if ( ImGui::Button( "<<< 5 STEP" ) ) { tileGenerator->StepJump( -5 ); } ImGui::SameLine();
+          if ( ImGui::Button( "<<< 1 STEP" ) ) { tileGenerator->StepJump( -1 ); } ImGui::SameLine();
+          if ( ImGui::Button( "1 STEP >>>" ) ) { tileGenerator->StepJump( 1 ); }  ImGui::SameLine();
+          if ( ImGui::Button( "5 STEP >>>" ) ) { tileGenerator->StepJump( 5 ); }  ImGui::SameLine();
+          if ( ImGui::Button( "   END    " ) ) { tileGenerator->StepJumpLast(); } 
+        }
+        ImGui::End();
       }
     }
   }
@@ -160,19 +161,12 @@ private:
       {
         {
           ImGui::Text( "Rulesets:" );
-          if ( ImGui::Button( "Ruleset 1: Game of Life  " ) ) { tileGenerator->ChangeRuleset( 0 ); }
-          if ( ImGui::Button( "Ruleset 2: Map Generator " ) ) { tileGenerator->ChangeRuleset( 1 ); }
-          if ( ImGui::Button( "Ruleset 3: <  ... ...  > " ) ) { tileGenerator->ChangeRuleset( 2 ); }
+          if ( ImGui::Button( "Ruleset 1: Game of Life  " ) ) { tileGenerator->SwitchRuleset( 0 ); }
+          if ( ImGui::Button( "Ruleset 2: Map Generator " ) ) { tileGenerator->SwitchRuleset( 1 ); }
+          if ( ImGui::Button( "Ruleset 3: <  ... ...  > " ) ) { tileGenerator->SwitchRuleset( 2 ); }
         }
         ImGui::Separator();
-        {
-          ImGui::Text( "Cell Types:" );
-          ImGui::Text( "CELLTYPE1 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
-          ImGui::Text( "CELLTYPE2 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
-          ImGui::Text( "CELLTYPE3 : initial % on board " ); ImGui::SameLine(); ImGui::Button( "Remove type" );
-          ImGui::Text( "<fields>" ); ImGui::SameLine(); ImGui::Button( "ADD TYPE" );
-        }
-        ImGui::Separator();
+        
         {
           ImGui::Text( "Rules:" );
           ImGui::Text( "R1 : neighbors : condition : new cell" );
@@ -184,14 +178,6 @@ private:
       }
     }
   }
-  void WindowImguiDemo( int x, int y )
-  {
-    if ( w_imgui.show )
-    {
-      ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
-      ImGui::ShowDemoWindow( &w_imgui.show );
-    }
-  }
 public:
   MapGenUI( GLFWwindow* window )
   {
@@ -201,8 +187,8 @@ public:
     ImGui_ImplGlfwGL3_Init( system_window, true );
     ImGui::StyleColorsDark();
     // Initialize automaton with default data
-    tileGenerator = new BoardAutomaton( boardSize[0], boardSize[1], boardSteps );
-    tileGenerator->InitialState( TEST_GLIDER );
+    tileGenerator = new BoardAutomaton( BoardAutomaton::ui_boardSize[0], BoardAutomaton::ui_boardSize[1], BoardAutomaton::ui_stepCount );
+    tileGenerator->RegenerateWith( CLEAR_RANDOM );
   }
 
   ~MapGenUI()
@@ -234,7 +220,11 @@ public:
       WindowBoardControls( 10, 10 ); // parameters for user to change
       WindowGenerationControls( 20, 200 );
       WindowMapTileImage( 300, 150 ); // displaying generated tiles
-      WindowImguiDemo( 10, 150 ); // Imgui demo for reference to ImGui examples
+      if ( w_imgui.show ) // Imgui demo for reference to ImGui examples
+      {
+        ImGui::SetNextWindowPos( ImVec2( 10, 150 ), ImGuiCond_FirstUseEver );
+        ImGui::ShowDemoWindow( &w_imgui.show );
+      }
     }
     if ( is_program_terminated ) glfwSetWindowShouldClose( system_window, GLFW_TRUE );
   }
