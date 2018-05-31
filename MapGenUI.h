@@ -1,24 +1,12 @@
 #pragma once
 #include <string>
+#include <list>
 #include <GLFW\glfw3.h>
 
-#include "imgui\imgui.h"
-#include "imgui\imgui_impl_glfw_gl3.h"  
+#include "MapGenWindow.h"
 
-#include "BoardAutomaton.h"
-#include "BoardTexture.h"
-
-const char *build_str = "Build date: " __DATE__ " " __TIME__;
-
-typedef struct MapGenUIwindow
+class MapGenUI
 {
-  bool show;
-  const char* title;
-  const char* menutitle;
-};
-
-class MapGenUI 
-{ 
 public:
   MapGenUI( GLFWwindow* window )
   {
@@ -29,13 +17,33 @@ public:
     ImGui::StyleColorsDark();
     // Initialize automaton with default data 
     BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_RANDOM );
-  } 
+    UserInterfaceWindows.push_back( new WindowBoardControls( 10.f, 10.f, &clear_color ) );
+    UserInterfaceWindows.push_back( new WindowGeneratorControls( 20.f, 200.f ) );
+    UserInterfaceWindows.push_back( new WindowBoardImage( 300.f, 150.f ) );
+  }
   ~MapGenUI()
-  {
+  { 
     // Cleanup 
+    UserInterfaceWindows.clear();
     ImGui_ImplGlfwGL3_Shutdown();
     ImGui::DestroyContext();
-  } 
+  }
+
+  void Update()
+  {
+    ImGui_ImplGlfwGL3_NewFrame();
+    {
+      // UI updates: 
+      MainMenu(); 
+      for ( MapGenWindow *w : UserInterfaceWindows ) w->Update();
+      if ( isImguiDemoVisible ) 
+      { 
+        ImGui::SetNextWindowPos( ImVec2( 10, 150 ), ImGuiCond_FirstUseEver );
+        ImGui::ShowDemoWindow( &isImguiDemoVisible ); // Imgui demo for reference to ImGui examples
+      }
+    }
+    if ( isProgramTerminated ) glfwSetWindowShouldClose( system_window, GLFW_TRUE );
+  }
   void Render()
   {
     // Rendering
@@ -47,32 +55,15 @@ public:
     // Render gui
     ImGui::Render();
     ImGui_ImplGlfwGL3_RenderDrawData( ImGui::GetDrawData() );
-  } 
-  void Update()
-  {
-    ImGui_ImplGlfwGL3_NewFrame();
-    { //// UI: 
-      MainMenu(); // on top of system window, main menu.
-      WindowBoardControls( 10, 10 ); // parameters for user to change
-      WindowGenerationControls( 20, 200 );
-      WindowMapTileImage( 300, 150 ); // displaying generated tiles
-      if ( w_imgui.show ) // Imgui demo for reference to ImGui examples
-      {
-        ImGui::SetNextWindowPos( ImVec2( 10, 150 ), ImGuiCond_FirstUseEver );
-        ImGui::ShowDemoWindow( &w_imgui.show );
-      }
-    }
-    if ( is_program_terminated ) glfwSetWindowShouldClose( system_window, GLFW_TRUE );
   }
+
 private:
-  bool  is_program_terminated = false;
+  bool isProgramTerminated = false;
+  bool isImguiDemoVisible = false;
   GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4( 0.45f, 0.55f, 0.60f, 1.00f );
 
-  MapGenUIwindow w_board = { true, "Board Controls", "Show Window: Board Controls" };
-  MapGenUIwindow w_cagen = { true, "Generator Parameters", "Show Window: Generator Parameters" };
-  MapGenUIwindow w_image = { true, "Generated Map Tile", "Show Window: Generated Map Tile" };
-  MapGenUIwindow w_imgui = { false, "ImGui Demo", "Show Window: ImGui Demo" };
+  std::list<MapGenWindow*> UserInterfaceWindows; 
 
   void MainMenu()
   {
@@ -81,7 +72,7 @@ private:
       if ( ImGui::BeginMenu( "System:" ) )
       {
         ImGui::MenuItem( "New map...", "CTRL+N", false, false );// Disabled item
-        ImGui::MenuItem( "Quit", "ALT+F4", &is_program_terminated );
+        ImGui::MenuItem( "Quit", "ALT+F4", &isProgramTerminated );
         ImGui::EndMenu();
       }
       if ( ImGui::BeginMenu( "Editing:" ) )
@@ -92,11 +83,12 @@ private:
       }
       if ( ImGui::BeginMenu( "View:" ) )
       {
-        ImGui::MenuItem( w_board.menutitle, NULL, &w_board.show, &w_board.show );
-        ImGui::MenuItem( w_cagen.menutitle, NULL, &w_cagen.show, &w_cagen.show );
-        ImGui::MenuItem( w_image.menutitle, NULL, &w_image.show, &w_image.show );
+        for ( MapGenWindow *w : UserInterfaceWindows )
+        {
+          ImGui::MenuItem( w->menutitle, NULL, &w->isVisible, &w->isVisible );
+        } 
         ImGui::Separator();
-        ImGui::MenuItem( w_imgui.menutitle, NULL, &w_imgui.show, &w_imgui.show );
+        ImGui::MenuItem( "ImGui Demo Window", NULL, &isImguiDemoVisible, &isImguiDemoVisible );
         ImGui::EndMenu();
       }
       if ( ImGui::BeginMenu( "About:" ) )
@@ -108,115 +100,5 @@ private:
       ImGui::EndMainMenuBar();
     }
   }
-  void WindowBoardControls( int x, int y )
-  {
-    if ( w_board.show )
-    {
-      ImGui::SetNextWindowPos( ImVec2( float( x ), float( y ) ), ImGuiCond_FirstUseEver );
-      if ( ImGui::Begin( w_board.title, &w_board.show, ImGuiWindowFlags_NoCollapse ) )
-      {
-        {
-          ImGui::Text( build_str );
-          ImGui::Text( "%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate );
-        }
-        ImGui::Separator();
-        {
-          ImGui::Text( "Display options: " );
-          ImGui::ColorEdit3( "Background clear color", (float*)&clear_color );
-          ImGui::SliderFloat( "Board zoom/scale", &BoardAutomaton::ui_imageScale, 2.f, 20.f );
-        }
-        ImGui::Separator();
-        {
-          ImGui::Text( "Board parameters:" );
-          ImGui::SliderInt2( "width, height", BoardAutomaton::ui_boardSize, 16, 256 );
-          ImGui::SliderInt( "simulation step count", &BoardAutomaton::ui_stepCount, 10, 200 );
-          if ( ImGui::Button( "RECONSTUCT BOARD" ) ) { BoardAutomaton::Reset(); }
-        }
-        ImGui::Separator();
-        {
-          ImGui::Text( "Board initializers:" );
-          if ( ImGui::Button( "init : random    " ) ) { BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_RANDOM ); }
-          if ( ImGui::Button( "init : chessboard" ) ) { BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_CHESS ); }
-          if ( ImGui::Button( "init : modxyboard" ) ) { BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_XYMOD ); }
-          if ( ImGui::Button( "init : glidertest" ) ) { BoardAutomaton::State()->RegenerateStepsFrom( TEST_GLIDER ); }
-
-          ImGui::TextWrapped( "Note: these functions generate all board states at once. Calling them may take some time to finish, depending on board size and step count." );
-        }
-        ImGui::Separator();
-        {
-          ImGui::Text( "Cell Types:" );
-          // TODO: stats of cell types in board. needs better cell implementation
-          // for each celltype
-          std::string cellStats; // + type name + count cells, etc
-
-          ImGui::Text( "CELLTYPE1 : %% on board " );  
-          ImGui::Text( "CELLTYPE2 : %% on board " );  
-          ImGui::Text( "CELLTYPE3 : %% on board " );  
-        }
-        ImGui::Separator();
-        {
-          ImGui::Text( "Other options: " );
-          // TODO : (future work) enable/disable pixel editing with mouse
-          ImGui::Text( "..." );
-        }
-        ImGui::Separator();
-        ImGui::End();
-      }
-    }
-  }
-  void WindowMapTileImage( int x, int y )
-  {
-    if ( w_image.show )
-    {
-      ImGui::SetNextWindowPos( ImVec2( float( x ), float( y ) ), ImGuiCond_FirstUseEver );
-      if ( ImGui::Begin( w_image.title, &w_image.show, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize ) )
-      {
-        ImGui::Image(
-          BoardAutomaton::State()->DrawSelectedBoard(),
-          ImVec2( BoardAutomaton::State()->DrawSizeX(), BoardAutomaton::State()->DrawSizeY() )
-        );
-        ImGui::Separator();
-        {
-          if ( ImGui::SliderInt( "CA Step", &BoardAutomaton::ui_stepSelected, 0, BoardAutomaton::State()->StepLast() ) ) {}
-        }
-        ImGui::Separator();
-        {
-          if ( ImGui::Button( "    0     " ) ) { BoardAutomaton::State()->StepJumpZero(); } ImGui::SameLine();
-          if ( ImGui::Button( "<<< 5 STEP" ) ) { BoardAutomaton::State()->StepJump( -5 ); } ImGui::SameLine();
-          if ( ImGui::Button( "<<< 1 STEP" ) ) { BoardAutomaton::State()->StepJump( -1 ); } ImGui::SameLine();
-          if ( ImGui::Button( "1 STEP >>>" ) ) { BoardAutomaton::State()->StepJump( 1 ); }  ImGui::SameLine();
-          if ( ImGui::Button( "5 STEP >>>" ) ) { BoardAutomaton::State()->StepJump( 5 ); }  ImGui::SameLine();
-          if ( ImGui::Button( "   END    " ) ) { BoardAutomaton::State()->StepJumpLast(); }
-        }
-        ImGui::End();
-      }
-    }
-  }
-  void WindowGenerationControls( int x, int y )
-  {
-    if ( w_cagen.show )
-    {
-      ImGui::SetNextWindowPos( ImVec2( x, y ), ImGuiCond_FirstUseEver );
-      if ( ImGui::Begin( w_cagen.title, &w_cagen.show, ImGuiWindowFlags_NoCollapse ) )
-      {
-        {
-          ImGui::Text( "Rulesets:" );
-          if ( ImGui::Button( "Ruleset 1: Game of Life  " ) ) { BoardAutomaton::State()->Ruleset( 0 ); }
-          if ( ImGui::Button( "Ruleset 2: Map Generator " ) ) { BoardAutomaton::State()->Ruleset( 1 ); }
-          if ( ImGui::Button( "Ruleset 3: <  ... ...  > " ) ) { BoardAutomaton::State()->Ruleset( 2 ); }
-        }
-        ImGui::Separator();
-
-        {
-          ImGui::Text( "Rules:" );
-          ImGui::Text( "R1 : neighbors : condition : new cell" );
-          ImGui::Text( "R2 : neighbors : condition : new cell" );
-          ImGui::Text( "R3 : neighbors : condition : new cell" );
-        }
-        ImGui::Separator();
-        ImGui::End();
-      }
-    }
-  } 
 };
 

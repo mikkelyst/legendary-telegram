@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "BoardTexture.h"
+#include "SimpleTexture.h"
 
 enum CELL_t
 {
@@ -45,7 +45,7 @@ public:
   {
     cells.assign( ( cellsX*cellsY ), with );
   }
-  void DrawCellsToImage( BoardTexture2D *image )
+  void DrawCellsToImage( SimpleTexture2D *image )
   {
     //  update board tex with current cellgrid 
     for ( unsigned int x = 0; x < cellsX; x++ )

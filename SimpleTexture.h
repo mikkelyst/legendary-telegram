@@ -1,6 +1,5 @@
 #pragma once  
-#include <vector> 
-
+#include <vector>  
 #include <GLFW\glfw3.h>
 
 struct Color_RGB_3GLf
@@ -16,7 +15,7 @@ const Color_RGB_3GLf color_RED = { 1.0f, 0.0f, 0.0f };
 const Color_RGB_3GLf color_GREEN = { 0.0f, 1.0f, 0.0f };
 const Color_RGB_3GLf color_BLUE = { 0.0f, 0.0f, 1.0f };
 
-class BoardTexture2D
+class SimpleTexture2D
 {
 private:
   GLuint texID;
@@ -26,7 +25,7 @@ private:
 
 public:
   
-  BoardTexture2D( unsigned int x = 64, unsigned int y = 64 )
+  SimpleTexture2D( unsigned int x, unsigned int y )
   {
     texelCountX = x;
     texelCountY = y;
@@ -40,7 +39,7 @@ public:
     glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, texelCountX, texelCountY, 0, GL_RGB, GL_FLOAT, texelsRGBA.data() );
     glGenerateMipmap( GL_TEXTURE_2D ); 
   }
-  ~BoardTexture2D()
+  ~SimpleTexture2D()
   {
     glDeleteTextures( 1, &texID );
   }

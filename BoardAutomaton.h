@@ -5,7 +5,7 @@
 
 #include "AutomatonRules.h"
 #include "Board.h"
-#include "BoardTexture.h"
+#include "SimpleTexture.h"
 
 enum BoardInit_t
 {
@@ -45,7 +45,7 @@ public:
   }
   int StepJump( unsigned int offset )
   {
-    int stepUpdated = ui_stepSelected + offset;
+    unsigned int stepUpdated = ui_stepSelected + offset;
     if ( 0 < stepUpdated && stepUpdated < StepLast() )
     {
       ui_stepSelected = stepUpdated;
@@ -86,7 +86,7 @@ public:
 
   void* DrawSelectedBoard()
   {
-    if ( ui_stepSelected < generations.size() ) generations.at( ui_stepSelected ).DrawCellsToImage( boardImage );
+    if ( unsigned( ui_stepSelected ) < generations.size() ) generations.at( ui_stepSelected ).DrawCellsToImage( boardImage );
     return reinterpret_cast<void*>( boardImage->Render() );
   }
   float DrawSizeX()
@@ -101,12 +101,12 @@ public:
 private:
   static BoardAutomaton *single_instance;
   AutomatonRules *currentRuleset;
-  BoardTexture2D *boardImage;
+  SimpleTexture2D *boardImage;
   std::vector<Board> generations;
 
   BoardAutomaton()
   {
-    boardImage = new BoardTexture2D( ui_boardSize[0], ui_boardSize[1] );
+    boardImage = new SimpleTexture2D( ui_boardSize[0], ui_boardSize[1] );
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
     currentRuleset = new AutomatonRules_MapGen();
   }
@@ -175,7 +175,7 @@ private:
     {
       for ( unsigned int y = 0; y < CellCountY(); y++ )
       {
-        if ( ( ( x * 3 ) % ( y + 1 ) ) % 2 )
+        if ( ( ( x * 17 ) % ( 1 + y * 8 ) ) % 3 )
           generations.at( 0 ).SetCellAt( x, y, CELL_WALL );
         else
           generations.at( 0 ).SetCellAt( x, y, CELL_FLOOR );
