@@ -80,12 +80,6 @@
     <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BoardAutomaton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AutomatonRules.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MapGenWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,6 +93,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowGeneratorControls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ruleset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Automaton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

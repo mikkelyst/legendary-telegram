@@ -15,9 +15,8 @@ public:
   {
     {
       ImGui::Text( "Rulesets:" );
-      if ( ImGui::Button( "Ruleset 1: Game of Life  " ) ) { BoardAutomaton::State()->Ruleset( 0 ); }
-      if ( ImGui::Button( "Ruleset 2: Map Generator " ) ) { BoardAutomaton::State()->Ruleset( 1 ); }
-      if ( ImGui::Button( "Ruleset 3: <  ... ...  > " ) ) { BoardAutomaton::State()->Ruleset( 2 ); }
+      if ( ImGui::Button( "Ruleset 1: Game of Life  " ) ) { Automaton::State()->ChangeRuleset( 0 ); }
+      if ( ImGui::Button( "Ruleset 2: Map Generator " ) ) { Automaton::State()->ChangeRuleset( 1 ); } 
     }
     ImGui::Separator(); 
     {

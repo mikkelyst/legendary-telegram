@@ -3,6 +3,7 @@
 #include <list>
 #include <GLFW\glfw3.h>
 
+#include "Automaton.h"
 #include "MapGenWindow.h"
 
 class MapGenUI
@@ -15,11 +16,12 @@ public:
     ImGui::CreateContext();
     ImGui_ImplGlfwGL3_Init( system_window, true );
     ImGui::StyleColorsDark();
-    // Initialize automaton with default data 
-    BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_RANDOM );
+    // Setup ui elements
     UserInterfaceWindows.push_back( new WindowBoardControls( 10.f, 10.f, &clear_color ) );
     UserInterfaceWindows.push_back( new WindowGeneratorControls( 20.f, 200.f ) );
-    UserInterfaceWindows.push_back( new WindowBoardImage( 300.f, 150.f ) );
+    UserInterfaceWindows.push_back( new WindowBoardImage( 300.f, 150.f ) ); 
+    // Initialize automaton with default data 
+    Automaton::State()->RegenerateStepsFrom( CLEAR_RANDOM );
   }
   ~MapGenUI()
   { 
@@ -27,8 +29,7 @@ public:
     UserInterfaceWindows.clear();
     ImGui_ImplGlfwGL3_Shutdown();
     ImGui::DestroyContext();
-  }
-
+  } 
   void Update()
   {
     ImGui_ImplGlfwGL3_NewFrame();

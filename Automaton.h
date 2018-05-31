@@ -3,7 +3,7 @@
 #include <random> 
 #include <chrono> // systime as random seed
 
-#include "AutomatonRules.h"
+#include "Ruleset.h"
 #include "Board.h"
 #include "SimpleTexture.h"
 
@@ -15,25 +15,25 @@ enum BoardInit_t
   TEST_GLIDER
 };
 
-class BoardAutomaton
+class Automaton
 {
 public:
   static int ui_boardSize[2];
   static int ui_stepCount;
   static int ui_stepSelected;
   static float ui_imageScale; 
-  static BoardAutomaton* State()
+  static Automaton* State()
   {
     if ( !single_instance )
-      single_instance = new BoardAutomaton();
+      single_instance = new Automaton();
     return single_instance;
   }
-  static BoardAutomaton* Reset()
+  static Automaton* Reset()
   {
     delete single_instance;
-    return single_instance = new BoardAutomaton();
+    return single_instance = new Automaton();
   }
-  ~BoardAutomaton()
+  ~Automaton()
   {
     delete boardImage;
     delete currentRuleset;
@@ -73,13 +73,13 @@ public:
     }
     GenerateSteps();
   }
-  void  Ruleset( int ruleset )
+  void  ChangeRuleset( int ruleset )
   {
     delete currentRuleset;
     switch ( ruleset )
     {
-    case 1:  currentRuleset = new AutomatonRules_MapGen();    break;
-    default: currentRuleset = new AutomatonRules_GameOfLife(); break;
+    case 1:  currentRuleset = new Rules_MapGen();    break;
+    default: currentRuleset = new Rules_GameOfLife(); break;
     }
     GenerateSteps();
   }
@@ -99,16 +99,16 @@ public:
   } 
 
 private:
-  static BoardAutomaton *single_instance;
-  AutomatonRules *currentRuleset;
+  static Automaton *single_instance;
+  Ruleset *currentRuleset;
   SimpleTexture2D *boardImage;
   std::vector<Board> generations;
 
-  BoardAutomaton()
+  Automaton()
   {
     boardImage = new SimpleTexture2D( ui_boardSize[0], ui_boardSize[1] );
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
-    currentRuleset = new AutomatonRules_MapGen();
+    currentRuleset = new Rules_MapGen();
   }
 
   unsigned int CellCountX()
@@ -134,7 +134,7 @@ private:
   {
     BoardClear();
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::mt19937 generator( seed );
+    std::mt19937 randomizer( seed );
     std::uniform_int_distribution<int> distribution( 1, 100 );
     distribution.reset();
     CELL_t c = CELL_OTHER;
@@ -142,7 +142,7 @@ private:
     {
       for ( unsigned int y = 0; y < CellCountY(); y++ )
       {
-        switch ( distribution( generator ) % 2 )
+        switch ( distribution( randomizer ) % 2 )
         {
         case 0: c = CELL_WALL; break;
         case 1: c = CELL_FLOOR; break;
@@ -208,8 +208,8 @@ private:
 
 };
 
-int BoardAutomaton::ui_boardSize[2] = { 128, 128 };
-int BoardAutomaton::ui_stepCount = 10;
-int BoardAutomaton::ui_stepSelected = 0;
-float BoardAutomaton::ui_imageScale = 4.0f;
-BoardAutomaton* BoardAutomaton::single_instance = 0;
+int Automaton::ui_boardSize[2] = { 128, 128 };
+int Automaton::ui_stepCount = 10;
+int Automaton::ui_stepSelected = 0;
+float Automaton::ui_imageScale = 4.0f;
+Automaton* Automaton::single_instance = 0;

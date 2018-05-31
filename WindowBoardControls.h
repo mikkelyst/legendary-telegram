@@ -25,22 +25,22 @@ public:
     {
       ImGui::Text( "Display options: " );
       ImGui::ColorEdit3( "Background clear color", reinterpret_cast<float*>( ccPtr ) );
-      ImGui::SliderFloat( "Board zoom/scale", &BoardAutomaton::ui_imageScale, 2.f, 20.f );
+      ImGui::SliderFloat( "Board zoom/scale", &Automaton::ui_imageScale, 2.f, 20.f );
     }
     ImGui::Separator();
     {
       ImGui::Text( "Board parameters:" );
-      ImGui::SliderInt2( "width, height", BoardAutomaton::ui_boardSize, 16, 256 );
-      ImGui::SliderInt( "simulation step count", &BoardAutomaton::ui_stepCount, 10, 200 );
-      if ( ImGui::Button( "RECONSTUCT BOARD" ) ) { BoardAutomaton::Reset(); }
+      ImGui::SliderInt2( "width, height", Automaton::ui_boardSize, 16, 256 );
+      ImGui::SliderInt( "simulation step count", &Automaton::ui_stepCount, 10, 200 );
+      if ( ImGui::Button( "RECONSTUCT BOARD" ) ) { Automaton::Reset(); }
     }
     ImGui::Separator();
     {
       ImGui::Text( "Board initializers:" );
-      if ( ImGui::Button( "init : random    " ) ) { BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_RANDOM ); }
-      if ( ImGui::Button( "init : chessboard" ) ) { BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_CHESS ); }
-      if ( ImGui::Button( "init : modxyboard" ) ) { BoardAutomaton::State()->RegenerateStepsFrom( CLEAR_XYMOD ); }
-      if ( ImGui::Button( "init : glidertest" ) ) { BoardAutomaton::State()->RegenerateStepsFrom( TEST_GLIDER ); }
+      if ( ImGui::Button( "init : random    " ) ) { Automaton::State()->RegenerateStepsFrom( CLEAR_RANDOM ); }
+      if ( ImGui::Button( "init : chessboard" ) ) { Automaton::State()->RegenerateStepsFrom( CLEAR_CHESS ); }
+      if ( ImGui::Button( "init : modxyboard" ) ) { Automaton::State()->RegenerateStepsFrom( CLEAR_XYMOD ); }
+      if ( ImGui::Button( "init : glidertest" ) ) { Automaton::State()->RegenerateStepsFrom( TEST_GLIDER ); }
 
       ImGui::TextWrapped( "Note: these functions generate all board states at once. Calling them may take some time to finish, depending on board size and step count." );
     }
