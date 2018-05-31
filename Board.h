@@ -3,19 +3,19 @@
 #include <vector>
 #include "BoardTexture.h"
 
-enum CELL
+enum CELL_t
 {
   // we may need to make a class Cell{} perhaps, but for now, just enum
   CELL_FLOOR = 0,
   CELL_WALL = 1,
   CELL_OTHER = 2
-  
+
 };
 
 class Board
 {
 private:
-  std::vector<CELL> cells;
+  std::vector<CELL_t> cells;
 public:
   unsigned int cellsX;
   unsigned int cellsY;
@@ -32,16 +32,16 @@ public:
     cells = other->cells; // copy cells from other board
   }
   ~Board() = default;
-  CELL CellAt( unsigned int x, unsigned int y )
+  CELL_t CellAt( unsigned int x, unsigned int y )
   {
-    return cells.at( cellsX * (y%cellsY) + (x%cellsX) );
+    return cells.at( cellsX * ( y%cellsY ) + ( x%cellsX ) );
   }
-  void SetCellAt( unsigned int x, unsigned int y, CELL newState )
+  void SetCellAt( unsigned int x, unsigned int y, CELL_t newState )
   {
     cells.at( cellsX * ( y%cellsY ) + ( x%cellsX ) ) = newState;
     return;
   }
-  void Clear( CELL with )
+  void Clear( CELL_t with )
   {
     cells.assign( ( cellsX*cellsY ), with );
   }
@@ -66,6 +66,61 @@ public:
     }
   }
 
-  // NeighborsOf(x,y){ return neighbors; }
+  unsigned int Neighbors4_Sum( unsigned int x, unsigned int y )
+  { 
+    unsigned int sum = 0;
+    //sum += CellAt( x - 1, y - 1 );
+    sum += CellAt( x - 1, y + 0 );
+    //sum += CellAt( x - 1, y + 1 );
+    sum += CellAt( x + 0, y - 1 );
+    //sum += CellAt( x + 0, y + 0 );
+    sum += CellAt( x + 0, y + 1 );
+    //sum += CellAt( x + 1, y - 1 );
+    sum += CellAt( x + 1, y + 0 );
+    //sum += CellAt( x + 1, y + 1 );
+    return sum;
+  }
+  unsigned int Neighbors5_Sum( unsigned int x, unsigned int y )
+  { 
+    unsigned int sum = 0;
+    //sum += CellAt( x - 1, y - 1 );
+    sum += CellAt( x - 1, y + 0 );
+    //sum += CellAt( x - 1, y + 1 );
+    sum += CellAt( x + 0, y - 1 );
+    sum += CellAt( x + 0, y + 0 );
+    sum += CellAt( x + 0, y + 1 );
+    //sum += CellAt( x + 1, y - 1 );
+    sum += CellAt( x + 1, y + 0 );
+    //sum += CellAt( x + 1, y + 1 );
+    return sum;
+  }
+  unsigned int Neighbors8_Sum( unsigned int x, unsigned int y )
+  { 
+    unsigned int sum = 0;
+    sum += CellAt( x - 1, y - 1 );
+    sum += CellAt( x - 1, y + 0 );
+    sum += CellAt( x - 1, y + 1 );
+    sum += CellAt( x + 0, y - 1 );
+    //sum += CellAt( x + 0, y + 0 );
+    sum += CellAt( x + 0, y + 1 );
+    sum += CellAt( x + 1, y - 1 );
+    sum += CellAt( x + 1, y + 0 );
+    sum += CellAt( x + 1, y + 1 );
+    return sum;
+  }
+  unsigned int Neighbors9_Sum( unsigned int x, unsigned int y )
+  { 
+    unsigned int sum = 0;
+    sum += CellAt( x - 1, y - 1 );
+    sum += CellAt( x - 1, y + 0 );
+    sum += CellAt( x - 1, y + 1 );
+    sum += CellAt( x + 0, y - 1 );
+    sum += CellAt( x + 0, y + 0 );
+    sum += CellAt( x + 0, y + 1 );
+    sum += CellAt( x + 1, y - 1 );
+    sum += CellAt( x + 1, y + 0 );
+    sum += CellAt( x + 1, y + 1 );
+    return sum;
+  }
 };
 

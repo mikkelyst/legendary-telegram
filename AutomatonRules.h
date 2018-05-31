@@ -17,20 +17,7 @@ public:
     {
       for ( unsigned int y = 0; y < before->cellsY; y++ )
       {
-        // Check neighbors
-        int sum = 0;
-        sum += before->CellAt( x - 1, y - 1 );
-        sum += before->CellAt( x - 1, y + 0 );
-        sum += before->CellAt( x - 1, y + 1 );
-        sum += before->CellAt( x + 0, y - 1 );
-        //sum += before->CellAt( x + 0, y + 0 );
-        sum += before->CellAt( x + 0, y + 1 );
-        sum += before->CellAt( x + 1, y - 1 );
-        sum += before->CellAt( x + 1, y + 0 );
-        sum += before->CellAt( x + 1, y + 1 );
-
-        // Apply rules
-        switch ( sum )
+        switch ( before->Neighbors8_Sum( x, y ) )
         {
         case 2:  after->SetCellAt( x, y, before->CellAt( x, y ) ); break;
         case 3:  after->SetCellAt( x, y, CELL_WALL );              break;
@@ -50,19 +37,8 @@ public:
     for ( unsigned int x = 0; x < before->cellsX; x++ )
     {
       for ( unsigned int y = 0; y < before->cellsY; y++ )
-      {
-        // Check neighbors
-        int sum = 0;
-        sum += before->CellAt( x - 1, y - 1 );
-        sum += before->CellAt( x - 1, y + 0 );
-        sum += before->CellAt( x - 1, y + 1 );
-        sum += before->CellAt( x + 0, y - 1 );
-        //sum += before->CellAt( x + 0, y + 0 );
-        sum += before->CellAt( x + 0, y + 1 );
-        sum += before->CellAt( x + 1, y - 1 );
-        sum += before->CellAt( x + 1, y + 0 );
-        sum += before->CellAt( x + 1, y + 1 );
-
+      { 
+        unsigned int sum = before->Neighbors8_Sum( x, y );  
         if ( sum < 5 ) after->SetCellAt( x, y, CELL_WALL );
         if ( sum > 5 ) after->SetCellAt( x, y, CELL_FLOOR );
       }

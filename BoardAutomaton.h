@@ -7,7 +7,7 @@
 #include "Board.h"
 #include "BoardTexture.h"
 
-enum BoardClearType
+enum BoardInit_t
 {
   CLEAR_RANDOM,
   CLEAR_CHESS,
@@ -21,22 +21,23 @@ public:
   static int ui_boardSize[2];
   static int ui_stepCount;
   static int ui_stepSelected;
-  static float ui_imageScale;
-
-  BoardAutomaton( unsigned int x = 16, unsigned int y = 16, unsigned int genCount = 10 )
+  static float ui_imageScale; 
+  static BoardAutomaton* State()
   {
-    ui_boardSize[0] = x;
-    ui_boardSize[1] = y;
-    ui_stepCount = genCount;
-    boardImage = new BoardTexture2D( x, y );
-    generations.assign( ui_stepCount, Board( x, y ) );
-    currentRuleset = new AutomatonRules_MapGen();
+    if ( !single_instance )
+      single_instance = new BoardAutomaton();
+    return single_instance;
+  }
+  static BoardAutomaton* Reset()
+  {
+    delete single_instance;
+    return single_instance = new BoardAutomaton();
   }
   ~BoardAutomaton()
   {
     delete boardImage;
     delete currentRuleset;
-  }
+  } 
 
   unsigned int StepLast()
   {
@@ -59,10 +60,9 @@ public:
   int StepJumpLast()
   {
     return ui_stepSelected = StepLast();
-  }
+  } 
 
-
-  void  RegenerateWith( BoardClearType initialBoard )
+  void  RegenerateStepsFrom( BoardInit_t initialBoard )
   {
     switch ( initialBoard )
     {
@@ -73,7 +73,7 @@ public:
     }
     GenerateSteps();
   }
-  void  SwitchRuleset( int ruleset )
+  void  Ruleset( int ruleset )
   {
     delete currentRuleset;
     switch ( ruleset )
@@ -96,14 +96,20 @@ public:
   float DrawSizeY()
   {
     return ui_imageScale * CellCountY();
-  }
-
-
+  } 
 
 private:
+  static BoardAutomaton *single_instance;
   AutomatonRules *currentRuleset;
   BoardTexture2D *boardImage;
   std::vector<Board> generations;
+
+  BoardAutomaton()
+  {
+    boardImage = new BoardTexture2D( ui_boardSize[0], ui_boardSize[1] );
+    generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
+    currentRuleset = new AutomatonRules_MapGen();
+  }
 
   unsigned int CellCountX()
   {
@@ -118,7 +124,7 @@ private:
   {
     BoardClear( CELL_FLOOR );
   }
-  void BoardClear( CELL state )
+  void BoardClear( CELL_t state )
   {
     generations.clear();
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
@@ -131,7 +137,7 @@ private:
     std::mt19937 generator( seed );
     std::uniform_int_distribution<int> distribution( 1, 100 );
     distribution.reset();
-    CELL c = CELL_OTHER;
+    CELL_t c = CELL_OTHER;
     for ( unsigned int x = 0; x < CellCountX(); x++ )
     {
       for ( unsigned int y = 0; y < CellCountY(); y++ )
@@ -206,3 +212,4 @@ int BoardAutomaton::ui_boardSize[2] = { 128, 128 };
 int BoardAutomaton::ui_stepCount = 10;
 int BoardAutomaton::ui_stepSelected = 0;
 float BoardAutomaton::ui_imageScale = 4.0f;
+BoardAutomaton* BoardAutomaton::single_instance = 0;
