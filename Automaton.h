@@ -100,7 +100,7 @@ public:
 
 private:
   static Automaton *single_instance;
-  Ruleset *currentRuleset;
+  Rules *currentRuleset;
   SimpleTexture2D *boardImage;
   std::vector<Board> generations;
 
@@ -203,7 +203,7 @@ private:
     for ( unsigned int step = 1; step < generations.size(); step++ )
     {
       currentRuleset->Evolve( &generations.at( step - 1 ), &generations.at( step ) );
-    }
+    } 
   }
 
 };

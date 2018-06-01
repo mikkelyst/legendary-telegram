@@ -2,13 +2,14 @@
 
 #include "Board.h"
 
-class Ruleset
+class Rules
 {
 public:
   virtual void Evolve( Board * before, Board * after ) = 0;
+  
 };
 
-class Rules_GameOfLife : public Ruleset
+class Rules_GameOfLife : public Rules
 {
 public:
   void Evolve( Board *before, Board *after )
@@ -29,7 +30,7 @@ public:
   }
 };
 
-class Rules_MapGen : public Ruleset
+class Rules_MapGen : public Rules
 {
 public:
   void Evolve( Board *before, Board *after )
