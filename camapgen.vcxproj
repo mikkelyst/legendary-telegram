@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="SimpleTexture.h" />
     <ClInclude Include="Automaton.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -133,9 +134,10 @@
     <ClInclude Include="imgui\stb_rect_pack.h" />
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
-    <ClInclude Include="MapGenUI.h" />
+    <ClInclude Include="UserInterface_MapGenerator.h" />
     <ClInclude Include="Ruleset.h" />
-    <ClInclude Include="MapGenWindow.h" />
+    <ClInclude Include="WindowMapTileGrid.h" />
+    <ClInclude Include="Window_Base.h" />
     <ClInclude Include="WindowBoardControls.h" />
     <ClInclude Include="WindowBoardImage.h" />
     <ClInclude Include="WindowGeneratorControls.h" />

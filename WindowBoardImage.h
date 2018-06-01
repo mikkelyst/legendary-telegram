@@ -1,6 +1,6 @@
 #pragma once
-#include "MapGenWindow.h"
-class WindowBoardImage : public MapGenWindow
+#include "Window_Base.h"
+class WindowBoardImage : public Window_Base
 {
 public: 
   WindowBoardImage( float initialPositionX, float initialPositionY )
@@ -14,7 +14,7 @@ public:
   void WindowElements()
   {
     ImGui::Image(
-      Automaton::State()->DrawSelectedBoard(),
+      Automaton::State()->CurrentBoardImage(),
       ImVec2( Automaton::State()->DrawSizeX(), Automaton::State()->DrawSizeY() )
     );
     ImGui::Separator();

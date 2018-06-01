@@ -6,14 +6,14 @@
 #include "Automaton.h"
 #include "SimpleTexture.h"
 
-class MapGenWindow
+class Window_Base
 {
 public:
   bool isVisible = true; 
   char* menutitle = "<...>";
 
-  MapGenWindow() {}
-  ~MapGenWindow() = default;
+  Window_Base() {}
+  ~Window_Base() = default;
   void Update()
   {
     if ( isVisible )
@@ -37,3 +37,4 @@ protected:
 #include "WindowBoardControls.h"
 #include "WindowBoardImage.h"
 #include "WindowGeneratorControls.h"
+#include "WindowMapTileGrid.h"

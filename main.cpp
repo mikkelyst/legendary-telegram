@@ -3,7 +3,7 @@
 #include <GL\gl3w.h>   
 #include <GLFW\glfw3.h> 
 
-#include "MapGenUI.h" 
+#include "UserInterface_MapGenerator.h" 
 
 GLFWwindow* window;
 
@@ -38,7 +38,7 @@ int main (int, char**)
   if ( !glfwSetupWindow (800, 600, "Cellular Automata Map Generator 152017") ) return 1;
   else
   {
-    MapGenUI missionControls = MapGenUI (window);
+    UserInterface_MapGenerator missionControls = UserInterface_MapGenerator (window);
     while ( !glfwWindowShouldClose (window) ) // Main loop
     {
       glfwPollEvents ();

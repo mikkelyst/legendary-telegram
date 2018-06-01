@@ -74,13 +74,7 @@
     <ClInclude Include="imgui\stb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MapGenUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapGenWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SimpleTexture.h">
@@ -99,6 +93,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Automaton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window_Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface_MapGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowMapTileGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

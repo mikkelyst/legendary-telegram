@@ -21,7 +21,7 @@ public:
   static int ui_boardSize[2];
   static int ui_stepCount;
   static int ui_stepSelected;
-  static float ui_imageScale; 
+  static float ui_imageScale;
   static Automaton* State()
   {
     if ( !single_instance )
@@ -34,10 +34,9 @@ public:
     return single_instance = new Automaton();
   }
   ~Automaton()
-  {
-    delete boardImage;
+  { 
     delete currentRuleset;
-  } 
+  }
 
   unsigned int StepLast()
   {
@@ -60,13 +59,13 @@ public:
   int StepJumpLast()
   {
     return ui_stepSelected = StepLast();
-  } 
+  }
 
   void  RegenerateStepsFrom( BoardInit_t initialBoard )
   {
     switch ( initialBoard )
     {
-    case CLEAR_RANDOM:        InitGenAllRandom(); break; 
+    case CLEAR_RANDOM:  InitGenAllRandom();  break;
     case CLEAR_CHESS:   InitGenClearChess(); break;
     case CLEAR_XYMOD:   InitGenClearXYMOD(); break;
     case TEST_GLIDER:   InitGenTestGlider(); break;
@@ -84,10 +83,13 @@ public:
     GenerateSteps();
   }
 
-  void* DrawSelectedBoard()
+  void* CurrentBoardImage()
   {
-    if ( unsigned( ui_stepSelected ) < generations.size() ) generations.at( ui_stepSelected ).DrawCellsToImage( boardImage );
-    return reinterpret_cast<void*>( boardImage->Render() );
+    if ( unsigned( ui_stepSelected ) < generations.size() )
+    {
+      generations.at( ui_stepSelected ).DrawCellsToImage( SimpleTexture2D::Texture() );
+    } 
+    return SimpleTexture2D::Texture()->Render();
   }
   float DrawSizeX()
   {
@@ -96,17 +98,16 @@ public:
   float DrawSizeY()
   {
     return ui_imageScale * CellCountY();
-  } 
+  }
 
 private:
   static Automaton *single_instance;
-  Rules *currentRuleset;
-  SimpleTexture2D *boardImage;
-  std::vector<Board> generations;
+  Rules *currentRuleset; 
+  std::vector<Board> generations; 
 
   Automaton()
   {
-    boardImage = new SimpleTexture2D( ui_boardSize[0], ui_boardSize[1] );
+    SimpleTexture2D::Resize( ui_boardSize[0], ui_boardSize[1] );
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
     currentRuleset = new Rules_MapGen();
   }
@@ -129,11 +130,11 @@ private:
     generations.clear();
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
   }
-  
+
   void InitGenAllRandom()
   {
     BoardClear();
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    unsigned seed = unsigned( std::chrono::system_clock::now().time_since_epoch().count() );
     std::mt19937 randomizer( seed );
     std::uniform_int_distribution<int> distribution( 1, 100 );
     distribution.reset();

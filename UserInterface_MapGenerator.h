@@ -4,12 +4,12 @@
 #include <GLFW\glfw3.h>
 
 #include "Automaton.h"
-#include "MapGenWindow.h"
+#include "Window_Base.h"
 
-class MapGenUI
+class UserInterface_MapGenerator
 {
 public:
-  MapGenUI( GLFWwindow* window )
+  UserInterface_MapGenerator( GLFWwindow* window )
   {
     glfwFocusWindow( system_window = window );
     // Setup ImGui binding
@@ -20,10 +20,11 @@ public:
     UserInterfaceWindows.push_back( new WindowBoardControls( 10.f, 10.f, &clear_color ) );
     UserInterfaceWindows.push_back( new WindowGeneratorControls( 20.f, 200.f ) );
     UserInterfaceWindows.push_back( new WindowBoardImage( 300.f, 150.f ) ); 
+    UserInterfaceWindows.push_back( new WindowMapTileGrid( 500.f, 200.f ) );
     // Initialize automaton with default data 
     Automaton::State()->RegenerateStepsFrom( CLEAR_RANDOM );
   }
-  ~MapGenUI()
+  ~UserInterface_MapGenerator()
   { 
     // Cleanup 
     UserInterfaceWindows.clear();
@@ -36,7 +37,7 @@ public:
     {
       // UI updates: 
       MainMenu(); 
-      for ( MapGenWindow *w : UserInterfaceWindows ) w->Update();
+      for ( Window_Base *w : UserInterfaceWindows ) w->Update();
       if ( isImguiDemoVisible ) 
       { 
         ImGui::SetNextWindowPos( ImVec2( 10, 150 ), ImGuiCond_FirstUseEver );
@@ -64,7 +65,7 @@ private:
   GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4( 0.45f, 0.55f, 0.60f, 1.00f );
 
-  std::list<MapGenWindow*> UserInterfaceWindows; 
+  std::list<Window_Base*> UserInterfaceWindows; 
 
   void MainMenu()
   {
@@ -84,7 +85,7 @@ private:
       }
       if ( ImGui::BeginMenu( "View:" ) )
       {
-        for ( MapGenWindow *w : UserInterfaceWindows )
+        for ( Window_Base *w : UserInterfaceWindows )
         {
           ImGui::MenuItem( w->menutitle, NULL, &w->isVisible, &w->isVisible );
         } 

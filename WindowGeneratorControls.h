@@ -1,6 +1,6 @@
 #pragma once
-#include "MapGenWindow.h"
-class WindowGeneratorControls : public MapGenWindow
+#include "Window_Base.h"
+class WindowGeneratorControls : public Window_Base
 {
 public:  
   WindowGeneratorControls( float initialPositionX, float initialPositionY )

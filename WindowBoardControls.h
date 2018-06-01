@@ -1,6 +1,6 @@
 #pragma once
-#include "MapGenWindow.h"
-class WindowBoardControls : public MapGenWindow
+#include "Window_Base.h"
+class WindowBoardControls : public Window_Base
 {
 public:
 
