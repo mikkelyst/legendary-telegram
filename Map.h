@@ -6,6 +6,7 @@
 class Map
 {
 private:
+  static Board* map;
   std::vector<Board> mapTiles;
   unsigned mapIdx( unsigned x, unsigned y )
   {
@@ -23,14 +24,14 @@ public:
   {
     mapSide = ( 2 * mapN + 1 );
     mapArea = mapSide*mapSide;
-    for ( unsigned i = 1; i <= mapArea; i++ ) SimpleTexture2D::Texture(i)->Resize( boardsizeX, boardsizeY );
+    for ( unsigned i = 1; i <= mapArea; i++ ) SimpleTexture2D::Texture( i )->Resize( boardsizeX, boardsizeY );
     mapTiles.assign( mapArea, Board( boardsizeX, boardsizeY ) );
   }
   ~Map()
   {
     mapTiles.clear();
   }
-  
+
   float DisplayScaleX()
   {
     return ( ui_mapDisplayScale / mapSide ) * mapTiles.at( 0 ).cellsX;
@@ -41,13 +42,21 @@ public:
   }
 
   void ReplaceTile( unsigned x, unsigned y, Board* tile )
-  { 
-    mapTiles.at( mapIdx( x, y ) ).ReplaceWith(tile);
-  } 
+  {
+    mapTiles.at( mapIdx( x, y ) ).ReplaceWith( tile );
+  }
   void* DrawTileAt( unsigned x, unsigned y )
-  { 
+  {
     mapTiles.at( mapIdx( x, y ) ).DrawCellsToTexture( mapIdx( x, y ) + 1 );
     return SimpleTexture2D::Texture( mapIdx( x, y ) + 1 )->Render();
+  }
+  void MergeTiles()
+  {
+    map = new Board(
+      mapSide*mapTiles.at( 0 ).cellsX,
+      mapSide*mapTiles.at( 0 ).cellsY
+    );
+    // map->DrawCellsToTexture()
   }
 
 };

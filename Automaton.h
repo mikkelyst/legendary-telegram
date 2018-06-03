@@ -110,7 +110,7 @@ private:
     SimpleTexture2D::Texture( 0 )->Resize( ui_boardSize[0], ui_boardSize[1] );
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
     currentRuleset = new Rules_MapGen();
-    map = new Map( ui_boardSize[0], ui_boardSize[1] );
+    map = new Map( ui_boardSize[0], ui_boardSize[1], 2 );
   }
 
   unsigned int CellCountX()

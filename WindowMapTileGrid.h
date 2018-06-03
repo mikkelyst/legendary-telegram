@@ -13,7 +13,7 @@ public:
     y = initialPositionY;
     title = "Map";
     menutitle = "Show Window: Map";
-    flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize; 
+    flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize;
   }
 
   ~WindowMapTileGrid()
@@ -22,14 +22,29 @@ public:
 
   void WindowElements()
   {
+    static int mapMode = 0;
     ShowMap( Automaton::State()->ConstructedMap() );
     ImGui::Separator();
     ImGui::TextWrapped( "Click on a map tile to replace it with current generated tile." );
+    ImGui::Separator();
+    if ( mapMode == 0 )
+    {
+      if ( ImGui::Button( "Merge tiles into map" ) ) { mapMode = 1; }
+    }
+    if ( mapMode == 1 )
+    {
+      if ( ImGui::Button( "Export map to file" ) ) { }
+      if ( ImGui::Button( "Create new map" ) ) { 
+        mapMode = 0; 
+        // TODO: clear tiles Map::Clear
+      }
+    }
+    
 
   }
-private: 
+private:
   void ShowMap( Map* m )
-  { 
+  {
     for ( int x = 0; x < m->mapSide; x++ )
     {
       for ( int y = 0; y < m->mapSide; y++ )
@@ -43,7 +58,6 @@ private:
         }
         if ( y != m->mapSide - 1 )ImGui::SameLine();
       }
-    } 
+    }
   }
 };
- 
