@@ -25,7 +25,8 @@ public:
     {
       ImGui::Text( "Display options: " );
       ImGui::ColorEdit3( "Background clear color", reinterpret_cast<float*>( ccPtr ) );
-      ImGui::SliderFloat( "Board zoom/scale", &Automaton::ui_imageScale, 2.f, 20.f );
+      ImGui::SliderFloat( "Board zoom/scale", &Board::ui_boardDisplayScale, 2.f, 20.f );
+      ImGui::SliderFloat( "Map zoom/scale", &Map::ui_mapDisplayScale, 2.f, 20.f );
     }
     ImGui::Separator();
     {

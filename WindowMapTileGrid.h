@@ -1,11 +1,11 @@
 #pragma once
- 
-#include "Window_Base.h" 
 
-#include "SimpleTexture.h" // TODO: remove
+#include "Window_Base.h" 
+#include "SimpleTexture.h"
+#include "Map.h"
 
 class WindowMapTileGrid : public Window_Base
-{ 
+{
 public:
   WindowMapTileGrid( float initialPositionX, float initialPositionY )
   {
@@ -13,7 +13,7 @@ public:
     y = initialPositionY;
     title = "Map";
     menutitle = "Show Window: Map";
-    flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize;
+    flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize; 
   }
 
   ~WindowMapTileGrid()
@@ -22,20 +22,28 @@ public:
 
   void WindowElements()
   {
-    ShowMap();
+    ShowMap( Automaton::State()->ConstructedMap() );
     ImGui::Separator();
-  }
+    ImGui::TextWrapped( "Click on a map tile to replace it with current generated tile." );
 
-  void ShowMap()
-  {
-    for ( int i = 1; i < 10; i++ )
+  }
+private: 
+  void ShowMap( Map* m )
+  { 
+    for ( int x = 0; x < m->mapSide; x++ )
     {
-      ImGui::Image(
-        SimpleTexture2D::Texture()->Render(),
-        ImVec2( Automaton::State()->DrawSizeX() / 3, Automaton::State()->DrawSizeY() / 3 )
-      );
-      if ( i % 3 != 0 ) ImGui::SameLine();
-    }
+      for ( int y = 0; y < m->mapSide; y++ )
+      {
+        if ( ImGui::ImageButton(
+          m->DrawTileAt( x, y ),
+          ImVec2( m->DisplayScaleX(), m->DisplayScaleY() )
+        ) )
+        {
+          m->ReplaceTile( x, y, Automaton::State()->SelectedStep() );
+        }
+        if ( y != m->mapSide - 1 )ImGui::SameLine();
+      }
+    } 
   }
 };
-
+ 

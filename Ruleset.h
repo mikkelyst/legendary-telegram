@@ -5,13 +5,20 @@
 class Rules
 {
 public:
+  
   virtual void Evolve( Board * before, Board * after ) = 0;
   
 };
+ 
+
 
 class Rules_GameOfLife : public Rules
 {
 public:
+  Rules_GameOfLife()
+  {
+    Board::isMarkingEnabled = false;
+  }
   void Evolve( Board *before, Board *after )
   {
     for ( unsigned int x = 0; x < before->cellsX; x++ )
@@ -33,6 +40,10 @@ public:
 class Rules_MapGen : public Rules
 {
 public:
+  Rules_MapGen()
+  {
+    Board::isMarkingEnabled = true;
+  }
   void Evolve( Board *before, Board *after )
   {
     for ( unsigned int x = 0; x < before->cellsX; x++ )

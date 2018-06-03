@@ -6,6 +6,7 @@
 #include "Ruleset.h"
 #include "Board.h"
 #include "SimpleTexture.h"
+#include "Map.h"
 
 enum BoardInit_t
 {
@@ -21,7 +22,7 @@ public:
   static int ui_boardSize[2];
   static int ui_stepCount;
   static int ui_stepSelected;
-  static float ui_imageScale;
+
   static Automaton* State()
   {
     if ( !single_instance )
@@ -34,33 +35,43 @@ public:
     return single_instance = new Automaton();
   }
   ~Automaton()
-  { 
+  {
     delete currentRuleset;
   }
 
-  unsigned int StepLast()
+  // STEP SELECTORS 
+  void StepSelect( unsigned step )
   {
-    return generations.size() - 1;
+    ui_stepSelected = step % StepCount();
   }
-  int StepJump( unsigned int offset )
+  void StepJump( unsigned int offset )
   {
-    unsigned int stepUpdated = ui_stepSelected + offset;
-    if ( 0 < stepUpdated && stepUpdated < StepLast() )
-    {
-      ui_stepSelected = stepUpdated;
-      return stepUpdated;
-    }
-    else return ui_stepSelected;
-  }
-  int StepJumpZero()
+    StepSelect( ui_stepSelected + offset );
+  } 
+  void StepJumpLast()
   {
-    return ui_stepSelected = 0;
-  }
-  int StepJumpLast()
-  {
-    return ui_stepSelected = StepLast();
+    StepSelect( StepCount() - 1);
   }
 
+  // STEP USAGE
+  unsigned int StepCount()
+  {
+    return generations.size();
+  }
+  Board* SelectedStep()
+  {
+    return &generations.at( ui_stepSelected );
+  }
+  void* SelectedStepImage()
+  {
+    if ( unsigned( ui_stepSelected ) < generations.size() )
+    {
+      generations.at( ui_stepSelected ).DrawCellsToTexture(0, true);
+    }
+    return SimpleTexture2D::Texture( 0 )->Render();
+  }
+
+  // STEP GENERATION
   void  RegenerateStepsFrom( BoardInit_t initialBoard )
   {
     switch ( initialBoard )
@@ -83,33 +94,23 @@ public:
     GenerateSteps();
   }
 
-  void* CurrentBoardImage()
+  // MAP USAGE
+  Map* ConstructedMap()
   {
-    if ( unsigned( ui_stepSelected ) < generations.size() )
-    {
-      generations.at( ui_stepSelected ).DrawCellsToImage( SimpleTexture2D::Texture() );
-    } 
-    return SimpleTexture2D::Texture()->Render();
-  }
-  float DrawSizeX()
-  {
-    return ui_imageScale * CellCountX();
-  }
-  float DrawSizeY()
-  {
-    return ui_imageScale * CellCountY();
+    return map;
   }
 
 private:
   static Automaton *single_instance;
-  Rules *currentRuleset; 
-  std::vector<Board> generations; 
-
+  std::vector<Board> generations;
+  Rules* currentRuleset;
+  Map* map;
   Automaton()
   {
-    SimpleTexture2D::Resize( ui_boardSize[0], ui_boardSize[1] );
+    SimpleTexture2D::Texture( 0 )->Resize( ui_boardSize[0], ui_boardSize[1] );
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
     currentRuleset = new Rules_MapGen();
+    map = new Map( ui_boardSize[0], ui_boardSize[1] );
   }
 
   unsigned int CellCountX()
@@ -204,7 +205,7 @@ private:
     for ( unsigned int step = 1; step < generations.size(); step++ )
     {
       currentRuleset->Evolve( &generations.at( step - 1 ), &generations.at( step ) );
-    } 
+    }
   }
 
 };
@@ -212,5 +213,5 @@ private:
 int Automaton::ui_boardSize[2] = { 128, 128 };
 int Automaton::ui_stepCount = 10;
 int Automaton::ui_stepSelected = 0;
-float Automaton::ui_imageScale = 4.0f;
+
 Automaton* Automaton::single_instance = 0;
