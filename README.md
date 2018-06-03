@@ -11,3 +11,6 @@ Planned:
  * constructing the map from tiles
 
 
+![alt text][Screenshot]
+
+[Screenshot]: https://github.com/mikkelist/legendary-telegram/blob/master/docs/2018-06-03_02-27-10_Cellular_Automata_Map_Generator_152017.png "Screenshot"
