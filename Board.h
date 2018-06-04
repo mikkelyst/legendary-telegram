@@ -137,8 +137,8 @@ public:
         {
           switch ( CellAt( x, y ) )
           {
-          case CELL_FLOOR: SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_GREEN ); break;
-          case CELL_WALL:  SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_BLACK ); break;
+          case CELL_FLOOR: SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_BLACK ); break;
+          case CELL_WALL:  SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_GREEN ); break;
           case CELL_OTHER: SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_WHITE ); break;
           default:         SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_BLUE ); break;
           }

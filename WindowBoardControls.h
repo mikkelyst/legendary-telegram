@@ -31,17 +31,17 @@ public:
     ImGui::Separator();
     {
       ImGui::Text( "Board parameters:" );
-      ImGui::SliderInt2( "width, height", Automaton::ui_boardSize, 16, 256 );
-      ImGui::SliderInt( "simulation step count", &Automaton::ui_stepCount, 10, 200 );
-      if ( ImGui::Button( "RECONSTUCT BOARD" ) ) { Automaton::Reset(); }
+      ImGui::SliderInt2( "width, height", TileGenerator::ui_boardSize, 16, 256 );
+      ImGui::SliderInt( "simulation step count", &TileGenerator::ui_stepCount, 10, 200 );
+      if ( ImGui::Button( "RECONSTUCT BOARD" ) ) { TileGenerator::Reset(); }
     }
     ImGui::Separator();
     {
       ImGui::Text( "Board initializers:" );
-      if ( ImGui::Button( "init : random    " ) ) { Automaton::State()->RegenerateStepsFrom( CLEAR_RANDOM ); }
-      if ( ImGui::Button( "init : chessboard" ) ) { Automaton::State()->RegenerateStepsFrom( CLEAR_CHESS ); }
-      if ( ImGui::Button( "init : modxyboard" ) ) { Automaton::State()->RegenerateStepsFrom( CLEAR_XYMOD ); }
-      if ( ImGui::Button( "init : glidertest" ) ) { Automaton::State()->RegenerateStepsFrom( TEST_GLIDER ); }
+      if ( ImGui::Button( "init : random    " ) ) { TileGenerator::State()->RegenerateStepsFrom( CLEAR_RANDOM ); }
+      if ( ImGui::Button( "init : chessboard" ) ) { TileGenerator::State()->RegenerateStepsFrom( CLEAR_CHESS ); }
+      if ( ImGui::Button( "init : modxyboard" ) ) { TileGenerator::State()->RegenerateStepsFrom( CLEAR_XYMOD ); }
+      if ( ImGui::Button( "init : glidertest" ) ) { TileGenerator::State()->RegenerateStepsFrom( TEST_GLIDER ); }
 
       ImGui::TextWrapped( "Note: these functions generate all board states at once. Calling them may take some time to finish, depending on board size and step count." );
     }

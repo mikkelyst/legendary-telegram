@@ -92,9 +92,6 @@
     <ClInclude Include="Ruleset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Automaton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -105,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowMapTileGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

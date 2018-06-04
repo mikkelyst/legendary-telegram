@@ -121,7 +121,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="SimpleTexture.h" />
-    <ClInclude Include="Automaton.h" />
+    <ClInclude Include="TileGenerator.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_glfw_gl3.h" />

@@ -14,23 +14,23 @@ public:
   void WindowElements()
   {
     ImGui::Image(
-      Automaton::State()->SelectedStepImage(),
+      TileGenerator::State()->SelectedStepImage(),
       ImVec2(
-        Automaton::State()->SelectedStep()->DisplayScaleX(),
-        Automaton::State()->SelectedStep()->DisplayScaleY() )
+        TileGenerator::State()->SelectedStep()->DisplayScaleX(),
+        TileGenerator::State()->SelectedStep()->DisplayScaleY() )
     );
     ImGui::Separator();
     {
-      if ( ImGui::SliderInt( "CA Step", &Automaton::ui_stepSelected, 0, Automaton::State()->StepCount()-1 ) ) {}
+      if ( ImGui::SliderInt( "CA Step", &TileGenerator::ui_stepSelected, 0, TileGenerator::State()->StepCount()-1 ) ) {}
     }
     ImGui::Separator();
     {
-      if ( ImGui::Button( "    0     " ) ) { Automaton::State()->StepSelect( 0 ); } ImGui::SameLine();
-      if ( ImGui::Button( "<<< 3 STEP" ) ) { Automaton::State()->StepJump( -3 ); }  ImGui::SameLine();
-      if ( ImGui::Button( "<<< 1 STEP" ) ) { Automaton::State()->StepJump( -1 ); }  ImGui::SameLine();
-      if ( ImGui::Button( "1 STEP >>>" ) ) { Automaton::State()->StepJump( 1 ); }   ImGui::SameLine();
-      if ( ImGui::Button( "3 STEP >>>" ) ) { Automaton::State()->StepJump( 3 ); }   ImGui::SameLine();
-      if ( ImGui::Button( "   END    " ) ) { Automaton::State()->StepJumpLast(); }
+      if ( ImGui::Button( "    0     " ) ) { TileGenerator::State()->StepSelect( 0 ); } ImGui::SameLine();
+      if ( ImGui::Button( "<<< 3 STEP" ) ) { TileGenerator::State()->StepJump( -3 ); }  ImGui::SameLine();
+      if ( ImGui::Button( "<<< 1 STEP" ) ) { TileGenerator::State()->StepJump( -1 ); }  ImGui::SameLine();
+      if ( ImGui::Button( "1 STEP >>>" ) ) { TileGenerator::State()->StepJump( 1 ); }   ImGui::SameLine();
+      if ( ImGui::Button( "3 STEP >>>" ) ) { TileGenerator::State()->StepJump( 3 ); }   ImGui::SameLine();
+      if ( ImGui::Button( "   END    " ) ) { TileGenerator::State()->StepJumpLast(); }
     }
   }
 };

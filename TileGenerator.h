@@ -16,27 +16,28 @@ enum BoardInit_t
   TEST_GLIDER
 };
 
-class Automaton
+class TileGenerator
 {
 public:
   static int ui_boardSize[2];
   static int ui_stepCount;
   static int ui_stepSelected;
+  static Ruleset currentRules; 
 
-  static Automaton* State()
+  static TileGenerator* State()
   {
     if ( !single_instance )
-      single_instance = new Automaton();
+      single_instance = new TileGenerator();
     return single_instance;
   }
-  static Automaton* Reset()
+  static TileGenerator* Reset()
   {
     delete single_instance;
-    return single_instance = new Automaton();
+    return single_instance = new TileGenerator();
   }
-  ~Automaton()
+  ~TileGenerator()
   {
-    delete currentRuleset;
+    delete map;
   }
 
   // STEP SELECTORS 
@@ -83,14 +84,9 @@ public:
     }
     GenerateSteps();
   }
-  void  ChangeRuleset( int ruleset )
+  void ChangeRuleset( Ruleset r )
   {
-    delete currentRuleset;
-    switch ( ruleset )
-    {
-    case 1:  currentRuleset = new Rules_MapGen();    break;
-    default: currentRuleset = new Rules_GameOfLife(); break;
-    }
+    currentRules = r;
     GenerateSteps();
   }
 
@@ -101,16 +97,16 @@ public:
   }
 
 private:
-  static Automaton *single_instance;
-  std::vector<Board> generations;
-  Rules* currentRuleset;
+  static TileGenerator *single_instance;
+  std::vector<Board> generations; 
   Map* map;
-  Automaton()
+
+  TileGenerator()
   {
     SimpleTexture2D::Texture( 0 )->Resize( ui_boardSize[0], ui_boardSize[1] );
     generations.assign( ui_stepCount, Board( ui_boardSize[0], ui_boardSize[1] ) );
-    currentRuleset = new Rules_MapGen();
-    map = new Map( ui_boardSize[0], ui_boardSize[1], 2 );
+    currentRules = RULES_MAPGEN;
+    map = new Map( ui_boardSize[0], ui_boardSize[1] );
   }
 
   unsigned int CellCountX()
@@ -204,14 +200,15 @@ private:
     // Challenge: we could also try rules where cellstate is dependent on states before the previous one
     for ( unsigned int step = 1; step < generations.size(); step++ )
     {
-      currentRuleset->Evolve( &generations.at( step - 1 ), &generations.at( step ) );
+      Rules::EvolveState( &generations.at( step - 1 ), &generations.at( step ), currentRules );
     }
   }
 
 };
 
-int Automaton::ui_boardSize[2] = { 128, 128 };
-int Automaton::ui_stepCount = 10;
-int Automaton::ui_stepSelected = 0;
+int TileGenerator::ui_boardSize[2] = { 128, 128 };
+int TileGenerator::ui_stepCount = 10;
+int TileGenerator::ui_stepSelected = 0;
+Ruleset TileGenerator::currentRules = RULES_MAPGEN;
 
-Automaton* Automaton::single_instance = 0;
+TileGenerator* TileGenerator::single_instance = 0;

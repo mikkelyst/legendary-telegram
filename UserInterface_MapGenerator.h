@@ -3,7 +3,7 @@
 #include <list>
 #include <GLFW\glfw3.h>
 
-#include "Automaton.h"
+#include "TileGenerator.h"
 #include "Window_Base.h"
 
 class UserInterface_MapGenerator
@@ -22,7 +22,7 @@ public:
     UserInterfaceWindows.push_back( new WindowBoardImage( 300.f, 150.f ) ); 
     UserInterfaceWindows.push_back( new WindowMapTileGrid( 500.f, 200.f ) );
     // Initialize automaton with default data 
-    Automaton::State()->RegenerateStepsFrom( CLEAR_RANDOM );
+    TileGenerator::State()->RegenerateStepsFrom( CLEAR_RANDOM );
   }
   ~UserInterface_MapGenerator()
   { 
@@ -43,6 +43,10 @@ public:
         ImGui::SetNextWindowPos( ImVec2( 10, 150 ), ImGuiCond_FirstUseEver );
         ImGui::ShowDemoWindow( &isImguiDemoVisible ); // Imgui demo for reference to ImGui examples
       }
+      if ( isImguiMetricsVisible )
+      {
+        ImGui::ShowMetricsWindow( &isImguiMetricsVisible );
+      }
     }
     if ( isProgramTerminated ) glfwSetWindowShouldClose( system_window, GLFW_TRUE );
   }
@@ -62,6 +66,7 @@ public:
 private:
   bool isProgramTerminated = false;
   bool isImguiDemoVisible = false;
+  bool isImguiMetricsVisible = false;
   GLFWwindow* system_window;
   ImVec4 clear_color = ImVec4( 0.45f, 0.55f, 0.60f, 1.00f );
 
@@ -91,6 +96,7 @@ private:
         } 
         ImGui::Separator();
         ImGui::MenuItem( "ImGui Demo Window", NULL, &isImguiDemoVisible, &isImguiDemoVisible );
+        ImGui::MenuItem( "ImGui Metrics Window", NULL, &isImguiMetricsVisible, &isImguiMetricsVisible );
         ImGui::EndMenu();
       }
       if ( ImGui::BeginMenu( "About:" ) )

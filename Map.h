@@ -6,13 +6,13 @@
 class Map
 {
 private:
-  static Board* map;
+  Board* mapBoard;
   std::vector<Board> mapTiles;
   unsigned mapIdx( unsigned x, unsigned y )
   {
     if ( x < mapSide && y < mapSide )
     {
-      return mapSide * y + x;
+      return mapSide * x + y;
     }
     else throw;
   }
@@ -26,39 +26,68 @@ public:
     mapArea = mapSide*mapSide;
     for ( unsigned i = 1; i <= mapArea; i++ ) SimpleTexture2D::Texture( i )->Resize( boardsizeX, boardsizeY );
     mapTiles.assign( mapArea, Board( boardsizeX, boardsizeY ) );
+    SimpleTexture2D::Texture( mapArea + 1 )->Resize( mapSide*boardsizeX, mapSide*boardsizeY );
   }
   ~Map()
   {
     mapTiles.clear();
   }
 
-  float DisplayScaleX()
+  //// MAP DRAWING
+  float DisplayScaleX_tiles()
   {
     return ( ui_mapDisplayScale / mapSide ) * mapTiles.at( 0 ).cellsX;
   }
-  float DisplayScaleY()
+  float DisplayScaleY_tiles()
   {
     return ( ui_mapDisplayScale / mapSide ) * mapTiles.at( 0 ).cellsY;
   }
-
-  void ReplaceTile( unsigned x, unsigned y, Board* tile )
+  float DisplayScaleX_map()
   {
-    mapTiles.at( mapIdx( x, y ) ).ReplaceWith( tile );
+    return ( ui_mapDisplayScale / mapSide ) * mapBoard->cellsX;
+  }
+  float DisplayScaleY_map()
+  {
+    return ( ui_mapDisplayScale / mapSide ) * mapBoard->cellsY;
   }
   void* DrawTileAt( unsigned x, unsigned y )
   {
     mapTiles.at( mapIdx( x, y ) ).DrawCellsToTexture( mapIdx( x, y ) + 1 );
     return SimpleTexture2D::Texture( mapIdx( x, y ) + 1 )->Render();
   }
-  void MergeTiles()
+  void* DrawMap()
   {
-    map = new Board(
-      mapSide*mapTiles.at( 0 ).cellsX,
-      mapSide*mapTiles.at( 0 ).cellsY
-    );
-    // map->DrawCellsToTexture()
+    mapBoard->DrawCellsToTexture( mapArea + 1 );
+    return SimpleTexture2D::Texture( mapArea + 1 )->Render();
   }
 
+  //// MAP BUILDING
+  void TileReplace( unsigned x, unsigned y, Board* tile )
+  {
+    mapTiles.at( mapIdx( x, y ) ).ReplaceWith( tile );
+  }
+  void TileJoinAll()
+  {
+    unsigned ct_x = mapTiles.at( 0 ).cellsX;
+    unsigned ct_y = mapTiles.at( 0 ).cellsY;
+    mapBoard = new Board( mapSide*ct_x, mapSide*ct_y );
+
+    for ( unsigned x = 0; x < mapSide*ct_x; x++ )
+    {
+      for ( unsigned y = 0; y < mapSide*ct_y; y++ )
+      {
+        mapBoard->SetCellAt( x, y, mapTiles.at( mapIdx( y / ct_y, x / ct_x ) ).CellAt( x % ct_x, y % ct_y ) );
+      }
+    }
+  }
+  void MapMergeTiles()
+  { 
+    // TODO: run algorithm to merge tile edges
+    Board* tempBoard = new Board( mapBoard->cellsX, mapBoard->cellsY );
+    Rules::EvolveState( mapBoard, tempBoard );
+    delete mapBoard;
+    mapBoard = tempBoard; 
+  }
 };
 
-float Map::ui_mapDisplayScale = 4.0f;
+float Map::ui_mapDisplayScale = 6.0f;

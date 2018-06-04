@@ -2,25 +2,27 @@
 
 #include "Board.h"
 
+enum Ruleset
+{
+  RULES_GAMEOFLIFE = 0,
+  RULES_MAPGEN = 1
+};
 class Rules
 {
 public:
-  
-  virtual void Evolve( Board * before, Board * after ) = 0;
-  
-};
- 
-
-
-class Rules_GameOfLife : public Rules
-{
-public:
-  Rules_GameOfLife()
+  static void EvolveState( Board * before, Board * after, Ruleset r = RULES_MAPGEN )
+  {
+    switch ( r )
+    {
+    case RULES_GAMEOFLIFE: Rules_GameOfLife( before, after ); break;
+    case RULES_MAPGEN:     Rules_MapGen( before, after ); break;
+    default: break;
+    }
+  }
+private:
+  static void Rules_GameOfLife( Board *before, Board *after )
   {
     Board::isMarkingEnabled = false;
-  }
-  void Evolve( Board *before, Board *after )
-  {
     for ( unsigned int x = 0; x < before->cellsX; x++ )
     {
       for ( unsigned int y = 0; y < before->cellsY; y++ )
@@ -35,22 +37,14 @@ public:
     }
     return;
   }
-};
-
-class Rules_MapGen : public Rules
-{
-public:
-  Rules_MapGen()
+  static void Rules_MapGen( Board *before, Board *after )
   {
     Board::isMarkingEnabled = true;
-  }
-  void Evolve( Board *before, Board *after )
-  {
     for ( unsigned int x = 0; x < before->cellsX; x++ )
     {
       for ( unsigned int y = 0; y < before->cellsY; y++ )
-      { 
-        unsigned int sum = before->Neighbors8_Sum( x, y );  
+      {
+        unsigned int sum = before->Neighbors8_Sum( x, y );
         if ( sum < 5 ) after->SetCellAt( x, y, CELL_WALL );
         if ( sum > 5 ) after->SetCellAt( x, y, CELL_FLOOR );
       }
@@ -58,3 +52,5 @@ public:
     return;
   }
 };
+ 
+ 

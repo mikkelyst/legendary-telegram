@@ -2,7 +2,7 @@
 #include "Window_Base.h"
 class WindowGeneratorControls : public Window_Base
 {
-public:  
+public:
   WindowGeneratorControls( float initialPositionX, float initialPositionY )
   {
     x = initialPositionX;
@@ -10,15 +10,22 @@ public:
     title = "Generator Controls";
     menutitle = "Show Window: Generator Controls";
     flags = ImGuiWindowFlags_NoCollapse;
-  } 
+  }
   void WindowElements()
   {
     {
+      static int ruleChoice = int(TileGenerator::currentRules);
       ImGui::Text( "Rulesets:" );
-      if ( ImGui::Button( "Ruleset 1: Game of Life  " ) ) { Automaton::State()->ChangeRuleset( 0 ); }
-      if ( ImGui::Button( "Ruleset 2: Map Generator " ) ) { Automaton::State()->ChangeRuleset( 1 ); } 
+      if ( ImGui::RadioButton( "Game of Life Rules (for tests)", &ruleChoice, 0 ) )
+      {
+        TileGenerator::State()->ChangeRuleset( RULES_GAMEOFLIFE ); 
+      } 
+      if ( ImGui::RadioButton( "Map Generator Rules", &ruleChoice, 1 ) )
+      {
+        TileGenerator::State()->ChangeRuleset( RULES_MAPGEN );
+      }
     }
-    ImGui::Separator(); 
+    ImGui::Separator();
     {
       ImGui::Text( "Rules:" );
       ImGui::Text( "R1 : neighbors : condition : new cell" );
@@ -26,6 +33,6 @@ public:
       ImGui::Text( "R3 : neighbors : condition : new cell" );
     }
     ImGui::Separator();
-  } 
+  }
 };
 

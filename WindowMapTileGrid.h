@@ -22,28 +22,47 @@ public:
 
   void WindowElements()
   {
-    static int mapMode = 0;
-    ShowMap( Automaton::State()->ConstructedMap() );
-    ImGui::Separator();
-    ImGui::TextWrapped( "Click on a map tile to replace it with current generated tile." );
-    ImGui::Separator();
-    if ( mapMode == 0 )
+    static bool mapMode = false;
+    if ( !mapMode )
     {
-      if ( ImGui::Button( "Merge tiles into map" ) ) { mapMode = 1; }
-    }
-    if ( mapMode == 1 )
-    {
-      if ( ImGui::Button( "Export map to file" ) ) { }
-      if ( ImGui::Button( "Create new map" ) ) { 
-        mapMode = 0; 
+      ShowMapTiles( TileGenerator::State()->ConstructedMap() );
+      ImGui::Separator();
+      ImGui::TextWrapped( "Click on a map tile to replace it with current generated tile." );
+      ImGui::Separator();
+      if ( ImGui::Button( "Join tiles into map" ) )
+      {
+        mapMode = true;
+        TileGenerator::State()->ConstructedMap()->TileJoinAll();
+      }
+     
+      if ( ImGui::Button( "Clear map tiles" ) )
+      {
         // TODO: clear tiles Map::Clear
       }
     }
-    
-
+    if ( mapMode )
+    {
+      ShowMap( TileGenerator::State()->ConstructedMap() );
+      ImGui::Separator();
+      if ( ImGui::Button( "MAPIFY: MapMergeTiles()" ) )
+      {
+        // TODO: FIX MY TITLE
+        TileGenerator::State()->ConstructedMap()->MapMergeTiles();
+      }
+      ImGui::SameLine();
+      if ( ImGui::Button( "Go back to editing" ) )
+      {
+        mapMode = false; 
+      }
+      if ( ImGui::Button( "Export map to file <?>" ) )
+      {
+        // TODO: export Map to image on disk
+      }
+      
+    }
   }
 private:
-  void ShowMap( Map* m )
+  void ShowMapTiles( Map* m )
   {
     for ( int x = 0; x < m->mapSide; x++ )
     {
@@ -51,13 +70,20 @@ private:
       {
         if ( ImGui::ImageButton(
           m->DrawTileAt( x, y ),
-          ImVec2( m->DisplayScaleX(), m->DisplayScaleY() )
+          ImVec2( m->DisplayScaleX_tiles(), m->DisplayScaleY_tiles() )
         ) )
         {
-          m->ReplaceTile( x, y, Automaton::State()->SelectedStep() );
+          m->TileReplace( x, y, TileGenerator::State()->SelectedStep() );
         }
         if ( y != m->mapSide - 1 )ImGui::SameLine();
       }
     }
+  }
+  void ShowMap( Map* m )
+  {
+    ImGui::Image(
+      m->DrawMap(),
+      ImVec2( m->DisplayScaleX_map(), m->DisplayScaleY_map() )
+    );
   }
 };
