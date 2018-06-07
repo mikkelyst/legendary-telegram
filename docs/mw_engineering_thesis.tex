@@ -8,26 +8,19 @@
 \usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e} % Algorithms with ctan algorithm2e
 \usepackage{verbatim} % Pre-formatted text environment 
-%\usepackage{times} % Uncomment to use the chosen font
-\usepackage{fancyhdr} % Page Headers and Footers
+%\usepackage{times} % Uncomment to use the chosen font 
 \usepackage{color}
 \usepackage[english]{babel} %%% SPRAWDZANIE PISOWNI EN
 %\usepackage[polish]{babel} %%% SPRAWDZANIE PISOWNI PL
 
+%%% PAGE HEADERS COMMANDS %%%
+\usepackage{fancyhdr} % Page Headers and Footers
 \pagestyle{fancy} %page style with FancyHDR package
 \fancyhf{} % clear the header/footer style
 \lhead{\leftmark} % hdr left - standard marking (chapter names)
 \rhead{\thepage} % hdr right - page numbering
 %\setlength{\textwidth}{14cm}
-\setlength{\textheight}{20cm}
-
-%\newtheorem{definition}{Definicja} % przykład nowego środowiska 
-%\newtheorem{example}{Przykład}[chapter] % przykład nowego środowiska 
-%\newtheorem{corollary}{Wniosek}[chapter] % przykład nowego środowiska 
-
-%%% TO DO notes in red, requires package{color}
-\newcommand{\todo}[1]{}
-\renewcommand{\todo}[1]{{\color{red} \par \noindent \footnotesize \texttt{TODO: {#1} }}}
+\setlength{\textheight}{20cm} 
 
 % BIB REF COMMANDS
 \usepackage[nottoc,notlot,notlof]{tocbibind}
@@ -57,8 +50,29 @@
 	showstringspaces=false,
 	float=t
 	tabsize=2
-}
- 
+} 
+
+
+%\newtheorem{definition}{Definicja} % przykład nowego środowiska 
+%\newtheorem{example}{Przykład}[chapter] % przykład nowego środowiska 
+%\newtheorem{corollary}{Wniosek}[chapter] % przykład nowego środowiska 
+
+%%% TO DO notes in red, requires package{color}
+\newcommand{\todo}[1]{}
+\renewcommand{\todo}[1]{{\color{red} \par \noindent \footnotesize \texttt{TODO: {#1} }}}
+
+%%% TOC HYPERLINKS %%%
+\usepackage{hyperref}
+% remember to use \tableofcontents after title
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black,
+	pdftitle={Generating two-dimensional game maps with use of cellular automata},
+	bookmarks=true 
+}  
 
 %%% STRONA TYTUŁOWA - DANE
 \title{Generating two-dimensional game maps with use of cellular automata}
@@ -67,12 +81,12 @@
 \begin{document}
  
 \maketitle
-\tableofcontents	% generuje spis treści ze stronami !!!
+\tableofcontents 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{rozdzial.wstep} 
  
-During recent years, presence of computer games in human lives has increased. Players demand for games has shown that playing games, both as a medium of expression and a means for entertainment, is a desirable form of activity. However, as the demand for games rises and the games become increasingly complex, there is also a rising need for game content such as believable maps, game objects, textures, sound and models, among other types. Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found:
+During recent years, presence of computer games in human lives has increased. Players demand for games has shown that playing games, both as a medium of expression and a means for entertainment, is a desirable form of activity. However, as the demand for games rises and the games become increasingly complex, there is also a rising need for game content such as believable maps, game objects, textures, sound and models, among other types. Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. 
 
 \todo{no quoting, instead explain what authors presented}
 
@@ -382,9 +396,18 @@ Having gathered the abstract constructs needed to build a CA map generator, we m
 \section{Further work}
 
  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Full implementation source code} \label{rozdzial.kod}
+\section{main.cpp}
+% use firstline=1, lastline=200 to load a snippet from file instead of all lines
+\lstinputlisting[language=C++, caption=main.cpp Source Code]{../main.cpp}
+\pagebreak 
 
-%%% KONIEC PRACY %%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% KONIEC PRACY %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography[heading=bibintoc]
 
 \addcontentsline{toc}{chapter}{List of figures} 
@@ -393,19 +416,15 @@ Having gathered the abstract constructs needed to build a CA map generator, we m
 \addcontentsline{toc}{chapter}{List of tables} 
 \listoftables
 
-
 \addcontentsline{toc}{chapter}{Attachments} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Attachments}
+\chapter*{Attachments}
 \begin{enumerate}
 \item Załącznik 1
 \item Załącznik 2
 \item Załącznik 3
 \end{enumerate}
 
-\section{Full source code: main.cpp}
-% use firstline=1, lastline=200 to load a snippet from file instead of all lines
-\lstinputlisting[language=C++, caption=main.cpp Source Code]{../main.cpp}
-\pagebreak 
+
 
 \end{document}
