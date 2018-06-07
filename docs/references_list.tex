@@ -1,0 +1,57 @@
+\documentclass[12pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{amsmath,amssymb,amsfonts} % Required for some math elements, equation environment and inline $ (math) $
+\usepackage{txfonts}
+
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e} % Algorithms with ctan algorithm2e
+\usepackage{verbatim} % Pre-formatted text environment 
+%\usepackage{times} % Uncomment to use the chosen font
+\usepackage{fancyhdr} % Page Headers and Footers
+
+%%% SPRAWDZANIE PISOWNI
+\usepackage[english]{babel}
+%\usepackage[polish]{babel} 
+
+%%% PAGE SETUP - HEADERS, GEOMETRY
+%\usepackage{geometry}
+%\usepackage[showframe]{geometry}
+\pagestyle{fancy} %page style with FancyHDR package
+\fancyhf{} % clear the header/footer style
+\lhead{\leftmark} % hdr left - standard marking (chapter names)
+\rhead{\thepage} % hdr right - page numbering 
+\setlength{\textwidth}{14cm}
+\setlength{\textheight}{20cm} 
+\setlength{\parindent}{0cm}
+
+% BIB REF COMMANDS
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}  
+\bibliography{references} 
+
+\begin{document}
+\textbf{BIBLIOGRAPHY - SOURCES LIST \today \newline Procedural Generation, Cellular Automata } 
+\begin{itemize}
+	\item \autocite{pcgbook}
+	\item \autocite{adams2015simulation}
+	\item \autocite{andrews2005cellular}
+	\item \autocite{doran2010controlled}
+	\item \autocite{hendrikx2013procedural}
+	\item \autocite{schiff2005introduction}
+	\item \autocite{togelius2011search}
+	\item \autocite{bidarra2010integrating}
+	\item \autocite{de2011survey}
+	\item \autocite{johnson2010cellular}
+	\item \autocite{liapis2013sentient}
+	\item \autocite{raffe2012survey}
+	\item \autocite{smelik2010integrating}
+	\item \autocite{van2013designing}
+	\item \autocite{van2014procedural}
+\end{itemize}
+     
+%%% KONIEC PRACY %%% 
+\printbibliography
+  
+\end{document}
