@@ -14,8 +14,7 @@ public:
     title = "Map";
     menutitle = "Show Window: Map";
     flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize;
-  }
-
+  } 
   ~WindowMapTileGrid()
   {
   }
@@ -33,20 +32,18 @@ public:
       {
         mapMode = true;
         TileGenerator::State()->ConstructedMap()->TileJoinAll();
-      }
-     
+      } 
       if ( ImGui::Button( "Clear map tiles" ) )
       {
-        // TODO: clear tiles Map::Clear
+        TileGenerator::State()->ConstructedMap()->TileClearAll();
       }
     }
     if ( mapMode )
     {
       ShowMap( TileGenerator::State()->ConstructedMap() );
       ImGui::Separator();
-      if ( ImGui::Button( "MAPIFY: MapMergeTiles()" ) )
-      {
-        // TODO: FIX MY TITLE
+      if ( ImGui::Button( "Run one CA step on Map" ) )
+      { 
         TileGenerator::State()->ConstructedMap()->MapMergeTiles();
       }
       ImGui::SameLine();

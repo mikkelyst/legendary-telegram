@@ -22,7 +22,7 @@ public:
   static int ui_boardSize[2];
   static int ui_stepCount;
   static int ui_stepSelected;
-  static Ruleset currentRules; 
+  static Ruleset currentRules;
 
   static TileGenerator* State()
   {
@@ -48,10 +48,10 @@ public:
   void StepJump( unsigned int offset )
   {
     StepSelect( ui_stepSelected + offset );
-  } 
+  }
   void StepJumpLast()
   {
-    StepSelect( StepCount() - 1);
+    StepSelect( StepCount() - 1 );
   }
 
   // STEP USAGE
@@ -60,14 +60,16 @@ public:
     return generations.size();
   }
   Board* SelectedStep()
-  {
-    return &generations.at( ui_stepSelected );
+  { 
+    return ui_stepSelected < generations.size() ?
+      &generations.at( ui_stepSelected ) :
+      &generations.at( 0 );
   }
   void* SelectedStepImage()
   {
-    if ( unsigned( ui_stepSelected ) < generations.size() )
+    if (ui_stepSelected < generations.size() )
     {
-      generations.at( ui_stepSelected ).DrawCellsToTexture(0, true);
+      generations.at( ui_stepSelected ).DrawCellsToTexture( 0, true );
     }
     return SimpleTexture2D::Texture( 0 )->Render();
   }
@@ -98,7 +100,7 @@ public:
 
 private:
   static TileGenerator *single_instance;
-  std::vector<Board> generations; 
+  std::vector<Board> generations;
   Map* map;
 
   TileGenerator()

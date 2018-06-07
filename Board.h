@@ -8,8 +8,7 @@ enum CELL_t
   // TODO: we may need to make a class Cell{} perhaps, but for now, just enum
   CELL_FLOOR = 0,
   CELL_WALL = 1,
-  CELL_OTHER = 2,
-  CELL_MARK = 7
+  CELL_OTHER = 2 
 };
 
 class Board
@@ -19,6 +18,7 @@ private:
   bool isBoardChanged = false;
   bool isCellMarked( unsigned x, unsigned y )
   {
+    if ( !isBoardChanged ) return false;
     int s = Neighbors4_Sum( x, y );
     return ( s == 2 || s == 3 ) && isMarkingEnabled;
   }

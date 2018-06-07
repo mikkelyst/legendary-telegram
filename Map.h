@@ -20,16 +20,18 @@ public:
   static float ui_mapDisplayScale;
   unsigned mapSide;
   unsigned mapArea;
-  Map( unsigned boardsizeX, unsigned boardsizeY, unsigned mapN = 1 )
+  Map( unsigned boardsizeX, unsigned boardsizeY, unsigned mapN = 2 )
   {
     mapSide = ( 2 * mapN + 1 );
     mapArea = mapSide*mapSide;
     for ( unsigned i = 1; i <= mapArea; i++ ) SimpleTexture2D::Texture( i )->Resize( boardsizeX, boardsizeY );
     mapTiles.assign( mapArea, Board( boardsizeX, boardsizeY ) );
+    mapBoard = new Board( mapSide*boardsizeX, mapSide*boardsizeY );
     SimpleTexture2D::Texture( mapArea + 1 )->Resize( mapSide*boardsizeX, mapSide*boardsizeY );
   }
   ~Map()
   {
+    if (mapBoard) delete mapBoard;
     mapTiles.clear();
   }
 
@@ -69,8 +71,7 @@ public:
   void TileJoinAll()
   {
     unsigned ct_x = mapTiles.at( 0 ).cellsX;
-    unsigned ct_y = mapTiles.at( 0 ).cellsY;
-    mapBoard = new Board( mapSide*ct_x, mapSide*ct_y );
+    unsigned ct_y = mapTiles.at( 0 ).cellsY;  
 
     for ( unsigned x = 0; x < mapSide*ct_x; x++ )
     {
@@ -80,14 +81,20 @@ public:
       }
     }
   }
+  void TileClearAll()
+  {
+    mapBoard->Clear( CELL_FLOOR );
+  }
   void MapMergeTiles()
   { 
-    // TODO: run algorithm to merge tile edges
     Board* tempBoard = new Board( mapBoard->cellsX, mapBoard->cellsY );
     Rules::EvolveState( mapBoard, tempBoard );
+    {
+      // TODO: run algorithm to merge tile edges
+    } 
     delete mapBoard;
     mapBoard = tempBoard; 
   }
 };
 
-float Map::ui_mapDisplayScale = 6.0f;
+float Map::ui_mapDisplayScale = 6.0f; 
