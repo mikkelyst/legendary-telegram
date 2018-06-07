@@ -86,13 +86,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{rozdzial.wstep} 
  
-During recent years, presence of computer games in human lives has increased. Players demand for games has shown that playing games, both as a medium of expression and a means for entertainment, is a desirable form of activity. However, as the demand for games rises and the games become increasingly complex, there is also a rising need for game content such as believable maps, game objects, textures, sound and models, among other types. Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. 
+During recent years, presence of computer games in human lives has increased. Players demand for games has shown that playing games, both as a medium of expression and a means for entertainment, is a desirable form of activity. However, as the demand for games rises and the games become increasingly complex, there is also a rising need for game content such as believable maps, game objects, textures, sound and models, among other types. Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. In the study, authors point to work of Kelly and McCabe \autocite{kelly2007citygen}, Lefebvre and Neyret \autocite{lefebvre2003pattern}, Smelik et al. 2009 \autocite{smelik2009survey} and Iosup 2009 \autocite{iosup2009poggi} as sources which reveal game content production as a time-consuming and expensive endeavor.
 
-\todo{no quoting, instead explain what authors presented}
 
-\begin{quotation}
-	(...) content production has grown to the point at which it has become a bottleneck in both game budgets and product time-to-market [Kelly and McCabe 2007; Lefebvre and	Neyret 2003; Smelik et al. 2009; Iosup 2009].
-\end{quotation}
 
 \todo{ref https://www.isfe.eu/industry-facts/statistics}
 
@@ -101,7 +97,7 @@ In order to reduce the cost of game development, allow for greater replay value 
 
 \todo{write more on motivation for thesis - project UW}
 \todo{summarize why we are doing this}
-\todo{short paragraph on the choice of CA for game maps... here or later?}
+
 
 
 %%%%%%%%%%%%%%%
@@ -152,26 +148,25 @@ All experiments in this thesis have been performed using a laptop with an Intel 
  
 \subsection{Software} 
 
-Development environment for the purposes of thesis experiments has been set up under Windows 10 operating system with the following software installed:
+Development environment for the purposes of thesis experiments and writing has been set up under Windows 10 operating system with the following software installed:
 
 \begin{itemize}
-	\item \todo{any IDE? perhaps VS2017, VSCode or CodeLite  }
+	\item Visual Studio 2015 Community IDE
+	\item TeXStudio with MikTeX backend
+	\item Git Version Control System
 	\item \todo{software for drawing diagrams?}
 	\item \todo{graphics?}
 	\item ...
 \end{itemize}
 
-Other configuration details include:
-\todo{environment variables, configuration specifics...}
+Other configuration details include: \todo{environment variables, configuration specifics...} 
 
-This thesis has been prepared with \LaTeX\space system for document typesetting and \textit{TeXworks} editor.
+This thesis has been prepared with \LaTeX\space system for document typesetting.
 
  
 \subsubsection{Programming languages} 
-\todo{language - C++ for implementation }
-\todo{which compiler was chosen?}
 
-
+The program that allowed to carry out experiments in this thesis was implemented using the C++ programming language and compiled with MSVC++ 14.0 compiler, natively included in the VS2015 IDE.  
 
 \subsubsection{Libraries} 
 \todo{Dear ImGui, by Omar Cornut  or Nuklear, by Micha Mettke - for User Interface in Immediate Mode (realtime)}
@@ -278,6 +273,7 @@ The following subsections describe how each of the mentioned aspects can influen
 %%%%%%%%%%%%%%%
 \section{Chosen approach: cellular automata for 2D map generation}
 
+\todo{short paragraph on the choice of CA for game maps}
 \todo{why we chose CA for mapgen?}
 \todo{what are pros and cons of such choice?}
 
