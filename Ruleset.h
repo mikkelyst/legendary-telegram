@@ -51,6 +51,7 @@ private:
     }
     return;
   }
+  // TODO: with ruleset separated from automaton, maybe we could try rules where cellstate is dependent on states in the past, not just the previous one
 };
  
  

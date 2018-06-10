@@ -93,21 +93,22 @@ Scientific surveys such as \autocite{hendrikx2013procedural} and \autocite{smeli
 In order to reduce the cost of game development, allow for greater replay value or provide a feeling of vastness to the game worlds that designers aim to create, procedural content generation techniques can provide an attractive solution to the problem of content creation. Surveys such as \autocite{hendrikx2013procedural}, \autocite{togelius2011search} and \autocite{de2011survey} show what types of game content can be generated and are a good starting point for seeking methods of procedural generation.
 
 \subsubsection{Personal motivation}
-During two recent years, the author of this thesis took part in a small, after-hours independent game development project. Working with a group of friends, using Unreal Engine as a tool to develop a simple game prototype belonging to the \textit{rogue-like} game genre. The project is still in development phase and finding a good method to generate maps for games can potentially result in contribution of useful features.
+During two recent years, the author of this thesis took part in a small, after-hours independent game development project. Working with a group of friends, using Unreal Engine as a tool to develop a simple prototype of a game belonging to the \textit{rogue-like} game genre. The project is still in development phase and finding a good method of map generation can potentially result in contribution of useful features.
+
+%%%%%%%%%%%%%%%
+\section{Thesis structure}
+The overall structure of this thesis includes introduction followed by three chapters. The second chapter serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The third chapter describes the experiments, design and implementation of a solution to the problem. Last chapter summarizes the findings and concludes the thesis. 
+
+\todo{ LATER: check if structure description matches content}
 
 %%%%%%%%%%%%%%%
 \section{Objectives}
 
-\todo{WHAT are we doing here?}
+This work focuses on automated creation of 2-dimensional game maps using a cellular automata approach. We aim to do so by generating small map tiles, which can be later merged into a bigger map. Such approach allows for a degree of control to the map designer - who may want to decide which tiles will be merged and at which locations in the map they will be present. Moreover, we could also allow for editing the tile before placing it in the map. An approach that integrates manual editing or parametrization of desired results with procedural generation techniques has been proposed before \autocite{bidarra2010integrating}, \autocite{smelik2010integrating}, \autocite{smelik2011declarative}.
 
-This work focuses on automated creation of 2-dimensional game maps using a cellular automata approach. We aim to do so by generating small map tiles, which can be later merged into a bigger map. Such approach allows for a degree of control to the map designer - who may want to decide which tiles will be merged and at which locations in the map they will be present. Moreover, we could also allow for editing the tile before placing it in the map. An approach that integrates manual editing and procedural generation has been proposed before, in the works of \autocite{bidarra2010integrating} and \todo{ref more}.
+We focus on creation of maps for games, since literature shows map generation as an interesting area for experimentation, although personal motivation influenced the choice as well.
 
-\todo{why maps?}
-// we like maps. and we need them, too.
-
-\todo{why 2d and not other?} 
-// basically, 2d is easy... and we can extend later, if needed.
-
+Beginning experimentation with flat maps on 2-dimensional plane avoids the complexity that may arise when dealing with higher dimensions.
 
 We will investigate existing methods for procedural generation of game maps which resemble cave structures. Then, an approach that may be used for automated creation of such maps will be selected and examined with a focus on implementing a working map generator. Main points of focus for this project are as follows:
 
@@ -121,7 +122,7 @@ We will investigate existing methods for procedural generation of game maps whic
 \todo{is that all?}
 
 %%%%%%%%%%%%%%%
-\section{Thesis scope and structure}
+\section{Thesis scope}
 
 \todo{scope - what we will do, what we dont do}
 
@@ -129,7 +130,6 @@ We will investigate existing methods for procedural generation of game maps whic
 
 
 
-The overall structure of this thesis includes introduction followed by three chapters. The second chapter serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The third chapter describes the experiments, design and implementation of a solution to the problem. Last chapter summarizes the findings and concludes the thesis. \todo{ LATER: check if structure description matches content}
 
 %%%%%%%%%%%%%%%
 \section{Technology and tools}
@@ -138,7 +138,7 @@ The following paragraphs summarize what tools were involved during the project o
 
 \subsection{Hardware} 
 
-All experiments in this thesis have been performed using a laptop with an Intel x64 2.0 GHz multi-core processor, 16GB RAM and an nVidia GeForce GTX 560M card.
+All experiments in this thesis have been performed using a laptop with an Intel x64 2.0 \si{GHz} multi-core processor, 16GB RAM and an \textit{nVidia GeForce GTX 560M} graphics card.
  
 \subsection{Software} 
 
@@ -186,9 +186,7 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 \begin{description}
 	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
 	\item[PCG] Procedural Content Generation. An automated process of creation.
-	\item[PCGG]	Procedural Content Generation for Games.
-	\item[OpenGL] 
-	
+	\item[PCGG]	Procedural Content Generation for Games.  
 \end{description}
 \todo{(?)}
 
@@ -287,16 +285,16 @@ The following subsections describe how each of the mentioned aspects can influen
 \todo{why we chose CA for mapgen?}
 \todo{what are pros and cons of such choice?}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Application for visualizing procedural generation of levels} \label{rozdzial.praktyka} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
 
 Having chosen cellular automata as a method for generating maps, we need to have a clear idea about how to approach building a program that could simulate a cellular automaton. One of the helpful resources on the topic of building cellular automata simulations is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where we can find a short tutorial to build our first CA simulation. There, author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises. The tutorial is quite useful as a guide, since examples presented in New Kind of Science \autocite{wolfram2002new} are implemented in the Wolfram language and would require familiarity with it.
 
 %%%%%%%%%%%%%%%
 \section{Basic CA simulation}
 
-In order to build a map generator based on a cellular automaton, we must first understand the basics. As stated in the tutorial by Daniel Shiffman \autocite{shiffman2012nature}, a CA simulation would need the following key elements:
+In order to build a map generator based on a cellular automaton, we must first understand the basics. As stated in Nature of Code by Daniel Shiffman \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
 
 \begin{itemize}
 	\item Cell state - every cell has a state updated on each simulation step,
@@ -306,19 +304,33 @@ In order to build a map generator based on a cellular automaton, we must first u
 
 Another observation is that whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step.
 
-\todo{more on CA, 2dim CA}
+In order to represent the cells for an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to the user. 
 
+
+\todo{what to include?}
+Figure \ref{fig:img001} presents...
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/img001}
+	\caption{}
+	\label{fig:img001}
+\end{figure}
+
+
+\todo{class of CA board}
+\todo{diagram: associate 1 board to many cells}
 
  
 
-
+\todo{more on CA, 2dim CA?}
 
 
 
 
 
 %%%%%%%%%%%%%%%
-\section{Generating content for a game}
+\section{Generating maps for a game}
 
 Since the goal of this work is not to just implement a working cellular automaton simulation, we need to find a way to generate maps using CA simulation. One of possible proposed approaches is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. 
 

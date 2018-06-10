@@ -13,6 +13,8 @@ public:
   }
   void WindowElements()
   {
+    ImGui::ProgressBar( TileGenerator::ui_stepProgress, ImVec2( 0.0f, 0.0f ) );
+    ImGui::Separator();
     ImGui::Image(
       TileGenerator::State()->SelectedStepImage(),
       ImVec2(
