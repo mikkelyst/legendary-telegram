@@ -1,0 +1,54 @@
+\contentsline {todo}{ LATER: check if structure description matches content}{6}{section*.5}
+\contentsline {todo}{is that all?}{7}{section*.6}
+\contentsline {todo}{scope - what we will do, what we dont do}{7}{section*.7}
+\contentsline {todo}{short: what could be done instead}{7}{section*.8}
+\contentsline {todo}{...}{8}{section*.9}
+\contentsline {todo}{environment variables, configuration specifics...}{8}{section*.10}
+\contentsline {todo}{...}{8}{section*.13}
+\contentsline {todo}{list used design patters, if any. Singleton? Command? Factory?}{8}{section*.15}
+\contentsline {todo}{think what could be included here}{9}{section*.16}
+\contentsline {todo}{what is a map?}{10}{section*.17}
+\contentsline {todo}{2d map types?}{10}{section*.18}
+\contentsline {todo}{what do we mean by generation?}{10}{section*.19}
+\contentsline {todo}{ write about PCG in general, short }{10}{section*.20}
+\contentsline {todo}{ PCG types of content }{10}{section*.21}
+\contentsline {todo}{ PCG methods }{10}{section*.22}
+\contentsline {todo}{ focus on maps }{10}{section*.23}
+\contentsline {todo}{HOW it was done until now? options?}{11}{section*.24}
+\contentsline {todo}{ ref survey with table of 2d dungeon gen}{11}{section*.25}
+\contentsline {todo}{introduce new definitions}{11}{section*.26}
+\contentsline {todo}{write on use of CA for generation of content and then specifically maps }{11}{section*.27}
+\contentsline {todo}{what is a formal grammar?}{11}{section*.28}
+\contentsline {todo}{how can it be used for generating maps?}{11}{section*.29}
+\contentsline {todo}{why we cant use them?}{11}{section*.30}
+\contentsline {todo}{what are lsystems?}{11}{section*.31}
+\contentsline {todo}{can they generate maps?}{11}{section*.32}
+\contentsline {todo}{?}{12}{section*.33}
+\contentsline {todo}{?}{12}{section*.34}
+\contentsline {todo}{how to measure effectiveness? time of map generation, map shape, desirable map features?}{12}{section*.35}
+\contentsline {todo}{how to measure such ease of use? accessibility? }{12}{section*.36}
+\contentsline {todo}{how to measure cost?}{12}{section*.37}
+\contentsline {todo}{study on generation time}{12}{section*.38}
+\contentsline {todo}{desired characteristics of generated content?}{12}{section*.39}
+\contentsline {todo}{study on what makes generation easy to include in game development projects}{12}{section*.40}
+\contentsline {todo}{integrating manual editing AND procgen}{12}{section*.41}
+\contentsline {todo}{examples of development costs - human resources, machine resources}{13}{section*.42}
+\contentsline {todo}{which of these costs can be reduced by PCG}{13}{section*.43}
+\contentsline {todo}{short paragraph on the choice of CA for game maps}{13}{section*.44}
+\contentsline {todo}{why we chose CA for mapgen?}{13}{section*.45}
+\contentsline {todo}{what are pros and cons of such choice?}{13}{section*.46}
+\contentsline {todo}{ how do we store data?}{15}{section*.47}
+\contentsline {todo}{ exporting data from generator? }{15}{section*.48}
+\contentsline {todo}{ how designers can get a complete map model? }{15}{section*.49}
+\contentsline {todo}{how a generator will work}{15}{section*.50}
+\contentsline {todo}{diagrams}{15}{section*.51}
+\contentsline {todo}{mention Bret Victor talks}{15}{section*.52}
+\contentsline {todo}{imgui immediate mode user interface}{15}{section*.53}
+\contentsline {todo}{add neighbor methods to board2}{16}{section*.56}
+\contentsline {todo}{result of what it all does?}{16}{section*.57}
+\contentsline {todo}{what else to include?}{17}{section*.58}
+\contentsline {todo}{more on CA, 2dim CA?}{17}{section*.59}
+\contentsline {todo}{1 random image}{17}{section*.60}
+\contentsline {todo}{2 apply CA steps as in article cavegen}{17}{section*.61}
+\contentsline {todo}{3 voila, maps!}{17}{section*.62}
+\contentsline {todo}{(?)}{25}{section*.67}

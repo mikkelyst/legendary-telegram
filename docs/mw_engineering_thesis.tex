@@ -6,7 +6,7 @@
 \usepackage{graphicx} % Required for the inclusion of images
 \usepackage{txfonts}
 %\usepackage{times} % Uncomment to use the chosen font 
-\usepackage[skip=2pt,font=scriptsize]{caption}
+\usepackage[skip=5pt,font={small,it},labelfont=bf]{caption}
 \usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units 
 \usepackage{color}
 \usepackage[english]{babel} %%% SPRAWDZANIE PISOWNI EN
@@ -68,9 +68,10 @@
 %\newtheorem{example}{Przykład}[chapter] % przykład nowego środowiska 
 %\newtheorem{corollary}{Wniosek}[chapter] % przykład nowego środowiska 
 
-%%% TO DO notes in red, requires package{color}
-\newcommand{\todo}[1]{}
-\renewcommand{\todo}[1]{{\color{red} \par \noindent \footnotesize \texttt{TODO: {#1} }}}
+%%% TO DO notes
+\usepackage[textsize=footnotesize]{todonotes}
+% \usepackage[disable]{todonotes}
+\newcommand{\td}[1]{\todo[inline]{#1}}
 
 %%% TOC HYPERLINKS %%%
 \usepackage{hyperref}
@@ -90,9 +91,11 @@
 \author{Michał Wolski}
 
 \begin{document}
- 
+
 \maketitle
 \tableofcontents 
+
+\listoftodos
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{rozdzial.wstep} 
@@ -110,7 +113,7 @@ During two recent years, the author of this thesis took part in a small, after-h
 \section{Thesis structure}
 The overall structure of this thesis includes introduction followed by three chapters. The second chapter serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The third chapter describes the experiments, design and implementation of a solution to the problem. Last chapter summarizes the findings and concludes the thesis. 
 
-\todo{ LATER: check if structure description matches content}
+\td{ LATER: check if structure description matches content}
 
 %%%%%%%%%%%%%%%
 \section{Objectives}
@@ -130,14 +133,14 @@ We will investigate existing methods for procedural generation of game maps whic
 	\item implementing the solution in a programming language of choice
 \end{itemize}
 
-\todo{is that all?}
+\td{is that all?}
 
 %%%%%%%%%%%%%%%
 \section{Thesis scope}
 
-\todo{scope - what we will do, what we dont do}
+\td{scope - what we will do, what we dont do}
 
-\todo{short: what could be done instead}
+\td{short: what could be done instead}
 
 
 
@@ -162,10 +165,10 @@ Development environment for the purposes of thesis experiments and writing has b
 	\item Git version control system
 	\item Notepad++
 	\item Modelio 3.7 open source modeling environment
-	\item \todo{...}
+	\item \td{...}
 \end{itemize}
 
-Other configuration details include: \todo{environment variables, configuration specifics...} 
+Other configuration details include: \td{environment variables, configuration specifics...} 
 
 This thesis has been prepared with \LaTeX\space system for document typesetting.
 
@@ -180,20 +183,20 @@ The implementation uses following libraries:
 \begin{itemize}
 	\item Dear ImGui, by Omar Cornut - to easily build an Immediate Mode user interface. Project homepage:  \url{https://github.com/ocornut/imgui}
 	\item GLFW 3.2.1 library - to create an OpenGL context and have direct access to texture functions. Project homepage: \url{http://www.glfw.org/}
-	\item \todo{...} 
+	\item \td{...} 
 \end{itemize}  
  
 
 \subsection{Other tools }
 \subsubsection{Design patterns} 
-\todo{list used design patters, if any. Singleton? Command? Factory?}
+\td{list used design patters, if any. Singleton? Command? Factory?}
  
 
 
 %%%%%%%%%%%%%%%
 \section{Related work (?)} 
 
-\todo{think what could be included here}
+\td{think what could be included here}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Research on 2D map generation methods} \label{rozdzial.teoria}
@@ -205,24 +208,24 @@ Before we start planning a solution to the problem of map generation, we must fi
 
 
 \begin{description}
-	\item[Map] \todo{what is a map?}
+	\item[Map] \td{what is a map?}
 \end{description}
 
 
 
 
-\todo{2d map types?}
-\todo{what do we mean by generation?}
+\td{2d map types?}
+\td{what do we mean by generation?}
 
 %%%%%%%%%%%%%%%
 \section{ Automation - reduction in development time and cost}
 
 
 
-\todo{ write about PCG in general, short }
-\todo{ PCG types of content }
-\todo{ PCG methods }
-\todo{ focus on maps }
+\td{ write about PCG in general, short }
+\td{ PCG types of content }
+\td{ PCG methods }
+\td{ focus on maps }
 
 
 
@@ -231,14 +234,14 @@ Before we start planning a solution to the problem of map generation, we must fi
 %%%%%%%%%%%%%%%
 \section{Existing solutions for 2D map generation}
 
-\todo{HOW it was done until now? options?}
-\todo{ ref survey with table of 2d dungeon gen}
+\td{HOW it was done until now? options?}
+\td{ ref survey with table of 2d dungeon gen}
 
 \subsection{Cellular automata}
 
 A cellular automaton is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
 
-\todo{introduce new definitions}
+\td{introduce new definitions}
 
 \begin{description}
 	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighborhood is a collection of nearest cells to the selected one.
@@ -247,50 +250,51 @@ A cellular automaton is a simulation in which every object in a mathematically d
 \end{description}
 
 
-\todo{write on use of CA for generation of content and then specifically maps }
+\td{write on use of CA for generation of content and then specifically maps }
 
 
 
 
 \subsection{Generative grammars}
-\todo{what is a formal grammar?}
-\todo{how can it be used for generating maps?}
-\todo{why we cant use them?}
+\td{what is a formal grammar?}
+\td{how can it be used for generating maps?}
+\td{why we cant use them?}
 \subsection{L-systems} 
-\todo{what are lsystems?}
-\todo{can they generate maps?}
-\todo{}
+\td{what are lsystems?}
+\td{can they generate maps?} 
 \subsection{...}
+\td{?}
 \subsection{...}
+\td{?}
 %%%%%%%%%%%%%%%
 \section{Evaluation of existing methods for project purposes}
 
 In order to effectively judge the value that a working map generator may bring to a game development project, we need to consider what characteristics should be evaluated. First, a useful generator must be effective at map generation.
 
-\todo{how to measure effectiveness? time of map generation, map shape, desirable map features?}
+\td{how to measure effectiveness? time of map generation, map shape, desirable map features?}
 
 Another point to consider is how easy to use such generator can be. Game designers may ultimately decide to use manual methods of map creation if the method of map generation requires too much effort to include in their project.
 
-\todo{how to measure such ease of use? accessibility? }
+\td{how to measure such ease of use? accessibility? }
 
 The third aspect of choice what a generation method could be used is to consider how much value it brings to the designer versus what development costs it can reduce.
 
-\todo{how to measure cost?}
+\td{how to measure cost?}
 
 The following subsections describe how each of the mentioned aspects can influence the choice of a generation method.
 
 \subsection{Effectiveness} 
-\todo{study on generation time}
-\todo{desired characteristics of generated content?}
+\td{study on generation time}
+\td{desired characteristics of generated content?}
 
 \subsection{Accessibility} 
 
-\todo{study on what makes generation easy to include in game development projects}
-\todo{integrating manual editing AND procgen}
+\td{study on what makes generation easy to include in game development projects}
+\td{integrating manual editing AND procgen}
 
 \subsection{Cost} 
-\todo{examples of development costs - human resources, machine resources}
-\todo{which of these costs can be reduced by PCG}
+\td{examples of development costs - human resources, machine resources}
+\td{which of these costs can be reduced by PCG}
 
 
 
@@ -298,22 +302,25 @@ The following subsections describe how each of the mentioned aspects can influen
 %%%%%%%%%%%%%%%
 \section{Chosen approach: cellular automata for 2D map generation}
 
-\todo{short paragraph on the choice of CA for game maps}
-\todo{why we chose CA for mapgen?}
-\todo{what are pros and cons of such choice?}
+\td{short paragraph on the choice of CA for game maps}
+\td{why we chose CA for mapgen?}
+\td{what are pros and cons of such choice?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
 
-
+\td{describe stages of the project}
+\td{include figure with 4 stages of generation - noise, tile, tilegrid, map}
 
 %%%%%%%%%%%%%%%
-\section{Map generator - analysis of requirements}
+\section{Analysis of requirements for map generator program}
 
-Having gathered the abstract constructs needed to build a CA map generator in chapter \ref{rozdzial.teoria}, we may proceed to state the requirements formally.
+Having gathered the abstract constructs needed to build a CA map generator in chapter \ref{rozdzial.teoria}, we may proceed to state the requirements formally. 
 
 \subsection{Functional requirements}
+
+First, we must define the desired functions which a useful map generator should provide to the user. 
 
 \begin{itemize}
 	\item user interface allowing playing with parameters
@@ -322,7 +329,7 @@ Having gathered the abstract constructs needed to build a CA map generator in ch
 	\item ...
 \end{itemize}
 
-\subsection{User requirements}
+\subsection{Non-functional requirements}
 
 \begin{itemize}
 	\item allow changing parameters by user
@@ -334,21 +341,21 @@ Having gathered the abstract constructs needed to build a CA map generator in ch
 
 %%%%%%%%%%%%%%%
 \section{Design}
-\subsection{Data structures, persistence}
+\subsection{Data structures and persistence}
 
-\todo{ how do we store data?}
-\todo{ exporting data from generator? }
-\todo{ how designers can get a complete map model? } 
+\td{ how do we store data?}
+\td{ exporting data from generator? }
+\td{ how designers can get a complete map model? } 
 
 \subsection{Application logic} 
 
-\todo{how a generator will work}
-\todo{diagrams}
+\td{how a generator will work}
+\td{diagrams}
 
 \subsection{User interface}
 
-\todo{mention Bret Victor talks}
-\todo{imgui immediate mode user interface}
+\td{mention Bret Victor talks}
+\td{imgui immediate mode user interface}
 
 %%%%%%%%%%%%%%%
 \section{Basic cellular automata simulations}
@@ -379,13 +386,14 @@ Such abstraction creates an easy to use interface for further development and is
  	\caption{ Revised Board abstraction - added methods for neighbor sums and translation of cell states to texels} 
  	\label{fig:boardcell2}
  \end{figure}
-\todo{what else to include?}
-\todo{more on CA, 2dim CA?}
 
+\td{add neighbor methods to board2}
+\td{result of what it all does?}
 
+At this point, we could also observe a common property of cellular automata  - whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time to compute next state of the board in case of 2-dimensional cellular automata \autocite{fourie2015parallel}.
 
-At this point, we could also observe a common property of cellular automata  - whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time needed to simulate cellular automata \autocite{fourie2015parallel}.
-
+\td{what else to include?}
+\td{more on CA, 2dim CA?}
 %%%%%%%%%%%%%%%
 \section{Generating maps with CA}
 
@@ -394,9 +402,9 @@ Since the goal of this work is not to just implement a working cellular automato
 Authors describe rules of a cellular automaton which are able to tranform a tile filled initially with random distribution of cells into a tile which has interesting properties for a map designer.
 
 
-\todo{1 random image}
-\todo{2 apply CA steps as in article cavegen}
-\todo{3 voila, maps!}
+\td{1 random image}
+\td{2 apply CA steps as in article cavegen}
+\td{3 voila, maps!}
 
 
 
@@ -466,7 +474,7 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 	\item[PCG] Procedural Content Generation. An automated process of creation.
 	\item[PCGG]	Procedural Content Generation for Games.  
 \end{description}
-\todo{(?)}  
+\td{(?)}  
 
 \addcontentsline{toc}{chapter}{Attachments} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
