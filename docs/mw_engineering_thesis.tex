@@ -5,10 +5,9 @@
 \usepackage{makeidx}
 \usepackage{graphicx} % Required for the inclusion of images
 \usepackage{txfonts}
-\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
-\usepackage[linesnumbered,ruled,vlined]{algorithm2e} % Algorithms with ctan algorithm2e
-\usepackage{verbatim} % Pre-formatted text environment 
 %\usepackage{times} % Uncomment to use the chosen font 
+\usepackage[skip=2pt,font=scriptsize]{caption}
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units 
 \usepackage{color}
 \usepackage[english]{babel} %%% SPRAWDZANIE PISOWNI EN
 %\usepackage[polish]{babel} %%% SPRAWDZANIE PISOWNI PL
@@ -24,10 +23,22 @@
 
 % BIB REF COMMANDS
 \usepackage[nottoc,notlot,notlof]{tocbibind}
-\usepackage[backend=bibtex,style=alphabetic,sorting=ynt]{biblatex}  
+\usepackage[backend=bibtex,style=alphabetic,sorting=anyvt]{biblatex}  
+%Bibliography sorting options
+%
+%option	description
+%nty	sort by name, title, year
+%nyt	sort by name, year, title
+%nyvt	sort by name, year, volume, title
+%anyt	sort by alphabetic label, name, year, title
+%anyvt	sort by alphabetic label, name, year, volume, title
+%ydtn	sort by year (descending), name, title
+%none	entries are processed in citation order
 \bibliography{references}
 
 % CODE LISTINGS COMMANDS
+\usepackage{verbatim} % Pre-formatted text environment 
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e} % Algorithms with ctan algorithm2e 
 \usepackage{listings}
 \definecolor{mygray}{rgb}{0.4,0.4,0.4}
 \definecolor{mygreen}{rgb}{0,0.6,0.4}
@@ -113,9 +124,9 @@ Beginning experimentation with flat maps on 2-dimensional plane avoids the compl
 We will investigate existing methods for procedural generation of game maps which resemble cave structures. Then, an approach that may be used for automated creation of such maps will be selected and examined with a focus on implementing a working map generator. Main points of focus for this project are as follows:
 
 \begin{itemize}
-	\item research procedural generation methods
-	\item selection of a promising approach to use
-	\item design of a map generator program
+	\item research on procedural generation of maps
+	\item selecting a promising approach to use
+	\item designing a map generator program
 	\item implementing the solution in a programming language of choice
 \end{itemize}
 
@@ -148,10 +159,10 @@ Development environment for the purposes of thesis experiments and writing has b
 	\item Visual Studio 2015 Community IDE
 	\item CMake for Windows
 	\item TeXstudio editor with MikTeX backend
-	\item Git Version Control System
-	\item Notepad++ 
-	\item \todo{software for drawing diagrams?}
-	\item ...
+	\item Git version control system
+	\item Notepad++
+	\item Modelio 3.7 open source modeling environment
+	\item \todo{...}
 \end{itemize}
 
 Other configuration details include: \todo{environment variables, configuration specifics...} 
@@ -169,8 +180,7 @@ The implementation uses following libraries:
 \begin{itemize}
 	\item Dear ImGui, by Omar Cornut - to easily build an Immediate Mode user interface. Project homepage:  \url{https://github.com/ocornut/imgui}
 	\item GLFW 3.2.1 library - to create an OpenGL context and have direct access to texture functions. Project homepage: \url{http://www.glfw.org/}
-	\item \todo{...}
-	\item \todo{...}
+	\item \todo{...} 
 \end{itemize}  
  
 
@@ -178,17 +188,7 @@ The implementation uses following libraries:
 \subsubsection{Design patterns} 
 \todo{list used design patters, if any. Singleton? Command? Factory?}
  
-%%%%%%%%%%%%%%%
-\section{List of abbreviations and acronyms} 
 
-The following terms, abbreviations and acronyms have been used in the thesis.
-
-\begin{description}
-	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
-	\item[PCG] Procedural Content Generation. An automated process of creation.
-	\item[PCGG]	Procedural Content Generation for Games.  
-\end{description}
-\todo{(?)}
 
 %%%%%%%%%%%%%%%
 \section{Related work (?)} 
@@ -198,7 +198,21 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Research on 2D map generation methods} \label{rozdzial.teoria}
 
+%%%%%%%%%%%%%%%
+\section{Definitions} 
 
+Before we start planning a solution to the problem of map generation, we must first define what we mean by maps. As stated in chapter \ref{rozdzial.wstep}, our context does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do \autocite{snyder1993flattening}. Our goal is simply to generate planar maps. 
+
+
+\begin{description}
+	\item[Map] \todo{what is a map?}
+\end{description}
+
+
+
+
+\todo{2d map types?}
+\todo{what do we mean by generation?}
 
 %%%%%%%%%%%%%%%
 \section{ Automation - reduction in development time and cost}
@@ -210,18 +224,7 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 \todo{ PCG methods }
 \todo{ focus on maps }
 
-%%%%%%%%%%%%%%%
-\section{Definitions} 
 
-\begin{description}
-	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighborhood is a collection of nearest cells to the selected one.
-	\item[Moore's neighborhood]  Moore neighborhood includes the cell and its immediate neighbors - one to the north, south, east and west of the cell.
-	\item[Von Neumann neighborhood] Von Neumann neighborhood includes 8 closest neighbors of the cell - immediate and diagonal.
-\end{description}
-
-\todo{what is a map?}
-\todo{2d map types?}
-\todo{what do we mean by generation?}
 
 
 
@@ -233,16 +236,30 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 
 \subsection{Cellular automata}
 
-A cellular automaton is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}.
+A cellular automaton is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
 
-One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
+\todo{introduce new definitions}
+
+\begin{description}
+	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighborhood is a collection of nearest cells to the selected one.
+	\item[Moore's neighborhood]  Moore neighborhood includes the cell and its immediate neighbors - one to the north, south, east and west of the cell.
+	\item[Von Neumann neighborhood] Von Neumann neighborhood includes 8 closest neighbors of the cell - immediate and diagonal.
+\end{description}
+
 
 \todo{write on use of CA for generation of content and then specifically maps }
 
 
+
+
 \subsection{Generative grammars}
-\subsection{L-systems}
-\subsection{...}
+\todo{what is a formal grammar?}
+\todo{how can it be used for generating maps?}
+\todo{why we cant use them?}
+\subsection{L-systems} 
+\todo{what are lsystems?}
+\todo{can they generate maps?}
+\todo{}
 \subsection{...}
 \subsection{...}
 %%%%%%%%%%%%%%%
@@ -289,64 +306,12 @@ The following subsections describe how each of the mentioned aspects can influen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
 
-Having chosen cellular automata as a method for generating maps, we need to have a clear idea about how to approach building a program that could simulate a cellular automaton. One of the helpful resources on the topic of building cellular automata simulations is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where we can find a short tutorial to build our first CA simulation. There, author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises. The tutorial is quite useful as a guide, since examples presented in New Kind of Science \autocite{wolfram2002new} are implemented in the Wolfram language and would require familiarity with it.
-
-%%%%%%%%%%%%%%%
-\section{Basic CA simulation}
-
-In order to build a map generator based on a cellular automaton, we must first understand the basics. As stated in Nature of Code by Daniel Shiffman \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
-
-\begin{itemize}
-	\item Cell state - every cell has a state updated on each simulation step,
-	\item Grid - a space on which cells are placed,
-	\item Neighborhood - each cell needs to know the state of its neighbors to update its state.
-\end{itemize}
-
-Another observation is that whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step.
-
-In order to represent the cells for an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to the user. 
-
-
-\todo{what to include?}
-Figure \ref{fig:img001} presents...
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/img001}
-	\caption{}
-	\label{fig:img001}
-\end{figure}
-
-
-\todo{class of CA board}
-\todo{diagram: associate 1 board to many cells}
-
- 
-
-\todo{more on CA, 2dim CA?}
-
-
-
 
 
 %%%%%%%%%%%%%%%
-\section{Generating maps for a game}
+\section{Map generator - analysis of requirements}
 
-Since the goal of this work is not to just implement a working cellular automaton simulation, we need to find a way to generate maps using CA simulation. One of possible proposed approaches is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. 
-
-Authors describe an 
-
-
-\todo{1 random image}
-\todo{2 apply CA steps as in article cavegen}
-\todo{3 voila, maps!}
-
-
-
-%%%%%%%%%%%%%%%
-\section{Analysis of requirements}
-
-Having gathered the abstract constructs needed to build a CA map generator, we may proceed to state the requirements formally.
+Having gathered the abstract constructs needed to build a CA map generator in chapter \ref{rozdzial.teoria}, we may proceed to state the requirements formally.
 
 \subsection{Functional requirements}
 
@@ -367,15 +332,14 @@ Having gathered the abstract constructs needed to build a CA map generator, we m
 
 \subsection{Constraints}
 
-
 %%%%%%%%%%%%%%%
 \section{Design}
 \subsection{Data structures, persistence}
- 
+
 \todo{ how do we store data?}
 \todo{ exporting data from generator? }
 \todo{ how designers can get a complete map model? } 
- 
+
 \subsection{Application logic} 
 
 \todo{how a generator will work}
@@ -385,6 +349,59 @@ Having gathered the abstract constructs needed to build a CA map generator, we m
 
 \todo{mention Bret Victor talks}
 \todo{imgui immediate mode user interface}
+
+%%%%%%%%%%%%%%%
+\section{Basic cellular automata simulations}
+
+Having chosen cellular automata as a method for generating maps, we need to have a clear idea about how to approach building a program that could simulate a cellular automaton. One of the helpful resources on the topic of building cellular automata simulations is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where we can find a short tutorial to build our first CA simulation. There, author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises. The tutorial is quite useful as a guide, since examples presented in New Kind of Science \autocite{wolfram2002new} are implemented in the Wolfram language and would require familiarity with it. As stated in Nature of Code \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
+
+\begin{itemize}
+	\item Cell state - every cell has a state updated on each simulation step,
+	\item Grid - a space on which cells are placed,
+	\item Neighborhood - each cell needs to know the state of its neighbors to update its state.
+\end{itemize}
+
+In order to represent the cells of an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to the user. Figure \ref{fig:boardcell} presents an example model of a class that would encapsulate a collection of cell states while also preserving information about the board on which those cells are placed. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{diagrams/board_cell01}
+	\caption{ A possible model of a Board Class which holds cell states in its block of memory and lets its user change their states} 
+	\label{fig:boardcell}
+\end{figure}
+
+
+Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighborhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on figure \ref{fig:boardcell2}.
+ 
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[width=0.9\linewidth]{diagrams/board_cell02}
+ 	\caption{ Revised Board abstraction - added methods for neighbor sums and translation of cell states to texels} 
+ 	\label{fig:boardcell2}
+ \end{figure}
+\todo{what else to include?}
+\todo{more on CA, 2dim CA?}
+
+
+
+At this point, we could also observe a common property of cellular automata  - whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time needed to simulate cellular automata \autocite{fourie2015parallel}.
+
+%%%%%%%%%%%%%%%
+\section{Generating maps with CA}
+
+Since the goal of this work is not to just implement a working cellular automaton simulation, we need to find a way to generate maps using CA simulation. One of possible proposed approaches is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. 
+
+Authors describe rules of a cellular automaton which are able to tranform a tile filled initially with random distribution of cells into a tile which has interesting properties for a map designer.
+
+
+\todo{1 random image}
+\todo{2 apply CA steps as in article cavegen}
+\todo{3 voila, maps!}
+
+
+
+
+
 
 %%%%%%%%%%%%%%%
 \section{Implementation}
@@ -406,6 +423,10 @@ Having gathered the abstract constructs needed to build a CA map generator, we m
 %%%%%%%%%%%%%%%
 \section{Evaluation of results} 
 
+\subsection{Effectiveness}
+\subsection{Accessibility}
+\subsection{Cost}
+
 %%%%%%%%%%%%%%%
 \section{Perspectives for usage }
 
@@ -423,7 +444,6 @@ Having gathered the abstract constructs needed to build a CA map generator, we m
 \pagebreak 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -434,6 +454,19 @@ Having gathered the abstract constructs needed to build a CA map generator, we m
 
 \addcontentsline{toc}{chapter}{List of tables} 
 \listoftables
+
+\addcontentsline{toc}{chapter}{List of abbreviations and acronyms} 
+%%%%%%%%%%%%%%%
+\chapter*{List of abbreviations and acronyms} 
+
+The following terms, abbreviations and acronyms have been used in the thesis.
+
+\begin{description}
+	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
+	\item[PCG] Procedural Content Generation. An automated process of creation.
+	\item[PCGG]	Procedural Content Generation for Games.  
+\end{description}
+\todo{(?)}  
 
 \addcontentsline{toc}{chapter}{Attachments} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
