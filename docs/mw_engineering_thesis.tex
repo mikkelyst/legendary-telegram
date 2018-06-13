@@ -7,6 +7,7 @@
 \usepackage{txfonts}
 %\usepackage{times} % Uncomment to use the chosen font 
 \usepackage[skip=5pt,font={small,it},labelfont=bf]{caption}
+\usepackage{subcaption}
 \usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units 
 \usepackage{color}
 \usepackage[english]{babel} %%% SPRAWDZANIE PISOWNI EN
@@ -71,7 +72,7 @@
 %%% TO DO notes
 \usepackage[textsize=footnotesize]{todonotes}
 % \usepackage[disable]{todonotes}
-\newcommand{\td}[1]{\todo[inline]{#1}}
+\newcommand{\td}[1]{\todo[inline]{TO DO: #1}}
 
 %%% TOC HYPERLINKS %%%
 \usepackage{hyperref}
@@ -95,11 +96,11 @@
 \maketitle
 \tableofcontents 
 
-\listoftodos
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{rozdzial.wstep} 
-During recent years, presence of computer games in human lives has increased. The demand for games has shown that playing games, both as a medium of expression and a means for entertainment, is a desirable form of activity. However, as the demand for games rises \footnote{The Interactive Software Federation of Europe compiles and publishes statistics which include frequency of gaming in European countries: \url{https://www.isfe.eu/industry-facts/statistics}} and the games become increasingly complex, demand for game content must also rise -- game elements such as believable maps, textures, sound and models (among other types of content) are a necessary resource for production of games. Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. In the study, authors point to work of Kelly and McCabe \autocite{kelly2007citygen}, Lefebvre and Neyret \autocite{lefebvre2003pattern}, Smelik et al. 2009 \autocite{smelik2009survey} and Iosup 2009 \autocite{iosup2009poggi} as sources which reveal game content production as a time-consuming and expensive endeavor.
+During recent years, presence of computer games in human lives has increased. The demand for games has shown that playing games, both as a medium of expression and a means for entertainment, is a desirable form of activity. However, as the demand for games rises \footnote{The Interactive Software Federation of Europe compiles and publishes statistics which include frequency of gaming in European countries and show that demand for games is on the rise. \url{https://www.isfe.eu/industry-facts/statistics}} and computer games become increasingly complex, demand for game content must also rise -- game elements such as believable maps, textures, sound and models (among other types of content) are a necessary resource for production of games. Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. In the study, authors point to work of Kelly and McCabe \autocite{kelly2007citygen}, Lefebvre and Neyret \autocite{lefebvre2003pattern}, Smelik et al. 2009 \autocite{smelik2009survey} and Iosup 2009 \autocite{iosup2009poggi} as sources which reveal game content production as a time-consuming and expensive endeavour.
 
 \subsubsection{Solving the inefficiency issue}
 Scientific surveys such as \autocite{hendrikx2013procedural} and \autocite{smelik2009survey} show why investigating procedural generation is useful for the game industry, by providing examples of successful methods which can be used to generate content for games. Primary concerns which drive the interest in automated ways to create game content are the rising project costs and increasing development time.
@@ -111,9 +112,7 @@ During two recent years, the author of this thesis took part in a small, after-h
 
 %%%%%%%%%%%%%%%
 \section{Thesis structure}
-The overall structure of this thesis includes introduction followed by three chapters. The second chapter serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The third chapter describes the experiments, design and implementation of a solution to the problem. Last chapter summarizes the findings and concludes the thesis. 
-
-\td{ LATER: check if structure description matches content}
+The overall structure of this thesis includes introduction followed by three chapters. The second chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The chapter \ref{rozdzial.praktyka} describes performed experiments, design and implementation of a solution to the problem. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis, followed by chapter \ref{rozdzial.kod} which lists full source code of the developed solution.
 
 %%%%%%%%%%%%%%%
 \section{Objectives}
@@ -161,10 +160,10 @@ Development environment for the purposes of thesis experiments and writing has b
 \begin{itemize}
 	\item Visual Studio 2015 Community IDE
 	\item CMake for Windows
-	\item TeXstudio editor with MikTeX backend
+	\item TeXstudio editor with MikTeX back-end
 	\item Git version control system
 	\item Notepad++
-	\item Modelio 3.7 open source modeling environment
+	\item UMLet open source modelling program
 	\item \td{...}
 \end{itemize}
 
@@ -208,7 +207,7 @@ Before we start planning a solution to the problem of map generation, we must fi
 
 
 \begin{description}
-	\item[Map] \td{what is a map?}
+	\item[Map] \td{what is a map?} 
 \end{description}
 
 
@@ -234,6 +233,8 @@ Before we start planning a solution to the problem of map generation, we must fi
 %%%%%%%%%%%%%%%
 \section{Existing solutions for 2D map generation}
 
+In the scientific surveys collected during research phase, we find approaches to map generation employed in the past. As listed by Hendrikx et al. \autocite{hendrikx2013procedural}, \td{list}
+
 \td{HOW it was done until now? options?}
 \td{ ref survey with table of 2d dungeon gen}
 
@@ -241,33 +242,45 @@ Before we start planning a solution to the problem of map generation, we must fi
 
 A cellular automaton is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
 
-\td{introduce new definitions}
+Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list follows.
 
 \begin{description}
-	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighborhood is a collection of nearest cells to the selected one.
-	\item[Moore's neighborhood]  Moore neighborhood includes the cell and its immediate neighbors - one to the north, south, east and west of the cell.
-	\item[Von Neumann neighborhood] Von Neumann neighborhood includes 8 closest neighbors of the cell - immediate and diagonal.
+	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of nearest cells to the selected one.
+	\item[Moore's neighbourhood]  Moore neighbourhood includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in table \ref{tab:cellneighbors}.
+	\item[Von Neumann neighbourhood] Von Neumann neighbourhood includes 8 closest neighbours of the cell - immediate and diagonal, as shown in table \ref{tab:cellneighbors}.
+	\item[Other types of neighborhood] It is possible to imagine other types of cell neighbourhoods, possibly including more cell rings around a cell or only a selection of them arranged in a custom pattern. Those cases are beyond the scope of this thesis.
 \end{description}
 
+\begin{table}[h]
+	\centering
+	\begin{tabular}{| l | l | l |}
+		\hline 
+		0 & 1 & 2 \\
+		\hline
+		7 & S & 3 \\
+		\hline
+		6 & 5 & 4 \\ 
+		\hline
+	\end{tabular}
+	\caption{Cell neighbours, numbered. \textit{S} denotes selected cell. Cells marked with odd numbers are members of Moore neighborhood of selected cell and all numbered cells are members of Von Neumann neighbourhood of it. }
+	\label{tab:cellneighbors}
+\end{table}
 
 \td{write on use of CA for generation of content and then specifically maps }
 
 
 
-
 \subsection{Generative grammars}
-\td{what is a formal grammar?}
-\td{how can it be used for generating maps?}
-\td{why we cant use them?}
+\td{What is it? Is relevant to maps? Can we use it? Why?}
 \subsection{L-systems} 
-\td{what are lsystems?}
-\td{can they generate maps?} 
+\td{What is it? Is relevant to maps? Can we use it? Why?}
 \subsection{...}
-\td{?}
+\td{What is it? Is relevant to maps? Can we use it? Why?}
 \subsection{...}
-\td{?}
+\td{What is it? Is relevant to maps? Can we use it? Why?}
+
 %%%%%%%%%%%%%%%
-\section{Evaluation of existing methods for project purposes}
+\section{Choosing a method of generation}
 
 In order to effectively judge the value that a working map generator may bring to a game development project, we need to consider what characteristics should be evaluated. First, a useful generator must be effective at map generation.
 
@@ -312,9 +325,37 @@ The following subsections describe how each of the mentioned aspects can influen
 
 \td{describe stages of the project}
 \td{include figure with 4 stages of generation - noise, tile, tilegrid, map}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step1}
+		\caption{Step 1 - random noise} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step2}
+		\caption{Step 2 - generated tile} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step3}
+		\caption{Step 3 - tiles in a grid} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step4}
+		\caption{Step 4 - complete map} 
+	\end{subfigure}
+	\caption{Four stages of map construction}
+	\label{fig:map_steps}
+\end{figure}
 
 %%%%%%%%%%%%%%%
-\section{Analysis of requirements for map generator program}
+\section{Analysis of requirements for a map generator}
 
 Having gathered the abstract constructs needed to build a CA map generator in chapter \ref{rozdzial.teoria}, we may proceed to state the requirements formally. 
 
@@ -365,24 +406,24 @@ Having chosen cellular automata as a method for generating maps, we need to have
 \begin{itemize}
 	\item Cell state - every cell has a state updated on each simulation step,
 	\item Grid - a space on which cells are placed,
-	\item Neighborhood - each cell needs to know the state of its neighbors to update its state.
+	\item Neighbourhood - each cell needs to know the state of its neighbours to update its state.
 \end{itemize}
 
 In order to represent the cells of an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to the user. Figure \ref{fig:boardcell} presents an example model of a class that would encapsulate a collection of cell states while also preserving information about the board on which those cells are placed. 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\linewidth]{diagrams/board_cell01}
+	\includegraphics[width=0.9\linewidth]{diagrams/boardcell01}
 	\caption{ A possible model of a Board Class which holds cell states in its block of memory and lets its user change their states} 
 	\label{fig:boardcell}
 \end{figure}
 
 
-Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighborhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on figure \ref{fig:boardcell2}.
+Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighbourhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on figure \ref{fig:boardcell2}.
  
  \begin{figure}[h]
  	\centering
- 	\includegraphics[width=0.9\linewidth]{diagrams/board_cell02}
+ 	\includegraphics[width=0.9\linewidth]{diagrams/boardcell02}
  	\caption{ Revised Board abstraction - added methods for neighbor sums and translation of cell states to texels} 
  	\label{fig:boardcell2}
  \end{figure}
@@ -399,11 +440,11 @@ At this point, we could also observe a common property of cellular automata  - w
 
 Since the goal of this work is not to just implement a working cellular automaton simulation, we need to find a way to generate maps using CA simulation. One of possible proposed approaches is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. 
 
-Authors describe rules of a cellular automaton which are able to tranform a tile filled initially with random distribution of cells into a tile which has interesting properties for a map designer.
+Authors describe rules of a cellular automaton which are able to transform a tile filled initially with random distribution of cells into a tile which has interesting properties for a map designer.
 
 
 \td{1 random image}
-\td{2 apply CA steps as in article cavegen}
+\td{2 apply CA steps as in article cave gen}
 \td{3 voila, maps!}
 
 
@@ -485,6 +526,6 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 \item Załącznik 3
 \end{enumerate}
 
-
+\listoftodos
 
 \end{document}
