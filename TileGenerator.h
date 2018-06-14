@@ -5,7 +5,7 @@
 
 #include "Ruleset.h"
 #include "Board.h"
-#include "SimpleTexture.h"
+#include "TextureAtlas.h"
 #include "Map.h"
 
 enum BoardInit_t

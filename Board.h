@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "SimpleTexture.h" 
+#include "TextureAtlas.h" 
 
 enum CELL_t
 {

@@ -56,7 +56,7 @@
 	frame=tbTB,
 	breakatwhitespace=false,         
 	breaklines=true,                 
-	captionpos=b,                    
+	captionpos=t,                    
 	keepspaces=true, 
 	columns=fullflexible,
 	showstringspaces=false,
@@ -132,14 +132,14 @@ We will investigate existing methods for procedural generation of game maps whic
 	\item implementing the solution in a programming language of choice
 \end{itemize}
 
-\td{is that all?}
+\td{Objectives - is that all?}
 
 %%%%%%%%%%%%%%%
 \section{Thesis scope}
 
-\td{scope - what we will do, what we dont do}
+\td{scope - what we will do, what we will not do. specific goals.}
 
-\td{short: what could be done instead}
+\td{scope - shortly: what could be done instead}
 
 
 
@@ -207,14 +207,11 @@ Before we start planning a solution to the problem of map generation, we must fi
 
 
 \begin{description}
-	\item[Map] \td{what is a map?} 
+	\item[Map] \todo{what is a map?} 
+	\item[Generation] \todo{what generation means?}
 \end{description}
 
-
-
-
 \td{2d map types?}
-\td{what do we mean by generation?}
 
 %%%%%%%%%%%%%%%
 \section{ Automation - reduction in development time and cost}
@@ -233,7 +230,7 @@ Before we start planning a solution to the problem of map generation, we must fi
 %%%%%%%%%%%%%%%
 \section{Existing solutions for 2D map generation}
 
-In the scientific surveys collected during research phase, we find approaches to map generation employed in the past. As listed by Hendrikx et al. \autocite{hendrikx2013procedural}, \td{list}
+In scientific surveys on PCG methods, we find approaches to map generation employed in the past. As listed by Hendrikx et al. \autocite{hendrikx2013procedural}, \td{list map procgen methods}
 
 \td{HOW it was done until now? options?}
 \td{ ref survey with table of 2d dungeon gen}
@@ -242,31 +239,43 @@ In the scientific surveys collected during research phase, we find approaches to
 
 A cellular automaton is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
 
-Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list follows.
+Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list of definitions follows.
 
 \begin{description}
+	\item[Cell] A cell is simply one unit positioned in CA simulation space. Cells have state, which can be simple  - for example, a binary digit, an integer - or more complicated - a real number with constraints, a complex number, or other.  
 	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of nearest cells to the selected one.
-	\item[Moore's neighbourhood]  Moore neighbourhood includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in table \ref{tab:cellneighbors}.
-	\item[Von Neumann neighbourhood] Von Neumann neighbourhood includes 8 closest neighbours of the cell - immediate and diagonal, as shown in table \ref{tab:cellneighbors}.
+	\item[Moore's neighbourhood]  Moore neighbourhood includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in figure \ref{fig:neighborhood_types}.
+	\item[Von Neumann neighbourhood] Von Neumann neighbourhood includes 8 closest neighbours of the cell - immediate and diagonal, as shown in figure \ref{fig:neighborhood_types}.
 	\item[Other types of neighborhood] It is possible to imagine other types of cell neighbourhoods, possibly including more cell rings around a cell or only a selection of them arranged in a custom pattern. Those cases are beyond the scope of this thesis.
 \end{description}
-
-\begin{table}[h]
+ 
+\begin{figure}[h]
 	\centering
-	\begin{tabular}{| l | l | l |}
-		\hline 
-		0 & 1 & 2 \\
-		\hline
-		7 & S & 3 \\
-		\hline
-		6 & 5 & 4 \\ 
-		\hline
-	\end{tabular}
-	\caption{Cell neighbours, numbered. \textit{S} denotes selected cell. Cells marked with odd numbers are members of Moore neighborhood of selected cell and all numbered cells are members of Von Neumann neighbourhood of it. }
-	\label{tab:cellneighbors}
-\end{table}
+	\begin{subfigure}[b]{0.35\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/neighborsmoore}
+		\caption{Moore neighborhood} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.35\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/neighborsvonneumann}
+		\caption{Von Neumann neighborhood} 
+	\end{subfigure} 
+	\caption{Two basic types of cell neighborhood}
+	\label{fig:neighborhood_types}
+\end{figure}
 
-\td{write on use of CA for generation of content and then specifically maps }
+
+There is a...
+
+
+\td{}
+Every CA simulation also consists of rules which drive the process of cell evolution to its next stage.
+
+\td{ca basics - game of life}
+\td{using CA for simulations }
+\td{using CA for generation of content}
 
 
 
@@ -315,6 +324,12 @@ The following subsections describe how each of the mentioned aspects can influen
 %%%%%%%%%%%%%%%
 \section{Chosen approach: cellular automata for 2D map generation}
 
+One of possible proposed approaches is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. 
+
+Authors describe rules of a cellular automaton which are able to transform a tile filled initially with random distribution of cells into a tile which has interesting properties for a map designer.
+
+\td{authors describe a process - 1 random image 2 apply CA steps as in article cave gen 3 merge tiles, result: maps!} 
+
 \td{short paragraph on the choice of CA for game maps}
 \td{why we chose CA for mapgen?}
 \td{what are pros and cons of such choice?}
@@ -323,36 +338,10 @@ The following subsections describe how each of the mentioned aspects can influen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
 
-\td{describe stages of the project}
-\td{include figure with 4 stages of generation - noise, tile, tilegrid, map}
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/step1}
-		\caption{Step 1 - random noise} 
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/step2}
-		\caption{Step 2 - generated tile} 
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/step3}
-		\caption{Step 3 - tiles in a grid} 
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/step4}
-		\caption{Step 4 - complete map} 
-	\end{subfigure}
-	\caption{Four stages of map construction}
-	\label{fig:map_steps}
-\end{figure}
+\td{describe stages of the project} 
+
+
+
 
 %%%%%%%%%%%%%%%
 \section{Analysis of requirements for a map generator}
@@ -367,7 +356,7 @@ First, we must define the desired functions which a useful map generator should 
 	\item user interface allowing playing with parameters
 	\item rendering each generation step
 	\item exporting generated maps
-	\item ...
+	\item \td{}
 \end{itemize}
 
 \subsection{Non-functional requirements}
@@ -375,28 +364,46 @@ First, we must define the desired functions which a useful map generator should 
 \begin{itemize}
 	\item allow changing parameters by user
 	\item format of exported maps must be easy to understand and use
-	\item ...
+	\item \td{}
 \end{itemize}
 
 \subsection{Constraints}
+
+\begin{itemize}
+	\item Constraint: time of map tile generation must not exceed 10 seconds.
+	\item \td{}
+\end{itemize}
 
 %%%%%%%%%%%%%%%
 \section{Design}
 \subsection{Data structures and persistence}
 
 \td{ how do we store data?}
+\td{ diagrams of cell, board}
 \td{ exporting data from generator? }
 \td{ how designers can get a complete map model? } 
 
 \subsection{Application logic} 
 
 \td{how a generator will work}
-\td{diagrams}
+\td{behavior diagrams}
 
 \subsection{User interface}
 
-\td{mention Bret Victor talks}
-\td{imgui immediate mode user interface}
+\td{OpenGL immediate mode paradigm}
+\td{imgui immediate mode user interface library}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
+	\caption[User Interface model]{Example model of classes to be used to construct user interface in the map generator program}
+	\label{fig:uiwindows}
+\end{figure}
+
+\td{diagram of texture class, used by Component MapGen, uses OpenGL}
+
+\td{mention Bret Victor talks - why we choose Immediate Mode}
+
 
 %%%%%%%%%%%%%%%
 \section{Basic cellular automata simulations}
@@ -413,17 +420,34 @@ In order to represent the cells of an automaton, a primitive data type is suffic
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\linewidth]{diagrams/boardcell01}
+	\includegraphics[width=0.8\linewidth]{diagrams/boardcell01}
 	\caption{ A possible model of a Board Class which holds cell states in its block of memory and lets its user change their states} 
 	\label{fig:boardcell}
 \end{figure}
+
+We can also assign a number to each cell \td{why?} as shown in table \ref{tab:cellneighbors}.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{| l | l | l |}
+		\hline 
+		0 & 1 & 2 \\
+		\hline
+		7 & S & 3 \\
+		\hline
+		6 & 5 & 4 \\ 
+		\hline
+	\end{tabular}
+	\caption{Cell neighbours, numbered. \textit{S} denotes selected cell. Cells marked with odd numbers are members of Moore neighborhood of selected cell and all numbered cells are members of Von Neumann neighbourhood of it. }
+	\label{tab:cellneighbors}
+\end{table}
 
 
 Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighbourhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on figure \ref{fig:boardcell2}.
  
  \begin{figure}[h]
  	\centering
- 	\includegraphics[width=0.9\linewidth]{diagrams/boardcell02}
+ 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell02}
  	\caption{ Revised Board abstraction - added methods for neighbor sums and translation of cell states to texels} 
  	\label{fig:boardcell2}
  \end{figure}
@@ -435,17 +459,41 @@ At this point, we could also observe a common property of cellular automata  - w
 
 \td{what else to include?}
 \td{more on CA, 2dim CA?}
+
+
 %%%%%%%%%%%%%%%
 \section{Generating maps with CA}
 
-Since the goal of this work is not to just implement a working cellular automaton simulation, we need to find a way to generate maps using CA simulation. One of possible proposed approaches is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. 
+Since the goal of this work is not to just implement a working cellular automaton simulation, we need to find a way to generate maps using CA simulation. 
 
-Authors describe rules of a cellular automaton which are able to transform a tile filled initially with random distribution of cells into a tile which has interesting properties for a map designer.
-
-
-\td{1 random image}
-\td{2 apply CA steps as in article cave gen}
-\td{3 voila, maps!}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step1}
+		\caption{Step 1 - random noise} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step2}
+		\caption{Step 2 - generated tile} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step3}
+		\caption{Step 3 - tiles in a grid} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.2\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/step4}
+		\caption{Step 4 - complete map} 
+	\end{subfigure}
+	\caption{Four stages of map construction}
+	\label{fig:map_steps}
+\end{figure}
 
 
 
@@ -455,7 +503,8 @@ Authors describe rules of a cellular automaton which are able to transform a til
 %%%%%%%%%%%%%%%
 \section{Implementation}
 
-
+\td{describe how it all works now, with object diagrams}
+\td{refer to code itself}
 
 
 %%%%%%%%%%%%%%%
@@ -479,19 +528,27 @@ Authors describe rules of a cellular automaton which are able to transform a til
 %%%%%%%%%%%%%%%
 \section{Perspectives for usage }
 
-
+\td{map generator will be used in game project codenamed 'UW'}
 
 %%%%%%%%%%%%%%%
 \section{Further work}
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Full implementation source code} \label{rozdzial.kod}
-\section{main.cpp}
+\chapter{Full source code} \label{rozdzial.kod} 
 % use firstline=1, lastline=200 to load a snippet from file instead of all lines
 \lstinputlisting[language=C++, caption=main.cpp Source Code]{../main.cpp}
-\pagebreak 
-
+\lstinputlisting[language=C++, caption=Board.h Source Code]{../Board.h}
+\lstinputlisting[language=C++, caption=Map.h Source Code]{../Map.h}
+\lstinputlisting[language=C++, caption=Ruleset.h Source Code]{../Ruleset.h}
+\lstinputlisting[language=C++, caption=TextureAtlas.h Source Code]{../TextureAtlas.h}
+\lstinputlisting[language=C++, caption=TileGenerator.h Source Code]{../TileGenerator.h}
+\lstinputlisting[language=C++, caption=UserInterface\_MapGenerator.h Source Code]{../UserInterface_MapGenerator.h}
+\lstinputlisting[language=C++, caption=Window\_Base.h Source Code]{../Window_Base.h}
+\lstinputlisting[language=C++, caption=WindowBoardControls.h Source Code]{../WindowBoardControls.h}
+\lstinputlisting[language=C++, caption=WindowBoardImage.h Source Code]{../WindowBoardImage.h}
+\lstinputlisting[language=C++, caption=WindowGeneratorControls.h Source Code]{../WindowGeneratorControls.h}
+\lstinputlisting[language=C++, caption=WindowMapTileGrid.h Source Code]{../WindowMapTileGrid.h}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
@@ -512,8 +569,7 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 
 \begin{description}
 	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
-	\item[PCG] Procedural Content Generation. An automated process of creation.
-	\item[PCGG]	Procedural Content Generation for Games.  
+	\item[PCG] Procedural Content Generation. An automated process of creation.   
 \end{description}
 \td{(?)}  
 
@@ -521,9 +577,11 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Attachments}
 \begin{enumerate}
-\item Załącznik 1
-\item Załącznik 2
-\item Załącznik 3
+\item List of To Do Notes \todo{list of todos - remove this before submitting thesis} 
+\item \td{include thesis defence documents}
+\item \td{?}
+\item \td{?}
+\item \td{?}
 \end{enumerate}
 
 \listoftodos

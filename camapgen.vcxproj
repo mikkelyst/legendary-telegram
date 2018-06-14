@@ -120,7 +120,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Map.h" />
-    <ClInclude Include="SimpleTexture.h" />
+    <ClInclude Include="TextureAtlas.h" />
     <ClInclude Include="TileGenerator.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

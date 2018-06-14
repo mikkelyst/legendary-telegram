@@ -1,35 +1,91 @@
 \documentclass[12pt]{report}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx} % Required for the inclusion of images
 \usepackage{amsmath,amssymb,amsfonts} % Required for some math elements, equation environment and inline $ (math) $
+\usepackage{makeidx}
+\usepackage{graphicx} % Required for the inclusion of images
 \usepackage{txfonts}
+%\usepackage{times} % Uncomment to use the chosen font 
+\usepackage[skip=5pt,font={small,it},labelfont=bf]{caption}
+\usepackage{subcaption}
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units 
+\usepackage{color}
+\usepackage[english]{babel} %%% SPRAWDZANIE PISOWNI EN
+%\usepackage[polish]{babel} %%% SPRAWDZANIE PISOWNI PL
 
-\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
-\usepackage[linesnumbered,ruled,vlined]{algorithm2e} % Algorithms with ctan algorithm2e
-\usepackage{verbatim} % Pre-formatted text environment 
-%\usepackage{times} % Uncomment to use the chosen font
+%%% PAGE HEADERS COMMANDS %%%
 \usepackage{fancyhdr} % Page Headers and Footers
-
-%%% SPRAWDZANIE PISOWNI
-\usepackage[english]{babel}
-%\usepackage[polish]{babel} 
-
-%%% PAGE SETUP - HEADERS, GEOMETRY
-%\usepackage{geometry}
-%\usepackage[showframe]{geometry}
 \pagestyle{fancy} %page style with FancyHDR package
 \fancyhf{} % clear the header/footer style
 \lhead{\leftmark} % hdr left - standard marking (chapter names)
-\rhead{\thepage} % hdr right - page numbering 
-\setlength{\textwidth}{14cm}
+\rhead{\thepage} % hdr right - page numbering
+%\setlength{\textwidth}{14cm}
 \setlength{\textheight}{20cm} 
-\setlength{\parindent}{0cm}
 
 % BIB REF COMMANDS
 \usepackage[nottoc,notlot,notlof]{tocbibind}
-\usepackage[backend=bibtex,style=alphabetic]{biblatex}  
-\bibliography{references} 
+\usepackage[backend=bibtex,style=alphabetic,sorting=anyvt]{biblatex}  
+%Bibliography sorting options
+%
+%option	description
+%nty	sort by name, title, year
+%nyt	sort by name, year, title
+%nyvt	sort by name, year, volume, title
+%anyt	sort by alphabetic label, name, year, title
+%anyvt	sort by alphabetic label, name, year, volume, title
+%ydtn	sort by year (descending), name, title
+%none	entries are processed in citation order
+\bibliography{references}
+
+% CODE LISTINGS COMMANDS
+\usepackage{verbatim} % Pre-formatted text environment 
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e} % Algorithms with ctan algorithm2e 
+\usepackage{listings}
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+\definecolor{mygreen}{rgb}{0,0.6,0.4}
+\definecolor{myorange}{rgb}{0.8,0.2,0}
+\lstset{ 
+	basicstyle=\footnotesize\sffamily\color{black},
+	keywordstyle=\color{mygreen},
+	commentstyle=\color{mygray},
+	identifierstyle=\color{blue},
+	stringstyle=\color{myorange},
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray},
+	frame=tbTB,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=t,                    
+	keepspaces=true, 
+	columns=fullflexible,
+	showstringspaces=false,
+	float=t
+	tabsize=2
+} 
+
+
+%\newtheorem{definition}{Definicja} % przykład nowego środowiska 
+%\newtheorem{example}{Przykład}[chapter] % przykład nowego środowiska 
+%\newtheorem{corollary}{Wniosek}[chapter] % przykład nowego środowiska 
+
+%%% TO DO notes
+\usepackage[textsize=footnotesize]{todonotes}
+% \usepackage[disable]{todonotes}
+\newcommand{\td}[1]{\todo[inline]{TO DO: #1}}
+
+%%% TOC HYPERLINKS %%%
+\usepackage{hyperref}
+% remember to use \tableofcontents after title
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black,
+	pdftitle={Generating two-dimensional game maps with use of cellular automata},
+	bookmarks=true 
+}  
 
 \begin{document}
 \textbf{BIBLIOGRAPHY - SOURCES LIST \today \newline Procedural Generation, Cellular Automata } 
