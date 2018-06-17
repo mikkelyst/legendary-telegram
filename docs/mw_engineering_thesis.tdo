@@ -37,31 +37,29 @@
 \contentsline {todo}{TO DO: short paragraph on the choice of CA for game maps}{12}{section*.44}
 \contentsline {todo}{TO DO: why we chose CA for mapgen?}{12}{section*.45}
 \contentsline {todo}{TO DO: what are pros and cons of such choice?}{12}{section*.46}
-\contentsline {todo}{TO DO: describe stages of the project}{13}{section*.47}
-\contentsline {todo}{TO DO: }{13}{section*.48}
-\contentsline {todo}{TO DO: }{14}{section*.49}
-\contentsline {todo}{TO DO: }{14}{section*.50}
-\contentsline {todo}{TO DO: how do we store data?}{14}{section*.51}
-\contentsline {todo}{TO DO: diagrams of cell, board}{14}{section*.52}
-\contentsline {todo}{TO DO: exporting data from generator? }{14}{section*.53}
-\contentsline {todo}{TO DO: how designers can get a complete map model? }{14}{section*.54}
-\contentsline {todo}{TO DO: how a generator will work}{14}{section*.55}
-\contentsline {todo}{TO DO: behavior diagrams}{14}{section*.56}
-\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{14}{section*.57}
-\contentsline {todo}{TO DO: imgui immediate mode user interface library}{14}{section*.58}
-\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{14}{section*.60}
-\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{14}{section*.61}
-\contentsline {todo}{TO DO: why?}{15}{section*.63}
-\contentsline {todo}{TO DO: add neighbor methods to board2}{16}{section*.66}
-\contentsline {todo}{TO DO: result of what it all does?}{16}{section*.67}
-\contentsline {todo}{TO DO: what else to include?}{17}{section*.68}
-\contentsline {todo}{TO DO: more on CA, 2dim CA?}{17}{section*.69}
-\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{17}{section*.71}
-\contentsline {todo}{TO DO: refer to code itself}{17}{section*.72}
-\contentsline {todo}{TO DO: map generator will be used in game project codenamed 'UW'}{19}{section*.73}
-\contentsline {todo}{TO DO: (?)}{49}{section*.78}
-\contentsline {todo}{list of todos - remove this before submitting thesis}{50}{section*.80}
-\contentsline {todo}{TO DO: include thesis defence documents}{50}{section*.81}
-\contentsline {todo}{TO DO: ?}{50}{section*.82}
-\contentsline {todo}{TO DO: ?}{50}{section*.83}
-\contentsline {todo}{TO DO: ?}{50}{section*.84}
+\contentsline {todo}{TO DO: expand desired functions}{14}{section*.47}
+\contentsline {todo}{TO DO: }{14}{section*.48}
+\contentsline {todo}{TO DO: how do we store data?}{14}{section*.49}
+\contentsline {todo}{TO DO: diagrams of cell, board}{14}{section*.50}
+\contentsline {todo}{TO DO: exporting data from generator? }{14}{section*.51}
+\contentsline {todo}{TO DO: how designers can get a complete map model? }{14}{section*.52}
+\contentsline {todo}{TO DO: how a generator will work}{15}{section*.53}
+\contentsline {todo}{TO DO: behavior diagrams}{15}{section*.54}
+\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{15}{section*.55}
+\contentsline {todo}{TO DO: imgui immediate mode user interface library}{15}{section*.56}
+\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{15}{section*.58}
+\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{15}{section*.59}
+\contentsline {todo}{TO DO: why?}{16}{section*.61}
+\contentsline {todo}{TO DO: add neighbor methods to board2}{17}{section*.64}
+\contentsline {todo}{TO DO: result of what it all does?}{17}{section*.65}
+\contentsline {todo}{TO DO: what else to include?}{17}{section*.66}
+\contentsline {todo}{TO DO: more on CA, 2dim CA?}{17}{section*.67}
+\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{18}{section*.69}
+\contentsline {todo}{TO DO: refer to code itself}{18}{section*.70}
+\contentsline {todo}{TO DO: map generator will be used in game project codenamed 'UW'}{19}{section*.71}
+\contentsline {todo}{TO DO: (?)}{25}{section*.76}
+\contentsline {todo}{list of todos - remove this before submitting thesis}{26}{section*.78}
+\contentsline {todo}{TO DO: include thesis defence documents}{26}{section*.79}
+\contentsline {todo}{TO DO: ?}{26}{section*.80}
+\contentsline {todo}{TO DO: ?}{26}{section*.81}
+\contentsline {todo}{TO DO: ?}{26}{section*.82}

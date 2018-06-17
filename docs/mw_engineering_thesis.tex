@@ -334,45 +334,56 @@ Authors describe rules of a cellular automaton which are able to transform a til
 \td{why we chose CA for mapgen?}
 \td{what are pros and cons of such choice?}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-\td{describe stages of the project} 
-
-
-
+To describe the developed solution concisely, this chapter consists of five sections: definition of required features, design of simple CA simulation and map generator models, followed by implementing them in C++ programming language, experiments and finally, tests.
 
 %%%%%%%%%%%%%%%
 \section{Analysis of requirements for a map generator}
 
-Having gathered the abstract constructs needed to build a CA map generator in chapter \ref{rozdzial.teoria}, we may proceed to state the requirements formally. 
+Having gathered the abstract constructs needed to build a CA map generator in chapter \ref{rozdzial.teoria}, we may proceed to state the requirements formally. In the following sections, we will: 
+\begin{itemize}
+	\item define features required of a map generator program to automate creating maps,
+	\item state the desired properties of such generator,
+	\item discover to what constraints such program may be required to conform.
+\end{itemize}
 
 \subsection{Functional requirements}
 
-First, we must define the desired functions which a useful map generator should provide to the user. 
+First, we must define the desired functions which a useful map generator must provide to its user. 
 
-\begin{itemize}
-	\item user interface allowing playing with parameters
-	\item rendering each generation step
-	\item exporting generated maps
-	\item \td{}
-\end{itemize}
+Since we have selected an approach to map generation based on cellular automata in chapter \ref{rozdzial.teoria}, we have to include simulation of CA states.     
+
+
+To summarize desired functions of a map generator program, a list follows:
+\begin{enumerate}
+	\item The program must implement a cellular automaton to generate map tiles
+	\item The program must show generation stages graphically
+	\item The program must allow building maps from components (tiles)
+	\item The program may allow manual editing of map tiles
+	\item The program should have a mechanism for exporting generated maps
+	\item \td{expand desired functions}
+\end{enumerate}
 
 \subsection{Non-functional requirements}
 
-\begin{itemize}
-	\item allow changing parameters by user
-	\item format of exported maps must be easy to understand and use
+\begin{enumerate}
+	\item The program must have a user interface that allows to change generation parameters easily
+	\item Generation parameters must be logically grouped and ordered to avoid user confusion
+	\item The program must be responsive to user input and avoid crashing.
 	\item \td{}
-\end{itemize}
+\end{enumerate}
 
 \subsection{Constraints}
 
-\begin{itemize}
-	\item Constraint: time of map tile generation must not exceed 10 seconds.
-	\item \td{}
-\end{itemize}
+\begin{enumerate}
+	\item Map tile generation time must not exceed 5 seconds.
+	\item User interface elements must not invoke non-existent mechanisms.
+	\item 
+\end{enumerate}
 
 %%%%%%%%%%%%%%%
 \section{Design}
@@ -416,7 +427,7 @@ Having chosen cellular automata as a method for generating maps, we need to have
 	\item Neighbourhood - each cell needs to know the state of its neighbours to update its state.
 \end{itemize}
 
-In order to represent the cells of an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to the user. Figure \ref{fig:boardcell} presents an example model of a class that would encapsulate a collection of cell states while also preserving information about the board on which those cells are placed. 
+In order to represent the cells of an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to its user. Figure \ref{fig:boardcell} presents an example model of a class that would encapsulate a collection of cell states while also preserving information about the board on which those cells are placed. 
 
 \begin{figure}[h]
 	\centering
@@ -537,18 +548,18 @@ Since the goal of this work is not to just implement a working cellular automato
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Full source code} \label{rozdzial.kod} 
 % use firstline=1, lastline=200 to load a snippet from file instead of all lines
-\lstinputlisting[language=C++, caption=main.cpp Source Code]{../main.cpp}
-\lstinputlisting[language=C++, caption=Board.h Source Code]{../Board.h}
-\lstinputlisting[language=C++, caption=Map.h Source Code]{../Map.h}
-\lstinputlisting[language=C++, caption=Ruleset.h Source Code]{../Ruleset.h}
-\lstinputlisting[language=C++, caption=TextureAtlas.h Source Code]{../TextureAtlas.h}
-\lstinputlisting[language=C++, caption=TileGenerator.h Source Code]{../TileGenerator.h}
-\lstinputlisting[language=C++, caption=UserInterface\_MapGenerator.h Source Code]{../UserInterface_MapGenerator.h}
-\lstinputlisting[language=C++, caption=Window\_Base.h Source Code]{../Window_Base.h}
-\lstinputlisting[language=C++, caption=WindowBoardControls.h Source Code]{../WindowBoardControls.h}
-\lstinputlisting[language=C++, caption=WindowBoardImage.h Source Code]{../WindowBoardImage.h}
-\lstinputlisting[language=C++, caption=WindowGeneratorControls.h Source Code]{../WindowGeneratorControls.h}
-\lstinputlisting[language=C++, caption=WindowMapTileGrid.h Source Code]{../WindowMapTileGrid.h}
+%\lstinputlisting[language=C++, caption=main.cpp Source Code]{../main.cpp}
+%\lstinputlisting[language=C++, caption=Board.h Source Code]{../Board.h}
+%\lstinputlisting[language=C++, caption=Map.h Source Code]{../Map.h}
+%\lstinputlisting[language=C++, caption=Ruleset.h Source Code]{../Ruleset.h}
+%\lstinputlisting[language=C++, caption=TextureAtlas.h Source Code]{../TextureAtlas.h}
+%\lstinputlisting[language=C++, caption=TileGenerator.h Source Code]{../TileGenerator.h}
+%\lstinputlisting[language=C++, caption=UserInterface\_MapGenerator.h Source Code]{../UserInterface_MapGenerator.h}
+%\lstinputlisting[language=C++, caption=Window\_Base.h Source Code]{../Window_Base.h}
+%\lstinputlisting[language=C++, caption=WindowBoardControls.h Source Code]{../WindowBoardControls.h}
+%\lstinputlisting[language=C++, caption=WindowBoardImage.h Source Code]{../WindowBoardImage.h}
+%\lstinputlisting[language=C++, caption=WindowGeneratorControls.h Source Code]{../WindowGeneratorControls.h}
+%\lstinputlisting[language=C++, caption=WindowMapTileGrid.h Source Code]{../WindowMapTileGrid.h}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>10</zoom_level>
+  <zoom_level>11</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>590</x>
-      <y>370</y>
-      <w>210</w>
-      <h>110</h>
+      <x>693</x>
+      <y>495</y>
+      <w>231</w>
+      <h>121</h>
     </coordinates>
     <panel_attributes>WindowMapTile
 --
@@ -21,10 +21,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>820</x>
-      <y>370</y>
-      <w>210</w>
-      <h>110</h>
+      <x>946</x>
+      <y>495</y>
+      <w>231</w>
+      <h>121</h>
     </coordinates>
     <panel_attributes>WindowMap
 --
@@ -38,10 +38,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>370</y>
-      <w>190</w>
-      <h>110</h>
+      <x>462</x>
+      <y>495</y>
+      <w>209</w>
+      <h>121</h>
     </coordinates>
     <panel_attributes>WindowGeneratorControls
 --
@@ -55,10 +55,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>700</x>
-      <y>240</y>
-      <w>230</w>
-      <h>150</h>
+      <x>814</x>
+      <y>352</y>
+      <w>253</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 layer=2</panel_attributes>
@@ -67,10 +67,10 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>240</y>
-      <w>270</w>
-      <h>150</h>
+      <x>550</x>
+      <y>352</y>
+      <w>297</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 layer=2</panel_attributes>
@@ -79,10 +79,10 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>700</x>
-      <y>240</y>
-      <w>30</w>
-      <h>150</h>
+      <x>814</x>
+      <y>352</y>
+      <w>33</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 layer=2</panel_attributes>
@@ -91,10 +91,10 @@ layer=2</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
-      <y>100</y>
-      <w>280</w>
-      <h>150</h>
+      <x>737</x>
+      <y>198</y>
+      <w>308</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>/MapGenUIWindow/
 --
@@ -112,10 +112,10 @@ layer=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>170</x>
-      <y>370</y>
-      <w>190</w>
-      <h>110</h>
+      <x>231</x>
+      <y>495</y>
+      <w>209</w>
+      <h>121</h>
     </coordinates>
     <panel_attributes>WindowBoardControls
 --
@@ -129,10 +129,10 @@ layer=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>220</x>
-      <y>240</y>
-      <w>510</w>
-      <h>150</h>
+      <x>286</x>
+      <y>352</y>
+      <w>561</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-
 layer=2</panel_attributes>
@@ -141,10 +141,10 @@ layer=2</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>150</x>
-      <y>50</y>
-      <w>900</w>
-      <h>450</h>
+      <x>209</x>
+      <y>143</y>
+      <w>990</w>
+      <h>495</h>
     </coordinates>
     <panel_attributes>symbol=component
 User Controls
@@ -154,10 +154,10 @@ bg=white</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>170</x>
-      <y>100</y>
-      <w>270</w>
-      <h>150</h>
+      <x>231</x>
+      <y>198</y>
+      <w>297</w>
+      <h>165</h>
     </coordinates>
     <panel_attributes>UserInterface
 bg=orange
@@ -173,10 +173,10 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>430</x>
-      <y>150</y>
-      <w>220</w>
-      <h>50</h>
+      <x>517</x>
+      <y>253</y>
+      <w>242</w>
+      <h>55</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Window_Base.h" 
-#include "SimpleTexture.h"
+#include "TextureAtlas.h"
 #include "Map.h"
 
 class WindowMapTileGrid : public Window_Base
