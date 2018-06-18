@@ -60,8 +60,11 @@
 	keepspaces=true, 
 	columns=fullflexible,
 	showstringspaces=false,
-	float=t
-	tabsize=2
+	float=t,
+	tabsize=2,
+	title=\lstname,
+	caption=\lstname,
+	language=C++
 } 
 
 
@@ -353,10 +356,12 @@ Having gathered the abstract constructs needed to build a CA map generator in ch
 
 \subsection{Functional requirements}
 
-First, we must define the desired functions which a useful map generator must provide to its user. 
+First, we must define the desired functions which a useful map generator must provide to its user.
+Since we have selected an approach to map generation based on cellular automata in chapter \ref{rozdzial.teoria}, we have to include simulation of CA states. As described in \autocite{johnson2010cellular}, our approach consists of generating a random image, which after several transformations performed by CA rules becomes structured with island-like features. Such image can then be used as a tile for larger maps. Showing each step of image transformation could be useful to the designer, allowing them to control what kind of generated tiles will be chosen to compose the map. 
 
-Since we have selected an approach to map generation based on cellular automata in chapter \ref{rozdzial.teoria}, we have to include simulation of CA states.     
+Another potentially useful feature would be manual editing of tiles before they are placed in the map, which would allow for an even greater degree of control over tile contents. Further expansion of such feature could be to provide the designer with tools to make their own rules for tile generation, while also allowing them to define types of single cells composing the tile.
 
+Finally, a map generator without a mechanism for saving the work done by a designer would certainly not be a useful tool. Such program needs a way to export generated maps to a file format that later can be used by a game engine of choice, possibly with procedures written by other programmers.
 
 To summarize desired functions of a map generator program, a list follows:
 \begin{enumerate}
@@ -370,6 +375,7 @@ To summarize desired functions of a map generator program, a list follows:
 
 \subsection{Non-functional requirements}
 
+\td{nf-req intro}
 \begin{enumerate}
 	\item The program must have a user interface that allows to change generation parameters easily
 	\item Generation parameters must be logically grouped and ordered to avoid user confusion
@@ -547,20 +553,24 @@ Since the goal of this work is not to just implement a working cellular automato
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Full source code} \label{rozdzial.kod} 
-% use firstline=1, lastline=200 to load a snippet from file instead of all lines
-%\lstinputlisting[language=C++, caption=main.cpp Source Code]{../main.cpp}
-%\lstinputlisting[language=C++, caption=Board.h Source Code]{../Board.h}
-%\lstinputlisting[language=C++, caption=Map.h Source Code]{../Map.h}
-%\lstinputlisting[language=C++, caption=Ruleset.h Source Code]{../Ruleset.h}
-%\lstinputlisting[language=C++, caption=TextureAtlas.h Source Code]{../TextureAtlas.h}
-%\lstinputlisting[language=C++, caption=TileGenerator.h Source Code]{../TileGenerator.h}
-%\lstinputlisting[language=C++, caption=UserInterface\_MapGenerator.h Source Code]{../UserInterface_MapGenerator.h}
-%\lstinputlisting[language=C++, caption=Window\_Base.h Source Code]{../Window_Base.h}
-%\lstinputlisting[language=C++, caption=WindowBoardControls.h Source Code]{../WindowBoardControls.h}
-%\lstinputlisting[language=C++, caption=WindowBoardImage.h Source Code]{../WindowBoardImage.h}
-%\lstinputlisting[language=C++, caption=WindowGeneratorControls.h Source Code]{../WindowGeneratorControls.h}
-%\lstinputlisting[language=C++, caption=WindowMapTileGrid.h Source Code]{../WindowMapTileGrid.h}
+This chapter includes the full source code of the developed application, for reference and persistence (in case when digital versions are lost).  
 
+\begin{verbatim*}
+\lstinputlisting{../main.cpp}
+\lstinputlisting{../Board.h}
+\lstinputlisting{../Map.h}
+\lstinputlisting{../Ruleset.h}
+\lstinputlisting{../TextureAtlas.h}
+\lstinputlisting{../TileGenerator.h}
+\lstinputlisting{../UserInterface_MapGenerator.h}
+\lstinputlisting{../Window_Base.h}
+\lstinputlisting{../WindowBoardControls.h}
+\lstinputlisting{../WindowBoardImage.h}
+\lstinputlisting{../WindowGeneratorControls.h}
+\lstinputlisting{../WindowMapTileGrid.h}
+\end{verbatim*}
+\td{remove verbatim to include listings: ~30 pages a4paper }
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
