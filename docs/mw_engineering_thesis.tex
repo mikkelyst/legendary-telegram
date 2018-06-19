@@ -361,7 +361,7 @@ Since we have selected an approach to map generation based on cellular automata 
 
 Another potentially useful feature would be manual editing of tiles before they are placed in the map, which would allow for an even greater degree of control over tile contents. Further expansion of such feature could be to provide the designer with tools to make their own rules for tile generation, while also allowing them to define types of single cells composing the tile.
 
-Finally, a map generator without a mechanism for saving the work done by a designer would certainly not be a useful tool. Such program needs a way to export generated maps to a file format that later can be used by a game engine of choice, possibly with procedures written by other programmers.
+Finally, a map generator without a mechanism for saving the work done by a designer would certainly not be a useful tool. Such program needs a way to export generated maps to a file format that later can be used by a game engine of choice, possibly with procedures written by other programmers. Although saving or exporting maps is not really necessary for experimentation and testing, a production version of the program should have such functionality.
 
 To summarize desired functions of a map generator program, a list follows:
 \begin{enumerate}
@@ -377,8 +377,8 @@ To summarize desired functions of a map generator program, a list follows:
 
 \td{nf-req intro}
 \begin{enumerate}
-	\item The program must have a user interface that allows to change generation parameters easily
-	\item Generation parameters must be logically grouped and ordered to avoid user confusion
+	\item The program must have a graphical user interface.
+	\item The GUI must allow to change generation parameters, which should be grouped and ordered. 
 	\item The program must be responsive to user input and avoid crashing.
 	\item \td{}
 \end{enumerate}
@@ -569,7 +569,7 @@ This chapter includes the full source code of the developed application, for ref
 \lstinputlisting{../WindowGeneratorControls.h}
 \lstinputlisting{../WindowMapTileGrid.h}
 \end{verbatim*}
-\td{remove verbatim to include listings: ~30 pages a4paper }
+\td{remove verbatim to include listings. warning: this will generate about 30 a4paper pages}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
@@ -591,6 +591,7 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 \begin{description}
 	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
 	\item[PCG] Procedural Content Generation. An automated process of creation.   
+	\item[GUI] Graphical User Interface
 \end{description}
 \td{(?)}  
 
