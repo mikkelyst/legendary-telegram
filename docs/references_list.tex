@@ -1,4 +1,4 @@
-\documentclass[12pt]{report}
+\documentclass[12pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb,amsfonts} % Required for some math elements, equation environment and inline $ (math) $
@@ -25,8 +25,8 @@
 % BIB REF COMMANDS
 \usepackage[nottoc,notlot,notlof]{tocbibind}
 \usepackage[backend=bibtex,style=alphabetic,sorting=anyvt]{biblatex}  
-%Bibliography sorting options
-%
+\addbibresource{references.bib}
+%Bibliography sorting options 
 %option	description
 %nty	sort by name, title, year
 %nyt	sort by name, year, title
@@ -35,7 +35,7 @@
 %anyvt	sort by alphabetic label, name, year, volume, title
 %ydtn	sort by year (descending), name, title
 %none	entries are processed in citation order
-\bibliography{references}
+
 
 % CODE LISTINGS COMMANDS
 \usepackage{verbatim} % Pre-formatted text environment 
@@ -86,28 +86,36 @@
 	pdftitle={Generating two-dimensional game maps with use of cellular automata},
 	bookmarks=true 
 }  
-
+%%% STRONA TYTUŁOWA - DANE
+\title{Generating two-dimensional game maps with use of cellular automata}
+\author{Michał Wolski}
 \begin{document}
-\textbf{BIBLIOGRAPHY - SOURCES LIST \today \newline Procedural Generation, Cellular Automata } 
-\begin{itemize}
-	\item \autocite{pcgbook}
-	\item \autocite{adams2015simulation}
-	\item \autocite{andrews2005cellular}
-	\item \autocite{doran2010controlled}
-	\item \autocite{hendrikx2013procedural}
-	\item \autocite{schiff2005introduction}
-	\item \autocite{togelius2011search}
-	\item \autocite{bidarra2010integrating}
-	\item \autocite{de2011survey}
-	\item \autocite{johnson2010cellular}
-	\item \autocite{liapis2013sentient}
-	\item \autocite{raffe2012survey}
-	\item \autocite{smelik2010integrating}
-	\item \autocite{van2013designing}
-	\item \autocite{van2014procedural}
-\end{itemize}
-     
-%%% KONIEC PRACY %%% 
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Source code list}
+
+\begin{verbatim*}
+\lstinputlisting{../main.cpp}
+\lstinputlisting{../Board.h}
+\lstinputlisting{../Map.h}
+\lstinputlisting{../Ruleset.h}
+\lstinputlisting{../TextureAtlas.h}
+\lstinputlisting{../TileGenerator.h}
+\lstinputlisting{../UserInterface_MapGenerator.h}
+\lstinputlisting{../Window_Base.h}
+\lstinputlisting{../WindowBoardControls.h}
+\lstinputlisting{../WindowBoardImage.h}
+\lstinputlisting{../WindowGeneratorControls.h}
+\lstinputlisting{../WindowMapTileGrid.h}
+\end{verbatim*} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Code listings}
+
+...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nocite{*} 
 \printbibliography
   
 \end{document}

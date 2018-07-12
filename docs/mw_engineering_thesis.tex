@@ -25,8 +25,8 @@
 % BIB REF COMMANDS
 \usepackage[nottoc,notlot,notlof]{tocbibind}
 \usepackage[backend=bibtex,style=alphabetic,sorting=anyvt]{biblatex}  
-%Bibliography sorting options
-%
+\addbibresource{references.bib}
+%Bibliography sorting options 
 %option	description
 %nty	sort by name, title, year
 %nyt	sort by name, year, title
@@ -35,7 +35,6 @@
 %anyvt	sort by alphabetic label, name, year, volume, title
 %ydtn	sort by year (descending), name, title
 %none	entries are processed in citation order
-\bibliography{references}
 
 % CODE LISTINGS COMMANDS
 \usepackage{verbatim} % Pre-formatted text environment 
@@ -140,12 +139,11 @@ We will investigate existing methods for procedural generation of game maps whic
 %%%%%%%%%%%%%%%
 \section{Thesis scope}
 
-\td{scope - what we will do, what we will not do. specific goals.}
+\td{scope - what we will do and what we will not }
+
+\td{scope }
 
 \td{scope - shortly: what could be done instead}
-
-
-
 
 %%%%%%%%%%%%%%%
 \section{Technology and tools}
@@ -154,7 +152,7 @@ The following paragraphs summarize what tools were involved during the project o
 
 \subsection{Hardware} 
 
-All experiments in this thesis have been performed using a laptop with an Intel x64 2.0 \si{GHz} multi-core processor, 16GB RAM and an \textit{nVidia GeForce GTX 560M} graphics card.
+All experiments in this thesis have been performed using a laptop with an {Intel Core i7 2630QM - x64 2.0 \si{GHz}} multi-core processor, {16GB RAM} and an {nVidia GeForce GTX 560M} graphics card.
  
 \subsection{Software} 
 
@@ -206,20 +204,59 @@ The implementation uses following libraries:
 %%%%%%%%%%%%%%%
 \section{Maps and cartography} 
 
-Historically, maps ... 
+Historically, maps have been used by the human race since ancient times. Starting with cave paintings and representations of stars on the sky, our kind had the need for capturing an abstract model of a territory, terrain shape, location of useful resources or some other aspect of surrounding environment in a useful way.
 
+\td{expand}
+\underline{(more information)} in Bagrow's History of Maps \autocite{bagrow2017history}.
 
+The need for navigation in the world has been a driving force behind the evolution of cartography. Although early maps had the form of drawings, there are other possibilities of representing the abstract model which a map aims to represent.
+\td{describe map classification}
+
+\td{examples of 2d maps, 3d maps, pure data maps}
 
 As stated in chapter \ref{rozdzial.wstep}, our context does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do \autocite{snyder1993flattening}. Our goal is simply to generate planar maps. 
 
 
 
-\td{2d map types?}
+
 
 %%%%%%%%%%%%%%%
-\section{Maps in computer games} 
+\section{Maps in games} 
 
-\td{examples from games: Diablo, Ultima Ratio Regum, MMORPG, other-}
+It is not clear what kind of game was the first one in history to use a map to represent the game world, however two notable examples may easily come into mind. Chess, a board tactical war-game developed before 6th century AD, uses oa 8 by 8 black-white board as the map of its world.
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/chessboard}
+		\caption{Chess board} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/goboard}
+		\caption{Go board} 
+	\end{subfigure} 
+	\caption{Chess and Go both use boards - simple maps to represent the space in which game is played}
+	\label{fig:neighborhood_types}
+\end{figure}
+
+\td{chinese Go, with map variants} 
+
+\td{examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }
+\td{\url{http://www.roguebasin.com/index.php?title=Major_roguelikes}}
+\td{http://ascii-patrol.com/map.png + source?}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/map}
+	\caption{A game map using ASCII art - source?}
+	
+	\label{fig:map}
+\end{figure}
+\todo{find out what game its from}
 
 %%%%%%%%%%%%%%%
 \section{ Automation - reduction in development time and cost}
@@ -554,7 +591,11 @@ Since the goal of this work is not to just implement a working cellular automato
 %%%%%%%%%%%%%%%
 \section{Further work}
 
- 
+\td{future: expanding the generator}
+\td{future: adding more rules}
+\td{future: user defined cell types}
+\td{future: non-discrete cell states or more complex cell types }
+\td{future: 3d maps?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
