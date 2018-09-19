@@ -204,26 +204,40 @@ The implementation uses following libraries:
 %%%%%%%%%%%%%%%
 \section{Maps and cartography} 
 
-Historically, maps have been used by the human race since ancient times. Starting with cave paintings and representations of stars on the sky, our kind had the need for capturing an abstract model of a territory, terrain shape, location of useful resources or some other aspect of surrounding environment in a useful way.
+Historically, maps have been used by the human race since ancient times. The need for navigation in the world has been a driving force behind the evolution of maps. Starting with cave paintings and representations of stars on the sky, our kind had the need for capturing an abstract model of a territory, terrain shape, location of useful resources or some other aspect of surrounding environment in a useful way.
 
-\td{expand}
-\underline{(more information)} in Bagrow's History of Maps \autocite{bagrow2017history}.
+Making a model of the physical (or fictional) world with maps requires choice of the data types describing locations represented on the map. List of data types visualized with maps have been growing with the evolution of cartography and as new technologies have been introduced to the map making crafts. Some examples of data possible to represent on maps are:
+ 
+\begin{itemize}
+	\item physical maps - terrain shape, elevation, forests, bodies of water, etc.
+	\item political maps - borders around a territory, districts, states
+	\item climate maps - average temperature, humidity, precipitation
+	\item geologic maps - terrain features, location of precious resources underground
+	\item star maps - views of the distant cosmic objects measured by solid angles from a fixed point
+	\item route maps - transport links, connections joining points on the modelled territory
+\end{itemize}
 
-The need for navigation in the world has been a driving force behind the evolution of cartography. Although early maps had the form of drawings, there are other possibilities of representing the abstract model which a map aims to represent.
-\td{describe map classification}
 
-\td{examples of 2d maps, 3d maps, pure data maps}
+Deeper exploration into the subject can be found in Bagrow's History of Maps \autocite{bagrow2017history}.
 
-As stated in chapter \ref{rozdzial.wstep}, our context does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do \autocite{snyder1993flattening}. Our goal is simply to generate planar maps. 
+Although early maps had the form of drawings or etchings on surface of solid materials, now there are other possibilities of representing the abstract model which a map aims to represent. The rise of digital maps and geographic information systems has opened new possibilities - maps have become dynamic entities, stored digitally, easily updated with new data and not limited to the boundaries of physical model. With digital maps, it is possible to show more than one layer of data, as chosen by the user, whereas physical maps are limited to the data and view scale chosen initially when the map is crafted, however they still can serve well as a medium for storage of geographic information. 
 
+Modern maps have also brought new insights into the nature of represented territories. For example, with data maps such as the one described by article 'Redrawing the Map of Great Britain from a Network of Human Interactions' \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups.  
 
+With these features of digital maps in mind, we can now move on to the sphere of fictional maps and their use in games, physical and digital alike. 
 
+\td{ add image examples of 2d maps, 3d maps, pure data maps}
 
 
 %%%%%%%%%%%%%%%
 \section{Maps in games} 
 
-It is not clear what kind of game was the first one in history to use a map to represent the game world, however two notable examples may easily come into mind. Chess, a board tactical war-game developed before 6th century AD, uses oa 8 by 8 black-white board as the map of its world.
+It is not clear what kind of game was the first one in history to use a map to represent the game world, however two notable examples may easily come into mind. 
+
+Chess, a board tactical war-game developed before 6th century AD, uses black-white board as the map of its world. Although the environment represented by a chess board is very simple, it has some important features and rules. The map is composed of cells, which are arranged on 8 by 8 grid, effectively creating a rigid boundary around the game world, which according to game rules - cannot be crossed. Each cell has 8 neighbours and can be occupied by only one game piece.
+
+Another game, originating from ancient China, defines a similar game world. 
+\td{expand on Go}
 
 \begin{figure}[h]
 	\centering
@@ -241,9 +255,12 @@ It is not clear what kind of game was the first one in history to use a map to r
 	\caption{Chess and Go both use boards - simple maps to represent the space in which game is played}
 	\label{fig:neighborhood_types}
 \end{figure}
-
-\td{chinese Go, with map variants} 
-
+ 
+ \td{ one more board game, modern}
+ 
+ 
+Modern times allowed for ... 
+ 
 \td{examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }
 \td{\url{http://www.roguebasin.com/index.php?title=Major_roguelikes}}
 \td{http://ascii-patrol.com/map.png + source?}
@@ -256,11 +273,12 @@ It is not clear what kind of game was the first one in history to use a map to r
 	
 	\label{fig:map}
 \end{figure}
-\todo{find out what game its from}
+\todo{find out what game ascii art map is from}
 
 %%%%%%%%%%%%%%%
 \section{ Automation - reduction in development time and cost}
 
+As stated in chapter \ref{rozdzial.wstep}, our context does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do \autocite{snyder1993flattening}. Our goal is simply to generate planar maps. 
 
 
 \td{ write about PCG in general, short }
