@@ -206,27 +206,26 @@ The implementation uses following libraries:
 
 Historically, maps have been used by the human race since ancient times. The need for navigation in the world has been a driving force behind the evolution of maps. Starting with cave paintings and representations of stars on the sky, our kind had the need for capturing an abstract model of a territory, terrain shape, location of useful resources or some other aspect of surrounding environment in a useful way.
 
-Making a model of the physical (or fictional) world with maps requires choice of the data types describing locations represented on the map. List of data types visualized with maps have been growing with the evolution of cartography and as new technologies have been introduced to the map making crafts. Some examples of data possible to represent on maps are:
+Making a model of the physical (or fictional) world with maps requires choice of the data types describing locations represented on the map. List of data types visualized with maps has been growing with the evolution of cartography and whenever new technologies have been introduced to the map making crafts. Some examples of data possible to represent on maps are:
  
 \begin{itemize}
 	\item physical maps - terrain shape, elevation, forests, bodies of water, etc.
 	\item political maps - borders around a territory, districts, states
-	\item climate maps - average temperature, humidity, precipitation
+	\item climate and weather maps - temperature, humidity, precipitation, wind currents
 	\item geologic maps - terrain features, location of precious resources underground
 	\item star maps - views of the distant cosmic objects measured by solid angles from a fixed point
 	\item route maps - transport links, connections joining points on the modelled territory
 \end{itemize}
 
-
-Deeper exploration into the subject can be found in Bagrow's History of Maps \autocite{bagrow2017history}.
-
-Although early maps had the form of drawings or etchings on surface of solid materials, now there are other possibilities of representing the abstract model which a map aims to represent. The rise of digital maps and geographic information systems has opened new possibilities - maps have become dynamic entities, stored digitally, easily updated with new data and not limited to the boundaries of physical model. With digital maps, it is possible to show more than one layer of data, as chosen by the user, whereas physical maps are limited to the data and view scale chosen initially when the map is crafted, however they still can serve well as a medium for storage of geographic information. 
+Although early maps had the form of drawings or etchings on surface of solid materials, now there are other possibilities of representing the abstract model which a map aims to represent. The rise of digital maps and geographic information systems has opened new possibilities - maps have become dynamic entities, stored digitally, easily updated with new data and not limited to the boundaries of physical model. With digital maps, it is possible to show more than one layer of data, as chosen by the user, whereas physical maps are limited to the data and view scale chosen initially when the map is crafted, however they still can serve well as a medium for storage of geographic information. Deeper exploration into the subject can be found in Bagrow's History of Maps \autocite{bagrow2017history}.
 
 Modern maps have also brought new insights into the nature of represented territories. For example, with data maps such as the one described by article 'Redrawing the Map of Great Britain from a Network of Human Interactions' \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups.  
 
+\td{ add image examples of 2d pure data maps}
+
 With these features of digital maps in mind, we can now move on to the sphere of fictional maps and their use in games, physical and digital alike. 
 
-\td{ add image examples of 2d maps, 3d maps, pure data maps}
+
 
 
 %%%%%%%%%%%%%%%
@@ -236,7 +235,7 @@ It is not clear what kind of game was the first one in history to use a map to r
 
 Chess, a board tactical war-game developed before 6th century AD, uses black-white board as the map of its world. Although the environment represented by a chess board is very simple, it has some important features and rules. The map is composed of cells, which are arranged on 8 by 8 grid, effectively creating a rigid boundary around the game world, which according to game rules - cannot be crossed. Each cell has 8 neighbours and can be occupied by only one game piece.
 
-Another game, originating from ancient China, defines a similar game world. 
+Another game, originating from ancient China, defines a similar, grid-based game world, where game pieces are placed on line intersections, effectively making a map of uniform planar territory. Go is played on 19 by 19 board, however smaller board sizes are used as well.
 \td{expand on Go}
 
 \begin{figure}[h]
@@ -256,20 +255,30 @@ Another game, originating from ancient China, defines a similar game world.
 	\label{fig:neighborhood_types}
 \end{figure}
  
+ Another interesting example of a game world map is the multi-player strategy board game Risk, invented in 1957 by Albert Lamorisse, where the map represents a territory divided into regions, which must be captured by players in order to win. Risk game shows how a political map can be creatively used in a game, as a resource for the players to fight over.
+
+ 
  \td{ one more board game, modern}
  
  
-Modern times allowed for ... 
  
+
+
+
+
+%%%%%%%%%%%%%%%
+\section{ Interactivity }
+
+Modern times allowed for ... 
+
 \td{examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }
 \td{\url{http://www.roguebasin.com/index.php?title=Major_roguelikes}}
 \td{http://ascii-patrol.com/map.png + source?}
 
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/map}
-	\caption{A game map using ASCII art - source?}
+	\caption{A game map using ASCII art}
 	
 	\label{fig:map}
 \end{figure}
@@ -329,7 +338,7 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
 \end{figure}
 
 
-There is a...
+There is a...0
 
 
 \td{}

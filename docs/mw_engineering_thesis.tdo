@@ -7,68 +7,70 @@
 \contentsline {todo}{TO DO: ...}{6}{section*.12}
 \contentsline {todo}{TO DO: list used design patters, if any. Singleton? Command? Factory?}{6}{section*.14}
 \contentsline {todo}{TO DO: think what could be included here}{7}{section*.15}
-\contentsline {todo}{TO DO: add image examples of 2d maps, 3d maps, pure data maps}{9}{section*.16}
-\contentsline {todo}{TO DO: examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }{9}{section*.18}
-\contentsline {todo}{TO DO: \url {http://www.roguebasin.com/index.php?title=Major_roguelikes}}{9}{section*.19}
-\contentsline {todo}{TO DO: http://ascii-patrol.com/map.png + source?}{9}{section*.20}
-\contentsline {todo}{find out what game ascii art map is from}{10}{section*.22}
-\contentsline {todo}{TO DO: write about PCG in general, short }{10}{section*.23}
-\contentsline {todo}{TO DO: PCG types of content }{10}{section*.24}
-\contentsline {todo}{TO DO: PCG methods }{10}{section*.25}
-\contentsline {todo}{TO DO: focus on maps }{10}{section*.26}
-\contentsline {todo}{TO DO: list map procgen methods}{10}{section*.27}
-\contentsline {todo}{TO DO: HOW it was done until now? options?}{10}{section*.28}
-\contentsline {todo}{TO DO: ref survey with table of 2d dungeon gen}{11}{section*.29}
-\contentsline {todo}{TO DO: }{12}{section*.31}
-\contentsline {todo}{TO DO: ca basics - game of life}{12}{section*.32}
-\contentsline {todo}{TO DO: using CA for simulations }{12}{section*.33}
-\contentsline {todo}{TO DO: using CA for generation of content}{12}{section*.34}
-\contentsline {todo}{TO DO: What is it? Is relevant to maps? Can we use it? Why?}{12}{section*.35}
-\contentsline {todo}{TO DO: What is it? Is relevant to maps? Can we use it? Why?}{13}{section*.36}
+\contentsline {todo}{TO DO: add image examples of 2d pure data maps}{9}{section*.16}
+\contentsline {todo}{TO DO: expand on Go}{9}{section*.17}
+\contentsline {todo}{TO DO: one more board game, modern}{10}{section*.19}
+\contentsline {todo}{TO DO: examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }{10}{section*.20}
+\contentsline {todo}{TO DO: \url {http://www.roguebasin.com/index.php?title=Major_roguelikes}}{10}{section*.21}
+\contentsline {todo}{TO DO: http://ascii-patrol.com/map.png + source?}{10}{section*.22}
+\contentsline {todo}{find out what game ascii art map is from}{10}{section*.24}
+\contentsline {todo}{TO DO: write about PCG in general, short }{11}{section*.25}
+\contentsline {todo}{TO DO: PCG types of content }{11}{section*.26}
+\contentsline {todo}{TO DO: PCG methods }{11}{section*.27}
+\contentsline {todo}{TO DO: focus on maps }{11}{section*.28}
+\contentsline {todo}{TO DO: list map procgen methods}{11}{section*.29}
+\contentsline {todo}{TO DO: HOW it was done until now? options?}{11}{section*.30}
+\contentsline {todo}{TO DO: ref survey with table of 2d dungeon gen}{11}{section*.31}
+\contentsline {todo}{TO DO: }{12}{section*.33}
+\contentsline {todo}{TO DO: ca basics - game of life}{12}{section*.34}
+\contentsline {todo}{TO DO: using CA for simulations }{12}{section*.35}
+\contentsline {todo}{TO DO: using CA for generation of content}{12}{section*.36}
 \contentsline {todo}{TO DO: What is it? Is relevant to maps? Can we use it? Why?}{13}{section*.37}
 \contentsline {todo}{TO DO: What is it? Is relevant to maps? Can we use it? Why?}{13}{section*.38}
-\contentsline {todo}{TO DO: how to measure effectiveness? time of map generation, map shape, desirable map features?}{13}{section*.39}
-\contentsline {todo}{TO DO: how to measure such ease of use? accessibility? }{13}{section*.40}
-\contentsline {todo}{TO DO: how to measure cost?}{13}{section*.41}
-\contentsline {todo}{TO DO: study on generation time}{13}{section*.42}
-\contentsline {todo}{TO DO: desired characteristics of generated content?}{13}{section*.43}
-\contentsline {todo}{TO DO: study on what makes generation easy to include in game development projects}{14}{section*.44}
-\contentsline {todo}{TO DO: integrating manual editing AND procgen}{14}{section*.45}
-\contentsline {todo}{TO DO: examples of development costs - human resources, machine resources}{14}{section*.46}
-\contentsline {todo}{TO DO: which of these costs can be reduced by PCG}{14}{section*.47}
-\contentsline {todo}{TO DO: authors describe a process - 1 random image 2 apply CA steps as in article cave gen 3 merge tiles, result: maps!}{14}{section*.48}
-\contentsline {todo}{TO DO: short paragraph on the choice of CA for game maps}{14}{section*.49}
-\contentsline {todo}{TO DO: why we chose CA for mapgen?}{14}{section*.50}
-\contentsline {todo}{TO DO: what are pros and cons of such choice?}{14}{section*.51}
-\contentsline {todo}{TO DO: expand desired functions}{16}{section*.52}
-\contentsline {todo}{TO DO: nf-req intro}{16}{section*.53}
-\contentsline {todo}{TO DO: }{16}{section*.54}
-\contentsline {todo}{TO DO: how do we store data?}{17}{section*.55}
-\contentsline {todo}{TO DO: diagrams of cell, board}{17}{section*.56}
-\contentsline {todo}{TO DO: exporting data from generator? }{17}{section*.57}
-\contentsline {todo}{TO DO: how designers can get a complete map model? }{17}{section*.58}
-\contentsline {todo}{TO DO: how a generator will work}{17}{section*.59}
-\contentsline {todo}{TO DO: behavior diagrams}{17}{section*.60}
-\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{17}{section*.61}
-\contentsline {todo}{TO DO: imgui immediate mode user interface library}{17}{section*.62}
-\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{17}{section*.64}
-\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{17}{section*.65}
-\contentsline {todo}{TO DO: why?}{18}{section*.67}
-\contentsline {todo}{TO DO: add neighbor methods to board2}{19}{section*.70}
-\contentsline {todo}{TO DO: result of what it all does?}{19}{section*.71}
-\contentsline {todo}{TO DO: what else to include?}{20}{section*.72}
-\contentsline {todo}{TO DO: more on CA, 2dim CA?}{20}{section*.73}
-\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{20}{section*.75}
-\contentsline {todo}{TO DO: refer to code itself}{20}{section*.76}
-\contentsline {todo}{TO DO: map generator will be used in game project codenamed 'UW'}{21}{section*.77}
-\contentsline {todo}{TO DO: future: expanding the generator}{21}{section*.78}
-\contentsline {todo}{TO DO: future: adding more rules}{21}{section*.79}
-\contentsline {todo}{TO DO: future: user defined cell types}{21}{section*.80}
-\contentsline {todo}{TO DO: future: non-discrete cell states or more complex cell types }{21}{section*.81}
-\contentsline {todo}{TO DO: future: 3d maps?}{21}{section*.82}
-\contentsline {todo}{TO DO: (?)}{26}{section*.87}
-\contentsline {todo}{list of todos - remove this before submitting thesis}{27}{section*.89}
-\contentsline {todo}{TO DO: include thesis defence documents}{27}{section*.90}
-\contentsline {todo}{TO DO: ?}{27}{section*.91}
-\contentsline {todo}{TO DO: ?}{27}{section*.92}
-\contentsline {todo}{TO DO: ?}{27}{section*.93}
+\contentsline {todo}{TO DO: What is it? Is relevant to maps? Can we use it? Why?}{13}{section*.39}
+\contentsline {todo}{TO DO: What is it? Is relevant to maps? Can we use it? Why?}{13}{section*.40}
+\contentsline {todo}{TO DO: how to measure effectiveness? time of map generation, map shape, desirable map features?}{13}{section*.41}
+\contentsline {todo}{TO DO: how to measure such ease of use? accessibility? }{14}{section*.42}
+\contentsline {todo}{TO DO: how to measure cost?}{14}{section*.43}
+\contentsline {todo}{TO DO: study on generation time}{14}{section*.44}
+\contentsline {todo}{TO DO: desired characteristics of generated content?}{14}{section*.45}
+\contentsline {todo}{TO DO: study on what makes generation easy to include in game development projects}{14}{section*.46}
+\contentsline {todo}{TO DO: integrating manual editing AND procgen}{14}{section*.47}
+\contentsline {todo}{TO DO: examples of development costs - human resources, machine resources}{14}{section*.48}
+\contentsline {todo}{TO DO: which of these costs can be reduced by PCG}{14}{section*.49}
+\contentsline {todo}{TO DO: authors describe a process - 1 random image 2 apply CA steps as in article cave gen 3 merge tiles, result: maps!}{14}{section*.50}
+\contentsline {todo}{TO DO: short paragraph on the choice of CA for game maps}{15}{section*.51}
+\contentsline {todo}{TO DO: why we chose CA for mapgen?}{15}{section*.52}
+\contentsline {todo}{TO DO: what are pros and cons of such choice?}{15}{section*.53}
+\contentsline {todo}{TO DO: expand desired functions}{17}{section*.54}
+\contentsline {todo}{TO DO: nf-req intro}{17}{section*.55}
+\contentsline {todo}{TO DO: }{17}{section*.56}
+\contentsline {todo}{TO DO: how do we store data?}{18}{section*.57}
+\contentsline {todo}{TO DO: diagrams of cell, board}{18}{section*.58}
+\contentsline {todo}{TO DO: exporting data from generator? }{18}{section*.59}
+\contentsline {todo}{TO DO: how designers can get a complete map model? }{18}{section*.60}
+\contentsline {todo}{TO DO: how a generator will work}{18}{section*.61}
+\contentsline {todo}{TO DO: behavior diagrams}{18}{section*.62}
+\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{18}{section*.63}
+\contentsline {todo}{TO DO: imgui immediate mode user interface library}{18}{section*.64}
+\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{18}{section*.66}
+\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{18}{section*.67}
+\contentsline {todo}{TO DO: why?}{19}{section*.69}
+\contentsline {todo}{TO DO: add neighbor methods to board2}{20}{section*.72}
+\contentsline {todo}{TO DO: result of what it all does?}{20}{section*.73}
+\contentsline {todo}{TO DO: what else to include?}{21}{section*.74}
+\contentsline {todo}{TO DO: more on CA, 2dim CA?}{21}{section*.75}
+\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{21}{section*.77}
+\contentsline {todo}{TO DO: refer to code itself}{21}{section*.78}
+\contentsline {todo}{TO DO: map generator will be used in game project codenamed 'UW'}{22}{section*.79}
+\contentsline {todo}{TO DO: future: expanding the generator}{22}{section*.80}
+\contentsline {todo}{TO DO: future: adding more rules}{22}{section*.81}
+\contentsline {todo}{TO DO: future: user defined cell types}{22}{section*.82}
+\contentsline {todo}{TO DO: future: non-discrete cell states or more complex cell types }{22}{section*.83}
+\contentsline {todo}{TO DO: future: 3d maps?}{22}{section*.84}
+\contentsline {todo}{TO DO: (?)}{27}{section*.89}
+\contentsline {todo}{list of todos - remove this before submitting thesis}{28}{section*.91}
+\contentsline {todo}{TO DO: include thesis defence documents}{28}{section*.92}
+\contentsline {todo}{TO DO: ?}{28}{section*.93}
+\contentsline {todo}{TO DO: ?}{28}{section*.94}
+\contentsline {todo}{TO DO: ?}{28}{section*.95}
