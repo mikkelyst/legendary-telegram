@@ -235,13 +235,14 @@ The possibility of visualizing map layers which could not have been created and 
 %%%%%%%%%%%%%%%
 \section{Maps in games} 
 
-It is not clear what kind of game was the first one in history to use a map to represent the game world, however two notable examples may easily come into mind. 
+It is not clear what kind of game was the first one in history to use a map to represent the game world, however two notable examples may easily come into mind: Chess and Go, which are both widely known around the world. 
 
-Chess, a board tactical war-game developed before 6th century AD, uses black-white board as the map of its world. Although the environment represented by a chess board is very simple, it has some important features and rules. The map is composed of cells, which are arranged on 8 by 8 grid, effectively creating a rigid boundary around the game world, which according to game rules - cannot be crossed. Each cell has 8 neighbours and can be occupied by only one game piece.
+Chess, a board tactical war-game developed before 6th century AD, uses black-white board as the map of its world. Although the environment represented by a chess board is very simple, it has some important features and rules. The map is composed of square cells, which are arranged on 8 by 8 grid, effectively creating a rigid boundary around the game world, which according to game rules - cannot be crossed. Each cell has 8 neighbours and can be occupied by only one game piece.
 
-Another game, originating from ancient China, defines a similar, grid-based game world, where game pieces are placed on line intersections, effectively making a map of uniform planar territory. Go is played on 19 by 19 board, however smaller board sizes are used as well.
+Another game, originating from ancient China, defines a similar, grid-based game world, effectively making a map of a uniform planar territory. Go is played on 19 by 19 board, however smaller board sizes are used as well. In Go, the goal is to capture more territory than the opponent, which is done by placing game pieces on line intersections, one piece per turn.
 
-\td{expand on Go}
+\td{expand on Go, comment on both, then introduce modern board games}
+
 
 \begin{figure}[h]
 	\centering
@@ -256,22 +257,26 @@ Another game, originating from ancient China, defines a similar, grid-based game
 		\includegraphics[width=\textwidth]{images/goboard}
 		\caption{Go board} 
 	\end{subfigure} 
-	\caption{Chess and Go both use boards - simple maps to represent the space in which game is played}
+	\caption{Chess and Go both use planar boards divided into tiles by a square grid - simple maps to represent the environment in which game is played.}
 	\label{fig:neighborhood_types}
 \end{figure}
  
- Another interesting example of a game world map is the multi-player strategy board game Risk, invented in 1957 by Albert Lamorisse, where the map represents a territory divided into regions, which must be captured by players in order to win. Risk game shows how a political world map with imagined region borders can be creatively used in a game, as a resource for the players to fight over.
+Another interesting example of a game world map is the multi-player strategy board game Risk, invented in 1957 by Albert Lamorisse, where the map represents a territory divided into regions, which must be captured by players in order to win. Risk game shows how a political world map with imagined region borders can be creatively used in a game, as a resource for the players to fight over. The game of Risk has been since published in many variations. Most of them share the same gameplay goal: to capture more territory than the opponents do, which is an example of how a game might use environments represented by maps as a limited resource for players to acquire.
  
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/risk-rulebook} 
-	\caption{Risk rule book fragment, containing board photo. Image source: Photo taken from original Risk rule book, copyright Hasbro 1993}
+	\caption{Risk rule book fragment, containing board photo. Image source: photo taken from original Risk rule book, copyright Hasbro 1993}
 	\label{fig:acrord32risk1}
 \end{figure}
 
+\td{The Carcassonne is a clever tile-laying game. The southern French city of Carcassonne is famous for its unique roman and medieval fortifications. The players develop the area around Carcassonne and deploy their followers on the roads, in the cities, in the cloisters, and in the fields.}
+
+There are many more examples of board games which involve \td{}
+
 Modern board games have introduced many new ideas to the design of game boards. One example of such ideas is bringing modularity into the board design, composing pieces of the board similarly to how a jigsaw puzzle is composed of singular pieces. Such arrangement allows for greater value in replaying the game, since the game world can be different at each time the game is played.
 
-However, some of the more complex game rules and ideas are better implemented using computer simulation, since most of the mundane tasks which do not contribute to gameplay can be automated. Activities like random number generation, board arrangement, checking player moves against game rules - are good candidates for automation.
+However, some of the more complex game rules and ideas are better implemented using computer simulation, since most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of play, effectively providing a way for beginners who want to learn the game they are interested in, as has been done for chess and other classic board games.
  
 
 %%%%%%%%%%%%%%%
