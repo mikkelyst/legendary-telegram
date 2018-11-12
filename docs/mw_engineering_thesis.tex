@@ -266,19 +266,28 @@ Another interesting example of a game world map is the multi-player strategy boa
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/risk-rulebook} 
-	\caption{Risk rule book fragment, containing board photo. Image source: photo taken from original Risk rule book, copyright Hasbro 1993}
+	\caption{Risk rule book fragment, containing a photo of the game board. The board shows a world map with fictional political borders, dividing the map into regions, which serve as a resource for players to capture. Image source: photo taken from original Risk rule book, copyright Hasbro 1993}
 	\label{fig:acrord32risk1}
 \end{figure}
 
-\td{The Carcassonne is a clever tile-laying game. The southern French city of Carcassonne is famous for its unique roman and medieval fortifications. The players develop the area around Carcassonne and deploy their followers on the roads, in the cities, in the cloisters, and in the fields.}
+Modern board games have introduced many new ideas to the design of game boards. One example of such ideas is bringing modularity into the board design, composing pieces of the board similarly to how a jigsaw puzzle is composed of singular pieces. Such arrangement allows for greater value in replaying the game, since the game world can be different at each time the game is played. 
 
-There are many more examples of board games which involve \td{}
+An example of such game is Carcassonne, published in 2000, designed by Klaus-Jürgen Wrede in Germany. The game of Carcassonne involves an interesting mechanism: rather than having a fixed game board, cards with tiles are used to construct the board during gameplay. The game rules around tile placement can be thought of as an algorithm of procedural generation: only one tile can be placed during each game turn, adjacent to other tiles, forming a connection with features that tiles represent - roads must connect to roads, fields to other fields, and cities to cities. The rules ensure that the players will develop the game board as the game progresses, which leads to an interesting observation: each turn, the players are presented with new territory to consider in their decisions - and since the game requires players to deploy their resources onto the constructed game map in order to accumulate score and eventually win, these decisions may often become quite challenging with increasing complexity of the board layout.
 
-Modern board games have introduced many new ideas to the design of game boards. One example of such ideas is bringing modularity into the board design, composing pieces of the board similarly to how a jigsaw puzzle is composed of singular pieces. Such arrangement allows for greater value in replaying the game, since the game world can be different at each time the game is played.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/carcassonne}
+	\caption{Carcassonne game board during gameplay. Players place tiles adjacent to existing ones, making sure that each tile fits the others. Image source: https://deerfieldlibrary.org/2016/01/carcassonne-a-modern-board-game-for-adults-teens/}
+	\label{fig:carcassonne}
+\end{figure}
 
-However, some of the more complex game rules and ideas are better implemented using computer simulation, since most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of play, effectively providing a way for beginners who want to learn the game they are interested in, as has been done for chess and other classic board games.
+
+\td{comment - board games: map creation mechanics, rules}
+\td{carcassone web version at https://concarneau.herokuapp.com/game}
+
+However, some of the more complex game rules and ideas are better implemented using computer simulation, since most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of competitive play, effectively providing a way for beginners who want to learn the game they are interested in or for veterans who want to develop their skills further, as has been done for chess and other classic board games.
  
-
+There are many more examples of modern board games which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Moving on, we will now investigate a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
 %%%%%%%%%%%%%%%
 \section{ Interactivity }
 
@@ -667,14 +676,14 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 \addcontentsline{toc}{chapter}{Attachments} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Attachments}
-\begin{enumerate}
-\item List of To Do Notes \todo{list of todos - remove this before submitting thesis} 
+\begin{enumerate} 
 \item \td{include thesis defence documents}
 \item \td{?}
 \item \td{?}
 \item \td{?}
 \end{enumerate}
 
+\pagebreak
 \listoftodos
 
 \end{document}
