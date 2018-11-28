@@ -23,6 +23,7 @@ private:
     return ( s == 2 || s == 3 ) && isMarkingEnabled;
   }
 
+
 public:
   static float ui_boardDisplayScale;
   static bool isMarkingEnabled;

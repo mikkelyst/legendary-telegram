@@ -6,6 +6,7 @@
 
 class WindowMapTileGrid : public Window_Base
 {
+
 public:
   WindowMapTileGrid( float initialPositionX, float initialPositionY )
   {
@@ -58,6 +59,7 @@ public:
       
     }
   }
+
 private:
   void ShowMapTiles( Map* m )
   {
