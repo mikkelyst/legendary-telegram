@@ -102,48 +102,60 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{rozdzial.wstep} 
-During recent years, presence of computer games in human lives has increased. The demand for games has shown that playing games, both as a medium of expression and a means for entertainment, is a desirable form of activity. However, as the demand for games rises \footnote{The Interactive Software Federation of Europe compiles and publishes statistics which include frequency of gaming in European countries and show that demand for games is on the rise. \url{https://www.isfe.eu/industry-facts/statistics}} and computer games become increasingly complex, demand for game content must also rise -- game elements such as believable maps, textures, sound and models (among other types of content) are a necessary resource for production of games. Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. In the study, authors point to work of Kelly and McCabe \autocite{kelly2007citygen}, Lefebvre and Neyret \autocite{lefebvre2003pattern}, Smelik et al. 2009 \autocite{smelik2009survey} and Iosup 2009 \autocite{iosup2009poggi} as sources which reveal game content production as a time-consuming and expensive endeavour.
+During recent years, presence of computer games in human lives has increased. The amount of time spent on playing games by the modern society has shown that games are desirable both as a means for entertainment and a medium of expression. However, as the interest in games rises \footnote{The Interactive Software Federation of Europe compiles and publishes statistics which include frequency of gaming in European countries and show that demand for games is on the rise. \url{https://www.isfe.eu/industry-facts/statistics}} and computer games become increasingly complex, the need for game content must also rise. Elements such as believable maps, textures, sound and models (among other types of content) are a necessary resource for production of games. 
+
+Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. In the study, authors point to work of Kelly and McCabe \autocite{kelly2007citygen}, Lefebvre and Neyret \autocite{lefebvre2003pattern}, Smelik et al. 2009 \autocite{smelik2009survey} and Iosup 2009 \autocite{iosup2009poggi} as sources which reveal game content production as a time-consuming and expensive endeavour. Hence, it is logical to conclude that information contained in studies and statistics on the topic of game development suggest that most projects aimed at creating games or simulations could benefit from seeking new or more efficient automated means of content creation.
 
 \subsubsection{Solving the inefficiency issue}
+In order to provide a solution to the inefficiency of manual content production, formal methods have emerged and are commonly referred to as procedural generation techniques, defined by the literature as processes or methods of automatic content creation, through algorithmic mechanisms \autocite{togelius2011search} \autocite{yannakakis2015experience}.
+
 Scientific surveys such as \autocite{hendrikx2013procedural} and \autocite{smelik2009survey} show why investigating procedural generation is useful for the game industry, by providing examples of successful methods which can be used to generate content for games. Primary concerns which drive the interest in automated ways to create game content are the rising project costs and increasing development time.
 
 In order to reduce the cost of game development, allow for greater replay value or provide a feeling of vastness to the game worlds that designers aim to create, procedural content generation techniques can provide an attractive solution to the problem of content creation. Surveys such as \autocite{hendrikx2013procedural}, \autocite{togelius2011search} and \autocite{de2011survey} show what types of game content can be generated and are a good starting point for seeking methods of procedural generation.
-
-\subsubsection{Personal motivation}
-During two recent years, the author of this thesis took part in a small, after-hours independent game development project. Working with a group of friends, using Unreal Engine as a tool to develop a simple prototype of a game belonging to the \textit{rogue-like} game genre. The project is still in development phase and finding a good method of map generation can potentially result in contribution of useful features.
-
-%%%%%%%%%%%%%%%
-\section{Thesis structure}
-The overall structure of this thesis includes introduction followed by three chapters. The second chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The chapter \ref{rozdzial.praktyka} describes performed experiments, design and implementation of a solution to the problem. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis, followed by chapter \ref{rozdzial.kod} which lists full source code of the developed solution.
-
+ 
 %%%%%%%%%%%%%%%
 \section{Objectives}
 
-This work focuses on automated creation of 2-dimensional game maps using a cellular automata approach. We aim to do so by generating small map tiles, which can be later merged into a bigger map. Such approach allows for a degree of control to the map designer - who may want to decide which tiles will be merged and at which locations in the map they will be present. Moreover, we could also allow for editing the tile before placing it in the map. An approach that integrates manual editing or parametrization of desired results with procedural generation techniques has been proposed before \autocite{bidarra2010integrating}, \autocite{smelik2010integrating}, \autocite{smelik2011declarative}.
+This thesis focuses on automated creation of 2-dimensional game maps using a cellular automata approach to generate small map tiles and merge them into a bigger map. Such approach allows for a degree of control to the map designer -- who may want to decide which tiles will be merged and at which locations in the map they will be present. Integrating manual editing or parametrization of desired results with procedural generation techniques has been proposed before in the works concerning procedural generation techniques \autocite{bidarra2010integrating}, \autocite{smelik2010integrating}, \autocite{smelik2011declarative}. 
 
-We focus on creation of maps for games, since literature shows map generation as an interesting area for experimentation, although personal motivation influenced the choice as well.
+Beginning experimentation with flat maps on 2-dimensional plane avoids the complexity that may arise when dealing with higher dimensions, hence the main aim is to develop a solution to the problem of automating planar map creation for games. 
 
-Beginning experimentation with flat maps on 2-dimensional plane avoids the complexity that may arise when dealing with higher dimensions.
-
-We will investigate existing methods for procedural generation of game maps which resemble cave structures. Then, an approach that may be used for automated creation of such maps will be selected and examined with a focus on implementing a working map generator. Main points of focus for this project are as follows:
+\td{implementing editing operations on the tile before placing it in the map. }
+\td{procedural generation of game maps which resemble cave structures}
+\td{approach will be selected 
+	and examined with 
+	implementing a working map generator.
+}
 
 \begin{itemize}
 	\item research on procedural generation of maps
 	\item selecting a promising approach to use
 	\item designing a map generator program
-	\item implementing the solution in a programming language of choice
+ 	\item implementing the solution in a programming language of choice
 \end{itemize}
 
-\td{Objectives - is that all?}
+\td{Add only strict information about what you program/thesis should do/improve. Based it on implementation and techniques described in articles that you have cited. Don't add what CAN be done, but rephrase it to what HAVE been done.}
 
 %%%%%%%%%%%%%%%
 \section{Thesis scope}
 
-\td{scope - what we will do and what we will not }
+\td{Your research question will be your guide as your writing proceeds. If you are working independently, you are also free to modify it as you go along.
+	
+	How do you know that you have drafted a research question? Most importantly, a research question is something that can be answered. If not, you have probably come up with a theme or field, not a question.
+	
+	Some tips:
+	
+	Use interrogative words: how, why, which (factors/situations) etc.
+	Some questions are closed and only invoke concrete/limited answers. Others will open up for discussions and different interpretations.
+	Asking “What …?” is a more closed question than asking “How?” or “In what way?”
+	Asking “Why” means you are investigating what causes of a phenomenon. Studying causality is methodologically demanding.
+	Feel free to pose partially open questions that allow discussions of the overall theme, e.g., “In what way …?”; “How can we understand [a particular phenomenon]?”
+	Try to condense your research question into one general question – and perhaps a few more specific sub-questions (two or three will usually suffice).}
+\td{Paradoxically, the more you limit the scope, the more interesting it becomes. This is because a narrower scope lets you clarify the problem and study it at greater depth, whereas very broad research questions only allow a superficial treatment. } 
 
-\td{scope }
-
-\td{scope - shortly: what could be done instead}
+%%%%%%%%%%%%%%%
+\section{Thesis structure}
+The overall structure of this thesis includes introduction followed by three chapters. The second chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The chapter \ref{rozdzial.praktyka} describes performed experiments, design and implementation of a solution to the problem. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis, followed by chapter \ref{rozdzial.kod} which lists full source code of the developed solution.
 
 %%%%%%%%%%%%%%%
 \section{Technology and tools}
