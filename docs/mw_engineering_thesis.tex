@@ -139,76 +139,30 @@ Beginning experimentation with flat maps on 2-dimensional plane avoids the compl
 %%%%%%%%%%%%%%%
 \section{Thesis scope}
 
-\td{Your research question will be your guide as your writing proceeds. If you are working independently, you are also free to modify it as you go along.
-	
-	How do you know that you have drafted a research question? Most importantly, a research question is something that can be answered. If not, you have probably come up with a theme or field, not a question.
-	
-	Some tips:
-	
-	Use interrogative words: how, why, which (factors/situations) etc.
-	Some questions are closed and only invoke concrete/limited answers. Others will open up for discussions and different interpretations.
-	Asking “What …?” is a more closed question than asking “How?” or “In what way?”
-	Asking “Why” means you are investigating what causes of a phenomenon. Studying causality is methodologically demanding.
-	Feel free to pose partially open questions that allow discussions of the overall theme, e.g., “In what way …?”; “How can we understand [a particular phenomenon]?”
-	Try to condense your research question into one general question – and perhaps a few more specific sub-questions (two or three will usually suffice).}
-\td{Paradoxically, the more you limit the scope, the more interesting it becomes. This is because a narrower scope lets you clarify the problem and study it at greater depth, whereas very broad research questions only allow a superficial treatment. } 
+\td{ Your research question will be your guide as your writing proceeds. If you are working independently, you are also free to modify it as you go along. How do you know that you have drafted a research question? Most importantly, a research question is something that can be answered. If not, you have probably come up with a theme or field, not a question. Some tips: Use interrogative words: how, why, which (factors/situations) etc. Some questions are closed and only invoke concrete/limited answers. Others will open up for discussions and different interpretations. Asking “What …?” is a more closed question than asking “How?” or “In what way?” Asking “Why” means you are investigating what causes of a phenomenon. Studying causality is methodologically demanding. Feel free to pose partially open questions that allow discussions of the overall theme, e.g., “In what way …?”; “How can we understand [a particular phenomenon]?” Try to condense your research question into one general question – and perhaps a few more specific sub-questions (two or three will usually suffice). Paradoxically, the more you limit the scope, the more interesting it becomes. This is because a narrower scope lets you clarify the problem and study it at greater depth, whereas very broad research questions only allow a superficial treatment.}
+
+
+
 
 %%%%%%%%%%%%%%%
 \section{Thesis structure}
 The overall structure of this thesis includes introduction followed by three chapters. The second chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The chapter \ref{rozdzial.praktyka} describes performed experiments, design and implementation of a solution to the problem. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis, followed by chapter \ref{rozdzial.kod} which lists full source code of the developed solution.
 
 %%%%%%%%%%%%%%%
-\section{Technology and tools}
+\section{Experimental setup}
 
-The following paragraphs summarize what tools were involved during the project of thesis preparation and performing the experiments.
-
-\subsection{Hardware} 
-
-All experiments in this thesis have been performed using a laptop with an {Intel Core i7 2630QM - x64 2.0 \si{GHz}} multi-core processor, {16GB RAM} and an {nVidia GeForce GTX 560M} graphics card.
- 
-\subsection{Software} 
-
-Development environment for the purposes of thesis experiments and writing has been set up under Windows 10 operating system with the following software installed:
-
-\begin{itemize}
-	\item Visual Studio 2015 Community IDE
-	\item CMake for Windows
-	\item TeXstudio editor with MikTeX back-end
-	\item Git version control system
-	\item Notepad++
-	\item UMLet open source modelling program
-	\item \td{...}
-\end{itemize}
-
-Other configuration details include: \td{environment variables, configuration specifics...} 
-
-This thesis has been prepared with \LaTeX\space system for document typesetting.
-
- 
-\subsubsection{Programming languages} 
-
-The program that allowed to carry out experiments in this thesis was implemented using the C++ programming language and compiled with MSVC++ 14.0 compiler, natively included in the VS2015 IDE.  
-
-\subsubsection{Libraries} 
+The implemented solution that allowed to carry out experiments in this thesis was implemented using the C++ programming language and compiled with MSVC++ 14.0 compiler, natively included in the VS2015 IDE.  
 
 The implementation uses following libraries:
 \begin{itemize}
 	\item Dear ImGui, by Omar Cornut - to easily build an Immediate Mode user interface. Project homepage:  \url{https://github.com/ocornut/imgui}
-	\item GLFW 3.2.1 library - to create an OpenGL context and have direct access to texture functions. Project homepage: \url{http://www.glfw.org/}
-	\item \td{...} 
+	\item GLFW 3.2.1 library - to create an OpenGL context and have direct access to texture functions. Project homepage: \url{http://www.glfw.org/} 
 \end{itemize}  
+
+\td{nVidia GeForce GTX 560M used to satisfy OpenGL needs}
  
-
-\subsection{Other tools }
-\subsubsection{Design patterns} 
-\td{list used design patters, if any. Singleton? Command? Factory?}
+This thesis has been prepared with \LaTeX\space system for document typesetting. Diagrams were drawn with \textit{UMLet} - an open source modelling program.
  
-
-
-%%%%%%%%%%%%%%%
-\section{Related work (?)} 
-
-\td{think what could be included here}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Research on 2D map generation methods} \label{rozdzial.teoria}
