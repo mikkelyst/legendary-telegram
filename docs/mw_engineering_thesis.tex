@@ -118,23 +118,16 @@ In order to reduce the cost of game development, allow for greater replay value 
 
 This thesis focuses on automated creation of 2-dimensional game maps using a cellular automata approach to generate small map tiles and merge them into a bigger map. Such approach allows for a degree of control to the map designer -- who may want to decide which tiles will be merged and at which locations in the map they will be present. Integrating manual editing or parametrization of desired results with procedural generation techniques has been proposed before in the works concerning procedural generation techniques \autocite{bidarra2010integrating}, \autocite{smelik2010integrating}, \autocite{smelik2011declarative}. 
 
-Beginning experimentation with flat maps on 2-dimensional plane avoids the complexity that may arise when dealing with higher dimensions, hence the main aim is to develop a solution to the problem of automating planar map creation for games. 
+Beginning experimentation with flat maps on 2-dimensional plane avoids the complexity that may arise when dealing with higher dimensions, hence the main aim is to develop a solution to the problem of automating planar map creation for games. Specifically, maps created by the generator should be planar and their layout must have characteristics of shapes that can be helpful in design of believable environments. 
 
-\td{implementing editing operations on the tile before placing it in the map. }
-\td{procedural generation of game maps which resemble cave structures}
-\td{approach will be selected 
-	and examined with 
-	implementing a working map generator.
-}
-
+The work on preparing the solution has been divided into the following parts:
 \begin{itemize}
-	\item research on procedural generation of maps
-	\item selecting a promising approach to use
-	\item designing a map generator program
- 	\item implementing the solution in a programming language of choice
+	\item research on procedural generation of planar maps and method selection
+ 	\item design and implementation of a map generator in C++
+ 	\item adding tile editing operations 
+ 	\item extending the feature set of the generator
 \end{itemize}
-
-\td{Add only strict information about what you program/thesis should do/improve. Based it on implementation and techniques described in articles that you have cited. Don't add what CAN be done, but rephrase it to what HAVE been done.}
+ 
 
 %%%%%%%%%%%%%%%
 \section{Thesis scope}
@@ -146,8 +139,7 @@ Beginning experimentation with flat maps on 2-dimensional plane avoids the compl
 
 %%%%%%%%%%%%%%%
 \section{Thesis structure}
-The overall structure of this thesis includes introduction followed by three chapters. The second chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The chapter \ref{rozdzial.praktyka} describes performed experiments, design and implementation of a solution to the problem. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis, followed by chapter \ref{rozdzial.kod} which lists full source code of the developed solution.
-
+The overall structure of this thesis includes introduction followed by three chapters. The second chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The chapter \ref{rozdzial.praktyka} describes design and implementation of a solution to the problem along with performed experiments. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis.
 %%%%%%%%%%%%%%%
 \section{Experimental setup}
 
