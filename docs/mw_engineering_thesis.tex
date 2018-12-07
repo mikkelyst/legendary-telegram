@@ -118,42 +118,43 @@ In order to reduce the cost of game development, allow for greater replay value 
 
 This thesis focuses on automated creation of 2-dimensional game maps using a cellular automata approach to generate small map tiles and merge them into a bigger map. Such approach allows for a degree of control to the map designer -- who may want to decide which tiles will be merged and at which locations in the map they will be present. Integrating manual editing or parametrization of desired results with procedural generation techniques has been proposed before in the works concerning procedural generation techniques \autocite{bidarra2010integrating}, \autocite{smelik2010integrating}, \autocite{smelik2011declarative}. 
 
-Beginning experimentation with flat maps on 2-dimensional plane avoids the complexity that may arise when dealing with higher dimensions, hence the main aim is to develop a solution to the problem of automating planar map creation for games. Specifically, maps created by the generator should be planar and their layout must have characteristics of shapes that can be helpful in design of believable environments. 
+Beginning experimentation with flat maps on 2-dimensional plane avoids the complexity that may arise when dealing with higher dimensions, hence the main aim is to develop a solution to the problem of automating planar map creation for games. 
 
-The work on preparing the solution has been divided into the following parts:
-\begin{itemize}
-	\item research on procedural generation of planar maps and method selection
- 	\item design and implementation of a map generator in C++
- 	\item adding tile editing operations 
- 	\item extending the feature set of the generator
-\end{itemize}
+Specifically, maps created by the generator should be planar and their layout must have characteristics of shapes that can be helpful in design of believable environments. These characteristics may include irregularity, asymmetry and imbalance. The goal is to create structures that are interesting because of their unpredictability, somewhat resembling the look of results produced by natural processes like erosion, dissolution, deformation, tectonic fragmentation or weathering.
  
-
 %%%%%%%%%%%%%%%
 \section{Thesis scope}
 
-\td{ Your research question will be your guide as your writing proceeds. If you are working independently, you are also free to modify it as you go along. How do you know that you have drafted a research question? Most importantly, a research question is something that can be answered. If not, you have probably come up with a theme or field, not a question. Some tips: Use interrogative words: how, why, which (factors/situations) etc. Some questions are closed and only invoke concrete/limited answers. Others will open up for discussions and different interpretations. Asking “What …?” is a more closed question than asking “How?” or “In what way?” Asking “Why” means you are investigating what causes of a phenomenon. Studying causality is methodologically demanding. Feel free to pose partially open questions that allow discussions of the overall theme, e.g., “In what way …?”; “How can we understand [a particular phenomenon]?” Try to condense your research question into one general question – and perhaps a few more specific sub-questions (two or three will usually suffice). Paradoxically, the more you limit the scope, the more interesting it becomes. This is because a narrower scope lets you clarify the problem and study it at greater depth, whereas very broad research questions only allow a superficial treatment.}
+\td{HINT: scope of the study basically means all those things that will be covered in the research project -- describe what is covered in here and what is not}
 
+The research carried out to support this thesis was focused on discovery of generative techniques presented in current literature describing methods of content generation for games. 
 
+Work on preparing the solution has been divided into the following parts, described in the remainder of this thesis:
 
+\begin{itemize}
+	\item research on procedural generation of planar maps and method selection
+	\item design of a map generator program and its implementation in C++
+	\item extending the feature set of the generator
+\end{itemize}
 
 %%%%%%%%%%%%%%%
 \section{Thesis structure}
-The overall structure of this thesis includes introduction followed by three chapters. The second chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. The chapter \ref{rozdzial.praktyka} describes design and implementation of a solution to the problem along with performed experiments. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis.
+This thesis includes introduction followed by three chapters. Chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. Chapter \ref{rozdzial.praktyka} describes design and implementation of a solution to the problem along with performed experiments. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis.
+
 %%%%%%%%%%%%%%%
 \section{Experimental setup}
 
-The implemented solution that allowed to carry out experiments in this thesis was implemented using the C++ programming language and compiled with MSVC++ 14.0 compiler, natively included in the VS2015 IDE.  
+The solution that allowed to carry out experiments in this thesis was implemented using the C++ programming language and compiled with MSVC++ 14.0 compiler, natively included in the VS2015 IDE. Other tools and libraries used in the project:
 
-The implementation uses following libraries:
 \begin{itemize}
 	\item Dear ImGui, by Omar Cornut - to easily build an Immediate Mode user interface. Project homepage:  \url{https://github.com/ocornut/imgui}
 	\item GLFW 3.2.1 library - to create an OpenGL context and have direct access to texture functions. Project homepage: \url{http://www.glfw.org/} 
+	\item \td{SFML not used}
 \end{itemize}  
 
-\td{nVidia GeForce GTX 560M used to satisfy OpenGL needs}
+In order to satisfy requirements for using OpenGL API function calls, it is recommended to use a dedicated graphics processing unit and install updated drivers. For the purposes of development and experiments \textit{nVidia GeForce GTX 560M } was used and drivers were updated to latest available versions.
  
-This thesis has been prepared with \LaTeX\space system for document typesetting. Diagrams were drawn with \textit{UMLet} - an open source modelling program.
+This thesis has been prepared with \LaTeX\space system for document typesetting, included diagrams were drawn with \textit{UMLet} - an open source modelling program.
  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,7 +176,7 @@ Making a model of the physical (or fictional) world with maps requires choice of
 	\item route maps - transport links, connections joining points on the modelled territory
 \end{itemize}
 
-Although early maps had the form of drawings or etchings on surface of solid materials, now there are other possibilities of representing the abstract model which a map aims to represent. The rise of digital maps and geographic information systems has opened new possibilities - maps have become dynamic entities, stored digitally, easily updated with new data and not limited to the boundaries of physical model. With digital maps, it is possible to show more than one layer of data, as chosen by the user, whereas physical maps are limited to the data and view scale chosen initially at the time when map was crafted. Despite the limitations, they still can serve well as a medium for storage of geographic information, requiring simpler processes during archival and conservation efforts. Deeper exploration into the subject can be found in Bagrow's History of Maps \autocite{bagrow2017history}.
+Although early maps had the form of drawings or etchings on surface of solid materials, now there are other possibilities of representing the abstract model which a map aims to represent. The rise of digital maps and geographic information systems has opened new possibilities - maps have become dynamic entities, stored digitally, easily updated with new data and not limited to the boundaries of physical model. With digital maps, it is possible to show more than one layer of data, as chosen by the user, whereas physical maps are limited to the data and view scale chosen initially at the time when map was crafted. Despite the limitations, they still can serve well as a medium for storage of geographic information, requiring simpler processes during archival and conservation efforts \autocite{bagrow2017history}.
 
 \begin{figure}[h!]
 	\centering
@@ -185,7 +186,7 @@ Although early maps had the form of drawings or etchings on surface of solid mat
 \end{figure}
 
 
-Digital technology has also brought interesting methods to the art of crafting maps, allowing for new types of maps to be crafted, which brought previously undiscovered insights into the nature of represented territories. For example, with data maps such as the one described by article 'Redrawing the Map of Great Britain from a Network of Human Interactions' \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups as opposed to those defined by past governments. Authors of the article present a visualization of the data, which has a map form - see figure \ref{fig:journalnetwtalkmap}.
+Digital technology has also brought interesting methods to the art of crafting maps, allowing for new types of maps to be crafted, which brought previously undiscovered insights into the nature of represented territories. For example, with data maps such as the one described by article \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups as opposed to those defined by past governments, as shown in figure \ref{fig:journalnetwtalkmap}. Maps like these are generated from vast data sets, collected and stored in databases - an approach that would not be possible without use of digital technology. Seeing such examples may also raise an interesting question - since maps can emerge out of pure data, can the same approach be used to create fictional maps?
 
 The possibility of visualizing map layers which could not have been created and shown without digital data processing techniques and ease of experimentation with the information and algorithms used to create modern digital maps have also made it apparent that the source data for the layer itself do not necessarily have to measure some aspect of reality, but can be generated using mathematical methods. Such approach effectively allows for creation of fictional maps, representing imaginary territories. With that in mind, let us now move on to the sphere of fictional maps and their use in games, physical and digital alike. 
 

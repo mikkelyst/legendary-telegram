@@ -1,64 +1,64 @@
-\contentsline {todo}{TO DO: Your research question will be your guide as your writing proceeds. If you are working independently, you are also free to modify it as you go along. How do you know that you have drafted a research question? Most importantly, a research question is something that can be answered. If not, you have probably come up with a theme or field, not a question. Some tips: Use interrogative words: how, why, which (factors/situations) etc. Some questions are closed and only invoke concrete/limited answers. Others will open up for discussions and different interpretations. Asking \IeC {\textquotedblleft }What \IeC {\textellipsis }?\IeC {\textquotedblright } is a more closed question than asking \IeC {\textquotedblleft }How?\IeC {\textquotedblright } or \IeC {\textquotedblleft }In what way?\IeC {\textquotedblright } Asking \IeC {\textquotedblleft }Why\IeC {\textquotedblright } means you are investigating what causes of a phenomenon. Studying causality is methodologically demanding. Feel free to pose partially open questions that allow discussions of the overall theme, e.g., \IeC {\textquotedblleft }In what way \IeC {\textellipsis }?\IeC {\textquotedblright }; \IeC {\textquotedblleft }How can we understand [a particular phenomenon]?\IeC {\textquotedblright } Try to condense your research question into one general question \IeC {\textendash } and perhaps a few more specific sub-questions (two or three will usually suffice). Paradoxically, the more you limit the scope, the more interesting it becomes. This is because a narrower scope lets you clarify the problem and study it at greater depth, whereas very broad research questions only allow a superficial treatment.}{5}{section*.3}
-\contentsline {todo}{TO DO: nVidia GeForce GTX 560M used to satisfy OpenGL needs}{6}{section*.4}
-\contentsline {todo}{TO DO: expand on Go, comment on both, then introduce modern board games}{9}{section*.6}
-\contentsline {todo}{TO DO: comment - board games: map creation mechanics, rules}{11}{section*.10}
-\contentsline {todo}{TO DO: carcassone web version at https://concarneau.herokuapp.com/game}{11}{section*.11}
-\contentsline {todo}{TO DO: examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }{12}{section*.12}
-\contentsline {todo}{TO DO: \url {http://www.roguebasin.com/index.php?title=Major_roguelikes}}{12}{section*.13}
-\contentsline {todo}{TO DO: http://ascii-patrol.com/map.png + source?}{12}{section*.14}
-\contentsline {todo}{find out what game ascii art map is from}{12}{section*.16}
-\contentsline {todo}{TO DO: write about PCG in general, short }{13}{section*.17}
-\contentsline {todo}{TO DO: PCG types of content }{13}{section*.18}
-\contentsline {todo}{TO DO: PCG methods }{13}{section*.19}
-\contentsline {todo}{TO DO: focus on maps }{13}{section*.20}
-\contentsline {todo}{TO DO: list map procgen methods}{13}{section*.21}
-\contentsline {todo}{TO DO: HOW it was done until now? options?}{13}{section*.22}
-\contentsline {todo}{TO DO: ref survey with table of 2d dungeon gen}{13}{section*.23}
-\contentsline {todo}{TO DO: ca basics - game of life}{15}{section*.25}
-\contentsline {todo}{TO DO: using CA for simulations }{15}{section*.26}
-\contentsline {todo}{TO DO: using CA for generation of content}{15}{section*.27}
-\contentsline {todo}{TO DO: Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. }{15}{section*.28}
-\contentsline {todo}{TO DO: how to measure effectiveness? time of map generation, map shape, desirable map features?}{15}{section*.29}
-\contentsline {todo}{TO DO: how to measure such ease of use? accessibility? }{15}{section*.30}
-\contentsline {todo}{TO DO: how to measure cost?}{15}{section*.31}
-\contentsline {todo}{TO DO: study on generation time}{16}{section*.32}
-\contentsline {todo}{TO DO: desired characteristics of generated content?}{16}{section*.33}
-\contentsline {todo}{TO DO: study on what makes generation easy to include in game development projects}{16}{section*.34}
-\contentsline {todo}{TO DO: integrating manual editing AND procgen}{16}{section*.35}
-\contentsline {todo}{TO DO: examples of development costs - human resources, machine resources}{16}{section*.36}
-\contentsline {todo}{TO DO: which of these costs can be reduced by PCG}{16}{section*.37}
-\contentsline {todo}{TO DO: authors describe a process - 1 random image 2 apply CA steps as in article cave gen 3 merge tiles, result: maps!}{16}{section*.38}
-\contentsline {todo}{TO DO: short paragraph on the choice of CA for game maps}{16}{section*.39}
-\contentsline {todo}{TO DO: why we chose CA for mapgen?}{16}{section*.40}
-\contentsline {todo}{TO DO: what are pros and cons of such choice?}{16}{section*.41}
-\contentsline {todo}{TO DO: expand desired functions}{18}{section*.42}
-\contentsline {todo}{TO DO: nf-req intro}{18}{section*.43}
-\contentsline {todo}{TO DO: }{18}{section*.44}
-\contentsline {todo}{TO DO: how do we store data?}{19}{section*.45}
-\contentsline {todo}{TO DO: diagrams of cell, board}{19}{section*.46}
-\contentsline {todo}{TO DO: exporting data from generator? }{19}{section*.47}
-\contentsline {todo}{TO DO: how designers can get a complete map model? }{19}{section*.48}
-\contentsline {todo}{TO DO: how a generator will work}{19}{section*.49}
-\contentsline {todo}{TO DO: behavior diagrams}{19}{section*.50}
-\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{19}{section*.51}
-\contentsline {todo}{TO DO: imgui immediate mode user interface library}{19}{section*.52}
-\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{19}{section*.54}
-\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{19}{section*.55}
-\contentsline {todo}{TO DO: why?}{20}{section*.57}
-\contentsline {todo}{TO DO: add neighbor methods to board2}{21}{section*.60}
-\contentsline {todo}{TO DO: result of what it all does?}{21}{section*.61}
-\contentsline {todo}{TO DO: what else to include?}{22}{section*.62}
-\contentsline {todo}{TO DO: more on CA, 2dim CA?}{22}{section*.63}
-\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{22}{section*.65}
-\contentsline {todo}{TO DO: refer to code itself}{22}{section*.66}
-\contentsline {todo}{TO DO: map generator will be used in game project codenamed 'UW'}{23}{section*.67}
-\contentsline {todo}{TO DO: future: expanding the generator}{23}{section*.68}
-\contentsline {todo}{TO DO: future: adding more rules}{23}{section*.69}
-\contentsline {todo}{TO DO: future: user defined cell types}{23}{section*.70}
-\contentsline {todo}{TO DO: future: non-discrete cell states or more complex cell types }{23}{section*.71}
-\contentsline {todo}{TO DO: future: 3d maps?}{23}{section*.72}
-\contentsline {todo}{TO DO: (?)}{28}{section*.77}
-\contentsline {todo}{TO DO: include thesis defence documents}{29}{section*.79}
-\contentsline {todo}{TO DO: ?}{29}{section*.80}
-\contentsline {todo}{TO DO: ?}{29}{section*.81}
-\contentsline {todo}{TO DO: ?}{29}{section*.82}
+\contentsline {todo}{TO DO: HINT: scope of the study basically means all those things that will be covered in the research project -- describe what is covered in here and what is not}{4}{section*.3}
+\contentsline {todo}{TO DO: SFML not used}{5}{section*.4}
+\contentsline {todo}{TO DO: expand on Go, comment on both, then introduce modern board games}{8}{section*.6}
+\contentsline {todo}{TO DO: comment - board games: map creation mechanics, rules}{10}{section*.10}
+\contentsline {todo}{TO DO: carcassone web version at https://concarneau.herokuapp.com/game}{10}{section*.11}
+\contentsline {todo}{TO DO: examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }{11}{section*.12}
+\contentsline {todo}{TO DO: \url {http://www.roguebasin.com/index.php?title=Major_roguelikes}}{11}{section*.13}
+\contentsline {todo}{TO DO: http://ascii-patrol.com/map.png + source?}{11}{section*.14}
+\contentsline {todo}{find out what game ascii art map is from}{11}{section*.16}
+\contentsline {todo}{TO DO: write about PCG in general, short }{12}{section*.17}
+\contentsline {todo}{TO DO: PCG types of content }{12}{section*.18}
+\contentsline {todo}{TO DO: PCG methods }{12}{section*.19}
+\contentsline {todo}{TO DO: focus on maps }{12}{section*.20}
+\contentsline {todo}{TO DO: list map procgen methods}{12}{section*.21}
+\contentsline {todo}{TO DO: HOW it was done until now? options?}{12}{section*.22}
+\contentsline {todo}{TO DO: ref survey with table of 2d dungeon gen}{12}{section*.23}
+\contentsline {todo}{TO DO: ca basics - game of life}{14}{section*.25}
+\contentsline {todo}{TO DO: using CA for simulations }{14}{section*.26}
+\contentsline {todo}{TO DO: using CA for generation of content}{14}{section*.27}
+\contentsline {todo}{TO DO: Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. }{14}{section*.28}
+\contentsline {todo}{TO DO: how to measure effectiveness? time of map generation, map shape, desirable map features?}{14}{section*.29}
+\contentsline {todo}{TO DO: how to measure such ease of use? accessibility? }{14}{section*.30}
+\contentsline {todo}{TO DO: how to measure cost?}{14}{section*.31}
+\contentsline {todo}{TO DO: study on generation time}{15}{section*.32}
+\contentsline {todo}{TO DO: desired characteristics of generated content?}{15}{section*.33}
+\contentsline {todo}{TO DO: study on what makes generation easy to include in game development projects}{15}{section*.34}
+\contentsline {todo}{TO DO: integrating manual editing AND procgen}{15}{section*.35}
+\contentsline {todo}{TO DO: examples of development costs - human resources, machine resources}{15}{section*.36}
+\contentsline {todo}{TO DO: which of these costs can be reduced by PCG}{15}{section*.37}
+\contentsline {todo}{TO DO: authors describe a process - 1 random image 2 apply CA steps as in article cave gen 3 merge tiles, result: maps!}{15}{section*.38}
+\contentsline {todo}{TO DO: short paragraph on the choice of CA for game maps}{15}{section*.39}
+\contentsline {todo}{TO DO: why we chose CA for mapgen?}{15}{section*.40}
+\contentsline {todo}{TO DO: what are pros and cons of such choice?}{15}{section*.41}
+\contentsline {todo}{TO DO: expand desired functions}{17}{section*.42}
+\contentsline {todo}{TO DO: nf-req intro}{17}{section*.43}
+\contentsline {todo}{TO DO: }{17}{section*.44}
+\contentsline {todo}{TO DO: how do we store data?}{18}{section*.45}
+\contentsline {todo}{TO DO: diagrams of cell, board}{18}{section*.46}
+\contentsline {todo}{TO DO: exporting data from generator? }{18}{section*.47}
+\contentsline {todo}{TO DO: how designers can get a complete map model? }{18}{section*.48}
+\contentsline {todo}{TO DO: how a generator will work}{18}{section*.49}
+\contentsline {todo}{TO DO: behavior diagrams}{18}{section*.50}
+\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{18}{section*.51}
+\contentsline {todo}{TO DO: imgui immediate mode user interface library}{18}{section*.52}
+\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{18}{section*.54}
+\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{18}{section*.55}
+\contentsline {todo}{TO DO: why?}{19}{section*.57}
+\contentsline {todo}{TO DO: add neighbor methods to board2}{20}{section*.60}
+\contentsline {todo}{TO DO: result of what it all does?}{20}{section*.61}
+\contentsline {todo}{TO DO: what else to include?}{21}{section*.62}
+\contentsline {todo}{TO DO: more on CA, 2dim CA?}{21}{section*.63}
+\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{21}{section*.65}
+\contentsline {todo}{TO DO: refer to code itself}{21}{section*.66}
+\contentsline {todo}{TO DO: map generator will be used in game project codenamed 'UW'}{22}{section*.67}
+\contentsline {todo}{TO DO: future: expanding the generator}{22}{section*.68}
+\contentsline {todo}{TO DO: future: adding more rules}{22}{section*.69}
+\contentsline {todo}{TO DO: future: user defined cell types}{22}{section*.70}
+\contentsline {todo}{TO DO: future: non-discrete cell states or more complex cell types }{22}{section*.71}
+\contentsline {todo}{TO DO: future: 3d maps?}{22}{section*.72}
+\contentsline {todo}{TO DO: (?)}{27}{section*.77}
+\contentsline {todo}{TO DO: include thesis defence documents}{28}{section*.79}
+\contentsline {todo}{TO DO: ?}{28}{section*.80}
+\contentsline {todo}{TO DO: ?}{28}{section*.81}
+\contentsline {todo}{TO DO: ?}{28}{section*.82}
