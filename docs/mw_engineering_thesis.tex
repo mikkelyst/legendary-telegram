@@ -96,6 +96,7 @@
 \begin{document}
 
 \maketitle
+\renewcommand{\contentsname}{Table of contents}
 \tableofcontents 
 
 
@@ -135,7 +136,7 @@ Work on preparing the solution has been divided into the following parts, descri
 	\item extending the feature set of the generator
 \end{itemize}
 
-\td{HINT: scope of the study basically means all those things that will be covered in the research project}
+\td{review scope after thesis body is done >> scope well defined? scope matches content?3}
 
 %%%%%%%%%%%%%%%
 \section{Thesis structure}
@@ -186,7 +187,7 @@ Although early maps had the form of drawings or etchings on surface of solid mat
 \end{figure}
 
 
-Digital technology has also brought interesting methods to the art of crafting maps, allowing for new types of maps to be crafted, which brought previously undiscovered insights into the nature of represented territories. For example, with data maps such as the one described by article \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups as opposed to those defined by past governments, as shown in figure \ref{fig:journalnetwtalkmap}. Maps like these are generated from vast data sets, collected and stored in databases - an approach that would not be possible without use of digital technology. Seeing such examples may also raise an interesting question - since maps can emerge out of pure data, can the same approach be used to create fictional maps?
+Digital technology has also brought interesting methods to the art of crafting maps, allowing for new types of maps to be crafted, which brought previously undiscovered insights into the nature of represented territories. For example, with data maps such as the one described by article \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups as opposed to those defined by past governments, as shown in figure \ref{fig:journalnetwtalkmap}. Maps like these are generated from vast data sets, collected and stored in databases - an approach that would not be possible without use of digital technology. Since maps can emerge out of pure data, the same approach can be used to create fictional maps, out of generated data.
 
 The possibility of visualizing map layers which could not have been created and shown without digital data processing techniques and ease of experimentation with the information and algorithms used to create modern digital maps have also made it apparent that the source data for the layer itself do not necessarily have to measure some aspect of reality, but can be generated using mathematical methods. Such approach effectively allows for creation of fictional maps, representing imaginary territories. With that in mind, let us now move on to the sphere of fictional maps and their use in games, physical and digital alike. 
 
@@ -233,6 +234,8 @@ Modern board games have introduced many new ideas to the design of game boards. 
 
 An example of such game is Carcassonne, published in 2000, designed by Klaus-Jürgen Wrede in Germany. The game of Carcassonne involves an interesting mechanism: rather than having a fixed game board, cards with tiles are used to construct the board during gameplay. The game rules around tile placement can be thought of as an algorithm of procedural generation: only one tile can be placed during each game turn, adjacent to other tiles, forming a connection with features that tiles represent - roads must connect to roads, fields to other fields, and cities to cities. The rules ensure that the players will develop the game board as the game progresses, which leads to an interesting observation: each turn, the players are presented with new territory to consider in their decisions - and since the game requires players to deploy their resources onto the constructed game map in order to accumulate score and eventually win, these decisions may often become quite challenging with increasing complexity of the board layout.
 
+\td{carcassone web version at https://concarneau.herokuapp.com/game}
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/carcassonne}
@@ -242,20 +245,25 @@ An example of such game is Carcassonne, published in 2000, designed by Klaus-Jü
 
 
 \td{comment - board games: map creation mechanics, rules}
-\td{carcassone web version at https://concarneau.herokuapp.com/game}
+
 
 However, some of the more complex game rules and ideas are better implemented using computer simulation, since most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of competitive play, effectively providing a way for beginners who want to learn the game they are interested in or for veterans who want to develop their skills further, as has been done for chess and other classic board games.
  
-There are many more examples of modern board games which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Moving on, we will now investigate a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
+There are many more examples of modern board games which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Moving on to the next section, let us investigate a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
 %%%%%%%%%%%%%%%
-\section{ Interactivity }
+\section{ Interactivity and automation }
+
+\td{ write about PCG: General PCG - types of content, methods. Maps as content type. Then: Methods suitable for map generation (next section). }
+
 
 The evolution of personal computers has allowed players to enjoy a new form of entertainment - video and computer games. Possibility of performing real-time simulations on computers and development of computer graphics rendering techniques have created a new medium of expression in the form of computer software. At the time when early forms of interactive simulations were created, first computer games were also developed. 
 
 In the past decades since the first computer games emerged, an industry focused on the craft of game development has emerged. The efforts of modern game designers and developers have lead to creation of multiple game genres and have driven the evolution of mechanics and challenges that modern games offer to players.
 
-In the context of this thesis project, of particular interest are games that include generated planar maps. A classic example involving procedurally created maps is Nethack, developed in 1987.
+As stated in chapter \ref{rozdzial.wstep}, the context of this thesis does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do, as shown by works similar to \autocite{snyder1993flattening}. The goal is to generate planar maps, which makes games that include them of particular interest for finding examples of working solutions to the problem. 
 
+One of classic examples involving procedurally created maps is Nethack, developed in 1987. \todo{expand}
+ 
 
 
 \td{examples from games: Diablo, NetHack (1987), Ultima Ratio Regum, Dwarf Fortress (2006), }
@@ -268,25 +276,11 @@ In the context of this thesis project, of particular interest are games that inc
 	\caption{A game map using ASCII art}
 	
 	\label{fig:map}
-\end{figure}
-\todo{find out what game ascii art map is from}
-
-%%%%%%%%%%%%%%%
-\section{ Automation - reduction in development time and cost}
-
-As stated in chapter \ref{rozdzial.wstep}, our context does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do \autocite{snyder1993flattening}. Our goal is simply to generate planar maps. 
-
-
-\td{ write about PCG in general, short }
-\td{ PCG types of content }
-\td{ PCG methods }
-\td{ focus on maps }
+\end{figure} 
  
 
-
-
 %%%%%%%%%%%%%%%
-\section{Existing solutions for 2D map generation}
+\section{Existing solutions for generating planar maps}
 
 In scientific surveys on PCG methods, we find approaches to map generation employed in the past. As listed by Hendrikx et al. \autocite{hendrikx2013procedural}, \td{list map procgen methods}
 
@@ -295,7 +289,7 @@ In scientific surveys on PCG methods, we find approaches to map generation emplo
 
 \subsection{Cellular automata}
 
-A cellular automaton is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
+A cellular automaton (further abbreviated as CA) is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
 
 Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list of definitions follows.
 
