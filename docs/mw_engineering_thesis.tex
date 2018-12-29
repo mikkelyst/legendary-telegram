@@ -99,7 +99,7 @@
 \renewcommand{\contentsname}{Table of contents}
 \tableofcontents 
 
-
+\listoftodos
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{rozdzial.wstep} 
@@ -157,6 +157,19 @@ In order to satisfy requirements for using OpenGL API function calls, it is reco
  
 This thesis has been prepared with \LaTeX\space system for document typesetting, included diagrams were drawn with \textit{UMLet} - an open source modelling program.
  
+
+%%%%%%%%%%%%%%%
+\section{Abbreviations and acronyms} 
+
+The following terms, abbreviations and acronyms have been used in the thesis.
+
+\begin{description}
+	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
+	\item[PCG] Procedural Content Generation. An automated process of creation.   
+	\item[GUI] Graphical User Interface
+	\item[ASCII] American Standard Code for Information Interchange - a character encoding standard, used to represent characters in computers and information systems
+	\item[] \td{ scan thesis for unexplained acronyms }  
+\end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Research on 2D map generation methods} \label{rozdzial.teoria}
@@ -232,24 +245,31 @@ Another interesting example of a game world map is the multi-player strategy boa
 
 Modern board games have introduced many new ideas to the design of game boards. One example of such ideas is bringing modularity into the board design, composing pieces of the board similarly to how a jigsaw puzzle is composed of singular pieces. Such arrangement allows for greater value in replaying the game, since the game world can be different at each time the game is played. 
 
-An example of such game is Carcassonne, published in 2000, designed by Klaus-Jürgen Wrede in Germany. The game of Carcassonne involves an interesting mechanism: rather than having a fixed game board, cards with tiles are used to construct the board during gameplay. The game rules around tile placement can be thought of as an algorithm of procedural generation: only one tile can be placed during each game turn, adjacent to other tiles, forming a connection with features that tiles represent - roads must connect to roads, fields to other fields, and cities to cities. The rules ensure that the players will develop the game board as the game progresses, which leads to an interesting observation: each turn, the players are presented with new territory to consider in their decisions - and since the game requires players to deploy their resources onto the constructed game map in order to accumulate score and eventually win, these decisions may often become quite challenging with increasing complexity of the board layout.
-
-\td{carcassone web version at https://concarneau.herokuapp.com/game}
+An example of such game is Carcassonne, published in 2000, designed by Klaus-Jürgen Wrede in Germany. The game of Carcassonne involves an interesting mechanism: rather than having a fixed game board, cards with tiles are used to construct the board during gameplay. The game rules around tile placement can be thought of as an algorithm of procedural generation: only one tile can be placed during each game turn, adjacent to other tiles, forming a connection with features that tiles represent - roads must connect to roads, fields to other fields, and cities to cities. The rules ensure that the players will develop the game board as the game progresses, which leads to an interesting observation: each turn, the players are presented with new territory to consider in their decisions - and since the game requires players to deploy their resources onto the constructed game map in order to accumulate score and eventually win, these decisions may often become quite challenging with increasing complexity of the board layout. There is a web version of Carcassonne available at \url{https://concarneau.herokuapp.com/game}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/carcassonne}
-	\caption{Carcassonne game board during gameplay. Players place tiles adjacent to existing ones, making sure that each tile fits the others. Image source: https://deerfieldlibrary.org/2016/01/carcassonne-a-modern-board-game-for-adults-teens/}
+	\caption{Carcassonne game board during gameplay. Players place tiles on gameplay surface once per turn, making sure that each new tile is compatible to surrounding tiles. Image source: \url{https://deerfieldlibrary.org/2016/01/carcassonne-a-modern-board-game-for-adults-teens/}}
 	\label{fig:carcassonne}
 \end{figure}
 
+There are other board games which make use of generative mechanics to create or alter the board layout, before or during gameplay. Some of them rely on randomness, while others introduce rules by which the game world may be altered.
 
-\td{comment - board games: map creation mechanics, rules}
+Another interesting example is Labirynth, a board game designed by Max Kobbert and first released by Ravensburger company in 1986. The game board in Labirynth represents a dungeon composed of tiles representing path elements: corners, straight paths, crossings. Each turn, the game board is altered by shifting an entire row or column of movable tiles in a direction chosen by a player, in effect 
+
+ \begin{figure}[h]
+ 	\centering
+ 	\includegraphics[width=0.7\linewidth]{images/labirynth}
+ 	\caption{Labirynth game board. Even rows and columns are movable (marked with a yellow triangle on board edges). Image source: \url{https://rulesofplay.co.uk/products/labyrinth} }
+ 	\label{fig:carcassonne}
+ \end{figure}
 
 
-However, some of the more complex game rules and ideas are better implemented using computer simulation, since most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of competitive play, effectively providing a way for beginners who want to learn the game they are interested in or for veterans who want to develop their skills further, as has been done for chess and other classic board games.
- 
-There are many more examples of modern board games which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Moving on to the next section, let us investigate a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
+While it is possible to find or develop interesting mechanics for board games, some more complex game rules and ideas are better implemented using computer simulation, where most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of competitive play, effectively providing a way for beginners who want to learn the game they are interested in or for veterans who want to develop their skills further, as has been done for chess and other classic board games. 
+
+Among modern board games, there are many more examples which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Moving on to the next section, let us investigate a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
+
 %%%%%%%%%%%%%%%
 \section{ Interactivity and automation }
 
@@ -288,17 +308,17 @@ In scientific surveys on PCG methods, we find approaches to map generation emplo
 \td{ ref survey with table of 2d dungeon gen}
 
 \subsection{Cellular automata}
-
 A cellular automaton (further abbreviated as CA) is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
 
 Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list of definitions follows.
 
 \begin{description}
+	\item[CA] Cellular Automaton,
+	 Cellular Automata
 	\item[Cell] A cell is simply one unit positioned in CA simulation space. Cells have state, which can be simple  - for example, a binary digit, an integer - or more complicated - a real number with constraints, a complex number, or other.  
-	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of nearest cells to the selected one.
-	\item[Moore's neighbourhood]  Moore neighbourhood includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in figure \ref{fig:neighborhood_types}.
-	\item[Von Neumann neighbourhood] Von Neumann neighbourhood includes 8 closest neighbours of the cell - immediate and diagonal, as shown in figure \ref{fig:neighborhood_types}.
-	\item[Other types of neighborhood] It is possible to imagine other types of cell neighbourhoods, possibly including more cell rings around a cell or only a selection of them arranged in a custom pattern. Those cases are beyond the scope of this thesis.
+	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of cells nearest to the selected one.
+	\item[Moore's neighbourhood] A neighbourhood which includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in figure \ref{fig:neighborhood_types}.
+	\item[Von Neumann neighbourhood] A neighbourhood which includes 8 closest neighbours of the cell - immediate and diagonal, as shown in figure \ref{fig:neighborhood_types}.
 \end{description}
  
 \begin{figure}[h]
@@ -319,8 +339,6 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
 \end{figure}
 
 
-There are ...
-
 Every CA simulation also consists of rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific element arrangement is recognized.
 
 \td{ca basics - game of life}
@@ -331,10 +349,7 @@ Every CA simulation also consists of rules which drive the process of cell evolu
 
 \subsection{Generative grammars}
 
-\td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. }
-\subsection{L-systems} 
-
-\subsection{...}
+\td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
 
 \subsection{Other methods}
 
@@ -613,32 +628,16 @@ Since the goal of this work is not to just implement a working cellular automato
 \listoffigures
 
 \addcontentsline{toc}{chapter}{List of tables} 
-\listoftables
-
-\addcontentsline{toc}{chapter}{List of abbreviations and acronyms} 
-%%%%%%%%%%%%%%%
-\chapter*{List of abbreviations and acronyms} 
-
-The following terms, abbreviations and acronyms have been used in the thesis.
-
-\begin{description}
-	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
-	\item[PCG] Procedural Content Generation. An automated process of creation.   
-	\item[GUI] Graphical User Interface
-\end{description}
-\td{(?)}  
+\listoftables 
 
 \addcontentsline{toc}{chapter}{Attachments} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Attachments}
 \begin{enumerate} 
 \item \td{include thesis defence documents}
-\item \td{?}
-\item \td{?}
-\item \td{?}
-\end{enumerate}
-
-\pagebreak
-\listoftodos
+\item \td{attach 1}
+\item \td{attach 2}
+\item \td{attach 3}
+\end{enumerate} 
 
 \end{document}
