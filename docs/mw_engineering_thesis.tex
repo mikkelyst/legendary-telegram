@@ -216,8 +216,6 @@ Chess, a board tactical war-game developed before 6th century AD, uses black-whi
 
 Another game, originating from ancient China, defines a similar, grid-based game world, effectively making a map of a uniform planar territory. Go is played on 19 by 19 board, however smaller board sizes are used as well. In Go, the goal is to capture more territory than the opponent, which is done by placing game pieces on line intersections, one piece per turn.
 
-\td{expand on Go, comment on both, then introduce modern board games}
-
 
 \begin{figure}[h]
 	\centering
@@ -303,10 +301,10 @@ Survey \autocite{de2011survey} explores the subject of environmental content, li
 
 Survey \autocite{van2014procedural} focuses on generation of dungeon levels, listing and describing how cellular automata, generative grammars, genetic algorithms and constraint-based methods are used to create maps containing features of indoor spaces.
 
+The following sections shortly describe each approach and discuss the possibility of applying it to generation of planar maps with irregular shapes.
+
 \subsection{Cellular automata}
 A cellular automaton (further abbreviated as CA) is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
-
-\td{CA examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }
 
 Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list of definitions follows.
 
@@ -336,79 +334,57 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
 \end{figure}
 
 
-Every CA simulation also consists of rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized.
+Every CA simulation uses rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized.
 
-\td{ca basics - game of life}
-\td{using CA for simulations }
+\td{CA basics: how rules are applied, show results graphically}
+\td{CA for simulations: Game of Life } 
+\td{CA map gen, examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }
+
+\td{MAIN GOAL OF THESIS: generating map with irregular, chaotic shapes for which CA method is sufficient }
+
+One of possible approaches to map generation which can create irregular shapes is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. Authors describe rules of a cellular automaton which is able to transform a tile filled initially with random distribution of cells into a map tile with desired properties which can later be merged with other tiles into the game map. Authors define types of cells to indicate which areas of the map are accessible (floor cells) and which are not (rock and wall cells). To achieve better control over the generation process, the following parameters can be altered, as defined in the article: 
+
+\begin{itemize}
+	\item $r$ - percentage of floor cells in initial state,
+	\item $n$ - count of CA generations (steps) to perform,
+	\item $T$ - neighbourhood threshold value which defines inaccessible cells, 
+	\item $M$ - Moore neighbourhood size
+\end{itemize}
 
 
-\td{using CA for generation of content}
-
-One of possible approaches to map generation which can create irregular shapes is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. Authors describe rules of a cellular automaton which are able to transform a tile filled initially with random distribution of cells into a tile which has interesting properties for a map designer.
 
 \subsection{Generative grammars}
 
 \td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
 
+\td{Shape grammars}
+
+\td{grammars not optimal for generating irregular shapes}
+
 \subsection{Other methods}
 
+\td{Genetic algorithms, constraint-based, Perlin noise, others mentioned in surveys}
 
 %%%%%%%%%%%%%%%
-\section{Choosing a method of generation}
+\section{Chosen method: cellular automata}
 
-In order to effectively judge the value that a working map generator may bring to a game development project, we need to consider what characteristics should be evaluated. First, a useful generator must be effective at map generation.
-
-\td{how to measure effectiveness? time of map generation, map shape, desirable map features?}
-
-Another point to consider is how easy to use such generator can be. Game designers may ultimately decide to use manual methods of map creation if the method of map generation requires too much effort to include in their project.
-
-\td{how to measure such ease of use? accessibility? }
-
-The third aspect of choice what a generation method could be used is to consider how much value it brings to the designer versus what development costs it can reduce.
-
-\td{how to measure cost?}
-
-The following subsections describe how each of the mentioned aspects can influence the choice of a generation method.
-
-\subsection{Effectiveness} 
-\td{study on generation time}
-\td{desired characteristics of generated content?}
-
-\subsection{Accessibility} 
-
-\td{study on what makes generation easy to include in game development projects}
-\td{integrating manual editing AND procgen}
-
-\subsection{Cost} 
-\td{examples of development costs - human resources, machine resources}
-\td{which of these costs can be reduced by PCG}
-
-
-
-
-%%%%%%%%%%%%%%%
-\section{Chosen approach: cellular automata for 2D map generation}
-
-
-
-\autocite{johnson2010cellular}
-\td{authors describe a process - 1 random image 2 apply CA steps as in article cave gen 3 merge tiles, result: maps!} 
-
-\td{short paragraph on the choice of CA for game maps}
-\td{why we chose CA for mapgen?}
+\td{short paragraph on the choice of CA for game maps - why CA and not other methods?}
 \td{what are pros and cons of such choice?}
-
+\td{desired characteristics of generated content: irregular, chaotic, resembling natural landmass}  
+\td{desired feature: integrating manual editing and PCG - CA approach allows to edit between steps}
+\td{reduced human effort to create maps, as in other PCG solutions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-To describe the developed solution concisely, this chapter consists of five sections: definition of required features, design of simple CA simulation and map generator models, followed by implementing them in C++ programming language, experiments and finally, tests.
+To describe the developed solution concisely, this chapter consists of five sections: definition of required features, design of simple CA simulation and map generator models, followed by implementing them in C++ programming language and description of performed experiments.
 
 %%%%%%%%%%%%%%%
 \section{Analysis of requirements for a map generator}
-
-Having gathered the abstract constructs needed to build a CA map generator in chapter \ref{rozdzial.teoria}, we may proceed to state the requirements formally. In the following sections, we will: 
+ 
+ The following sections will:
+ 
 \begin{itemize}
 	\item define features required of a map generator program to automate creating maps,
 	\item state the desired properties of such generator,
@@ -422,34 +398,32 @@ Since we have selected an approach to map generation based on cellular automata 
 
 Another potentially useful feature would be manual editing of tiles before they are placed in the map, which would allow for an even greater degree of control over tile contents. Further expansion of such feature could be to provide the designer with tools to make their own rules for tile generation, while also allowing them to define types of single cells composing the tile.
 
-Finally, a map generator without a mechanism for saving the work done by a designer would certainly not be a useful tool. Such program needs a way to export generated maps to a file format that later can be used by a game engine of choice, possibly with procedures written by other programmers. Although saving or exporting maps is not really necessary for experimentation and testing, a production version of the program should have such functionality.
+Finally, a map generator without a mechanism for saving the work done by a designer would certainly not be a useful tool. Such program needs a way to export generated maps to a file format that later can be used by a game engine of choice, possibly with procedures written by other programmers. Although saving or exporting maps is not really necessary for experimentation and testing, a production version of the program should have such functionality. To summarize desired functions, map generator program:
 
-To summarize desired functions of a map generator program, a list follows:
 \begin{enumerate}
-	\item The program must implement a cellular automaton to generate map tiles
-	\item The program must show generation stages graphically
-	\item The program must allow building maps from components (tiles)
-	\item The program may allow manual editing of map tiles
-	\item The program should have a mechanism for exporting generated maps
+	\item must implement a cellular automaton to generate map tiles,
+	\item must show generation stages graphically,
+	\item must allow building maps from components (tiles),
+	\item must have a mechanism for exporting generated maps,
+	\item should allow manual editing of map tiles,
+
 	\item \td{expand desired functions}
 \end{enumerate}
 
 \subsection{Non-functional requirements}
 
-\td{nf-req intro}
+\td{}
+
 \begin{enumerate}
-	\item The program must have a graphical user interface.
-	\item The GUI must allow to change generation parameters, which should be grouped and ordered. 
-	\item The program must be responsive to user input and avoid crashing.
-	\item \td{}
+	\item  must have a graphical user interface.
+	\item The GUI must allow to change generation parameters, which should be grouped and ordered.  
+	\item \td{add missing non-functional requirements}
 \end{enumerate}
 
 \subsection{Constraints}
 
-\begin{enumerate}
-	\item Map tile generation time must not exceed 5 seconds.
-	\item User interface elements must not invoke non-existent mechanisms.
-	\item 
+\begin{enumerate}  
+	\item \td{?}
 \end{enumerate}
 
 %%%%%%%%%%%%%%%
@@ -486,7 +460,7 @@ To summarize desired functions of a map generator program, a list follows:
 %%%%%%%%%%%%%%%
 \section{Basic cellular automata simulations}
 
-Having chosen cellular automata as a method for generating maps, we need to have a clear idea about how to approach building a program that could simulate a cellular automaton. One of the helpful resources on the topic of building cellular automata simulations is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where we can find a short tutorial to build our first CA simulation. There, author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises. The tutorial is quite useful as a guide, since examples presented in New Kind of Science \autocite{wolfram2002new} are implemented in the Wolfram language and would require familiarity with it. As stated in Nature of Code \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
+Having chosen cellular automata as a method for generating maps, it is helpful to find resources on the topic of building cellular automata simulations. One of them is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where one can find a short tutorial to build our first CA simulation. Author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises, which may be preferable, since examples presented in New Kind of Science \autocite{wolfram2002new} are implemented in the Wolfram language and would require familiarity with it. As stated in Nature of Code \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
 
 \begin{itemize}
 	\item Cell state - every cell has a state updated on each simulation step,
@@ -536,13 +510,18 @@ Such abstraction creates an easy to use interface for further development and is
 At this point, we could also observe a common property of cellular automata  - whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time to compute next state of the board in case of 2-dimensional cellular automata \autocite{fourie2015parallel}.
 
 \td{what else to include?}
-\td{more on CA, 2dim CA?}
 
 
 %%%%%%%%%%%%%%%
-\section{Generating maps with CA}
+\section{Implementation}
 
-Since the goal of this work is not to just implement a working cellular automaton simulation, we need to find a way to generate maps using CA simulation. 
+\td{describe how it all works now, with object diagrams}
+\td{refer to code itself}
+
+
+%%%%%%%%%%%%%%%
+\section{Experiments in generating maps with CA}
+
 
 \begin{figure}[h]
 	\centering
@@ -575,24 +554,6 @@ Since the goal of this work is not to just implement a working cellular automato
 
 
 
-
-
-
-%%%%%%%%%%%%%%%
-\section{Implementation}
-
-\td{describe how it all works now, with object diagrams}
-\td{refer to code itself}
-
-
-%%%%%%%%%%%%%%%
-\section{Tests} 
-
-\subsection{Performance test}
-
-%%%%%%%%%%%%%%%
-\section{Deployment (?)} 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusions} \label{rozdzial.podsumowanie}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -604,17 +565,11 @@ Since the goal of this work is not to just implement a working cellular automato
 %%%%%%%%%%%%%%%
 \section{Evaluation of results} 
 
-\subsection{Effectiveness}
-\subsection{Accessibility}
-\subsection{Cost}
+\subsection{Effectiveness} 
+\subsection{Cost} 
 
 %%%%%%%%%%%%%%%
-\section{Perspectives for usage }
-
-\td{map generator will be used in game project codenamed 'UW'}
-
-%%%%%%%%%%%%%%%
-\section{Further work}
+\section{Possible improvements}
 
 \td{future: expanding the generator}
 \td{future: adding more rules}
