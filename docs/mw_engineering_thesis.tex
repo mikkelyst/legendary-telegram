@@ -312,8 +312,8 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
 	\item[CA] Cellular Automaton (or Automata)
 	\item[Cell] Cells are units of state in CA simulation - they are represented in memory by a simple data type: a binary digit, an integer - or more complicated data types: a real number with constraints, a complex number, a custom data structure.  
 	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of cells nearest to the selected one.
-	\item[Moore's neighbourhood] Includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in figure \ref{fig:neighborhood_types}.
-	\item[Von Neumann neighbourhood] Includes 8 closest neighbours of the cell - immediate and diagonal, as shown in figure \ref{fig:neighborhood_types}.
+	\item[Von Neumann neighbourhood] Includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in figure \ref{fig:neighborhood_types}.
+	\item[Moore's neighbourhood] Includes 8 closest neighbours of the cell - immediate and diagonal, as shown in figure \ref{fig:neighborhood_types}.
 \end{description}
  
 \begin{figure}[h]
@@ -334,15 +334,60 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
 \end{figure}
 
 
-Every CA simulation uses rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized.
+Every CA simulation uses rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized. The set of rules must cover all possible neighbourhood patterns of a cell so that the value of each cell in a future step is unambiguous. Exemplary rules for a 2D cellular automaton are presented in figure \ref{fig:examplecarules}, where included images do not cover all possible cases.
 
-\td{CA basics: how rules are applied, show results graphically}
+
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/rule0dead}
+		\caption{Rule 0 - cell is set to empty when no neighbours are present} 
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/rule2dead}
+		\caption{Rule 2 - cell is set to empty if there are less than three neighbours} 
+	\end{subfigure} 
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/rule3alive}
+		\caption{Rule 3 - cell is set to filled if it has three neighbours} 
+	\end{subfigure} 
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/rule3alive2}
+		\caption{Rule 3a - same rule, behavior independent of neighbour positioning} 
+	\end{subfigure} 
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/rule5alive}
+		\caption{Rule 5 - cell is set to filled if more than 3 neighbours} 
+	\end{subfigure} 
+	\hfill
+	\begin{subfigure}[b]{0.4\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/rule6alive}
+		\caption{Rule 6 - cell is set to filled if more than 3 neighbours} 
+	\end{subfigure} 
+	\hfill
+	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighbourhood}
+	\label{fig:examplecarules}
+\end{figure}
+
+Observing the presented subset, it may be intuitive to see rules 3, 5 and 6 as alternate versions of the same rule - setting the cell state according to a simple test - If selected cell has less than 3 neighbours, it becomes empty, otherwise it becomes filled - however, not knowing the full set of rules for this particular automaton, it cannot be concluded if those rules can be reduced in such way. There might be rules for arrangements with 4, 7 or 8 neighbours which fill the cell instead of emptying it or rules that behave differently depending on neighbour positions.
+
+
 \td{CA for simulations: Game of Life } 
 \td{CA map gen, examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }
 
 \td{MAIN GOAL OF THESIS: generating map with irregular, chaotic shapes for which CA method is sufficient }
 
-One of possible approaches to map generation which can create irregular shapes is the work of L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. Authors describe rules of a cellular automaton which is able to transform a tile filled initially with random distribution of cells into a map tile with desired properties which can later be merged with other tiles into the game map. Authors define types of cells to indicate which areas of the map are accessible (floor cells) and which are not (rock and wall cells). To achieve better control over the generation process, the following parameters can be altered, as defined in the article: 
+One of possible approaches to map generation which can create irregular shapes is the article written by L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. Authors describe rules of a cellular automaton which is able to transform a tile filled initially with random distribution of cells into a map tile with desired properties which can later be merged with other tiles into the game map. Authors define types of cells to indicate which areas of the map are accessible (floor cells) and which are not (rock and wall cells). To achieve better control over the generation process, the following parameters can be altered: 
 
 \begin{itemize}
 	\item $r$ - percentage of floor cells in initial state,
@@ -354,6 +399,8 @@ One of possible approaches to map generation which can create irregular shapes i
 
 
 \subsection{Generative grammars}
+
+Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Classically, generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s. 
 
 \td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
 
