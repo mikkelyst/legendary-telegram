@@ -1,44 +1,45 @@
 \contentsline {todo}{TO DO: review scope after thesis body is done >> scope well defined? scope matches content?3}{7}{section*.4}
 \contentsline {todo}{TO DO: SFML not used}{7}{section*.5}
 \contentsline {todo}{TO DO: review thesis, find unexplained acronyms }{8}{section*.6}
-\contentsline {todo}{TO DO: CA for simulations: Game of Life }{18}{section*.15}
-\contentsline {todo}{TO DO: CA map gen, examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }{18}{section*.16}
-\contentsline {todo}{TO DO: MAIN GOAL OF THESIS: generating map with irregular, chaotic shapes for which CA method is sufficient }{18}{section*.17}
-\contentsline {todo}{TO DO: Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. }{19}{section*.18}
-\contentsline {todo}{TO DO: Shape grammars}{19}{section*.19}
-\contentsline {todo}{TO DO: grammars not optimal for generating irregular shapes}{19}{section*.20}
-\contentsline {todo}{TO DO: Genetic algorithms, constraint-based, Perlin noise, others mentioned in surveys}{19}{section*.21}
-\contentsline {todo}{TO DO: short paragraph on the choice of CA for game maps - why CA and not other methods?}{19}{section*.22}
-\contentsline {todo}{TO DO: what are pros and cons of such choice?}{19}{section*.23}
-\contentsline {todo}{TO DO: desired characteristics of generated content: irregular, chaotic, resembling natural landmass}{19}{section*.24}
-\contentsline {todo}{TO DO: desired feature: integrating manual editing and PCG - CA approach allows to edit between steps}{19}{section*.25}
-\contentsline {todo}{TO DO: reduced human effort to create maps, as in other PCG solutions}{19}{section*.26}
-\contentsline {todo}{TO DO: expand desired functions}{21}{section*.27}
-\contentsline {todo}{TO DO: }{21}{section*.28}
-\contentsline {todo}{TO DO: add missing non-functional requirements}{21}{section*.29}
-\contentsline {todo}{TO DO: ?}{22}{section*.30}
-\contentsline {todo}{TO DO: how do we store data?}{22}{section*.31}
-\contentsline {todo}{TO DO: diagrams of cell, board}{22}{section*.32}
-\contentsline {todo}{TO DO: exporting data from generator? }{22}{section*.33}
-\contentsline {todo}{TO DO: how designers can get a complete map model? }{22}{section*.34}
-\contentsline {todo}{TO DO: how a generator will work}{22}{section*.35}
-\contentsline {todo}{TO DO: behavior diagrams}{22}{section*.36}
-\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{22}{section*.37}
-\contentsline {todo}{TO DO: imgui immediate mode user interface library}{22}{section*.38}
-\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{23}{section*.40}
-\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{23}{section*.41}
-\contentsline {todo}{TO DO: why?}{24}{section*.43}
-\contentsline {todo}{TO DO: add neighbor methods to board2}{24}{section*.46}
-\contentsline {todo}{TO DO: result of what it all does?}{24}{section*.47}
-\contentsline {todo}{TO DO: what else to include?}{25}{section*.48}
-\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{25}{section*.49}
-\contentsline {todo}{TO DO: refer to code itself}{25}{section*.50}
-\contentsline {todo}{TO DO: future: expanding the generator}{26}{section*.52}
-\contentsline {todo}{TO DO: future: adding more rules}{26}{section*.53}
-\contentsline {todo}{TO DO: future: user defined cell types}{26}{section*.54}
-\contentsline {todo}{TO DO: future: non-discrete cell states or more complex cell types }{26}{section*.55}
-\contentsline {todo}{TO DO: future: 3d maps?}{26}{section*.56}
-\contentsline {todo}{TO DO: include thesis defence documents}{33}{section*.61}
-\contentsline {todo}{TO DO: attach 1}{33}{section*.62}
-\contentsline {todo}{TO DO: attach 2}{33}{section*.63}
-\contentsline {todo}{TO DO: attach 3}{33}{section*.64}
+\contentsline {todo}{TO DO: what else CA rules may measure?}{18}{section*.15}
+\contentsline {todo}{TO DO: CA map gen, examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }{19}{section*.17}
+\contentsline {todo}{TO DO: MAIN GOAL OF THESIS: generating map with irregular, chaotic shapes for which CA method is sufficient }{19}{section*.18}
+\contentsline {todo}{TO DO: expand on JYT10}{19}{section*.19}
+\contentsline {todo}{TO DO: Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. }{20}{section*.20}
+\contentsline {todo}{TO DO: Shape grammars}{20}{section*.21}
+\contentsline {todo}{TO DO: grammars not optimal for generating irregular shapes}{20}{section*.22}
+\contentsline {todo}{TO DO: Genetic algorithms, constraint-based, Perlin noise, others mentioned in surveys}{20}{section*.23}
+\contentsline {todo}{TO DO: short paragraph on the choice of CA for game maps - why CA and not other methods?}{20}{section*.24}
+\contentsline {todo}{TO DO: what are pros and cons of such choice?}{20}{section*.25}
+\contentsline {todo}{TO DO: desired characteristics of generated content: irregular, chaotic, resembling natural landmass}{20}{section*.26}
+\contentsline {todo}{TO DO: desired feature: integrating manual editing and PCG - CA approach allows to edit between steps}{20}{section*.27}
+\contentsline {todo}{TO DO: reduced human effort to create maps, as in other PCG solutions}{20}{section*.28}
+\contentsline {todo}{TO DO: expand desired functions}{22}{section*.29}
+\contentsline {todo}{TO DO: }{22}{section*.30}
+\contentsline {todo}{TO DO: add missing non-functional requirements}{22}{section*.31}
+\contentsline {todo}{TO DO: ?}{23}{section*.32}
+\contentsline {todo}{TO DO: how do we store data?}{23}{section*.33}
+\contentsline {todo}{TO DO: diagrams of cell, board}{23}{section*.34}
+\contentsline {todo}{TO DO: exporting data from generator? }{23}{section*.35}
+\contentsline {todo}{TO DO: how designers can get a complete map model? }{23}{section*.36}
+\contentsline {todo}{TO DO: how a generator will work}{23}{section*.37}
+\contentsline {todo}{TO DO: behavior diagrams}{23}{section*.38}
+\contentsline {todo}{TO DO: OpenGL immediate mode paradigm}{23}{section*.39}
+\contentsline {todo}{TO DO: imgui immediate mode user interface library}{23}{section*.40}
+\contentsline {todo}{TO DO: diagram of texture class, used by Component MapGen, uses OpenGL}{24}{section*.42}
+\contentsline {todo}{TO DO: mention Bret Victor talks - why we choose Immediate Mode}{24}{section*.43}
+\contentsline {todo}{TO DO: why?}{25}{section*.45}
+\contentsline {todo}{TO DO: add neighbor methods to board2}{25}{section*.48}
+\contentsline {todo}{TO DO: result of what it all does?}{25}{section*.49}
+\contentsline {todo}{TO DO: what else to include?}{26}{section*.50}
+\contentsline {todo}{TO DO: describe how it all works now, with object diagrams}{26}{section*.51}
+\contentsline {todo}{TO DO: refer to code itself}{26}{section*.52}
+\contentsline {todo}{TO DO: future: expanding the generator}{27}{section*.54}
+\contentsline {todo}{TO DO: future: adding more rules}{27}{section*.55}
+\contentsline {todo}{TO DO: future: user defined cell types}{27}{section*.56}
+\contentsline {todo}{TO DO: future: non-discrete cell states or more complex cell types }{27}{section*.57}
+\contentsline {todo}{TO DO: future: 3d maps?}{27}{section*.58}
+\contentsline {todo}{TO DO: include thesis defence documents}{34}{section*.63}
+\contentsline {todo}{TO DO: attach 1}{34}{section*.64}
+\contentsline {todo}{TO DO: attach 2}{34}{section*.65}
+\contentsline {todo}{TO DO: attach 3}{34}{section*.66}

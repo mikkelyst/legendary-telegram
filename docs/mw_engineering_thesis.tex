@@ -379,10 +379,35 @@ Every CA simulation uses rules which drive the process of cell evolution to its 
 	\label{fig:examplecarules}
 \end{figure}
 
-Observing the presented subset, it may be intuitive to see rules 3, 5 and 6 as alternate versions of the same rule - setting the cell state according to a simple test - If selected cell has less than 3 neighbours, it becomes empty, otherwise it becomes filled - however, not knowing the full set of rules for this particular automaton, it cannot be concluded if those rules can be reduced in such way. There might be rules for arrangements with 4, 7 or 8 neighbours which fill the cell instead of emptying it or rules that behave differently depending on neighbour positions.
+Observing the presented subset, it may be intuitive to see rules 3, 5 and 6 as alternate versions of the same rule that sets the cell state according to a simple test: if selected cell has less than 3 neighbours, it remains empty, otherwise it becomes filled. However, not knowing the full set of rules for this particular automaton, it cannot be concluded if those rules can be reduced in such way. For example, there might be rules for arrangements with 4, 7 or 8 neighbours which fill the cell instead of emptying it or rules that behave differently depending on neighbour positions. 
 
 
-\td{CA for simulations: Game of Life } 
+
+\begin{itemize}
+	\item count of cells with state $s$ in neighbourhood,
+	\item state of selected cell,
+	\item positions at which neighbours are placed
+	\item \td{what else CA rules may measure?}
+\end{itemize}
+
+One of the classic examples of cellular automata simulations is Game of Life\footnote{Some Game of Life simulation examples: one at MIT website \url{http://web.mit.edu/jb16/www/6170/gameoflife/gol.html} and another at \url{https://copy.sh/life/}}, invented by american  mathematician John Conway. The simulation uses a square grid board, where cells can have one of two possible states: alive or dead. The rule set for Game of Life contains only three rules, based on counting alive neighbours of each cell: 
+
+\begin{itemize}
+	\item Alive cells with less than 2 alive neighbours become dead.
+	\item Alive cells with 4 or more alive neighbours become dead.
+	\item Dead cells with exactly 3 alive neighbours become alive.
+\end{itemize}
+
+Figure \ref{fig:applygol} shows an example of how these rules affect cells in a $5x5$ board. Cells outside the grid edges are assumed dead.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/applygol} 
+	\caption{Illustration of step transition in Game of Life. Alive cells which become dead in next turn are marked red, dead cells that become alive are marked green. Colored cells were assigned a number equal to the count of their alive neighbours.}
+	\label{fig:applygol}
+\end{figure}
+
+
 \td{CA map gen, examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }
 
 \td{MAIN GOAL OF THESIS: generating map with irregular, chaotic shapes for which CA method is sufficient }
@@ -396,11 +421,11 @@ One of possible approaches to map generation which can create irregular shapes i
 	\item $M$ - Moore neighbourhood size
 \end{itemize}
 
-
+\td{expand on JYT10}
 
 \subsection{Generative grammars}
 
-Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Classically, generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s. 
+Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s. 
 
 \td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
 
