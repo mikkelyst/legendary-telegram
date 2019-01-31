@@ -24,8 +24,9 @@
 
 % BIB REF COMMANDS
 \usepackage[nottoc,notlot,notlof]{tocbibind}
-\usepackage[backend=bibtex,style=alphabetic,sorting=anyvt]{biblatex}  
+\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}  
 \addbibresource{references.bib}
+
 %Bibliography sorting options 
 %option	description
 %nty	sort by name, title, year
@@ -85,9 +86,10 @@
 	filecolor=black,
 	linkcolor=black,
 	urlcolor=black,
-	pdftitle={Generating two-dimensional game maps with use of cellular automata},
-	bookmarks=true 
+	pdftitle={Generating two-dimensional game maps with use of cellular automata}
 }  
+
+\usepackage{cleveref}
 
 %%% STRONA TYTUŁOWA - DANE
 \title{Generating two-dimensional game maps with use of cellular automata}
@@ -97,9 +99,7 @@
 
 \maketitle
 \renewcommand{\contentsname}{Table of contents}
-\tableofcontents 
-
-\listoftodos
+\tableofcontents  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction} \label{rozdzial.wstep} 
@@ -108,7 +108,7 @@ During recent years, presence of computer games in human lives has increased. Th
 Studies such as \autocite{hendrikx2013procedural} show where the evidence for insufficiency of manual content creation may be found. In the study, authors point to work of Kelly and McCabe \autocite{kelly2007citygen}, Lefebvre and Neyret \autocite{lefebvre2003pattern}, Smelik et al. \autocite{smelik2009survey} and Iosup \autocite{iosup2009poggi} as sources which reveal game content production as a time-consuming and expensive endeavour. Hence, it is logical to conclude that information contained in studies and statistics on the topic of game development suggest that most projects aimed at creating games or simulations could benefit from seeking new or more efficient automated means of content creation.
 
 \subsubsection{Solving the inefficiency issue}
-In order to provide a solution to the inefficiency of manual content production, formal methods have emerged and are commonly referred to as procedural generation techniques, defined by the literature as processes or methods of automatic content creation, through algorithmic mechanisms \autocite{togelius2011search} \autocite{yannakakis2015experience}.
+In order to provide a solution to the inefficiency of manual content production, formal methods have emerged and are commonly referred to as \textit{procedural generation techniques}, defined by the literature as processes or methods of automatic content creation, through algorithmic mechanisms \autocite{togelius2011search} \autocite{yannakakis2015experience}.
 
 Scientific surveys such as \autocite{hendrikx2013procedural} and \autocite{smelik2009survey} show why investigating procedural generation is useful for the game industry, by providing examples of successful methods which can be used to generate content for games. Primary concerns which drive the interest in automated ways to create game content are the rising project costs and increasing development time.
 
@@ -141,7 +141,7 @@ Work on preparing the solution has been divided into the following parts, descri
 
 %%%%%%%%%%%%%%%
 \section{Thesis structure}
-This thesis includes introduction followed by three chapters. Chapter \ref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. Chapter \ref{rozdzial.praktyka} describes design and implementation of a solution to the problem along with performed experiments. Chapter \ref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis.
+This thesis includes introduction followed by three chapters. \cref{rozdzial.teoria} serves as a study on possible mechanisms that could be used for procedural generation and specifically, for creation of 2D maps for games. \cref{rozdzial.praktyka} describes design and implementation of a solution to the problem along with performed experiments. Chapter \cref{rozdzial.podsumowanie} summarizes the findings and concludes the thesis.
 
 %%%%%%%%%%%%%%%
 \section{Experimental setup}
@@ -164,8 +164,8 @@ This thesis has been prepared with \LaTeX\space system for document typesetting,
 
 The following terms, abbreviations and acronyms have been used in the thesis.
 
-\begin{description}
-	\item[CA] Cellular Automaton. A simulation consisting of cell objects.
+\begin{description} 
+	\item[CA] Cellular Automaton (or Automata). A simulation consisting of cell objects.
 	\item[PCG] Procedural Content Generation. An automated process of creation.   
 	\item[GUI] Graphical User Interface
 	\item[ASCII] American Standard Code for Information Interchange - a character encoding standard, used to represent characters in computers and information systems
@@ -202,9 +202,9 @@ Although early maps had the form of drawings or etchings on surface of solid mat
 \end{figure}
 
 
-Digital technology has also brought interesting methods to the art of crafting maps, allowing for new types of maps to be crafted, which brought previously undiscovered insights into the nature of represented territories. For example, with data maps such as the one described by article \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups as opposed to those defined by past governments, as shown in figure \ref{fig:journalnetwtalkmap}. Maps like these are generated from vast data sets, collected and stored in databases - an approach that would not be possible without use of digital technology. Since maps can emerge out of pure data, the same approach can be used to create fictional maps, out of generated data.
+Digital technology has also brought interesting methods to the art of crafting maps, allowing for new types of maps to be crafted, which brought previously undiscovered insights into the nature of represented territories. For example, with data maps such as the one described by article \autocite{10.1371/journal.pone.0014248} it is possible to draw more useful borders around regions, fitting actual human interaction groups as opposed to those defined by past governments, as shown in figure \cref{fig:journalnetwtalkmap}. Maps like these are generated from vast data sets, collected and stored in databases - an approach that would not be possible without use of digital technology. Since maps can emerge out of pure data, the same approach can be used to create fictional maps, out of generated data.
 
-The possibility of visualizing map layers which could not have been created and shown without digital data processing techniques and ease of experimentation with the information and algorithms used to create modern digital maps have also made it apparent that the source data for the layer itself do not necessarily have to measure some aspect of reality, but can be generated using mathematical methods. Such approach effectively allows for creation of fictional maps, representing imaginary territories. With that in mind, let us now move on to the sphere of fictional maps and their use in games, physical and digital alike. 
+The possibility of visualizing map layers which could not have been created and shown without digital data processing techniques and ease of experimentation with the information and algorithms used to create modern digital maps have also made it apparent that the source data for the layer itself do not necessarily have to measure some aspect of reality, but can be generated using mathematical methods. Such approach effectively allows for creation of fictional maps, representing imaginary territories. Moving on, the next section presents examples of fictional maps and their use in games, physical and digital alike. 
 
 
 %%%%%%%%%%%%%%%
@@ -222,15 +222,15 @@ Another game, originating from ancient China, defines a similar, grid-based game
 	\begin{subfigure}[b]{0.4\linewidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/chessboard}
-		\caption{Chess board} 
+		\caption{Empty chess board} 
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.4\linewidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/goboard}
-		\caption{Go board} 
+		\caption{Go board during gameplay} 
 	\end{subfigure} 
-	\caption{Chess and Go both use planar boards divided into tiles by a square grid - simple maps to represent the environment in which game is played.}
+	\caption{Chess and Go both use planar boards divided into tiles by a square grid - simple maps to represent the environment in which game is played. Sources: Chessboard image - own work; Go board image - \url{https://senseis.xmp.net/?LargeBoards}, distributed under the terms of the Open Content License }
 	\label{fig:neighborhood_types}
 \end{figure}
  
@@ -266,18 +266,18 @@ There are other board games which make use of generative mechanics to create or 
 
 While it is possible to find or develop interesting mechanics for board games, some more complex game rules and ideas are better implemented using computer simulation, where most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of competitive play, effectively providing a way for beginners who want to learn the game they are interested in or for veterans who want to develop their skills further, as has been done for chess and other classic board games. 
 
-Among modern board games, there are many more examples which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Moving on to the next section, let us investigate a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
+Among modern board games, there are many more examples which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Next section investigates a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
 
 %%%%%%%%%%%%%%%
 \section{ Interactivity and automation }
 
 The evolution of personal computers has allowed players to enjoy a new form of entertainment - video and computer games. Possibility of performing real-time simulations on computers and development of computer graphics rendering techniques have created a new medium of expression in the form of computer software. At the time when early forms of interactive simulations were created, first computer games were also developed. 
 
-In the past decades since the first computer games emerged, an industry focused on the craft of game development has emerged. The efforts of modern game designers and developers have lead to creation of multiple game genres and have driven the evolution of mechanics and challenges that modern games offer to players.
+In the past decades, when the earliest computer games have been created, an industry focused on the craft of game development has emerged. The efforts of game designers and developers have lead to creation of multiple game genres and have driven the evolution of mechanics and challenges that modern games can now offer to players.
 
-As stated in chapter \ref{rozdzial.wstep}, the context of this thesis does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do, as shown by works similar to \autocite{snyder1993flattening}. The goal is to generate planar maps, which makes games that include them of particular interest for finding examples of working solutions to the problem. 
+As stated in \cref{rozdzial.wstep}, the context of this thesis does not deal with projections of 3D objects onto a plane, like the fields of geography and cartography do, as shown by works similar to \autocite{snyder1993flattening}. The goal is to generate planar maps, which makes games that include them of particular interest for finding examples of working solutions to the problem. 
 
-Early examples involving procedurally created maps are Rogue and Nethack, dungeon crawling games developed in 1980s. Both examples generate a set of rooms with randomized dimensions, which are then connected to each other by a system of corridors, as shown in figure \ref{fig:nethack}.
+Early examples involving procedurally created maps are Rogue and Nethack, dungeon crawling games developed in 1980s. Both examples generate a set of rooms with randomized dimensions, which are then connected to each other by a system of corridors, as shown in \cref{fig:nethack}.
  
 
 \begin{figure}[h]
@@ -293,27 +293,26 @@ Dungeon layouts generated by Rogue or Nethack could be described as suitable for
 %%%%%%%%%%%%%%%
 \section{Existing solutions for generating planar maps}
 
-There have been scientific surveys conducted on PCG methods, which describe approaches to map generation employed in the past by successful game development projects. Contents of three such surveys are summarized in the following paragraphs.
+There have been scientific surveys conducted on PCG (Procedural Content Generation) methods, which describe approaches to map generation employed in the past by successful game development projects. Contents of three such surveys are summarized in the following paragraphs.
 
-Authors of the survey \autocite{hendrikx2013procedural} point to other works for deeper exploration into techniques involving generative grammars, genetic algorithms and hybrid methods for generating indoor spaces. For synthesizing outdoor maps, survey lists usage of image filtering, tiling, layering, fractals, Voronoi diagrams and cellular automata. In both cases, pseudo-random number generation and hybrid approaches are listed as tools which can be helpful in finding a promising solution. 
+Authors of the most general survey on PCG techniques \autocite{hendrikx2013procedural} point to other works for deeper exploration into methods involving generative grammars, genetic algorithms and hybrid approaches for generating indoor spaces. For synthesizing outdoor maps, survey lists usage of image filtering, tiling, layering, fractals, Voronoi diagrams and cellular automata. In both cases, pseudo-random number generation and hybrid approaches are listed as tools which can be helpful in finding a promising solution. 
 
-Survey \autocite{de2011survey} explores the subject of environmental content, listing and describing methods for generation of landscapes, continents, cityscapes, road networks and rivers. Terrain generated with presented methods has the properties of naturally occurring land features with surface roughness resembling real environments.
+Another general survey on PCG techniques \autocite{de2011survey} explores the subject of environmental content, listing and describing methods for generation of landscapes, continents, cityscapes, road networks and rivers. Terrain generated with methods presented in the survey has properties of naturally occurring land features with surface roughness resembling real environments. Authors list the usage of noise algorithms, L-systems, fractals and combinations of these methods along with modifications based on natural process simulations (e.g. erosion) to generate believable terrains. Described methods are categorized into \textit{assisted} and \textit{non-assisted} techniques, the former of which can be controlled by parametrization of inputs to achieve the desired outcomes and often require human support. Methods listed for generation of roads, rivers and cities involve more advanced and complicated techniques, such as the work of \textit{Chen et al.} \autocite{Chen:2008:IPS:1360612.1360702} on guiding the generation of road graphs with tensor fields, cited by the survey. Most of these methods are not suitable for this thesis project due to their complexity or are specifically designed for 3D environments.
 
-Survey \autocite{van2014procedural} focuses on generation of dungeon levels, listing and describing how cellular automata, generative grammars, genetic algorithms and constraint-based methods are used to create maps containing features of indoor spaces.
+Survey \autocite{van2014procedural} focuses specifically on generation of dungeon levels, listing and describing how cellular automata, generative grammars, genetic algorithms and constraint-based methods are used to create maps containing features of indoor spaces.
 
-The following sections shortly describe each approach and discuss the possibility of applying it to generation of planar maps with irregular shapes.
+The following sections shortly discuss the possibility of applying approaches found in described surveys to generation of planar maps with irregular shapes (which is the goal of this thesis).
 
 \subsection{Cellular automata}
-A cellular automaton (further abbreviated as CA) is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first electronic computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research on CA carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification of cellular automata is shown along with examples for each kind of CA. 
+A cellular automaton (CA) is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification is shown along with examples for each kind of CA. 
 
 Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list of definitions follows.
 
 \begin{description}
-	\item[CA] Cellular Automaton (or Automata)
-	\item[Cell] Cells are units of state in CA simulation - they are represented in memory by a simple data type: a binary digit, an integer - or more complicated data types: a real number with constraints, a complex number, a custom data structure.  
-	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of cells nearest to the selected one.
-	\item[Von Neumann neighbourhood] Includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in figure \ref{fig:neighborhood_types}.
-	\item[Moore's neighbourhood] Includes 8 closest neighbours of the cell - immediate and diagonal, as shown in figure \ref{fig:neighborhood_types}.
+	\item[Cell] Cells are units of state in CA simulation. Depending on CA type, they can be represented by simple values - a binary digit (0 or 1), an integer, a real or complex number with constraints, or other, more complicated value.  
+	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of cells directly adjacent to the selected one.
+	\item[Von Neumann neighbourhood] Includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in  \cref{fig:neighborhood_types}.
+	\item[Moore's neighbourhood] Includes 8 closest neighbours of the cell - immediate and diagonal, as shown in  \cref{fig:neighborhood_types}.
 \end{description}
  
 \begin{figure}[h]
@@ -329,12 +328,12 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
 		\includegraphics[width=0.5\textwidth]{images/neighborsvonneumann}
 		\caption{Von Neumann neighborhood} 
 	\end{subfigure} 
-	\caption{Two basic types of cell neighborhood}
+	\caption{Two basic types of cell neighborhood. Source: own work}
 	\label{fig:neighborhood_types}
 \end{figure}
 
 
-Every CA simulation uses rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized. The set of rules must cover all possible neighbourhood patterns of a cell so that the value of each cell in a future step is unambiguous. Exemplary rules for a 2D cellular automaton are presented in figure \ref{fig:examplecarules}, where included images do not cover all possible cases.
+Every CA simulation uses rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized. The set of rules must cover all possible neighbourhood patterns of a cell so that the value of each cell in a future step is unambiguous. Exemplary rules for a 2D cellular automaton are presented in  \cref{fig:examplecarules}, where included images do not cover all possible cases.
 
 
 \begin{figure}[h]
@@ -375,22 +374,26 @@ Every CA simulation uses rules which drive the process of cell evolution to its 
 		\caption{Rule 6 - cell is set to filled if more than 3 neighbours} 
 	\end{subfigure} 
 	\hfill
-	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighbourhood}
+	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighbourhood. Source: own work}
 	\label{fig:examplecarules}
 \end{figure}
 
-Observing the presented subset, it may be intuitive to see rules 3, 5 and 6 as alternate versions of the same rule that sets the cell state according to a simple test: if selected cell has less than 3 neighbours, it remains empty, otherwise it becomes filled. However, not knowing the full set of rules for this particular automaton, it cannot be concluded if those rules can be reduced in such way. For example, there might be rules for arrangements with 4, 7 or 8 neighbours which fill the cell instead of emptying it or rules that behave differently depending on neighbour positions. 
-
-
+Observing the presented subset, it may be intuitive to see rules 3, 5 and 6 as alternate versions of the same rule that sets the cell state according to a simple test: 
+\begin{itemize}
+	\item if selected cell has less than 3 neighbours, it remains empty
+	\item otherwise, it becomes filled
+\end{itemize} 
+However, not knowing the full set of rules for this particular automaton, it cannot be concluded if those rules can be reduced in such way. For example, there might be rules for arrangements with 4, 7 or 8 neighbours which fill the cell instead of emptying it or rules that behave differently depending on neighbour positions. Without information about the rule set, one cannot prove which properties of the cell neighbourhood are measured during simulation, nor predict the results of automaton evolution. These properties may include the following:
 
 \begin{itemize}
 	\item count of cells with state $s$ in neighbourhood,
 	\item state of selected cell,
-	\item positions at which neighbours are placed
+	\item state of adjacent cells,
+	\item positions of neighbours with state $s$
 	\item \td{what else CA rules may measure?}
 \end{itemize}
 
-One of the classic examples of cellular automata simulations is Game of Life\footnote{Some Game of Life simulation examples: one at MIT website \url{http://web.mit.edu/jb16/www/6170/gameoflife/gol.html} and another at \url{https://copy.sh/life/}}, invented by american  mathematician John Conway. The simulation uses a square grid board, where cells can have one of two possible states: alive or dead. The rule set for Game of Life contains only three rules, based on counting alive neighbours of each cell: 
+An example demonstrating such difficulty in reasoning about CA rules and their consequences is one of the classic cellular automata simulations, the Game of Life\footnote{Some Game of Life simulation examples: one at MIT website \url{http://web.mit.edu/jb16/www/6170/gameoflife/gol.html} and another at \url{https://copy.sh/life/}}, invented by an American mathematician John Conway \autocite{conway1970game}. The simulation uses a square grid board, where cells can have one of two possible states: alive or dead. The rule set for Game of Life contains only three rules, based on counting alive neighbours of each cell: 
 
 \begin{itemize}
 	\item Alive cells with less than 2 alive neighbours become dead.
@@ -398,17 +401,27 @@ One of the classic examples of cellular automata simulations is Game of Life\foo
 	\item Dead cells with exactly 3 alive neighbours become alive.
 \end{itemize}
 
-Figure \ref{fig:applygol} shows an example of how these rules affect cells in a $5x5$ board. Cells outside the grid edges are assumed dead.
+\Cref{fig:applygol} shows an example of how these rules affect cells in a $5x5$ board during one simulation step. Cells outside the grid edges are assumed dead. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/applygol} 
-	\caption{Illustration of step transition in Game of Life. Alive cells which become dead in next turn are marked red, dead cells that become alive are marked green. Colored cells were assigned a number equal to the count of their alive neighbours.}
+	\caption{Illustration of step transition in Game of Life. Alive cells which become dead in next turn are marked red, dead cells that become alive are marked green. Coloured cells were assigned a number equal to the count of their alive neighbours. Source: own work}
 	\label{fig:applygol}
 \end{figure}
 
+Despite being based on simple rules, Game of Life is able to generate complex visual patterns, such as those shown in \cref{fig:p3oscillators}. While many of such cell arrangements have been found accidentally, there are organized efforts focused on finding and cataloguing them, such as the Life Wiki at \url{http://www.conwaylife.com/wiki/}. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/p3oscillators}
+	\caption{A collection of patterns found in Game of Life, which oscillate with period of 3 simulation steps. Image source: adapted from \url{http://copy.sh/life/?pattern=period3oscillators}}
+	\label{fig:p3oscillators}
+\end{figure}
 
 \td{CA map gen, examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }
+
+Cellular automata have been used in map generation mechanisms for games, some of notable examples are Dwarf Fortress (2006),  Minecraft (Mojang, 2011) and Ultima Ratio Regum (2011). Each of these games use CA-based algorithms to generate maps, map layers or other data about the game world.
 
 \td{MAIN GOAL OF THESIS: generating map with irregular, chaotic shapes for which CA method is sufficient }
 
@@ -466,7 +479,7 @@ To describe the developed solution concisely, this chapter consists of five sect
 \subsection{Functional requirements}
 
 First, we must define the desired functions which a useful map generator must provide to its user.
-Since we have selected an approach to map generation based on cellular automata in chapter \ref{rozdzial.teoria}, we have to include simulation of CA states. As described in \autocite{johnson2010cellular}, our approach consists of generating a random image, which after several transformations performed by CA rules becomes structured with island-like features. Such image can then be used as a tile for larger maps. Showing each step of image transformation could be useful to the designer, allowing them to control what kind of generated tiles will be chosen to compose the map. 
+Since we have selected an approach to map generation based on cellular automata in chapter \cref{rozdzial.teoria}, we have to include simulation of CA states. As described in \autocite{johnson2010cellular}, our approach consists of generating a random image, which after several transformations performed by CA rules becomes structured with island-like features. Such image can then be used as a tile for larger maps. Showing each step of image transformation could be useful to the designer, allowing them to control what kind of generated tiles will be chosen to compose the map. 
 
 Another potentially useful feature would be manual editing of tiles before they are placed in the map, which would allow for an even greater degree of control over tile contents. Further expansion of such feature could be to provide the designer with tools to make their own rules for tile generation, while also allowing them to define types of single cells composing the tile.
 
@@ -540,7 +553,7 @@ Having chosen cellular automata as a method for generating maps, it is helpful t
 	\item Neighbourhood - each cell needs to know the state of its neighbours to update its state.
 \end{itemize}
 
-In order to represent the cells of an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to its user. Figure \ref{fig:boardcell} presents an example model of a class that would encapsulate a collection of cell states while also preserving information about the board on which those cells are placed. 
+In order to represent the cells of an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to its user.  \cref{fig:boardcell} presents an example model of a class that would encapsulate a collection of cell states while also preserving information about the board on which those cells are placed. 
 
 \begin{figure}[h]
 	\centering
@@ -549,7 +562,7 @@ In order to represent the cells of an automaton, a primitive data type is suffic
 	\label{fig:boardcell}
 \end{figure}
 
-We can also assign a number to each cell \td{why?} as shown in table \ref{tab:cellneighbors}.
+We can also assign a number to each cell \td{why?} as shown in table \cref{tab:cellneighbors}.
 
 \begin{table}[h]
 	\centering
@@ -567,7 +580,7 @@ We can also assign a number to each cell \td{why?} as shown in table \ref{tab:ce
 \end{table}
 
 
-Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighbourhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on figure \ref{fig:boardcell2}.
+Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighbourhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on  \cref{fig:boardcell2}.
  
  \begin{figure}[h]
  	\centering
@@ -630,7 +643,7 @@ At this point, we could also observe a common property of cellular automata  - w
 \chapter{Conclusions} \label{rozdzial.podsumowanie}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-/td{Co do conclusion to prosze zebrać wnioski, nie przemyślenia, z całego 
+\td{Co do conclusion to prosze zebrać wnioski, nie przemyślenia, z całego 
 	tego projektu i opisać wady i zalety Pana rozwiązania. Czemu jest inne 
 	niz wszystkie co wprowadza nowego a co starego naprawia.}
 
