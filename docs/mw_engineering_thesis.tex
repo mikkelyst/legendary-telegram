@@ -419,11 +419,9 @@ Despite being based on simple rules, Game of Life is able to generate complex vi
 	\label{fig:p3oscillators}
 \end{figure}
 
-\td{CA map gen, examples: Ultima Ratio Regum, Dwarf Fortress (2006), Minecraft }
+Cellular automata have been used in map generation mechanisms for games, some of notable examples are Dwarf Fortress (2006),  Minecraft (Mojang, 2011) and Ultima Ratio Regum (2011). Each of these games use CA-based algorithms to generate map layers, regional structures or other types of data used to describe the game world. Examples of maps found in Dwarf Fortress and Ultima Ratio Regum show that CA-based approach to map generation can indeed yield sufficient results. Dwarf Fortress starts the generative process with randomized fractals \autocite{adams2015simulation} to define various aspects of the data layers from which the final map is built, but also uses a 3D cellular automaton to simulate behaviour of fluids (water, lava). Minecraft uses fractal noise algorithms to generate an open world map along with other methods to determine the structure of terrain layers. Also, cellular automata are utilized to simulate fluid flow and possibly to propagate updates among certain world elements (blocks with state, simulated circuits).
 
-Cellular automata have been used in map generation mechanisms for games, some of notable examples are Dwarf Fortress (2006),  Minecraft (Mojang, 2011) and Ultima Ratio Regum (2011). Each of these games use CA-based algorithms to generate maps, map layers or other data about the game world.
-
-\td{MAIN GOAL OF THESIS: generating map with irregular, chaotic shapes for which CA method is sufficient }
+Since this thesis aims to develop a map generator, \td{CA are sufficient}
 
 One of possible approaches to map generation which can create irregular shapes is the article written by L. Johnson, G. Yannakakis and J. Togelius from IT University of Copenhagen \autocite{johnson2010cellular}. Authors describe rules of a cellular automaton which is able to transform a tile filled initially with random distribution of cells into a map tile with desired properties which can later be merged with other tiles into the game map. Authors define types of cells to indicate which areas of the map are accessible (floor cells) and which are not (rock and wall cells). To achieve better control over the generation process, the following parameters can be altered: 
 
