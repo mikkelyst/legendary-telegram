@@ -301,7 +301,7 @@ Another general survey on PCG techniques \autocite{de2011survey} explores the su
 
 Survey \autocite{van2014procedural} focuses specifically on generation of dungeon levels, listing and describing how cellular automata, generative grammars, genetic algorithms and constraint-based methods are used to create maps containing features of indoor spaces.
 
-The following sections shortly discuss the possibility of applying approaches found in described surveys to generation of planar maps with irregular shapes (which is the goal of this thesis).
+The following sections shortly discuss the possibility of applying approaches found in described surveys to generation of planar maps with irregular shapes. Since the goal of this thesis is to build a generator which performs that process, it may be worth noting the characteristics of each method described in the following sections.
 
 \subsection{Cellular automata}
 A cellular automaton (CA) is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification is shown along with examples for each kind of CA. 
@@ -388,9 +388,8 @@ However, not knowing the full set of rules for this particular automaton, it can
 \begin{itemize}
 	\item count of cells with state $s$ in neighbourhood,
 	\item state of selected cell,
-	\item state of adjacent cells,
-	\item positions of neighbours with state $s$
-	\item \td{what else CA rules may measure?}
+	\item state of adjacent cells (values associated with each cell),
+	\item positions of neighbours with state $s$ 
 \end{itemize}
 
 An example demonstrating such difficulty in reasoning about CA rules and their consequences is one of the classic cellular automata simulations, the Game of Life\footnote{Some Game of Life simulation examples: one at MIT website \url{http://web.mit.edu/jb16/www/6170/gameoflife/gol.html} and another at \url{https://copy.sh/life/}}, invented by an American mathematician John Conway \autocite{conway1970game}. The simulation uses a square grid board, where cells can have one of two possible states: alive or dead. The rule set for Game of Life contains only three rules, based on counting alive neighbours of each cell: 
