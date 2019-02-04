@@ -444,13 +444,12 @@ One of possible approaches to map generation which can create irregular shapes i
 
 \subsection{Generative grammars}
 
-Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s. 
+Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s, which have been later adapted by computer science (syntax analysis algorithms, compilers, debuggers, pre-processors, post-processors, etc.).
 
 \td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
 
 \td{Shape grammars}
 
-\td{grammars not optimal for generating irregular shapes}
 
 \subsection{Other methods}
 
@@ -458,18 +457,25 @@ Generative grammars are systems of rules that can be used to synthesize construc
 
 %%%%%%%%%%%%%%%
 \section{Chosen method: cellular automata}
+ 
+Since this thesis is focused on creation of maps through procedural processes, it is worth noting why cellular automata have been chosen as the method to develop a solution. The preceding sections have shown that CA are a sufficient approach to map generation and are simpler to implement in comparison to other solutions. Additionally, CA have the following characteristics:
 
-\td{short paragraph on the choice of CA for game maps - why CA and not other methods?}
-\td{what are pros and cons of such choice?}
-\td{desired characteristics of generated content: irregular, chaotic, resembling natural landmass}  
-\td{desired feature: integrating manual editing and PCG - CA approach allows to edit between steps}
-\td{reduced human effort to create maps, as in other PCG solutions}
+\begin{itemize}
+	\item similarity to some image processing algorithms (e.g. erosion, dilation)
+	\item are able to model evolution of dynamical systems (e.g. fluids) - which may be useful to create maps of terrain similar to natural landmass forms
+	\item \td{more?}
+\end{itemize}
+
+Although generative grammars are a viable alternative, they rely on defined sets of symbols to generate content. Compared to CA, grammar approach seems to require more effort to create irregular, chaotic forms in shapes of natural terrain.
+
+\td{are grammars optimal for generating irregular shapes?}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-To describe the developed solution concisely, this chapter consists of five sections: definition of required features, design of simple CA simulation and map generator models, followed by implementing them in C++ programming language and description of performed experiments.
+To describe the developed solution, this chapter consists of five sections: definition of required features, design of simple CA simulation and map generator models, followed by implementing them in C++ programming language and description of performed experiments.
 
 %%%%%%%%%%%%%%%
 \section{Analysis of requirements for a map generator}
@@ -501,7 +507,7 @@ Finally, a map generator without a mechanism for saving the work done by a desig
 	\item \td{expand desired functions}
 \end{enumerate}
 
-\subsection{Non-functional requirements}
+\subsection{Operational requirements}
 
 \td{}
 
