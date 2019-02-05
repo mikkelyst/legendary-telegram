@@ -269,7 +269,7 @@ While it is possible to find or develop interesting mechanics for board games, s
 Among modern board games, there are many more examples which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Next section investigates a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
 
 %%%%%%%%%%%%%%%
-\section{ Interactivity and automation }
+\section{Interactivity and automation }
 
 The evolution of personal computers has allowed players to enjoy a new form of entertainment - video and computer games. Possibility of performing real-time simulations on computers and development of computer graphics rendering techniques have created a new medium of expression in the form of computer software. At the time when early forms of interactive simulations were created, first computer games were also developed. 
 
@@ -297,7 +297,7 @@ There have been scientific surveys conducted on PCG (Procedural Content Generati
 
 Authors of the most general survey on PCG techniques \autocite{hendrikx2013procedural} point to other works for deeper exploration into methods involving generative grammars, genetic algorithms and hybrid approaches for generating indoor spaces. For synthesizing outdoor maps, survey lists usage of image filtering, tiling, layering, fractals, Voronoi diagrams and cellular automata. In both cases, pseudo-random number generation and hybrid approaches are listed as tools which can be helpful in finding a promising solution. 
 
-Another general survey on PCG techniques \autocite{de2011survey} explores the subject of environmental content, listing and describing methods for generation of landscapes, continents, cityscapes, road networks and rivers. Terrain generated with methods presented in the survey has properties of naturally occurring land features with surface roughness resembling real environments. Authors list the usage of noise algorithms, L-systems, fractals and combinations of these methods along with modifications based on natural process simulations (e.g. erosion) to generate believable terrains. Described methods are categorized into \textit{assisted} and \textit{non-assisted} techniques, the former of which can be controlled by parametrization of inputs to achieve the desired outcomes and often require human support. Methods listed for generation of roads, rivers and cities involve more advanced and complicated techniques, such as the work of \textit{Chen et al.} \autocite{Chen:2008:IPS:1360612.1360702} on guiding the generation of road graphs with tensor fields, cited by the survey. Most of these methods are not suitable for this thesis project due to their complexity or are specifically designed for 3D environments.
+Another general survey on PCG methods suitable for games \autocite{de2011survey} explores the subject of environmental content, listing and describing methods for generation of landscapes, continents, cityscapes, road networks and rivers. Terrain generated with methods presented in the survey has properties of naturally occurring land features with surface roughness resembling real environments. Authors list the usage of noise algorithms, L-systems, fractals and combinations of these methods along with modifications based on natural process simulations (e.g. erosion) to generate believable terrains. Described methods are categorized into \textit{assisted} and \textit{non-assisted} techniques, the former of which can be controlled by parametrization of inputs to achieve the desired outcomes and often require human support. Methods listed for generation of roads, rivers and cities involve more advanced and complicated techniques, such as the work of \textit{Chen et al.} \autocite{Chen:2008:IPS:1360612.1360702} on guiding the generation of road graphs with tensor fields, cited by the survey. Most of these methods are not suitable for this thesis project due to their complexity or are specifically designed for 3D environments.
 
 Survey \autocite{van2014procedural} focuses specifically on generation of dungeon levels, listing and describing how cellular automata, generative grammars, genetic algorithms and constraint-based methods are used to create maps containing features of indoor spaces.
 
@@ -474,69 +474,53 @@ Although generative grammars are a viable alternative, they rely on defined sets
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-To describe the developed solution, this chapter consists of five sections: definition of required features, design of simple CA simulation and map generator models, followed by implementing them in C++ programming language and description of performed experiments.
+To describe the developed solution, this chapter consists of five sections: definition of required features, design of simple CA simulation and map generator models, followed by implementation in C++ and description of performed experiments. 
 
 %%%%%%%%%%%%%%%
 \section{Analysis of requirements for a map generator}
+
+The approach chosen in \cref{rozdzial.teoria} can be imagined as a process that consists of several steps. Starting with generation of a board with random cell states, which after several transformations performed by CA rules becomes structured with irregular, island-like features. The resulting board is then used as one of tiles to be merged into the larger map. Each of these steps must be automated while allowing the designer a degree of control over the generation process. Transformations of the board should be applied according to parameters set by the designer, which must be constrained to ranges that do not allow creation of obviously unusable results (e.g. board filled with cells of identical state). Usable ranges of parameters can be determined with experimentation.
+
+To formalize what map generator must do, required features and behaviours can be now extracted from the paragraph above, as follows:
  
- The following sections will:
- 
+\subsubsection{Functional requirements}
+
+The map generator program shall:
 \begin{itemize}
-	\item define features required of a map generator program to automate creating maps,
-	\item state the desired properties of such generator,
-	\item discover to what constraints such program may be required to conform.
+	\item prepare square tiles with random data for transformation,
+	\item simulate a cellular automaton to generate irregular shapes,
+	\item have a mechanism to merge tiles into a bigger map,
+	\item show tile states graphically,
+	\item have controls to allow tweaking process parameters,
 \end{itemize}
 
-\subsection{Functional requirements}
+Optionally, the map generator program may:
+\begin{itemize}
+	\item have a mechanism for exporting generated maps as image files,
+	\item allow manual editing of map tiles, 
+\end{itemize}
 
-First, we must define the desired functions which a useful map generator must provide to its user.
-Since we have selected an approach to map generation based on cellular automata in chapter \cref{rozdzial.teoria}, we have to include simulation of CA states. As described in \autocite{johnson2010cellular}, our approach consists of generating a random image, which after several transformations performed by CA rules becomes structured with island-like features. Such image can then be used as a tile for larger maps. Showing each step of image transformation could be useful to the designer, allowing them to control what kind of generated tiles will be chosen to compose the map. 
 
-Another potentially useful feature would be manual editing of tiles before they are placed in the map, which would allow for an even greater degree of control over tile contents. Further expansion of such feature could be to provide the designer with tools to make their own rules for tile generation, while also allowing them to define types of single cells composing the tile.
-
-Finally, a map generator without a mechanism for saving the work done by a designer would certainly not be a useful tool. Such program needs a way to export generated maps to a file format that later can be used by a game engine of choice, possibly with procedures written by other programmers. Although saving or exporting maps is not really necessary for experimentation and testing, a production version of the program should have such functionality. To summarize desired functions, map generator program:
-
-\begin{enumerate}
-	\item must implement a cellular automaton to generate map tiles,
-	\item must show generation stages graphically,
-	\item must allow building maps from components (tiles),
-	\item must have a mechanism for exporting generated maps,
-	\item should allow manual editing of map tiles,
-
-	\item \td{expand desired functions}
-\end{enumerate}
-
-\subsection{Operational requirements}
-
+\subsubsection{Operational requirements}
 \td{}
-
-\begin{enumerate}
-	\item  must have a graphical user interface.
-	\item The GUI must allow to change generation parameters, which should be grouped and ordered.  
-	\item \td{add missing non-functional requirements}
-\end{enumerate}
-
-\subsection{Constraints}
-
-\begin{enumerate}  
-	\item \td{?}
-\end{enumerate}
+\subsubsection{Constraints}
+\td{}
 
 %%%%%%%%%%%%%%%
 \section{Design}
-\subsection{Data structures and persistence}
+\subsubsection{Data structures and persistence}
 
 \td{ how do we store data?}
 \td{ diagrams of cell, board}
 \td{ exporting data from generator? }
 \td{ how designers can get a complete map model? } 
 
-\subsection{Application logic} 
+\subsubsection{Application logic} 
 
 \td{how a generator will work}
 \td{behavior diagrams}
 
-\subsection{User interface}
+\subsubsection{User interface}
 
 \td{OpenGL immediate mode paradigm}
 \td{imgui immediate mode user interface library}
@@ -659,19 +643,24 @@ At this point, we could also observe a common property of cellular automata  - w
 	niz wszystkie co wprowadza nowego a co starego naprawia.}
 
 %%%%%%%%%%%%%%%
-\section{Evaluation of results} 
+\subsection{Evaluation of results} 
 
-\subsection{Effectiveness} 
-\subsection{Cost} 
+\subsubsection{Effectiveness}  
 
 %%%%%%%%%%%%%%%
-\section{Possible improvements}
+\subsection{Possible improvements}
 
 \td{future: expanding the generator}
 \td{future: adding more rules}
 \td{future: user defined cell types}
 \td{future: non-discrete cell states or more complex cell types }
 \td{future: 3d maps?}
+
+\td{Showing each step of image transformation could be useful to the designer, allowing them to control what kind of generated tiles will be chosen to compose the map. }
+
+\td{Another potentially useful feature would be manual editing of tiles before they are placed in the map, which would allow for an even greater degree of control over tile contents. Further expansion of such feature could be to provide the designer with tools to make their own rules for tile generation, while also allowing them to define types of single cells composing the tile.}
+
+\td{Although saving or exporting maps is not really necessary for experimentation and testing, a production version of the program should have such functionality. Finally, a map generator without a mechanism for saving the work done by a designer would certainly not be a useful tool. Such program needs a way to export generated maps to a file format that later can be used by a game engine of choice, possibly with procedures written by other programmers. }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
