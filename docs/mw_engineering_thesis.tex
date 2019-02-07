@@ -457,18 +457,16 @@ Generative grammars are systems of rules that can be used to synthesize construc
 %%%%%%%%%%%%%%%
 \section{Chosen method: cellular automata}
  
-Since this thesis is focused on creation of maps through procedural processes, it is worth noting why cellular automata have been chosen as the method to develop a solution. The preceding sections have shown that CA are a sufficient approach to map generation and are simpler to implement in comparison to other solutions. Additionally, CA have the following characteristics:
+Since this thesis is focused on creation of maps through procedural processes, it is worth noting why cellular automata have been chosen as the method to develop a solution. The following arguments show why CA might be a useful approach:
 
 \begin{itemize}
-	\item similarity to some image processing algorithms (e.g. erosion, dilation)
-	\item are able to model evolution of dynamical systems (e.g. fluids) - which may be useful to create maps of terrain similar to natural landmass forms
-	\item \td{more?}
+	\item as shown by \autocite{johnson2010cellular}, CA are sufficient for map generation
+	\item 2-dimensional CA can be implemented in a similar way to some image processing algorithms (e.g. erosion, dilation)
+	\item CA are able to model evolution of dynamical systems (e.g. fluids), which may be useful to create maps of terrain similar to natural landmass forms 
+	\item amount of repetition in shapes produced by grammars depends on how complex the set of transformations is \autocite{CHOMSKY1959137}, while CA can generate surprising, chaotic results with simple rules \autocite{wolfram1984cellular}
 \end{itemize}
 
-Although generative grammars are a viable alternative, they rely on defined sets of symbols to generate content. Compared to CA, grammar approach seems to require more effort to create irregular, chaotic forms in shapes of natural terrain.
-
-\td{are grammars optimal for generating irregular shapes?}
-
+Although grammars are favourable for clarity of transformation rules they bring to the process of map generation, CA can be a viable alternative, providing irregularity and surprise to possible results - which is why they have been chosen for experimentation in this thesis.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
@@ -485,13 +483,13 @@ To formalize what map generator must do, required features and behaviours can be
  
 \subsubsection{Functional requirements}
 
-The map generator program shall:
+The map generator program shall perform the following functions:
 \begin{itemize}
 	\item prepare square tiles with random data for transformation,
-	\item simulate a cellular automaton to generate irregular shapes,
+	\item simulate a cellular automaton to generate irregular shapes in tiles,
 	\item have a mechanism to merge tiles into a bigger map,
 	\item show tile states graphically,
-	\item have controls to allow tweaking process parameters,
+	\item have controls to allow tweaking CA parameters,
 \end{itemize}
 
 Optionally, the map generator program may:
@@ -502,45 +500,21 @@ Optionally, the map generator program may:
 
 
 \subsubsection{Operational requirements}
-\td{}
-\subsubsection{Constraints}
-\td{}
+The map generator program shall operate with the following qualities:
+\begin{itemize}
+	\item drawing the tiles must be done in real time, whenever their state changes
+	\item 
+	\item \td{+}
+\end{itemize}
 
 %%%%%%%%%%%%%%%
 \section{Design}
-\subsubsection{Data structures and persistence}
 
-\td{ how do we store data?}
-\td{ diagrams of cell, board}
-\td{ exporting data from generator? }
-\td{ how designers can get a complete map model? } 
+Having chosen cellular automata as a method for generating maps, it is helpful to find resources on the topic of building cellular automata simulations. One of them is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where one can find a short tutorial to build our first CA simulation. Author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises. Another source, a book by Stephen Wolfram  \autocite{wolfram2002new} shows advanced research, exploring concepts and organizing knowledge on cellular automata.
 
-\subsubsection{Application logic} 
+\subsection{Basic cellular automata simulations}
 
-\td{how a generator will work}
-\td{behavior diagrams}
-
-\subsubsection{User interface}
-
-\td{OpenGL immediate mode paradigm}
-\td{imgui immediate mode user interface library}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
-	\caption[User Interface model]{Example model of classes to be used to construct user interface in the map generator program}
-	\label{fig:uiwindows}
-\end{figure}
-
-\td{diagram of texture class, used by Component MapGen, uses OpenGL}
-
-\td{mention Bret Victor talks - why we choose Immediate Mode}
-
-
-%%%%%%%%%%%%%%%
-\section{Basic cellular automata simulations}
-
-Having chosen cellular automata as a method for generating maps, it is helpful to find resources on the topic of building cellular automata simulations. One of them is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where one can find a short tutorial to build our first CA simulation. Author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises, which may be preferable, since examples presented in New Kind of Science \autocite{wolfram2002new} are implemented in the Wolfram language and would require familiarity with it. As stated in Nature of Code \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
+ As stated in Nature of Code \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
 
 \begin{itemize}
 	\item Cell state - every cell has a state updated on each simulation step,
@@ -576,13 +550,13 @@ We can also assign a number to each cell \td{why?} as shown in table \cref{tab:c
 
 
 Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighbourhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on  \cref{fig:boardcell2}.
- 
- \begin{figure}[h]
- 	\centering
- 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell02}
- 	\caption{ Revised Board abstraction - added methods for neighbor sums and translation of cell states to texels} 
- 	\label{fig:boardcell2}
- \end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{diagrams/boardcell02}
+	\caption{ Revised Board abstraction - added methods for neighbor sums and translation of cell states to texels} 
+	\label{fig:boardcell2}
+\end{figure}
 
 \td{add neighbor methods to board2}
 \td{result of what it all does?}
@@ -592,11 +566,41 @@ At this point, we could also observe a common property of cellular automata  - w
 \td{what else to include?}
 
 
+
 %%%%%%%%%%%%%%%
 \section{Implementation}
 
 \td{describe how it all works now, with object diagrams}
 \td{refer to code itself}
+
+
+\subsubsection{Data structures and persistence}
+
+\td{ how do we store data?}
+\td{ diagrams of cell, board}
+\td{ exporting data from generator? }
+\td{ how designers can get a complete map model? } 
+
+\subsubsection{Application logic} 
+
+\td{how a generator will work}
+\td{behavior diagrams}
+
+\subsubsection{User interface}
+
+\td{OpenGL immediate mode paradigm}
+\td{imgui immediate mode user interface library}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
+	\caption[User Interface model]{Example model of classes to be used to construct user interface in the map generator program}
+	\label{fig:uiwindows}
+\end{figure}
+
+\td{diagram of texture class, used by Component MapGen, uses OpenGL}
+
+\td{mention Bret Victor talks - why we choose Immediate Mode}
 
 
 %%%%%%%%%%%%%%%
