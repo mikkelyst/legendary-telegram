@@ -502,19 +502,20 @@ Optionally, the map generator program may:
 \subsubsection{Operational requirements}
 The map generator program shall operate with the following qualities:
 \begin{itemize}
-	\item drawing the tiles must be done in real time, whenever their state changes
+	\item real time drawing of tiles, whenever their state changes 
+	\item responsive user controls, avoid long waiting times for computation result
 	\item 
-	\item \td{+}
+	\item \td{more needed? how to extract them properly?}
 \end{itemize}
 
 %%%%%%%%%%%%%%%
-\section{Design}
+\section{Design and implementation} 
 
-Having chosen cellular automata as a method for generating maps, it is helpful to find resources on the topic of building cellular automata simulations. One of them is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where one can find a short tutorial to build our first CA simulation. Author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises. Another source, a book by Stephen Wolfram  \autocite{wolfram2002new} shows advanced research, exploring concepts and organizing knowledge on cellular automata.
+In \cref{rozdzial.praktyka}, cellular automata have been chosen as a method for generating maps, so it is helpful to find resources on the topic of building cellular automata simulations. One of them is chapter 7 in Nature of Code, a book by Daniel Shiffman \autocite{shiffman2012nature}, where one can find a short tutorial on building a CA simulation. Author describes elementary concepts needed to construct a basic CA, explains how to implement a working simulation and provides helpful exercises. Another source, a book by Stephen Wolfram  \autocite{wolfram2002new} shows advanced research, exploring concepts and organizing knowledge on cellular automata.
 
-\subsection{Basic cellular automata simulations}
+\subsection{Basic cellular automaton}
 
- As stated in Nature of Code \autocite{shiffman2012nature}, a 2-dimensional CA would need the following key elements to be simulated:
+The initial step required to implement a generator based on cellular automata is to create a framework for performing CA simulations. As stated in Nature of Code \autocite{shiffman2012nature}, a 2-dimensional CA needs the following key elements:
 
 \begin{itemize}
 	\item Cell state - every cell has a state updated on each simulation step,
@@ -522,16 +523,20 @@ Having chosen cellular automata as a method for generating maps, it is helpful t
 	\item Neighbourhood - each cell needs to know the state of its neighbours to update its state.
 \end{itemize}
 
-In order to represent the cells of an automaton, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility to its user.  \cref{fig:boardcell} presents an example model of a class that would encapsulate a collection of cell states while also preserving information about the board on which those cells are placed. 
+\subsubsection{Data structures}
+In order to represent state of a cell, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility. \Cref{fig:boardcell} presents a model that would encapsulate a collection of cell states and their positions on the grid. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell01}
-	\caption{ A possible model of a Board Class which holds cell states in its block of memory and lets its user change their states} 
+	\caption{ Model of a $Board$ class, which holds cell states in its block of memory and lets its user change their states. Image source: own work} 
 	\label{fig:boardcell}
 \end{figure}
 
-We can also assign a number to each cell \td{why?} as shown in table \cref{tab:cellneighbors}.
+\td{code listing}
+
+\subsubsection{Operations}
+While the $Board$ class is sufficient to represent the grid of cells and their states, the concept of a neighbourhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbours as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}.
 
 \begin{table}[h]
 	\centering
@@ -544,42 +549,41 @@ We can also assign a number to each cell \td{why?} as shown in table \cref{tab:c
 		6 & 5 & 4 \\ 
 		\hline
 	\end{tabular}
-	\caption{Cell neighbours, numbered. \textit{S} denotes selected cell. Cells marked with odd numbers are members of Moore neighborhood of selected cell and all numbered cells are members of Von Neumann neighbourhood of it. }
+	\caption{Moore neighbourhood, with numbered cells. \textit{S} denotes cell selected as a base for further operations. Source: own work}
 	\label{tab:cellneighbors}
 \end{table}
 
-
-Such abstraction creates an easy to use interface for further development and is also sufficient to access the values of neighbors to the selected cell. However, in some CA simulations summing the values of cells in neighbourhood is a common operation, so we can include variations of it for convenience. Similarly, a method to translate cell states into texture points would be welcome, since we may possibly need a way to display the state of CA board on screen. Adding those elements to our abstraction yields a class presented on  \cref{fig:boardcell2}.
+In CA simulations used for map generation by \autocite{johnson2010cellular}, summing the values of cells in neighbourhood is a required operation. Hence, it is useful to include it into the $Board$ abstraction as part of its interface, which yields a class presented on  \cref{fig:boardcell2}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell02}
-	\caption{ Revised Board abstraction - added methods for neighbor sums and translation of cell states to texels} 
+	\caption{} 
 	\label{fig:boardcell2}
 \end{figure}
+ \td{figure is wrong, fix}
+ 
+ \td{add code listings}
 
-\td{add neighbor methods to board2}
-\td{result of what it all does?}
+\subsection{Presenting the board state}
 
-At this point, we could also observe a common property of cellular automata  - whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time to compute next state of the board in case of 2-dimensional cellular automata \autocite{fourie2015parallel}.
-
-\td{what else to include?}
-
-
-
-%%%%%%%%%%%%%%%
-\section{Implementation}
-
-\td{describe how it all works now, with object diagrams}
-\td{refer to code itself}
+\td{display the state of CA board on screen} 
+\td{method to translate cell states into texture points}
+\td{using OpenGL as rendering layer} 
 
 
-\subsubsection{Data structures and persistence}
+\td{add code listings}
+\subsection{Simulating CA rules} 
+\td{add code listings}
+\subsection{Generating tiles}
 
-\td{ how do we store data?}
-\td{ diagrams of cell, board}
+ 
+
+\subsubsection{Data structures}
+ 
+
 \td{ exporting data from generator? }
-\td{ how designers can get a complete map model? } 
+
 
 \subsubsection{Application logic} 
 
@@ -588,8 +592,7 @@ At this point, we could also observe a common property of cellular automata  - w
 
 \subsubsection{User interface}
 
-\td{OpenGL immediate mode paradigm}
-\td{imgui immediate mode user interface library}
+\td{ how designers can get a complete map model? }   
 
 \begin{figure}[h]
 	\centering
@@ -647,14 +650,16 @@ At this point, we could also observe a common property of cellular automata  - w
 	niz wszystkie co wprowadza nowego a co starego naprawia.}
 
 %%%%%%%%%%%%%%%
-\subsection{Evaluation of results} 
+\section{Evaluation of results} 
 
-\subsubsection{Effectiveness}  
+\subsection{Effectiveness}  
 
 %%%%%%%%%%%%%%%
-\subsection{Possible improvements}
+\section{Possible improvements}
 
 \td{future: expanding the generator}
+At this point, we could also observe a common property of cellular automata  - whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time to compute next state of the board in case of 2-dimensional cellular automata \autocite{fourie2015parallel}. 
+
 \td{future: adding more rules}
 \td{future: user defined cell types}
 \td{future: non-discrete cell states or more complex cell types }
