@@ -83,7 +83,7 @@ public:
   }
   void TileClearAll()
   {
-    mapBoard->Clear( CELL_FLOOR );
+    mapBoard->Clear( 0 );
   }
   void MapMergeTiles()
   { 

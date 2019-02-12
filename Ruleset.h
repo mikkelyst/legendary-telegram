@@ -30,8 +30,8 @@ private:
         switch ( before->Neighbors8_Sum( x, y ) )
         {
         case 2:  after->SetCellAt( x, y, before->CellAt( x, y ) ); break;
-        case 3:  after->SetCellAt( x, y, CELL_WALL );              break;
-        default: after->SetCellAt( x, y, CELL_FLOOR );             break;
+        case 3:  after->SetCellAt( x, y, 1 );              break;
+        default: after->SetCellAt( x, y, 0 );             break;
         }
       }
     }
@@ -45,8 +45,8 @@ private:
       for ( unsigned int y = 0; y < before->cellsY; y++ )
       {
         unsigned int sum = before->Neighbors8_Sum( x, y );
-        if ( sum < 5 ) after->SetCellAt( x, y, CELL_WALL );
-        if ( sum > 5 ) after->SetCellAt( x, y, CELL_FLOOR );
+        if ( sum < 5 ) after->SetCellAt( x, y, 1 );
+        if ( sum > 5 ) after->SetCellAt( x, y, 0 );
       }
     }
     return;

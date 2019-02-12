@@ -3,13 +3,7 @@
 #include <vector>
 #include "TextureAtlas.h" 
 
-enum CELL_t
-{
-  // TODO: we may need to make a class Cell{} perhaps, but for now, just enum
-  CELL_FLOOR = 0,
-  CELL_WALL = 1,
-  CELL_OTHER = 2 
-};
+typedef unsigned int CELL_t;
 
 class Board
 {
@@ -34,7 +28,7 @@ public:
   {
     cellsX = width;
     cellsY = height;
-    Clear( CELL_FLOOR );
+    Clear( 0 );
   }
   ~Board() = default;
 
@@ -138,9 +132,9 @@ public:
         {
           switch ( CellAt( x, y ) )
           {
-          case CELL_FLOOR: SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_BLACK ); break;
-          case CELL_WALL:  SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_GREEN ); break;
-          case CELL_OTHER: SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_WHITE ); break;
+          case 0: SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_BLACK ); break;
+          case 1:  SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_GREEN ); break;
+          case 2: SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_WHITE ); break;
           default:         SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_BLUE ); break;
           }
           if ( isCellMarked( x, y ) ) SimpleTexture2D::Texture( texIdx )->SetTexelColor( x, y, color_RED );

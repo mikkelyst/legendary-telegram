@@ -524,7 +524,7 @@ The initial step required to implement a generator based on cellular automata is
 \end{itemize}
 
 \subsubsection{Data structures}
-In order to represent state of a cell, a primitive data type is sufficient. However, we could design a class which will act as a collection of cells and provide additional utility. \Cref{fig:boardcell} presents a model that would encapsulate a collection of cell states and their positions on the grid. 
+In order to represent state of a cell, a primitive data type is sufficient. Class model in \cref{fig:boardcell} presents an abstraction that can encapsulate a collection of cell states, along with two operations: retrieving the state of a cell in position $(x,y)$ from a grid and setting its state to a chosen value. 
 
 \begin{figure}[h]
 	\centering
@@ -536,7 +536,7 @@ In order to represent state of a cell, a primitive data type is sufficient. Howe
 \td{code listing}
 
 \subsubsection{Operations}
-While the $Board$ class is sufficient to represent the grid of cells and their states, the concept of a neighbourhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbours as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}.
+While the $Board$ class is sufficient to represent the grid of cells and their states, the concept of a neighbourhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbours as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}. 
 
 \begin{table}[h]
 	\centering

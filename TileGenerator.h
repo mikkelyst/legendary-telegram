@@ -124,7 +124,7 @@ private:
 
   void BoardClear()
   {
-    BoardClear( CELL_FLOOR );
+    BoardClear( 0 );
   }
   void BoardClear( CELL_t state )
   {
@@ -139,16 +139,16 @@ private:
     std::mt19937 randomizer( seed );
     std::uniform_int_distribution<int> distribution( 1, 100 );
     distribution.reset();
-    CELL_t c = CELL_OTHER;
+    CELL_t c = 2;
     for ( unsigned int x = 0; x < CellCountX(); x++ )
     {
       for ( unsigned int y = 0; y < CellCountY(); y++ )
       {
         switch ( distribution( randomizer ) % 2 )
         {
-        case 0: c = CELL_WALL; break;
-        case 1: c = CELL_FLOOR; break;
-          //case 2: c = CELL_OTHER; break;
+        case 0: c = 1; break;
+        case 1: c = 0; break;
+          //case 2: c = 2; break;
         default:break;
         }
         generations.at( 0 ).SetCellAt( x, y, c );
@@ -164,9 +164,9 @@ private:
       for ( unsigned int y = 0; y < CellCountY(); y++ )
       {
         if ( ( x % 2 ) ^ ( y % 2 ) )
-          generations.at( 0 ).SetCellAt( x, y, CELL_WALL );
+          generations.at( 0 ).SetCellAt( x, y, 1 );
         else
-          generations.at( 0 ).SetCellAt( x, y, CELL_FLOOR );
+          generations.at( 0 ).SetCellAt( x, y, 0 );
       }
     }
   }
@@ -178,9 +178,9 @@ private:
       for ( unsigned int y = 0; y < CellCountY(); y++ )
       {
         if ( ( ( x * 17 ) % ( 1 + y * 8 ) ) % 3 )
-          generations.at( 0 ).SetCellAt( x, y, CELL_WALL );
+          generations.at( 0 ).SetCellAt( x, y, 1 );
         else
-          generations.at( 0 ).SetCellAt( x, y, CELL_FLOOR );
+          generations.at( 0 ).SetCellAt( x, y, 0 );
       }
     }
   }
@@ -190,11 +190,11 @@ private:
     {
       unsigned int a = generations.at( 0 ).cellsX / 2;
       unsigned int b = generations.at( 0 ).cellsY / 2;
-      generations.at( 0 ).SetCellAt( a - 1, b + 0, CELL_WALL );
-      generations.at( 0 ).SetCellAt( a + 0, b + 1, CELL_WALL );
-      generations.at( 0 ).SetCellAt( a + 1, b - 1, CELL_WALL );
-      generations.at( 0 ).SetCellAt( a + 1, b + 0, CELL_WALL );
-      generations.at( 0 ).SetCellAt( a + 1, b + 1, CELL_WALL );
+      generations.at( 0 ).SetCellAt( a - 1, b + 0, 1 );
+      generations.at( 0 ).SetCellAt( a + 0, b + 1, 1 );
+      generations.at( 0 ).SetCellAt( a + 1, b - 1, 1 );
+      generations.at( 0 ).SetCellAt( a + 1, b + 0, 1 );
+      generations.at( 0 ).SetCellAt( a + 1, b + 1, 1 );
     }
   }
 
