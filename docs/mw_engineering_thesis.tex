@@ -529,7 +529,7 @@ In order to represent state of a cell, a primitive data type is sufficient. Clas
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell01}
-	\caption{ Model of a $Board$ class, which holds cell states in its block of memory and lets its user change their states. Image source: own work} 
+	\caption{ Model of a $Board$ class, which holds cell states in its block of memory and lets its user change their states. Diagram source: own work} 
 	\label{fig:boardcell}
 \end{figure}
 
@@ -538,32 +538,45 @@ In order to represent state of a cell, a primitive data type is sufficient. Clas
 \subsubsection{Operations}
 While the $Board$ class is sufficient to represent the grid of cells and their states, the concept of a neighbourhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbours as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}. 
 
-\begin{table}[h]
-	\centering
-	\begin{tabular}{| l | l | l |}
-		\hline 
-		0 & 1 & 2 \\
-		\hline
-		7 & S & 3 \\
-		\hline
-		6 & 5 & 4 \\ 
-		\hline
-	\end{tabular}
-	\caption{Moore neighbourhood, with numbered cells. \textit{S} denotes cell selected as a base for further operations. Source: own work}
+\begin{table}[h] 
+	\centering 
+	\begin{tabular}{| c | c | c |}\hline 
+		0 & 1 & 2 \\ \hline
+		7 & S & 3 \\ \hline
+		6 & 5 & 4 \\ \hline
+	\end{tabular} 
+	\begin{tabular}{| c | c | c |}\hline 
+		$(-1,-1)$ & $( 0,-1)$ & $( 1,-1)$ \\ \hline
+		$(-1, 0)$ & $( 0, 0)$ & $( 1, 0)$ \\ \hline
+		$(-1, 1)$ & $( 0, 1)$ & $( 1, 1)$ \\ \hline
+	\end{tabular} 
+	\caption{Table on left: Moore neighbourhood, with numbered cells. \textit{S} denotes cell selected as a base for further operations. Table on right: Neighbour positions, relative to selected cell $(0,0)$ Source: own work}
 	\label{tab:cellneighbors}
 \end{table}
 
-In CA simulations used for map generation by \autocite{johnson2010cellular}, summing the values of cells in neighbourhood is a required operation. Hence, it is useful to include it into the $Board$ abstraction as part of its interface, which yields a class presented on  \cref{fig:boardcell2}.
+In CA simulations used for map generation by \autocite{johnson2010cellular}, summing the values of cells in neighbourhood is a required operation. Hence, it is useful to include it into the $Board$ abstraction as part of its interface, which yields a class presented on \cref{fig:boardcell2} with added method for computing sum of adjacent cell values around a cell with $(x,y)$ coordinates. The $nht$ parameter can be used to control which cells are treated as neighbours.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell02}
-	\caption{} 
+	\caption{Model of a $Board$ class with a method to sum neighbour values. Diagram source: own work} 
 	\label{fig:boardcell2}
-\end{figure}
- \td{figure is wrong, fix}
+\end{figure} 
+ 
+Such model allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state.
  
  \td{add code listings}
+ 
+The next section presents how rules of CA simulation are encapsulated and applied.
+
+\subsection{Simulating CA rules} 
+\subsubsection{Data structures}
+As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjacent cells to a selected cell and determine its subsequent state.
+\subsubsection{Operations}
+\td{applying CA rule to board}
+
+\td{add code listings}
+ 
 
 \subsection{Presenting the board state}
 \subsubsection{Data structures}
@@ -573,13 +586,6 @@ In CA simulations used for map generation by \autocite{johnson2010cellular}, sum
 \td{display the state of CA board on screen} 
 \td{method to translate cell states into texture points}
 
-
-\td{add code listings}
-\subsection{Simulating CA rules} 
-\subsubsection{Data structures}
-\td{CA rule abstraction}
-\subsubsection{Operations}
-\td{applying CA rule to board}
 
 \td{add code listings}
 
@@ -622,28 +628,29 @@ In CA simulations used for map generation by \autocite{johnson2010cellular}, sum
 %%%%%%%%%%%%%%%
 \section{Experiments in generating maps with CA}
 
+After implementing the map generator, it is possible to carry out experiments to find the optimal parameter ranges for map generation.
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[b]{0.2\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/step1}
 		\caption{Step 1 - random noise} 
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.2\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/step2}
 		\caption{Step 2 - generated tile} 
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.2\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/step3}
 		\caption{Step 3 - tiles in a grid} 
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}[b]{0.2\textwidth}
+	\begin{subfigure}[b]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/step4}
 		\caption{Step 4 - complete map} 

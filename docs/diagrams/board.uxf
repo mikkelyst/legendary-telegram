@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
+<diagram program="umlet" version="14.3.0">
   <zoom_level>13</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>234</x>
-      <y>65</y>
-      <w>234</w>
-      <h>247</h>
+      <x>312</x>
+      <y>416</y>
+      <w>338</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>Board
 --
@@ -16,6 +16,7 @@
 --
 + Cell( x, y ) : int
 + SetCell ( x, y, state: int )
++ SumNeighbours( x, y, nht: enum )
  
 bg=orange</panel_attributes>
     <additional_attributes/>
@@ -23,89 +24,30 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>793</x>
-      <y>143</y>
-      <w>143</w>
-      <h>130</h>
+      <x>910</x>
+      <y>455</y>
+      <w>156</w>
+      <h>65</h>
     </coordinates>
-    <panel_attributes>Cell: enum
+    <panel_attributes>Cell: unsigned int 
 --
-FLOOR, 
-WALL,
-OTHER
 
-bg=yellow</panel_attributes>
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>455</x>
-      <y>182</y>
-      <w>364</w>
-      <h>65</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m1=1
-m2=n
-r2=- cells
-is composed of &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;260.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>234</x>
-      <y>364</y>
-      <w>273</w>
-      <h>247</h>
-    </coordinates>
-    <panel_attributes>Board
---
-- width: int
-- height: int
---
-+ Cell( x, y ) : int
-+ SetCell ( x, y, state: int )
-+ SumNeighbors4( x, y ) : int
-+ SumNeighbors5( x, y ) : int
-+ SumNeighbors8( x, y ) : int
-+ SumNeighbors9( x, y ) : int
-
- 
-bg=orange</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>819</x>
+      <x>637</x>
       <y>442</y>
-      <w>169</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>Cell: enum
---
-FLOOR, 
-WALL,
-OTHER
-
-bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>494</x>
-      <y>481</y>
-      <w>351</w>
+      <w>299</w>
       <h>65</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m1=1
 m2=n
 r2=- cells
-is composed of &gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;250.0;20.0</additional_attributes>
+contains &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
   </element>
 </diagram>
