@@ -21,7 +21,7 @@ private:
   {
     if (!isBoardChanged) return false;
     int s = SumNeighbours(x, y, MOORE8);
-    return (s < 5) && isMarkingEnabled;
+    return (s > 2 && s < 6) && isMarkingEnabled;
   }
 
 

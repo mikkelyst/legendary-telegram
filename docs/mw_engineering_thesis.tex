@@ -567,11 +567,17 @@ Such model allows to simulate some basic cellular automata based on rules which 
  
  \td{add code listings}
  
-The next section presents how rules of CA simulation are encapsulated and applied.
+The next section presents how rules of CA simulation are encapsulated and applied in the implemented map generator.
 
 \subsection{Simulating CA rules} 
+
+As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjacent cells to a selected cell and determine its subsequent state. Separating the concept of a rule and its application from the cell grid structure simplifies modifying the CA rule set for further usage.
+
 \subsubsection{Data structures}
-As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjacent cells to a selected cell and determine its subsequent state.
+
+\td{board before into board after with search for match in rule set. one rule is a function that maps a single set of cell states to one resulting cell state}
+
+
 \subsubsection{Operations}
 \td{applying CA rule to board}
 
