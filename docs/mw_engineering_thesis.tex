@@ -575,8 +575,16 @@ As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjac
 
 \subsubsection{Data structures}
 
-\td{board before into board after with search for match in rule set. one rule is a function that maps a single set of cell states to one resulting cell state}
+Although applying rules to a grid of cells does not require a specialized data structure, a class to encapsulate procedures used to do so separated from $Board$ class can be useful for later development. The $Ruleset$ class presented in \cref{fig:ruleset-board} is used to produce a new board state by applying rules encoded in its internal functions, which are used by $EvolveState()$ method.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{diagrams/ruleset-board}
+	\caption{Model of $Ruleset$ class, which is meant to use a $Board$ instance to produce a new state of the cell grid in another $Board$ instance by rewriting its cell values. Source: own work}
+	\label{fig:ruleset-board}
+\end{figure}
+
+Such abstraction allows to later add an internal data structure to hold rules with special cases for each possible neighbourhood pattern. 
 
 \subsubsection{Operations}
 \td{applying CA rule to board}

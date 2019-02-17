@@ -88,7 +88,7 @@ public:
   void MapMergeTiles()
   { 
     Board* tempBoard = new Board( mapBoard->cellsX, mapBoard->cellsY );
-    Rules::EvolveState( mapBoard, tempBoard );
+    Ruleset::EvolveState( mapBoard, tempBoard );
     {
       // TODO: run algorithm to merge tile edges
     } 

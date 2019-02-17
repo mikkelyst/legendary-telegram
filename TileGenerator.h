@@ -23,7 +23,7 @@ public:
   static int ui_stepCount;
   static int ui_stepSelected;
   static float ui_stepProgress;
-  static Ruleset currentRules;
+  static Rules currentRules;
 
   static TileGenerator* State()
   {
@@ -88,7 +88,7 @@ public:
     }
     GenerateSteps();
   }
-  void ChangeRuleset( Ruleset r )
+  void ChangeRuleset( Rules r )
   {
     currentRules = r;
     GenerateSteps();
@@ -205,7 +205,7 @@ private:
     // ui_stepProgress = step / generations.size();
     for ( unsigned int step = 1; step < generations.size(); step++ )
     {
-      Rules::EvolveState( &generations.at( step - 1 ), &generations.at( step ), currentRules );
+      Ruleset::EvolveState( &generations.at( step - 1 ), &generations.at( step ), currentRules );
     }
   }
 
@@ -215,6 +215,6 @@ int TileGenerator::ui_boardSize[2] = { 128, 128 };
 int TileGenerator::ui_stepCount = 10;
 int TileGenerator::ui_stepSelected = 0;
 float TileGenerator::ui_stepProgress = 0.f;
-Ruleset TileGenerator::currentRules = RULES_MAPGEN;
+Rules TileGenerator::currentRules = RULES_MAPGEN;
 
 TileGenerator* TileGenerator::single_instance = 0;

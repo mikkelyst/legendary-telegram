@@ -2,15 +2,15 @@
 
 #include "Board.h"
 
-enum Ruleset
+enum Rules
 {
   RULES_GAMEOFLIFE = 0,
   RULES_MAPGEN = 1
 };
-class Rules
+class Ruleset
 {
 public:
-  static void EvolveState(Board * before, Board * after, Ruleset r = RULES_MAPGEN)
+  static void EvolveState(Board * before, Board * after, Rules r = RULES_MAPGEN)
   {
     switch (r)
     {

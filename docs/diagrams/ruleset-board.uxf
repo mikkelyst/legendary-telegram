@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>270</y>
+      <w>260</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Board
+--
+- width: int
+- height: int
+--
++ Cell( x, y ) : int
++ SetCell ( x, y, state: int )
++ SumNeighbours( x, y, nht: enum )
+ 
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>270</y>
+      <w>350</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Ruleset
+--
+
+--
++ EvolveState( before: Board, after: Board, rules ) 
+ 
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>310</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=2
+m2=1
+operates on &gt;</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>
