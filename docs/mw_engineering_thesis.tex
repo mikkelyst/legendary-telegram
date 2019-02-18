@@ -563,19 +563,24 @@ In CA simulations used for map generation by \autocite{johnson2010cellular}, sum
 	\label{fig:boardcell2}
 \end{figure} 
  
-Such model allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state.
+Such model allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. \Cref{lst:board-base} shows the implementation of most important elements of the $Board$ class: 
+\begin{itemize}
+	\item function $CellAt()$ used to access cell values,
+	\item function $SetCellAt()$ used to write a cell value at specified position,
+	\item function $SumNeighbours()$ used to compute a sum of cell values in a neighbourhood of type $nht$ at position $(x,y)$, 
+	\item definition of a $Neighbourhood$ type, required by the $SumNeighbors$ function parameter
+\end{itemize}
  
- \td{add code listings}
+\lstinputlisting[language=c, caption=Applying rules to cell grid, label={lst:board-base}]{listings/board.txt}
  
-The next section presents how rules of CA simulation are encapsulated and applied in the implemented map generator.
-
+ 
 \subsection{Simulating CA rules} 
 
 As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjacent cells to a selected cell and determine its subsequent state. Separating the concept of a rule and its application from the cell grid structure simplifies modifying the CA rule set for further usage.
 
 \subsubsection{Data structures}
 
-Although applying rules to a grid of cells does not require a specialized data structure, a class to encapsulate procedures used to do so separated from $Board$ class can be useful for later development. The $Ruleset$ class presented in \cref{fig:ruleset-board} is used to produce a new board state by applying rules encoded in its internal functions, which are used by $EvolveState()$ method.
+Although applying rules to a grid of cells does not require a specialized data structure, a class to encapsulate procedures used to do so separated from $Board$ class can be useful for later development. The $Ruleset$ class presented in \cref{fig:ruleset-board} is used to produce a new board state by applying rules encoded in its internal functions, which are used by $EvolveState$ method.
 
 \begin{figure}[h]
 	\centering
@@ -584,13 +589,22 @@ Although applying rules to a grid of cells does not require a specialized data s
 	\label{fig:ruleset-board}
 \end{figure}
 
-Such abstraction allows to later add an internal data structure to hold rules with special cases for each possible neighbourhood pattern. 
+Such abstraction allows to later add an internal data structure to hold separate rules for each possible neighbourhood pattern, if needed. 
 
 \subsubsection{Operations}
-\td{applying CA rule to board}
 
-\td{add code listings}
- 
+As shown in \cref{fig:ruleset-board}, the operation which handles computation of a new cell grid state is named $EvolveState()$. It does so by calling one of its internal methods chosen by $rules$ parameter. \Cref{lst:evs} shows an implemented method which calls $Board$ methods to perform the following steps:
+
+\begin{enumerate}
+	\item sum the values of cells adjacent to cell $(x,y)$,
+	\item set the future $(x,y)$ cell state to 1 if the sum is less than 5,
+	\item set the future $(x,y)$ cell state to 0 if the sum is more than 5.
+\end{enumerate}
+
+
+\lstinputlisting[language=c, caption=Applying rules to cell grid, label={lst:evs}]{listings/evolvestate.txt}
+
+With basic CA operations organized this way, adding new rules requires implementing a new method in the $Ruleset$ class. Choosing a new set of rules is done via passing a correct parameter value to $EvolveState$ method, which can be done by binding the function call to user interface.
 
 \subsection{Presenting the board state}
 \subsubsection{Data structures}
@@ -614,16 +628,12 @@ Such abstraction allows to later add an internal data structure to hold rules wi
 \subsection{Preparing maps}
 \subsubsection{Data structures}
  
+\subsubsection{Operations}
 
 \td{ exporting data from generator? }
 
-
-\subsubsection{Application logic} 
-
-\td{how a generator will work}
-\td{behavior diagrams}
-
-\subsubsection{User interface}
+ 
+\subsection{User interface}
 
 \td{ how designers can get a complete map model? }   
 

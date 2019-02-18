@@ -1,0 +1,37 @@
+enum Neighbourhood_t {
+  VONNEUMANN4,
+  VONNEUMANN5,
+  MOORE8,
+  MOORE9
+};
+
+CELL_t CellAt(unsigned int x, unsigned int y)
+  {
+    return cells.at(cellsX * (y%cellsY) + (x%cellsX));
+  }
+  
+void SetCellAt(unsigned int x, unsigned int y, CELL_t newState)
+  {
+    cells.at(cellsX * (y%cellsY) + (x%cellsX)) = newState;
+    isBoardChanged = true;
+    return;
+  }
+
+unsigned int SumNeighbours(unsigned int x, unsigned int y, Neighbourhood_t nht)
+  {
+    unsigned int sum = 0;
+    sum += CellAt(x - 1, y + 0);
+    sum += CellAt(x + 0, y - 1);
+    sum += CellAt(x + 0, y + 1);
+    sum += CellAt(x + 1, y + 0);
+    if (nht == MOORE9 || nht == MOORE8) {
+      sum += CellAt(x - 1, y - 1);
+      sum += CellAt(x - 1, y + 1);
+      sum += CellAt(x + 1, y - 1);
+      sum += CellAt(x + 1, y + 1);
+    }
+    if (nht == MOORE9 || nht == VONNEUMANN5) sum += CellAt(x + 0, y + 0);
+    return sum;
+  }
+  
+  
