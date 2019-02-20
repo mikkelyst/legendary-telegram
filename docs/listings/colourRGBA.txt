@@ -1,0 +1,7 @@
+typedef GLuint Color_RGBA;
+
+const Color_RGBA color_BLACK = 0x000000CC;
+const Color_RGBA color_WHITE = 0xFFFFFFCC;
+const Color_RGBA color_RED = 0xFF0000CC;
+const Color_RGBA color_GREEN = 0x00FF00CC;
+const Color_RGBA color_BLUE = 0x0000FFCC;

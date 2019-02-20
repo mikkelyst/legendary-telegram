@@ -612,17 +612,31 @@ In order to visualize state of $Board$, all cell values need to be drawn as an i
 
 \subsubsection{Data structures}
 
-Before the cells can be represented as an image, their states must be converted to colour values in one of the formats interpreted by OpenGL functions. In order to do so, a class $SimpleTexture2D$ has been prepared, as shown in \cref{lst:}.  
+Before the cells can be represented as an image, their states must be converted to colour values in one of the formats interpreted by OpenGL functions. In order to do so, a class $SimpleTexture2D$ has been prepared, as shown in \cref{fig:texture}. 
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{diagrams/texture}
+	\caption{Model of a $SimpleTexture2D$ class, which contains a collection of $Color RGBA$ elements. Source: own work}
+	\label{fig:texture}
+\end{figure}
 
+Colours are represented by a 32-bit unsigned integer, with 8 bits dedicated to each colour channel (Red, Green, Blue) and additional 8 bits for the opacity (Alpha) channel, defined by type $Color RGBA$ as shown in \cref{lst:colourRGBA}. 
+
+\lstinputlisting[language=c, caption=Definition of ColourRGBA type, label={lst:colourRGBA}]{listings/colourRGBA.txt}
 
 \subsubsection{Operations}
-\td{display the state of CA board on screen} 
-\td{method to translate cell states into texture points}
 
+Methods provided by $SimpleTexture2D$ class allow to:
 
-\td{add code listings}
+\begin{itemize}
+	\item set individual colour values at specified position in the $texelsRGBA$ collection, necessary for rendering the $Board$ state
+	\item change the collection size, to allow support for $Board$s of different sizes,
+	\item set all colour values in the collection to a specified value,
+	\item request rendering of the contained data by OpenGL API.
+\end{itemize}  
 
+Such set of operations allows to achieve the goal of simple 2-dimensional image rendering, which can be used to visualize the state of all cells contained in one of the $Board$ class instances.
 
 \subsection{Generating tiles}
 \subsubsection{Data structures} 
