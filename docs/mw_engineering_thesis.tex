@@ -607,9 +607,15 @@ As shown in \cref{fig:ruleset-board}, the operation which handles computation of
 With basic CA operations organized this way, adding new rules requires implementing a new method in the $Ruleset$ class. Choosing a new set of rules is done via passing a correct parameter value to $EvolveState$ method, which can be done by binding the function call to user interface.
 
 \subsection{Presenting the board state}
+
+In order to visualize state of $Board$, all cell values need to be drawn as an image. To achieve this, OpenGL and ImGui libraries are used to create an environment in which it is possible to construct interface elements and render textures. 
+
 \subsubsection{Data structures}
-\td{using OpenGL as rendering layer} 
-\td{data structure for textures}
+
+Before the cells can be represented as an image, their states must be converted to colour values in one of the formats interpreted by OpenGL functions. In order to do so, a class $SimpleTexture2D$ has been prepared, as shown in \cref{lst:}.  
+
+
+
 \subsubsection{Operations}
 \td{display the state of CA board on screen} 
 \td{method to translate cell states into texture points}
