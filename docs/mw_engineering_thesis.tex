@@ -146,7 +146,7 @@ This thesis includes introduction followed by three chapters. \cref{rozdzial.teo
 %%%%%%%%%%%%%%%
 \section{Experimental setup}
 
-The solution that allowed to carry out experiments in this thesis was implemented using the C++ programming language and compiled with MSVC++ 14.0 compiler, natively included in the VS2015 IDE. Other tools and libraries used in the project:
+The solution that allowed to carry out experiments in this thesis was implemented using the C++ programming language and compiled with MSVC++ 14.0 compiler, natively included in the Visual Studio 2015 Community Edition IDE. Other tools and libraries used in the project:
 
 \begin{itemize}
 	\item Dear ImGui, by Omar Cornut - to easily build an Immediate Mode user interface. Project homepage:  \url{https://github.com/ocornut/imgui}
@@ -533,8 +533,6 @@ In order to represent state of a cell, a primitive data type is sufficient. Clas
 	\label{fig:boardcell}
 \end{figure}
 
-\td{code listing}
-
 \subsubsection{Operations}
 While the $Board$ class is sufficient to represent the grid of cells and their states, the concept of a neighbourhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbours as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}. 
 
@@ -563,17 +561,23 @@ In CA simulations used for map generation by \autocite{johnson2010cellular}, sum
 	\label{fig:boardcell2}
 \end{figure} 
  
-Such model allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. \Cref{lst:board-base} shows the implementation of most important elements of the $Board$ class: 
+Such model allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. 
+
 \begin{itemize}
 	\item function $CellAt()$ used to access cell values,
 	\item function $SetCellAt()$ used to write a cell value at specified position,
 	\item function $SumNeighbours()$ used to compute a sum of cell values in a neighbourhood of type $nht$ at position $(x,y)$, 
 	\item definition of a $Neighbourhood$ type, required by the $SumNeighbors$ function parameter
 \end{itemize}
- 
-\lstinputlisting[language=c, caption=Applying rules to cell grid, label={lst:board-base}]{listings/board.txt}
- 
- 
+
+\subsubsection{Implementation}
+
+The model presented above is implemented by data and operations contained in the $Board$ class. 
+
+\lstinputlisting[language=c, caption=Accessing cells, label={lst:board-cellat}]{listings/board-cellat.txt}
+\lstinputlisting[language=c, caption=Setting cell states, label={lst:board-setcellat}]{listings/board-setcellat.txt}
+\lstinputlisting[language=c, caption=Summing adjacent cell values, label={lst:board-sumneighbourhood}]{listings/board-sumneighbourhood.txt}
+
 \subsection{Simulating CA rules} 
 
 As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjacent cells to a selected cell and determine its subsequent state. Separating the concept of a rule and its application from the cell grid structure simplifies modifying the CA rule set for further usage.
@@ -640,15 +644,26 @@ Such set of operations allows to achieve the goal of simple 2-dimensional image 
 
 \subsection{Generating tiles}
 \subsubsection{Data structures} 
+
+\td{TileGenerator class}
+\td{collection of Boards is a history of steps}
+\td{singe board after X steps becomes a useful tile}
+
 \subsubsection{Operations}
+\td{tile data written into map}
+
+
 \subsection{Merging tiles}
 \subsubsection{Data structures} 
 \subsubsection{Operations}
 
 \subsection{Preparing maps}
 \subsubsection{Data structures}
- 
+
 \subsubsection{Operations}
+
+
+
 
 \td{ exporting data from generator? }
 
@@ -663,10 +678,9 @@ Such set of operations allows to achieve the goal of simple 2-dimensional image 
 	\caption[User Interface model]{Example model of classes to be used to construct user interface in the map generator program}
 	\label{fig:uiwindows}
 \end{figure}
+ 
 
-\td{diagram of texture class, used by Component MapGen, uses OpenGL}
 
-\td{mention Bret Victor talks - why we choose Immediate Mode}
 
 
 %%%%%%%%%%%%%%%
@@ -712,6 +726,8 @@ After implementing the map generator, it is possible to carry out experiments to
 \td{Co do conclusion to prosze zebrać wnioski, nie przemyślenia, z całego 
 	tego projektu i opisać wady i zalety Pana rozwiązania. Czemu jest inne 
 	niz wszystkie co wprowadza nowego a co starego naprawia.}
+
+\td{mention Bret Victor talks, why we choose ImGui, usefulness of Immediate Mode }
 
 %%%%%%%%%%%%%%%
 \section{Evaluation of results} 

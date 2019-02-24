@@ -1,0 +1,6 @@
+void SetCellAt(unsigned int x, unsigned int y, CELL_t newState)
+  {
+    cells.at(cellsX * (y%cellsY) + (x%cellsX)) = newState;
+    isBoardChanged = true;
+    return;
+  }

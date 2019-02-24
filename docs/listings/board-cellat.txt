@@ -1,0 +1,4 @@
+ CELL_t CellAt(unsigned int x, unsigned int y)
+  {
+    return cells.at(cellsX * (y%cellsY) + (x%cellsX));
+  }
