@@ -17,8 +17,7 @@ public:
     ImGui_ImplGlfwGL3_Init( system_window, true );
     ImGui::StyleColorsDark();
     // Setup ui elements
-    UserInterfaceWindows.push_back( new WindowBoardControls( 10.f, 10.f, &clear_color ) );
-    UserInterfaceWindows.push_back( new WindowGeneratorControls( 20.f, 200.f ) );
+    UserInterfaceWindows.push_back( new WindowBoardControls( 10.f, 10.f, &clear_color ) ); 
     UserInterfaceWindows.push_back( new WindowBoardImage( 300.f, 150.f ) ); 
     UserInterfaceWindows.push_back( new WindowMapTileGrid( 500.f, 200.f ) );
     // Initialize automaton with default data 

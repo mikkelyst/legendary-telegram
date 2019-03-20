@@ -3,12 +3,11 @@
 ################################################################################
 
 /Debug
-/.vs/camapgen/v14
+/.vs
 /camapgen.vcxproj.user 
 /camapgen.VC.VC.opendb
 /camapgen.VC.db 
-/camapgen.vcxproj.user
-/camapgen.VC.db
+/camapgen.vcxproj.user 
 /imgui_log.txt 
 
 
@@ -31,3 +30,4 @@ docs/mw_engineering_thesis.bbl
 docs/mw_engineering_thesis.aux
 *.synctex(busy)
 *.bak
+*.txt

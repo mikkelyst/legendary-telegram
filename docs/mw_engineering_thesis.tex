@@ -502,7 +502,7 @@ Optionally, the map generator program may:
 \subsubsection{Operational requirements}
 The map generator program shall operate with the following qualities:
 \begin{itemize}
-	\item real time drawing of tiles, whenever their state changes 
+	\item real time drawing tile and map images, whenever their state changes 
 	\item responsive user controls, avoid long waiting times for computation result
 	\item 
 	\item \td{more needed? how to extract them properly?}
@@ -560,19 +560,17 @@ In CA simulations used for map generation by \autocite{johnson2010cellular}, sum
 	\caption{Model of a $Board$ class with a method to sum neighbour values. Diagram source: own work} 
 	\label{fig:boardcell2}
 \end{figure} 
- 
-Such model allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. 
-
-\begin{itemize}
-	\item function $CellAt()$ used to access cell values,
-	\item function $SetCellAt()$ used to write a cell value at specified position,
-	\item function $SumNeighbours()$ used to compute a sum of cell values in a neighbourhood of type $nht$ at position $(x,y)$, 
-	\item definition of a $Neighbourhood$ type, required by the $SumNeighbors$ function parameter
-\end{itemize}
 
 \subsubsection{Implementation}
+ 
+The model presented above is implemented by data and operations contained in the $Board$ class. It allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. $Board$ class methods operate as follows:
 
-The model presented above is implemented by data and operations contained in the $Board$ class. 
+\begin{itemize}
+	\item $CellAt$ can access cell at position $(x,y)$ in the grid model and return its value, as shown on \cref{lst:board-cellat},
+	\item $SetCellAt$ works similarly to the previous method, accessing the cell at position $(x,y)$ and writing a new value provided by $state$ parameter, shown on \cref{lst:board-setcellat},
+	\item $SumNeighbours$ computes a sum of cell values in a neighbourhood of type $nht$ at position $(x,y)$, as shown on \cref{lst:board-sumneighbourhood} 
+\end{itemize}
+ 
 
 \lstinputlisting[language=c, caption=Accessing cells, label={lst:board-cellat}]{listings/board-cellat.txt}
 \lstinputlisting[language=c, caption=Setting cell states, label={lst:board-setcellat}]{listings/board-setcellat.txt}
@@ -642,32 +640,33 @@ Methods provided by $SimpleTexture2D$ class allow to:
 
 Such set of operations allows to achieve the goal of simple 2-dimensional image rendering, which can be used to visualize the state of all cells contained in one of the $Board$ class instances.
 
-\subsection{Generating tiles}
+\subsection{Generating and merging tiles into maps}
+
+Generating tiles for map construction is done with data and operations contained in $TileGenerator$ and $Ruleset$ classes. Internal mechanics of the $TileGenerator$ class allow it to initialize cells in the first generation to randomly selected states and then to use $Ruleset$ class to generate future states of the board. $Ruleset$ provides a set of rules which describe the possible transformations of a cell depending on the state of its neighbourhood, as described in previous sections. Tiles prepared by $TileGenerator$ can be transferred into the grid of tiles represented by the $Map$ class.
+
 \subsubsection{Data structures} 
-
-\td{TileGenerator class}
-\td{collection of Boards is a history of steps}
-\td{singe board after X steps becomes a useful tile}
-
-\subsubsection{Operations}
-\td{tile data written into map}
-
-
-\subsection{Merging tiles}
-\subsubsection{Data structures} 
-\subsubsection{Operations}
-
-\subsection{Preparing maps}
-\subsubsection{Data structures}
-
-\subsubsection{Operations}
-
-
-
-
-\td{ exporting data from generator? }
-
  
+The map construction process is simulated by $TileGenerator$ and $Map$ classes. An ordered collection of $Board$ states is contained in both of them, but for different purposes. $TileGenereator$ uses the collection as a history of $Board$ state transformations. $Map$ uses its collection of $Board$ instances as a tile grid representation. \Cref{fig:tilegeneratormap} shows how these classes relate to each other.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{diagrams/tilegenerator_map}
+	\caption{ A model of interactions between TileGenerator, Board and Map classes. Source: own work}
+	\label{fig:tilegeneratormap}
+\end{figure}
+
+The $Map$ class represents its state in two ways - as a collection of $Board$ states and as a single $Board$ instance with dimensions equal to tile width and height multiplied by their count along the Map borders - for example, a square map composed of 25 tiles with 64 by 128 size would have a width of 320 and a height of 640. Such dual representation allows the user to switch between two views onto the map - a tile grid view and a complete map view.
+
+\subsubsection{Operations}
+
+Initializing the first $Board$ contained in $TileGenerator$ class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different. The operation used to do so is the $InitGenAllRandom$ method contained in $TileGenerator$.
+
+
+\td{op future states with ruleset}
+\td{op drawing cells on Texture}
+\td{op tile cells to map cells}
+\td{result: generated random board after X transform steps becomes a useful tile}
+
 \subsection{User interface}
 
 \td{ how designers can get a complete map model? }   
@@ -675,13 +674,11 @@ Such set of operations allows to achieve the goal of simple 2-dimensional image 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
-	\caption[User Interface model]{Example model of classes to be used to construct user interface in the map generator program}
+	\caption[User Interface model]{A model of classes representing the user interface in the map generator program. Source: own work}
 	\label{fig:uiwindows}
 \end{figure}
- 
 
-
-
+\td{ exporting data from generator? }
 
 %%%%%%%%%%%%%%%
 \section{Experiments in generating maps with CA}

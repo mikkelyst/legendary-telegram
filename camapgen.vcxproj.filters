@@ -77,15 +77,6 @@
     <ClInclude Include="Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowBoardControls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowBoardImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowGeneratorControls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Ruleset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,9 +87,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UserInterface_MapGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowMapTileGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TileGenerator.h">

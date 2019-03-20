@@ -61,13 +61,13 @@ public:
   {
     return generations.size();
   }
-  Board* SelectedStep()
+  Board* StepState()
   { 
     return ui_stepSelected < generations.size() ?
       &generations.at( ui_stepSelected ) :
       &generations.at( 0 );
   }
-  void* SelectedStepImage()
+  void* StepImage()
   {
     if (ui_stepSelected < generations.size() )
     {
@@ -79,13 +79,7 @@ public:
   // STEP GENERATION
   void  RegenerateStepsFrom( BoardInit_t initialBoard )
   {
-    switch ( initialBoard )
-    {
-    case CLEAR_RANDOM:  InitGenAllRandom();  break;
-    case CLEAR_CHESS:   InitGenClearChess(); break;
-    case CLEAR_XYMOD:   InitGenClearXYMOD(); break;
-    case TEST_GLIDER:   InitGenTestGlider(); break;
-    }
+    InitGenAllRandom();
     GenerateSteps();
   }
   void ChangeRuleset( Rules r )
@@ -155,35 +149,7 @@ private:
       }
     }
     return;
-  }
-  void InitGenClearChess()
-  {
-    BoardClear();
-    for ( unsigned int x = 0; x < CellCountX(); x++ )
-    {
-      for ( unsigned int y = 0; y < CellCountY(); y++ )
-      {
-        if ( ( x % 2 ) ^ ( y % 2 ) )
-          generations.at( 0 ).SetCellAt( x, y, 1 );
-        else
-          generations.at( 0 ).SetCellAt( x, y, 0 );
-      }
-    }
-  }
-  void InitGenClearXYMOD()
-  {
-    BoardClear();
-    for ( unsigned int x = 0; x < CellCountX(); x++ )
-    {
-      for ( unsigned int y = 0; y < CellCountY(); y++ )
-      {
-        if ( ( ( x * 17 ) % ( 1 + y * 8 ) ) % 3 )
-          generations.at( 0 ).SetCellAt( x, y, 1 );
-        else
-          generations.at( 0 ).SetCellAt( x, y, 0 );
-      }
-    }
-  }
+  } 
   void InitGenTestGlider()
   {
     BoardClear();
