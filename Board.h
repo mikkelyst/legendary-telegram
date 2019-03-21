@@ -100,10 +100,10 @@ public:
         {
           switch (CellAt(x, y))
           {
-          case 0: SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_BLACK); break;
-          case 1:  SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_GREEN); break;
-          case 2: SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_WHITE); break;
-          default:         SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_BLUE); break;
+          case 0:   SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_WHITE); break;
+          case 1:   SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_BLACK); break;
+          case 2:   SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_GREEN); break;
+          default:  SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_RED); break;
           }
           if (isCellMarked(x, y)) SimpleTexture2D::Texture(texIdx)->SetTexelColor(x, y, color_RED);
         }

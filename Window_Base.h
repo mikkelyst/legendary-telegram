@@ -64,7 +64,13 @@ public:
       ImGui::SliderFloat("Map zoom/scale", &Map::ui_mapDisplayScale, 2.f, 20.f);
     }
     ImGui::Separator();
-
+    {
+      ImGui::Text("Board parameters:");
+      ImGui::SliderInt2("width, height", TileGenerator::ui_boardSize, 16, 256);
+      ImGui::SliderInt("simulation step count", &TileGenerator::ui_stepCount, 10, 200);
+      if (ImGui::Button("RECONSTUCT BOARD")) { TileGenerator::Reset(); }
+    }
+    ImGui::Separator();
     static int ruleChoice = int(TileGenerator::currentRules);
     ImGui::Text("Rulesets:");
     if (ImGui::RadioButton("Game of Life Rules (for tests)", &ruleChoice, 0))
@@ -114,12 +120,10 @@ public:
       if (ImGui::Button("3 STEP >>>")) { TileGenerator::State()->StepJump(3); }   ImGui::SameLine();
       if (ImGui::Button("   END    ")) { TileGenerator::State()->StepJumpLast(); }
     }
+    ImGui::Separator();
     {
-      ImGui::Text("Board parameters:");
-      ImGui::SliderInt2("width, height", TileGenerator::ui_boardSize, 16, 256);
-      ImGui::SliderInt("simulation step count", &TileGenerator::ui_stepCount, 10, 200);
-      if (ImGui::Button("RECONSTUCT BOARD")) { TileGenerator::Reset(); }
-      if (ImGui::Button("GENERATE RANDOM CELL STATES")) { TileGenerator::State()->RegenerateStepsFrom(CLEAR_RANDOM); }
+      ImGui::Text("Random initial tile state:");
+      if (ImGui::Button("GENERATE")) { TileGenerator::State()->RegenerateStepsFrom(CLEAR_RANDOM); }
     }
     ImGui::Separator();
   }
