@@ -97,4 +97,4 @@ public:
   }
 };
 
-float Map::ui_mapDisplayScale = 6.0f; 
+float Map::ui_mapDisplayScale = 10.0f; 

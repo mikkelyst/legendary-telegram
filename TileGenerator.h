@@ -177,8 +177,8 @@ private:
 
 };
 
-int TileGenerator::ui_boardSize[2] = { 128, 128 };
-int TileGenerator::ui_stepCount = 10;
+int TileGenerator::ui_boardSize[2] = { 64, 64 };
+int TileGenerator::ui_stepCount = 16; 
 int TileGenerator::ui_stepSelected = 0;
 float TileGenerator::ui_stepProgress = 0.f;
 Rules TileGenerator::currentRules = RULES_MAPGEN;

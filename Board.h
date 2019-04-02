@@ -113,5 +113,5 @@ public:
   }
 };
 
-float Board::ui_boardDisplayScale = 4.0f;
+float Board::ui_boardDisplayScale = 10.0f;
 bool Board::isMarkingEnabled = true;

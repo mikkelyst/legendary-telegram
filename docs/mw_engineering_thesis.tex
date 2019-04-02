@@ -661,14 +661,21 @@ The $Map$ class represents its state in two ways - as a collection of $Board$ st
 
 Initializing the first $Board$ contained in $TileGenerator$ class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different. The operation used to do so is the $InitGenAllRandom$ method contained in $TileGenerator$.
 
-After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined and selected with the current $Ruleset$. 
+After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined in and selected by current $Ruleset$. 
  
 Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requires user interaction. Any tile in the window showing the current $Map$ state can be clicked by the user, which invokes the $TileReplace()$ method of the $Map$ class, effectively copying the tile state visible in the tile generation window to the map grid.
 
-Drawing cell states in tile generation and map grid windows is achieved by the $Board$ class method, $DrawCellsToTexture()$, described previously. Additionally, $Map$ provides operations for drawing its state depending on the selected view mode - $DrawMap()$ and $DrawTileAt$.
+Drawing cell states in tile generation and map grid windows is achieved by the $Board$ class method, $DrawCellsToTexture()$, described previously. Additionally, $Map$ provides operations for drawing its state depending on the selected view mode - $DrawMap()$ and $DrawTileAt()$.
 
 \subsubsection{Merging tiles}
+
 \td{result: generated random board after X transform steps becomes a useful tile}
+
+The process of merging generated tiles into a map consists of two steps and requires user interaction. Once the map designer decides that tile prepared in the generation window is a sufficient candidate to be used in a map, its state can be copied to the map grid by clicking on one of the tiles in map window. Such action overwrites all cell states in the map tile with those contained in the prepared tile.
+
+The second step of merging tiles is to ...
+
+
 
 \subsection{User interface}
 

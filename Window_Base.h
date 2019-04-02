@@ -113,17 +113,15 @@ public:
     ImGui::Separator();
     {
       ImGui::Text("Precise selectors:");
-      if (ImGui::Button("    0     ")) { TileGenerator::State()->StepSelect(0); } ImGui::SameLine();
-      if (ImGui::Button("<<< 3 STEP")) { TileGenerator::State()->StepJump(-3); }  ImGui::SameLine();
-      if (ImGui::Button("<<< 1 STEP")) { TileGenerator::State()->StepJump(-1); }  ImGui::SameLine();
-      if (ImGui::Button("1 STEP >>>")) { TileGenerator::State()->StepJump(1); }   ImGui::SameLine();
-      if (ImGui::Button("3 STEP >>>")) { TileGenerator::State()->StepJump(3); }   ImGui::SameLine();
-      if (ImGui::Button("   END    ")) { TileGenerator::State()->StepJumpLast(); }
+      if (ImGui::Button(" 0 ")) { TileGenerator::State()->StepSelect(0); } ImGui::SameLine(); 
+      if (ImGui::Button("-1 STEP")) { TileGenerator::State()->StepJump(-1); }  ImGui::SameLine();
+      if (ImGui::Button("+1 STEP")) { TileGenerator::State()->StepJump(1); }   ImGui::SameLine(); 
+      if (ImGui::Button(" LAST ")) { TileGenerator::State()->StepJumpLast(); }
     }
     ImGui::Separator();
     {
-      ImGui::Text("Random initial tile state:");
-      if (ImGui::Button("GENERATE")) { TileGenerator::State()->RegenerateStepsFrom(CLEAR_RANDOM); }
+      ImGui::Text("Initial tile state at step zero:");
+      if (ImGui::Button("RANDOM")) { TileGenerator::State()->RegenerateStepsFrom(CLEAR_RANDOM); }
     }
     ImGui::Separator();
   }
