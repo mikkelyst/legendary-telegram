@@ -137,7 +137,7 @@
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="UserInterface_MapGenerator.h" />
     <ClInclude Include="Ruleset.h" />
-    <ClInclude Include="Window_Base.h" />
+    <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

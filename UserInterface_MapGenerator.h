@@ -4,7 +4,7 @@
 #include <GLFW\glfw3.h>
 
 #include "TileGenerator.h"
-#include "Window_Base.h"
+#include "UserInterface.h"
 
 class UserInterface_MapGenerator
 {

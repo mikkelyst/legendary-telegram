@@ -219,17 +219,17 @@ Another game, originating from ancient China, defines a similar, grid-based game
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[b]{0.4\linewidth}
+	\begin{subfigure}[t]{0.4\linewidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/chessboard}
+		\includegraphics[height=4cm]{images/chessboard}
 		\caption{Empty chess board} 
-	\end{subfigure}
+	\end{subfigure} \hspace{1em}
 	\hfill
-	\begin{subfigure}[b]{0.4\linewidth}
+	\begin{subfigure}[t]{0.4\linewidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/goboard}
+		\includegraphics[height=4cm]{images/goboard}
 		\caption{Go board during gameplay} 
-	\end{subfigure} 
+	\end{subfigure} \hspace{1em} 
 	\caption{Chess and Go both use planar boards divided into tiles by a square grid - simple maps to represent the environment in which game is played. Sources: Chessboard image - own work; Go board image - \url{https://senseis.xmp.net/?LargeBoards}, distributed under the terms of the Open Content License }
 	\label{fig:neighborhood_types}
 \end{figure}
@@ -317,17 +317,17 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
  
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/neighborsmoore}
 		\caption{Moore neighborhood} 
-	\end{subfigure}
+	\end{subfigure} \hspace{1em}
 	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/neighborsvonneumann}
 		\caption{Von Neumann neighborhood} 
-	\end{subfigure} 
+	\end{subfigure} \hspace{1em} 
 	\caption{Two basic types of cell neighborhood. Source: own work}
 	\label{fig:neighborhood_types}
 \end{figure}
@@ -338,41 +338,41 @@ Every CA simulation uses rules which drive the process of cell evolution to its 
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule0dead}
 		\caption{Rule 0 - cell is set to empty when no neighbours are present} 
-	\end{subfigure}
+	\end{subfigure} \hspace{1em}
 	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule2dead}
 		\caption{Rule 2 - cell is set to empty if there are less than three neighbours} 
-	\end{subfigure} 
+	\end{subfigure} \hspace{1em} 
 	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule3alive}
 		\caption{Rule 3 - cell is set to filled if it has three neighbours} 
-	\end{subfigure} 
+	\end{subfigure} \hspace{1em} 
 	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule3alive2}
 		\caption{Rule 3a - same rule, behavior independent of neighbour positioning} 
-	\end{subfigure} 
+	\end{subfigure} \hspace{1em} 
 	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule5alive}
 		\caption{Rule 5 - cell is set to filled if more than 3 neighbours} 
-	\end{subfigure} 
+	\end{subfigure} \hspace{1em} 
 	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule6alive}
 		\caption{Rule 6 - cell is set to filled if more than 3 neighbours} 
-	\end{subfigure} 
+	\end{subfigure} \hspace{1em} 
 	\hfill
 	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighbourhood. Source: own work}
 	\label{fig:examplecarules}
@@ -610,7 +610,7 @@ With basic CA operations organized this way, adding new rules requires implement
 
 \subsection{Presenting the board state}
 
-In order to visualize state of $Board$, all cell values need to be drawn as an image. To achieve this, OpenGL and ImGui libraries are used to create an environment in which it is possible to construct interface elements and render textures. 
+In order to visualize state of $Board$, all cell values need to be drawn as an image. To achieve this, OpenGL and ImGui libraries are used to create an environment in which it is possible to construct interface elements and render textures.    
 
 \subsubsection{Data structures}
 
@@ -627,6 +627,16 @@ Colours are represented by a 32-bit unsigned integer, with 8 bits dedicated to e
 
 \lstinputlisting[language=c, caption=Definition of ColourRGBA type, label={lst:colourRGBA}]{listings/colourRGBA.txt}
 
+\td{describe ui classes} 
+
+\Cref{fig:uiwindows} shows how user interface classes are organized.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
+	\caption[User Interface model]{UI class model in map generator program. Source: own work}
+	\label{fig:uiwindows}
+\end{figure}
+
 \subsubsection{Operations}
 
 Methods provided by $SimpleTexture2D$ class allow to:
@@ -639,6 +649,8 @@ Methods provided by $SimpleTexture2D$ class allow to:
 \end{itemize}  
 
 Such set of operations allows to achieve the goal of simple 2-dimensional image rendering, which can be used to visualize the state of all cells contained in one of the $Board$ class instances.
+
+Drawing cell states in tile generation and map grid windows is achieved by the $Board$ class method, $DrawCellsToTexture()$, described previously. Additionally, $Map$ provides operations for drawing its state depending on the selected view mode - $DrawMap()$ and $DrawTileAt()$.
 
 \subsection{Generating and merging tiles into maps}
 
@@ -657,69 +669,116 @@ The map construction process is simulated by $TileGenerator$ and $Map$ classes. 
 
 The $Map$ class represents its state in two ways - as a collection of $Board$ states and as a single $Board$ instance with dimensions equal to tile width and height multiplied by their count along the Map borders - for example, a square map composed of 25 tiles with 64 by 128 size would have a width of 320 and a height of 640. Such dual representation allows the user to switch between two views onto the map - a tile grid view and a complete map view.
 
-\subsubsection{Basic operations}
+\subsubsection{Generating tiles}
 
-Initializing the first $Board$ contained in $TileGenerator$ class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different. The operation used to do so is the $InitGenAllRandom$ method contained in $TileGenerator$.
+Initializing the first $Board$ contained in $TileGenerator$ class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different. The operation used to do so is the $InitGenAllRandom$ method contained in $TileGenerator$. 
 
-After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined in and selected by current $Ruleset$. 
- 
-Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requires user interaction. Any tile in the window showing the current $Map$ state can be clicked by the user, which invokes the $TileReplace()$ method of the $Map$ class, effectively copying the tile state visible in the tile generation window to the map grid.
+\lstinputlisting[language=c, caption=Tile generation rules, label={lst:rules}]{listings/rules_mapgen.txt}
 
-Drawing cell states in tile generation and map grid windows is achieved by the $Board$ class method, $DrawCellsToTexture()$, described previously. Additionally, $Map$ provides operations for drawing its state depending on the selected view mode - $DrawMap()$ and $DrawTileAt()$.
+After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined in and selected by current $Ruleset$. \Cref{lst:rules} shows a function that applies two rules:
 
-\subsubsection{Merging tiles}
+\begin{itemize}
+	\item every cell that has more than 5 neighbours will be set to $wall$ state, 
+	\item every cell that has less than 5 neighbours will be set to $floor$ state. 
+\end{itemize}
 
-\td{result: generated random board after X transform steps becomes a useful tile}
+Additional sets of rules may be defined similarly, by adding more methods to the $Ruleset$ class. 
 
-The process of merging generated tiles into a map consists of two steps and requires user interaction. Once the map designer decides that tile prepared in the generation window is a sufficient candidate to be used in a map, its state can be copied to the map grid by clicking on one of the tiles in map window. Such action overwrites all cell states in the map tile with those contained in the prepared tile.
-
-The second step of merging tiles is to ...
-
-
-
-\subsection{User interface}
-
-\td{ how designers can get a complete map model? }   
-
-\begin{figure}[h]
+\begin{figure}[ht!]
 	\centering
-	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
-	\caption[User Interface model]{A model of classes representing the user interface in the map generator program. Source: own work}
-	\label{fig:uiwindows}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_1}
+		\caption{Step 1 - random noise} 
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_2}
+		\caption{Step 2} 
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_3}
+		\caption{Step 3} 
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_4}
+		\caption{Step 4} 
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_5}
+		\caption{Step 5} 
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_6}
+		\caption{Step 6} 
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_7}
+		\caption{Step 7} 
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_8}
+		\caption{Step 8} 
+	\end{subfigure} \hspace{1em} 
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[height=4cm]{images/s_9}
+		\caption{Step 9 - balanced tile} 
+	\end{subfigure} \hspace{1em} 
+	\label{fig:tilegen}
+	\caption{Stages of tile generation. Source: own work} 
 \end{figure}
 
-\td{ exporting data from generator? }
+Generated tiles are saved in an ordered collection, to allow viewing the history of generation steps. One possible result of such process is presented by \cref{fig:tilegen}. The rules used to generate these tiles show an interesting property - after a few initial steps, values of most cells begin to alternate between $floor$ and $wall$ states.
 
+Such emergent condition can be thought of as a $balanced state$ of a tile, since rules seemingly cannot further modify the tile after a sufficient number of transformations. It is however possible that map designers may decide to use a tile before it reaches such state. Furthermore, exploring different sets of rules for tile generation may reveal better rules for creation of useful tiles.
+
+\subsubsection{Merging tiles}
+ 
+The process of merging generated tiles into a map consists of several steps and begins with the decision to transfer a tile from the generator to map construction window.
+
+Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requires user interaction. Any tile in the window showing current $Map$ state can be clicked by the user, which invokes the $TileReplace()$ method of the $Map$ class, effectively copying the tile state visible in the tile generation window to the map grid. Once the map designer decides that tile prepared in the generation window is a sufficient candidate to be used in a map, its state can be copied to the map grid by clicking on one of the tiles in map window. Such action overwrites all cell states in the map tile with those contained in the prepared tile.
+
+\td{img before transfer, after transfer}
+
+
+
+
+ 
 %%%%%%%%%%%%%%%
 \section{Experiments in generating maps with CA}
 
 After implementing the map generator, it is possible to carry out experiments to find the optimal parameter ranges for map generation.
 
-\begin{figure}[h]
+\begin{figure}[t!]
 	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
+	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/step1}
+		\includegraphics[height=5cm]{images/step1}
 		\caption{Step 1 - random noise} 
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/step2}
+		\includegraphics[height=4cm]{images/step2}
 		\caption{Step 2 - generated tile} 
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\end{subfigure} \hspace{1em}
+
+	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/step3}
+		\includegraphics[height=4cm]{images/step3}
 		\caption{Step 3 - tiles in a grid} 
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
+	\end{subfigure} \hspace{1em}
+	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/step4}
+		\includegraphics[height=4cm]{images/step4}
 		\caption{Step 4 - complete map} 
-	\end{subfigure}
+	\end{subfigure} \hspace{1em}
 	\caption{Four stages of map construction}
 	\label{fig:map_steps}
 \end{figure}
