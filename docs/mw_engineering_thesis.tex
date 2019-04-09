@@ -563,7 +563,7 @@ In CA simulations used for map generation by \autocite{johnson2010cellular}, sum
 
 \subsubsection{Implementation}
  
-The model presented above is implemented by data and operations contained in the $Board$ class. It allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. $Board$ class methods operate as follows:
+The model presented above is implemented by the $Board$ class. It allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. $Board$ class methods operate as follows:
 
 \begin{itemize}
 	\item $CellAt$ can access cell at position $(x,y)$ in the grid model and return its value, as shown on \cref{lst:board-cellat},
@@ -627,9 +627,8 @@ Colours are represented by a 32-bit unsigned integer, with 8 bits dedicated to e
 
 \lstinputlisting[language=c, caption=Definition of ColourRGBA type, label={lst:colourRGBA}]{listings/colourRGBA.txt}
 
-\td{describe ui classes} 
+In order to allow the program user a degree of control over the generation process, a rudimentary user interface has been prepared. \Cref{fig:uiwindows} shows the model of its classes. The class named $UserInterface$ acts as an update and rendering controller for each of the windows represented by the other classes in the model, which can call functions bound to UI controls they contain and show a visual representation of a $Board$ or $Map$ by using the data encapsulated by $SimpleTexture2D$.
 
-\Cref{fig:uiwindows} shows how user interface classes are organized.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
@@ -654,7 +653,7 @@ Drawing cell states in tile generation and map grid windows is achieved by the $
 
 \subsection{Generating and merging tiles into maps}
 
-Generating tiles for map construction is done with data and operations contained in $TileGenerator$ and $Ruleset$ classes. Internal mechanics of the $TileGenerator$ class allow it to initialize cells in the first generation to randomly selected states and then to use $Ruleset$ class to generate future states of the board. $Ruleset$ provides a set of rules which describe the possible transformations of a cell depending on the state of its neighbourhood, as described in previous sections. Tiles prepared by $TileGenerator$ can be transferred into the grid of tiles represented by the $Map$ class.
+Generating tiles for map construction can be performed with methods implemented by $TileGenerator$ and $Ruleset$ classes. Internal mechanics of the $TileGenerator$ class allow it to initialize cells in the first generation to randomly selected states and then to use $Ruleset$ class to generate future states of the board. $Ruleset$ provides a set of rules which describe the possible transformations of a cell depending on the state of its neighbourhood, as described in previous sections. Tiles prepared by $TileGenerator$ can be transferred into the grid of tiles represented by the $Map$ class.
 
 \subsubsection{Data structures} 
  
@@ -671,7 +670,7 @@ The $Map$ class represents its state in two ways - as a collection of $Board$ st
 
 \subsubsection{Generating tiles}
 
-Initializing the first $Board$ contained in $TileGenerator$ class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different. The operation used to do so is the $InitGenAllRandom$ method contained in $TileGenerator$. 
+Initializing the first $Board$ contained in $TileGenerator$ class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different, which is implemented by $InitGenAllRandom$ method contained in $TileGenerator$. 
 
 \lstinputlisting[language=c, caption=Tile generation rules, label={lst:rules}]{listings/rules_mapgen.txt}
 
@@ -714,7 +713,7 @@ Additional sets of rules may be defined similarly, by adding more methods to the
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
 		\includegraphics[height=4cm]{images/s_6}
-		\caption{Step 6} 
+		\caption{Step 6 - partially balanced tile, rough edges} 
 	\end{subfigure} \hspace{1em}
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
@@ -724,12 +723,12 @@ Additional sets of rules may be defined similarly, by adding more methods to the
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
 		\includegraphics[height=4cm]{images/s_8}
-		\caption{Step 8} 
+		\caption{Step 8 - balanced tile, smooth edges} 
 	\end{subfigure} \hspace{1em} 
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
 		\includegraphics[height=4cm]{images/s_9}
-		\caption{Step 9 - balanced tile} 
+		\caption{Step 9 - further transformation} 
 	\end{subfigure} \hspace{1em} 
 	\label{fig:tilegen}
 	\caption{Stages of tile generation. Source: own work} 
@@ -737,18 +736,33 @@ Additional sets of rules may be defined similarly, by adding more methods to the
 
 Generated tiles are saved in an ordered collection, to allow viewing the history of generation steps. One possible result of such process is presented by \cref{fig:tilegen}. The rules used to generate these tiles show an interesting property - after a few initial steps, values of most cells begin to alternate between $floor$ and $wall$ states.
 
-Such emergent condition can be thought of as a $balanced state$ of a tile, since rules seemingly cannot further modify the tile after a sufficient number of transformations. It is however possible that map designers may decide to use a tile before it reaches such state. Furthermore, exploring different sets of rules for tile generation may reveal better rules for creation of useful tiles.
+Such emergent condition can be thought of as a $balanced state$ of a tile, since rules seemingly cannot further modify the tile after a sufficient number of transformations. It is however possible that map designers may decide to use a tile before it becomes $balanced$. Furthermore, exploring different sets of rules for tile generation may reveal better rules for creation of useful tiles. Amount of time required to find them can be reduced by providing a user interface for rule definition and management.
 
 \subsubsection{Merging tiles}
  
 The process of merging generated tiles into a map consists of several steps and begins with the decision to transfer a tile from the generator to map construction window.
 
-Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requires user interaction. Any tile in the window showing current $Map$ state can be clicked by the user, which invokes the $TileReplace()$ method of the $Map$ class, effectively copying the tile state visible in the tile generation window to the map grid. Once the map designer decides that tile prepared in the generation window is a sufficient candidate to be used in a map, its state can be copied to the map grid by clicking on one of the tiles in map window. Such action overwrites all cell states in the map tile with those contained in the prepared tile.
+Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requires user interaction. Any tile in the window showing current $Map$ state can be clicked by the user, which invokes the $TileReplace()$ method of the $Map$ class, effectively copying the tile state visible in the tile generation window to the map grid. 
 
-\td{img before transfer, after transfer}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}[t]{0.9\textwidth}
+		\centering
+		\includegraphics[height=5cm]{images/mapnotiles}
+		\caption{Initial state - blank map, no tile was placed} 
+	\end{subfigure}  
+	\begin{subfigure}[t]{0.9\textwidth}
+		\centering
+		\includegraphics[height=5cm]{images/map4tiles}
+		\caption{Partially filled map - after copying 4 prepared tiles} 
+	\end{subfigure} 
+	\caption{Tile and map windows used to construct maps from generated tiles. Source: own work}
+	\label{fig:map_merging}
+\end{figure}
 
+Once the map designer decides that the tile prepared in the generation window is a sufficient candidate to be used in a map, its state can be copied to the map grid by clicking a square slot in map window. Such action overwrites all cell states in selected space with those contained in the prepared tile. \Cref{fig:map_merging} shows two situations, where map designer starts with a blank map and proceeds to fill its grid with some of the tiles that were generated.
 
-
+To complete the map construction process, designers can then switch the map representation mode, which is done by function bound to button labelled as \texttt{Join tiles into map}. Doing so also reveals other buttons provided by $Map$ window, which can be used to make further adjustments. Switching the mode effectively copies the cells from each tile formerly placed in the grid into a bigger $Board$ and renders its visualization instead of the tile grid.
 
  
 %%%%%%%%%%%%%%%
@@ -756,11 +770,11 @@ Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requi
 
 After implementing the map generator, it is possible to carry out experiments to find the optimal parameter ranges for map generation.
 
-\begin{figure}[t!]
+\begin{figure}[h]
 	\centering
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[height=5cm]{images/step1}
+		\includegraphics[height=4cm]{images/step1}
 		\caption{Step 1 - random noise} 
 	\end{subfigure} \hspace{1em}
 	\begin{subfigure}[t]{0.3\textwidth}
@@ -804,7 +818,8 @@ After implementing the map generator, it is possible to carry out experiments to
 \section{Possible improvements}
 
 \td{future: expanding the generator}
-At this point, we could also observe a common property of cellular automata  - whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time to compute next state of the board in case of 2-dimensional cellular automata \autocite{fourie2015parallel}. 
+At this point, we could also observe a common property of cellular automa
+013ta. Whenever cell states need to change (the simulation moves to a later step), the state change is applied to every cell in the grid before simulation step ends \autocite{wolfram1984cellular} and cells do not need to be updated in sequence if only all cells will be changed before the next step. Hence, cell state updates could be applied in parallel to reduce the time needed to compute the simulation step. One way to do so would be to apply the findings presented by Reno Fourie in his thesis about applying CUDA technology to reduce time to compute next state of the board in case of 2-dimensional cellular automata \autocite{fourie2015parallel}. 
 
 \td{future: adding more rules}
 \td{future: user defined cell types}
