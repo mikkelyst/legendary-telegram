@@ -770,34 +770,57 @@ To complete the map construction process, designers can then switch the map repr
 
 After implementing the map generator, it is possible to carry out experiments to find the optimal parameter ranges for map generation.
 
+The first experiment carried out using the generator was to build a 5x5 map out of tiles generated with following number of CA steps:
+
+\begin{itemize}
+	\item outer ring (edge) - 2 steps,
+	\item inner ring tiles - 5 steps,
+	\item central tile - 11 steps.
+\end{itemize}
+
+Rules used to generate tiles for the map were identical to rules used before to generate tiles in \cref*{fig:tilegen}. Cells with more than 5 adjacent walls are filled and those with less than 5 are emptied.
+
+ \begin{figure}[h]
+	\centering
+	\includegraphics[height=4cm]{images/ex1}
+	\caption{Map constructed from a 5x5 grid of generated tiles. Source: own work}
+	\label{fig:ex1}
+\end{figure}
+
+The resulting map shown in \cref{fig:ex1} has following properties:
+
+\begin{itemize}
+	\item impassable areas are encountered more frequently as distance from central tile increases,
+	\item impassable areas have greater sizes closer to central tile,
+	\item there are no obstacles connecting those areas to form maze-like structures.
+\end{itemize} 
+ 
+Other experimental maps, shown in \cref{fig:ex2} illustrates that controlled placement of tiles produces imbalanced and asymmetric forms. However, a problematic property emerges when tiles placed in the map are packed with wall cells. Edges of those tiles produce straight lines which are not modified at any step of the performed transformations. A possible cause is that the active rule set did not modify cells which have exactly 5 adjacent walls.
+
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/step1}
-		\caption{Step 1 - random noise} 
-	\end{subfigure} \hspace{1em}
+		\includegraphics[height=4cm]{images/ex2a}
+		\caption{} 
+	\end{subfigure}  
+	\hfill
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/step2}
-		\caption{Step 2 - generated tile} 
-	\end{subfigure} \hspace{1em}
-
+		\includegraphics[height=4cm]{images/ex2b}
+		\caption{} 
+	\end{subfigure} 
+		\hfill
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
-		\includegraphics[height=4cm]{images/step3}
-		\caption{Step 3 - tiles in a grid} 
-	\end{subfigure} \hspace{1em}
-	\begin{subfigure}[t]{0.3\textwidth}
-		\centering
-		\includegraphics[height=4cm]{images/step4}
-		\caption{Step 4 - complete map} 
-	\end{subfigure} \hspace{1em}
-	\caption{Four stages of map construction}
-	\label{fig:map_steps}
+		\includegraphics[height=4cm]{images/ex2c}
+		\caption{} 
+	\end{subfigure}
+	\caption{Other experimental maps: 5x5 grid, tile placement controlled by user. Source: own work}
+	\label{fig:ex2}
 \end{figure}
 
-
+\td{experiments with other rule sets}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusions} \label{rozdzial.podsumowanie}
