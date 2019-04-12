@@ -148,8 +148,7 @@ The solution that allowed to carry out experiments in this thesis was implemente
 
 \begin{itemize}
 	\item Dear ImGui, by Omar Cornut - to easily build an Immediate Mode user interface. Project homepage:  \url{https://github.com/ocornut/imgui}
-	\item GLFW 3.2.1 library - to create an OpenGL context and have direct access to texture functions. Project homepage: \url{http://www.glfw.org/} 
-	\item \td{SFML not used}
+	\item GLFW 3.2.1 library - to create an OpenGL context and have direct access to texture functions. Project homepage: \url{http://www.glfw.org/}  
 \end{itemize}  
 
 In order to satisfy requirements for using OpenGL API function calls, it is recommended to use a dedicated graphics processing unit and install updated drivers. For the purposes of development and experiments \textit{nVidia GeForce GTX 560M } was used and drivers were updated to latest available versions.
@@ -167,8 +166,7 @@ The following terms, abbreviations and acronyms have been used in the thesis.
 	\item[PCG] Procedural Content Generation. An automated process of creation.   
 	\item[GUI] Graphical User Interface
 	\item[ASCII] American Standard Code for Information Interchange - a character encoding standard, used to represent characters in computers and information systems
-	\item[RPG] Role-Playing Game
-	\item[] \td{ review thesis, find unexplained acronyms }  
+	\item[RPG] Role-Playing Game 
 \end{description}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -443,11 +441,10 @@ One of possible approaches to map generation which can create irregular shapes i
 
 Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s, which have been later adapted by computer science (syntax analysis algorithms, compilers, debuggers, pre-processors, post-processors, etc.).
 
-\td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
 
-\td{Shape grammars}
+\td{Shape grammars used to construct models of mazes, dungeons. Substitution: shapes from chosen starting set are transformed into more complex shapes which contain more possible starting shapes }
 
-
+\td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. }
 \subsection{Other methods}
 
 \td{Genetic algorithms, constraint-based, Perlin noise, others mentioned in surveys}
@@ -475,7 +472,7 @@ To describe the developed solution, this chapter consists of five sections: defi
 %%%%%%%%%%%%%%%
 \section{Analysis of requirements for a map generator}
 
-The approach chosen in \cref{rozdzial.teoria} can be imagined as a process that consists of several steps. Starting with generation of a board with random cell states, which after several transformations performed by CA rules becomes structured with irregular, island-like features. The resulting board is then used as one of tiles to be merged into the larger map. Each of these steps must be automated while allowing the designer a degree of control over the generation process. Transformations of the board should be applied according to parameters set by the designer, which must be constrained to ranges that do not allow creation of obviously unusable results (e.g. board filled with cells of identical state). Usable ranges of parameters can be determined with experimentation.
+The approach chosen in \cref{rozdzial.teoria} can be imagined as a process that consists of several steps. Starting with generation of a board with random cell states, which after several transformations performed by CA rules becomes structured with irregular, island-like features. The resulting board is then used as one of tiles to be merged into the larger map. Each of these steps must be automated while allowing the designer a degree of control over the generation process. Transformations of the board should be applied according to parameters set by the designer, which must be constrained to ranges that do not allow creation of obviously unusable results (e.g. board filled with cells of identical state). Usable ranges of parameters can be determined with experimentation. 
 
 To formalize what map generator must do, required features and behaviours can be now extracted from the paragraph above, as follows:
  
@@ -488,22 +485,14 @@ The map generator program shall perform the following functions:
 	\item have a mechanism to merge tiles into a bigger map,
 	\item show tile states graphically,
 	\item have controls to allow tweaking CA parameters,
-\end{itemize}
-
-Optionally, the map generator program may:
-\begin{itemize}
-	\item have a mechanism for exporting generated maps as image files,
-	\item allow manual editing of map tiles, 
-\end{itemize}
+\end{itemize} 
 
 
 \subsubsection{Operational requirements}
 The map generator program shall operate with the following qualities:
 \begin{itemize}
 	\item real time drawing tile and map images, whenever their state changes 
-	\item responsive user controls, avoid long waiting times for computation result
-	\item 
-	\item \td{more needed? how to extract them properly?}
+	\item responsive user controls, avoid long waiting times for computation result 
 \end{itemize}
 
 %%%%%%%%%%%%%%%
@@ -838,11 +827,7 @@ The aim of this thesis was to provide a software solution which uses cellular au
 
 Observing the results presented in figures produced by implemented generator reveal that cellular automata can be used for generation of desirable forms, although finding a set of rules which produce tiles that contain surprising constructs may be challenging. Tiles generated by simple rules from random noise are visually similar to each other, despite having unique layouts.
 
-\td{designer control at cost of tedious clicking}
-
-\td{The procedure for constructing maps involves a degree of user interaction, which provides some control over map construction process...}
-
-\td{Co do conclusion to prosze zebrać wnioski, nie przemyślenia, z całego tego projektu i opisać wady i zalety Pana rozwiązania. Czemu jest inne niz wszystkie co wprowadza nowego a co starego naprawia.}
+\td{designer control at cost of tedious clicking: The procedure for constructing maps involves a degree of user interaction, which provides some control over map construction process...}
 
 
 
