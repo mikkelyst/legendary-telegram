@@ -77,9 +77,17 @@ public:
     {
       TileGenerator::State()->ChangeRuleset(RULES_GAMEOFLIFE);
     }
-    if (ImGui::RadioButton("Map Generator Rules", &ruleChoice, 1))
+    if (ImGui::RadioButton("Map Generator Ruleset 1", &ruleChoice, 1))
     {
       TileGenerator::State()->ChangeRuleset(RULES_MAPGEN);
+    }
+    if (ImGui::RadioButton("Map Generator Ruleset 2", &ruleChoice, 2))
+    {
+      TileGenerator::State()->ChangeRuleset(RULES_MAPGENREV);
+    }
+    if (ImGui::RadioButton("Map Generator Ruleset 3", &ruleChoice, 3))
+    {
+      TileGenerator::State()->ChangeRuleset(RULES_MAPGEN38);
     }
     ImGui::Separator();
   }
