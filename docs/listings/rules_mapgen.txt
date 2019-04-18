@@ -1,0 +1,14 @@
+static void Rules_MapGen(Board *before, Board *after)
+  {
+    Board::isMarkingEnabled = true;
+    for (unsigned int x = 0; x < before->cellsX; x++)
+    {
+      for (unsigned int y = 0; y < before->cellsY; y++)
+      {
+        unsigned int sum = before->SumNeighbours(x, y, MOORE8);
+        if (sum < 5) after->SetCellAt(x, y, 1);
+        if (sum > 5) after->SetCellAt(x, y, 0);
+      }
+    }
+    return;
+  }

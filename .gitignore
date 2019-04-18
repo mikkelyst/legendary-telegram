@@ -29,5 +29,5 @@ docs/mw_engineering_thesis.blg
 docs/mw_engineering_thesis.bbl
 docs/mw_engineering_thesis.aux
 *.synctex(busy)
-*.bak
-*.txt
+*.bak 
+Output-VisualC++Refactoring.txt
