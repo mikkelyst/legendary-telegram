@@ -195,9 +195,9 @@ public:
 private:
   void ShowMapTiles(Map* m)
   {
-    for (int x = 0; x < m->mapSide; x++)
+    for (unsigned int x = 0; x < m->mapSide; x++)
     {
-      for (int y = 0; y < m->mapSide; y++)
+      for (unsigned int y = 0; y < m->mapSide; y++)
       {
         if (ImGui::ImageButton(
           m->DrawTileAt(x, y),

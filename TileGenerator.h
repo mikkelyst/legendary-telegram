@@ -63,13 +63,13 @@ public:
   }
   Board* StepState()
   { 
-    return ui_stepSelected < generations.size() ?
+    return ui_stepSelected < int(generations.size()) ?
       &generations.at( ui_stepSelected ) :
       &generations.at( 0 );
   }
   void* StepImage()
   {
-    if (ui_stepSelected < generations.size() )
+    if (ui_stepSelected < int(generations.size()))
     {
       generations.at( ui_stepSelected ).DrawCellsToTexture( 0, true );
     }

@@ -4,13 +4,7 @@
 #include "TextureAtlas.h" 
 
 typedef unsigned int CELL_t;
-
-enum Neighbourhood_t {
-  VONNEUMANN4,
-  VONNEUMANN5,
-  MOORE8,
-  MOORE9
-};
+ 
 
 class Board
 {
@@ -20,7 +14,7 @@ private:
   bool isCellMarked(unsigned x, unsigned y)
   {
     if (!isBoardChanged) return false;
-    int s = SumNeighbours(x, y, MOORE8);
+    int s = SumMooreNhd(x, y, 1);
     return (s > 2 && s < 6) && isMarkingEnabled;
   }
 
@@ -45,21 +39,15 @@ public:
     return cells.at(cellsX * (y%cellsY) + (x%cellsX));
   }
 
-  unsigned int SumNeighbours(unsigned int x, unsigned int y, Neighbourhood_t nht)
+  unsigned int SumMooreNhd(unsigned int x, unsigned int y, int rad)
   {
     unsigned int sum = 0;
-    sum += CellAt(x - 1, y + 0);
-    sum += CellAt(x + 0, y - 1);
-    sum += CellAt(x + 0, y + 1);
-    sum += CellAt(x + 1, y + 0);
-    if (nht == MOORE9 || nht == MOORE8) {
-      sum += CellAt(x - 1, y - 1);
-      sum += CellAt(x - 1, y + 1);
-      sum += CellAt(x + 1, y - 1);
-      sum += CellAt(x + 1, y + 1);
-    }
-    if (nht == MOORE9 || nht == VONNEUMANN5) sum += CellAt(x + 0, y + 0);
-    return sum;
+    for (int nx = -rad; nx <= rad; nx += 1) {
+      for (int ny = -rad; ny <= rad; ny += 1) {
+        sum += CellAt(x + nx, y + ny);
+      }
+    } 
+    return sum - CellAt(x + 0, y + 0);
   }
 
   // BOARD MODIFY

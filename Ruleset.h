@@ -31,7 +31,7 @@ private:
     {
       for (unsigned int y = 0; y < before->cellsY; y++)
       {
-        switch (before->SumNeighbours(x, y, MOORE8))
+        switch (before->SumMooreNhd(x, y, 1))
         {
         case 2:  after->SetCellAt(x, y, before->CellAt(x, y)); break;
         case 3:  after->SetCellAt(x, y, 1);             break;
@@ -48,7 +48,7 @@ private:
     {
       for (unsigned int y = 0; y < before->cellsY; y++)
       {
-        unsigned int sum = before->SumNeighbours(x, y, MOORE8);
+        unsigned int sum = before->SumMooreNhd(x, y, 1);
         if (sum < 5) after->SetCellAt(x, y, 1);
         if (sum > 5) after->SetCellAt(x, y, 0);
       }
@@ -62,8 +62,8 @@ private:
     {
       for (unsigned int y = 0; y < before->cellsY; y++)
       {
-        unsigned int sum = before->SumNeighbours(x, y, MOORE8); 
-        if (sum > 4) after->SetCellAt(x, y, 1);
+        unsigned int sum = before->SumMooreNhd(x, y, 2); 
+        if (sum > 12) after->SetCellAt(x, y, 1); 
         else after->SetCellAt(x, y, before->CellAt(x, y));
       }
     }
@@ -75,8 +75,8 @@ private:
     {
       for (unsigned int y = 0; y < before->cellsY; y++)
       {
-        unsigned int sum = before->SumNeighbours(x, y, MOORE8); 
-        if (sum > 6) after->SetCellAt(x, y, 1);
+        unsigned int sum = before->SumMooreNhd(x, y, 3); 
+        if (sum < 6) after->SetCellAt(x, y, 0);
         else after->SetCellAt(x, y, before->CellAt(x, y));
       }
     }

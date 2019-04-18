@@ -442,13 +442,9 @@ As described in the article, results depend on automaton rules and parameters se
 Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s, which have been later adapted by computer science (syntax analysis algorithms, compilers, debuggers, pre-processors, post-processors, etc.).
 
 
-\td{Shape grammars used to construct models of mazes, dungeons. Substitution: shapes from chosen starting set are transformed into more complex shapes which contain more possible starting shapes }
+\td{Shape grammars used to construct models of mazes, dungeons. Substitution: shapes from chosen starting set are transformed into more complex shapes which contain more shapes, process then repeated }
 
-\td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. }
-\subsection{Other methods}
-
-\td{Genetic algorithms, constraint-based, Perlin noise, others mentioned in surveys}
-
+\td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
 %%%%%%%%%%%%%%%
 \section{Chosen method: cellular automata}
  
@@ -807,7 +803,16 @@ Other experimental maps, shown in \cref{fig:ex2} illustrates that controlled pla
 	\label{fig:ex2}
 \end{figure}
 
-\td{experiments with other rule sets}
+Another experiment, shown in \cref{fig:ex1}, uses rules where the radius of Moore neighbourhood is increased $(r = 2)$ and walls are placed whenever there are more than 12 adjacent walls to the central cell. In this case, islands produced by transformation are not completely solid, which may be a useful feature to map designers.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=5cm]{images/r2ex1}
+	\caption{Left: one of generated tiles with transformation rule: if n > 12, set cell to wall state. Right: construction of experimental map on 5x5 grid. Source: own work}
+	\label{fig:r2ex1}
+\end{figure}
+
+In closing: images in this section illustrate the utility of employing CA for generating map assets, however finding the right rules and parameters may require additional trials.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusions} \label{rozdzial.podsumowanie}
@@ -858,9 +863,14 @@ Although exporting maps is not necessary for experimentation and testing, a prod
 
 Since the goal of including procedural generation techniques into game production is often motivated by reducing the human effort needed to create assets, including tools for automating the process would be a welcome addition. Level designers would benefit from having a generator that eliminates the need for performing repetitive tasks, while still providing map layouts ready to be filled with other game assets and objects.
 
-\subsubsection{Cell values and types}
+\subsubsection{Cell states}
 
 Developed solution relies on a 2D cellular automaton with cells containing a binary state. Experimenting with other types of cell state like integers or non-discrete numbers might reveal other interesting results, especially when an interface for rule definition will be provided.
+
+%%%%%%%%%%%%%%%
+\section{Acknowledgements}
+
+The author of this thesis would like to express gratitude with special thanks to those who have encouraged him to continue the project, for their continued support and kindness.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
