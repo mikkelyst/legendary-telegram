@@ -13,7 +13,7 @@ Planned:
 Current thesis document: [docs/mw_engineering_thesis.pdf](docs/mw_engineering_thesis.pdf)
 
 
-![Screenshot](https://github.com/mikkelist/legendary-telegram/blob/master/docs/images/r2ex1.png)
+![Screenshot](https://github.com/mikkelist/legendary-telegram/blob/master/docs/images/interface_mapgen.png)
 
 More features will be added after the documentation is complete.
 
