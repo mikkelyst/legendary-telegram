@@ -437,14 +437,23 @@ One of possible approaches to map generation which can create irregular shapes i
 
 As described in the article, results depend on automaton rules and parameters selected to transform the tile into derived states. Authors claim that it is possible to create structure for playable maps with this approach. The article contains images of generated tiles which show irregular, cave-like shapes and provides an illustration of a map constructed from them, with a roughly shaped area with a number of narrow connections between grander spaces. 
 
-\subsection{Generative grammars}
+\subsection{Shape grammars}
 
-Generative grammars are systems of rules that can be used to synthesize constructs of symbols, according to a given set of rules. Generative grammars have been developed in the field of linguistic theory where Noam Chomsky laid the foundations for formal grammars in the 1950s, which have been later adapted by computer science (syntax analysis algorithms, compilers, debuggers, pre-processors, post-processors, etc.).
+Generative grammars are systems of rules and transformations which show ability to synthesize constructs out of a predefined set of symbols. Grammar theory has been developed in the field of linguistics where Noam Chomsky laid the foundations in 1950s. Development of formal language theory as a branch of applied mathematics that involves study of formal languages and grammars has led to creation of many grammar subtypes and variations \autocite{Harrison:1978:IFL:578595}. They have been later adapted by computer science for use in syntax analysis algorithms, compilers, debuggers, parsers and other applications. 
 
+One of specific grammar subtypes are shape grammars, applied to a certain class of problems in architecture, decorative arts and industrial design. Research on grammars performed by G. Stiny and J. Gips \autocite{Stiny1980IntroductionTS}, \autocite{stiny1971shape} and other scholars has been proven useful to computer scientists for development of interactive design frameworks \autocite{Dang:2015:IDP:2816795.2818069} among other applications. 
 
-\td{Shape grammars used to construct models of mazes, dungeons. Substitution: shapes from chosen starting set are transformed into more complex shapes which contain more shapes, process then repeated }
+Shape grammars can be utilized as a formal foundation for PCG techniques and extended with probabilistic aspects \autocite{sportelli2014} to generate content for games. A domain specific language has also been developed on the foundations of grammar theory \autocite{Chen2018GIGLAD} for such purposes with success, as presented by \cref{fig:gigladomainspecificlanguagefor201904231555971576} adapted from the cited work. 
 
-\td{Sportelli, Francesco \& Toto, Giuseppe \& Vessio, Gennaro. (2014). A Probabilistic Grammar for Procedural Content Generation. 10.13140/2.1.3820.4163. } 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/GIGL_A_Domain_Specific_Language_for_2019_04_23_1555971576}
+	\caption{Game levels generated with grammatical PCG. Image source: Work of Tiannan Chen, Stephen J. Guy on Grammatical Item Generation Language (GIGL) \autocite{Chen2018GIGLAD} }
+	\label{fig:gigladomainspecificlanguagefor201904231555971576}
+\end{figure}
+
+As a system of formal rules for transformation of shapes into more complex constructs, shape grammars are a viable candidate for a method to generate game maps, limited only by shapes and transformation rules available to the generator.
+
 %%%%%%%%%%%%%%%
 \section{Chosen method: cellular automata}
  
@@ -457,7 +466,7 @@ Since this thesis is focused on creation of maps through procedural processes, i
 	\item amount of repetition in shapes produced by grammars depends on how complex the set of transformations is \autocite{CHOMSKY1959137}, while CA can generate surprising, chaotic results with simple rules \autocite{wolfram1984cellular}
 \end{itemize}
 
-Although grammars are favourable for clarity of transformation rules they bring to the process of map generation, CA can be a viable alternative, providing irregularity and surprise to possible results - which is why they have been chosen for experimentation in this thesis.
+Although grammars are favourable for clarity of transformation rules they bring to the process of map generation, CA can be a viable alternative, providing irregularity and surprise to possible results, as proven by the work of A. Khalifa and J. Togelius \autocite{Khalifa2017MarahelA} - which is why they have been chosen for experimentation in this thesis.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \chapter{Generating and visualizing maps - proposed solution} \label{rozdzial.praktyka} 
@@ -833,8 +842,6 @@ The aim of this thesis was to provide a software solution which uses cellular au
 Observing the results presented in figures produced by implemented generator reveal that cellular automata can be used for generation of irregular, surprising shapes. Tiles generated by simple rules from random noise have unique layouts, most of them are useful for constructing a map. However, whenever tiles are packed with impassable cells, merging them together produces unnatural, straight edges. A better method for merging tiles is required to eliminate those effects.
 
 A degree of control achieved by introducing graphical user interface to the solution has provided a visual representation of how each tile evolves and an ability to select tiles with desired shapes for the map being constructed. Widgets of the interface provide control over some of generation parameters, which is useful for experimentation. Including new widgets for controlling other possible parameters and defining rules for the automaton would be vital for exploring what other kinds of shapes can be generated with cellular automata. 
-
-Developing the map generator tool shown in \cref{fig:interfacemapgen} has proven sufficient for experimentation with generated tiles, however its production value is still limited due to lack of automation and no control over generation parameters like Moore neighbourhood size, percentage of initially filled cells in the random distribution and rule-specific cell transformation thresholds. 
  
 \begin{figure}[h]
 	\centering
@@ -843,11 +850,12 @@ Developing the map generator tool shown in \cref{fig:interfacemapgen} has proven
 	\label{fig:interfacemapgen}
 \end{figure}
 
+The developed map generator tool shown in \cref{fig:interfacemapgen} was sufficient for experimentation with generated tiles. Its production value is still limited without an easy to use interface for automation generative processes and asset export mechanisms. Adding them to the solution carries a further development cost which involves redesign of the program model and source code refactoring to add features proposed in the next section.
 
 %%%%%%%%%%%%%%%
 \section{Future extensions for production environments}
 
-The solution in its current form is sufficient for further experimentation needs. However, it may be worth noting what kind of improvements could be implemented, in effect adapting it to an environment where generated maps will be used as game assets.
+However, in order to adapt it in an environment where generated maps will be used as game assets, the following extensions are provided for consideration:
 
 \subsubsection{Tile editing and custom rule sets}
 
@@ -867,7 +875,7 @@ Since the goal of including procedural generation techniques into game productio
 
 \subsubsection{Cell states}
 
-Developed solution relies on a 2D cellular automaton with cells containing a binary state. Experimenting with other types of cell state like integers or non-discrete numbers might reveal other interesting results, especially when an interface for rule definition will be provided.
+Developed solution relies on a 2D cellular automaton with cells containing a binary state, which are sufficient for creation and interpretation of a map defining only which areas are passable and which are not. Game designers may however require additional map features to be generated. At that point, future experiments may involve other types of cell state like integers or non-discrete numbers might reveal other interesting results, especially with an interface for rule definition. 
 
 %%%%%%%%%%%%%%%
 \section{Acknowledgements}
