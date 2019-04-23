@@ -63,8 +63,8 @@ private:
       for (unsigned int y = 0; y < before->cellsY; y++)
       {
         unsigned int sum = before->SumMooreNhd(x, y, 2); 
-        if (sum > 12) after->SetCellAt(x, y, 1); 
-        else after->SetCellAt(x, y, before->CellAt(x, y));
+        if (sum > 12) after->SetCellAt(x, y, 1);  
+        if (sum < 12) after->SetCellAt(x, y, 0);
       }
     }
     return;
@@ -76,8 +76,7 @@ private:
       for (unsigned int y = 0; y < before->cellsY; y++)
       {
         unsigned int sum = before->SumMooreNhd(x, y, 3); 
-        if (sum < 6) after->SetCellAt(x, y, 0);
-        else after->SetCellAt(x, y, before->CellAt(x, y));
+        if (sum < 6) after->SetCellAt(x, y, 1); 
       }
     }
     return;
