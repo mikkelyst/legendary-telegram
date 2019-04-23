@@ -496,8 +496,10 @@ The map generator program shall perform the following functions:
 \subsubsection{Operational requirements}
 The map generator program shall operate with the following qualities:
 \begin{itemize}
-	\item real time drawing tile and map images, whenever their state changes 
-	\item responsive user controls, avoid long waiting times for computation result 
+	\item real time drawing of tile and map images, whenever their state changes  
+	\item separate interface elements to display tiles and maps
+	\item simple controls for switching rule sets
+	\item saving the history of tile changes and allowing tile selection in from that sequence
 \end{itemize}
 
 %%%%%%%%%%%%%%%
@@ -774,7 +776,7 @@ Rules used to generate tiles for the map were identical to rules used before to 
 
  \begin{figure}[h]
 	\centering
-	\includegraphics[height=4cm]{images/ex1}
+	\includegraphics[height=5cm]{images/ex1}
 	\caption{Map constructed from a 5x5 grid of generated tiles. Source: own work}
 	\label{fig:ex1}
 \end{figure}
@@ -816,7 +818,7 @@ Another experiment, shown in \cref{fig:r2ex1}, uses rules where the radius of Mo
 
 \begin{figure}[th]
 	\centering
-	\includegraphics[height=6cm]{images/r2ex1}
+	\includegraphics[height=5cm]{images/r2ex1}
 	\caption{Left: one of generated tiles with only one transformation rule: if n > 12, set cell to wall state. Right: construction of experimental map on 5x5 grid. Source: own work}
 	\label{fig:r2ex1}
 \end{figure}
@@ -825,11 +827,19 @@ Comparing \cref{fig:r2ex1} with \cref{fig:ex3rst2} shows how removal or addition
 
 \begin{figure}[th]
 	\centering
-	\includegraphics[height=6cm]{images/ex3rst2}
+	\includegraphics[height=5cm]{images/ex3rst2}
 	\caption{Another experiment with map construction. Two rules applied with neighbourhood of $r = 2$, placement of walls for $n > 12$, floor for $n < 12$. Source: own work}
 	\label{fig:ex3rst2}
 \end{figure}
 
+\Cref{fig:seqr2r3} shows a map composed of two tile evolution sequences, created with different sets of rules, transforming the identical initial board state.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=5cm]{images/ex2sequences}
+	\caption{Two sequences of tile evolution with same initial board state. Source: own work}
+	\label{fig:seqr2r3}
+\end{figure}
 
 
 
@@ -843,6 +853,7 @@ The aim of this thesis was to provide a software solution which uses cellular au
 	\item Are cellular automata useful for generation of interesting, surprising and unique maps?
 	\item What kind of improvements might be necessary to improve the generator and its mechanisms to satisfy map designers? 
 	\item Is the developed solution sufficient for use in production projects?  
+	\item Have all requirements been met?
 \end{itemize}
 
 
@@ -855,12 +866,12 @@ A degree of control achieved by introducing graphical user interface to the solu
  
 \begin{figure}[h]
 	\centering
-	\includegraphics[height=5cm]{images/interface_mapgen}
+	\includegraphics[width=\linewidth]{images/interface_mapgen}
 	\caption{The interface of developed Map Generator program. Source: own work}
 	\label{fig:interfacemapgen}
 \end{figure}
 
-The developed map generator tool shown in \cref{fig:interfacemapgen} was sufficient for experimentation with generated tiles. Its production value is still limited without an easy to use interface for automation generative processes and asset export mechanisms. Adding them to the solution carries a further development cost which involves redesign of the program model and source code refactoring to add features proposed in the next section.
+The developed map generator tool shown in \cref{fig:interfacemapgen} was sufficient for experimentation with generated tiles. Its production value is still limited without an easy to use interface for automation generative processes and asset export mechanisms. Adding them to the solution carries a further development cost which involves redesign of the program model and source code refactoring to add features proposed in the next section. Although some of the requirements defined earlier require additional implementation effort to improve aspects of user interaction with map generator program, the thesis can be concluded. 
 
 %%%%%%%%%%%%%%%
 \section{Future extensions for production environments}
@@ -906,11 +917,11 @@ The author of this thesis would like to express gratitude with special thanks to
 \addcontentsline{toc}{chapter}{Attachments} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Attachments}
-\begin{enumerate} 
-\item \td{include thesis defence documents}
-\item \td{attach 1}
-\item \td{attach 2}
-\item \td{attach 3}
+\begin{enumerate}  
+	\item 
+	\item 
+	\item 
+	\item
 \end{enumerate} 
 
 \end{document}
