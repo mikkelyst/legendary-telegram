@@ -337,40 +337,40 @@ Every CA simulation uses rules which drive the process of cell evolution to its 
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule0dead}
-		\caption{Rule 0 - cell is set to empty when no neighbours are present} 
+		\caption{Rule 3L0 - cell is set to empty when no neighbours are present} 
 	\end{subfigure} \hspace{1em}
 	\hfill
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule2dead}
-		\caption{Rule 2 - cell is set to empty if there are less than three neighbours} 
+		\caption{Rule 3L0 - cell is set to empty if there are less than three neighbours} 
 	\end{subfigure} \hspace{1em} 
 	\hfill
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule3alive}
-		\caption{Rule 3 - cell is set to filled if it has three neighbours} 
+		\caption{Rule 31 - cell is set to filled if it has three neighbours} 
 	\end{subfigure} \hspace{1em} 
 	\hfill
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule3alive2}
-		\caption{Rule 3a - same rule, behavior independent of neighbour positioning} 
+		\caption{Rule 31 - same rule, behavior independent of neighbour positioning} 
 	\end{subfigure} \hspace{1em} 
 	\hfill
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule5alive}
-		\caption{Rule 5 - cell is set to filled if more than 3 neighbours} 
+		\caption{Rule 3M1 - a cell with 5 neighbours is filled} 
 	\end{subfigure} \hspace{1em} 
 	\hfill
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=0.5\textwidth]{images/rule6alive}
-		\caption{Rule 6 - cell is set to filled if more than 3 neighbours} 
+		\caption{Rule 3M1 - a cell with 6 neighbours is filled} 
 	\end{subfigure} \hspace{1em} 
 	\hfill
-	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighbourhood. Source: own work}
+	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighbourhood. Rules are identified with two digits or symbols: the first one describes what value a sum of neighbours $n$ triggers a rule, which can be a conditional expression like $3L$ meaning $n < 3$ or $3M$, for $n > 3$. The other digit is simply the value to which a cell will be set when the rule is applied. Source: own work}
 	\label{fig:examplecarules}
 \end{figure}
 
@@ -432,7 +432,7 @@ One of possible approaches to map generation which can create irregular shapes i
 	\item $r$ - percentage of floor cells in initial state,
 	\item $n$ - count of CA generations (steps) to perform,
 	\item $T$ - neighbourhood threshold value which defines inaccessible cells, 
-	\item $M$ - Moore neighbourhood size
+	\item $M$ - Moore neighbourhood size.
 \end{itemize}
 
 As described in the article, results depend on automaton rules and parameters selected to transform the tile into derived states. Authors claim that it is possible to create structure for playable maps with this approach. The article contains images of generated tiles which show irregular, cave-like shapes and provides an illustration of a map constructed from them, with a roughly shaped area with a number of narrow connections between grander spaces. 
@@ -651,7 +651,7 @@ Generating tiles for map construction can be performed with methods implemented 
 
 \subsubsection{Data structures} 
  
-The map construction process is simulated by $TileGenerator$ and $Map$ classes. An ordered collection of $Board$ states is contained in both of them, but for different purposes. $TileGenereator$ uses the collection as a history of $Board$ state transformations. $Map$ uses its collection of $Board$ instances as a tile grid representation. \Cref{fig:tilegeneratormap} shows how these classes relate to each other.
+The map construction process is simulated by $TileGenerator$ and $Map$ classes. An ordered collection of $Board$ states is contained in both of them, but for different purposes. $TileGenerator$ uses the collection as a history of $Board$ state transformations. $Map$ uses its collection of $Board$ instances as a tile grid representation. \Cref{fig:tilegeneratormap} shows how these classes relate to each other.
 
 \begin{figure}[h]
 	\centering
