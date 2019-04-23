@@ -4,6 +4,7 @@
 \usepackage{amsmath,amssymb,amsfonts} % Required for some math elements, equation environment and inline $ (math) $
 \usepackage{makeidx}
 \usepackage{graphicx} % Required for the inclusion of images
+\usepackage{float}
 \usepackage{txfonts}
 %\usepackage{times} % Uncomment to use the chosen font 
 \usepackage[skip=5pt,font={small,it},labelfont=bf]{caption}
@@ -213,7 +214,7 @@ Chess, a board tactical war-game developed before 6th century AD, uses black-whi
 Another game, originating from ancient China, defines a similar, grid-based game world, effectively making a map of a uniform planar territory. Go is played on 19 by 19 board, however smaller board sizes are used as well. In Go, the goal is to capture more territory than the opponent, which is done by placing game pieces on line intersections, one piece per turn.
 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.4\linewidth}
 		\centering
@@ -232,7 +233,7 @@ Another game, originating from ancient China, defines a similar, grid-based game
  
 Another interesting example of a game world map is the multi-player strategy board game Risk, invented in 1957 by Albert Lamorisse, where the map represents a territory divided into regions, which must be captured by players in order to win. Risk game shows how a political world map with imagined region borders can be creatively used in a game, as a resource for the players to fight over. The game of Risk has been since published in many variations. Most of them share the same gameplay goal: to capture more territory than the opponents do, which is an example of how a game might use environments represented by maps as a limited resource for players to acquire.
  
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/risk-rulebook} 
 	\caption{Risk rule book fragment, containing a photo of the game board. The board shows a world map with fictional political borders, dividing the map into regions, which serve as a resource for players to capture. Image source: photo taken from original Risk rule book, copyright Hasbro 1993}
@@ -243,7 +244,7 @@ Modern board games have introduced many new ideas to the design of game boards. 
 
 An example of such game is Carcassonne, published in 2000, designed by Klaus-Jürgen Wrede in Germany. The game of Carcassonne involves an interesting mechanism: rather than having a fixed game board, cards with tiles are used to construct the board during gameplay. The game rules around tile placement can be thought of as an algorithm of procedural generation: only one tile can be placed during each game turn, adjacent to other tiles, forming a connection with features that tiles represent - roads must connect to roads, fields to other fields, and cities to cities. The rules ensure that the players will develop the game board as the game progresses, which leads to an interesting observation: each turn, the players are presented with new territory to consider in their decisions - and since the game requires players to deploy their resources onto the constructed game map in order to accumulate score and eventually win, these decisions may often become quite challenging with increasing complexity of the board layout. There is a web version of Carcassonne available at \url{https://concarneau.herokuapp.com/game}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/carcassonne}
 	\caption{Carcassonne game board during gameplay. Players place tiles on gameplay surface once per turn, making sure that each new tile is compatible to surrounding tiles. Image source: \url{https://deerfieldlibrary.org/2016/01/carcassonne-a-modern-board-game-for-adults-teens/}}
@@ -252,7 +253,7 @@ An example of such game is Carcassonne, published in 2000, designed by Klaus-Jü
 
 There are other board games which make use of generative mechanics to create or alter the board layout, before or during gameplay. Some of them rely on randomness, while others introduce rules by which the game world may be altered. An example of such rules is presented by Labirynth, a board game designed by Max Kobbert and first released by Ravensburger company in 1986. The game board in Labirynth represents a dungeon composed of tiles representing path elements: corners, straight paths, crossings. Each turn, the game board is altered by shifting an entire row or column of movable tiles in a direction chosen by player, in effect changing the board layout.  
 
- \begin{figure}[h]
+ \begin{figure}[H]
  	\centering
  	\includegraphics[width=0.7\linewidth]{images/labirynth}
  	\caption{Labirynth game board. Even rows and columns are movable (marked with a yellow triangle on board edges). Image source: \url{https://rulesofplay.co.uk/products/labyrinth} }
@@ -260,7 +261,7 @@ There are other board games which make use of generative mechanics to create or 
  \end{figure}
 
 
-While it is possible to find or develop interesting mechanics for board games, some more complex game rules and ideas are better implemented using computer simulation, where most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behaviour at a chosen level of competitive play, effectively providing a way for beginners who want to learn the game they are interested in or for veterans who want to develop their skills further, as has been done for chess and other classic board games. 
+While it is possible to find or develop interesting mechanics for board games, some more complex game rules and ideas are better implemented using computer simulation, where most of the mundane tasks which do not contribute to gameplay can be automated. Random number generation, board preparation and arrangement, checking player moves against game rules - all those activities are good candidates for automation. The other reason to simulate games may be to develop artificial intelligence algorithms which can simulate player behavior at a chosen level of competitive play, effectively providing a way for beginners who want to learn the game they are interested in or for veterans who want to develop their skills further, as has been done for chess and other classic board games. 
 
 Among modern board games, there are many more examples which involve interesting mechanics, but their description lies beyond the scope of this thesis project. Next section investigates a few examples of computer games and simulations, where maps are used to construct some aspects of gameplay.
 
@@ -276,7 +277,7 @@ As stated in \cref{rozdzial.wstep}, the context of this thesis does not deal wit
 Early examples involving procedurally created maps are Rogue and Nethack, dungeon crawling games developed in 1980s. Both examples generate a set of rooms with randomized dimensions, which are then connected to each other by a system of corridors, as shown in \cref{fig:nethack}.
  
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/nethack}
 	\caption{An exemplary level, generated by Nethack game rules. Image source: Nethack project webpage, \url{https://nethack.org/common/index.html}}
@@ -302,16 +303,16 @@ The following sections shortly discuss the possibility of applying approaches fo
 \subsection{Cellular automata}
 A cellular automaton (CA) is a simulation in which every object in a mathematically defined space is being updated at every step of a simulation. Historically, cellular automata and their properties have been studied since the time of first computers \autocite{Sarkar:2000:BHC:349194.349202}. One of the most complete sources on cellular automata is a book summarizing research carried out by Stephen Wolfram since 1980s \autocite{wolfram2002new}, where a classification is shown along with examples for each kind of CA. 
 
-Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighbourhood may be used. To present this concept concisely, a short list of definitions follows.
+Specifically, 2-dimensional automata operate on a grid of cells with arbitrary discrete dimensions. Each cell in the grid has neighbours, which may be relevant to the simulation rules. Depending on the type of rules which are used by a particular CA, a different type of cell neighborhood may be used. To present this concept concisely, a short list of definitions follows.
 
 \begin{description}
 	\item[Cell] Cells are units of state in CA simulation. Depending on CA type, they can be represented by simple values - a binary digit (0 or 1), an integer, a real or complex number with constraints, or other, more complicated value.  
-	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighbourhood is a collection of cells directly adjacent to the selected one.
-	\item[Von Neumann neighbourhood] Includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in  \cref{fig:neighborhood_types}.
-	\item[Moore's neighbourhood] Includes 8 closest neighbours of the cell - immediate and diagonal, as shown in  \cref{fig:neighborhood_types}.
+	\item[Cell neighborhood] In a context of a 2D square grid of cells, neighborhood is a collection of cells directly adjacent to the selected one.
+	\item[Von Neumann neighborhood] Includes the cell and its immediate neighbours - one to the north, south, east and west of the cell, as shown in  \cref{fig:neighborhood_types}.
+	\item[Moore's neighborhood] Includes 8 closest neighbours of the cell - immediate and diagonal, as shown in  \cref{fig:neighborhood_types}.
 \end{description}
  
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
@@ -329,10 +330,10 @@ Specifically, 2-dimensional automata operate on a grid of cells with arbitrary d
 \end{figure}
 
 
-Every CA simulation uses rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized. The set of rules must cover all possible neighbourhood patterns of a cell so that the value of each cell in a future step is unambiguous. Exemplary rules for a 2D cellular automaton are presented in  \cref{fig:examplecarules}, where included images do not cover all possible cases.
+Every CA simulation uses rules which drive the process of cell evolution to its next stage. Typically, such rules define how board elements must be changed once a specific cell arrangement is recognized. The set of rules must cover all possible neighborhood patterns of a cell so that the value of each cell in a future step is unambiguous. Exemplary rules for a 2D cellular automaton are presented in  \cref{fig:examplecarules}, where included images do not cover all possible cases.
 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
@@ -370,7 +371,7 @@ Every CA simulation uses rules which drive the process of cell evolution to its 
 		\caption{Rule 3M1 - a cell with 6 neighbours is filled} 
 	\end{subfigure} \hspace{1em} 
 	\hfill
-	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighbourhood. Rules are identified with two digits or symbols: the first one describes what value a sum of neighbours $n$ triggers a rule, which can be a conditional expression like $3L$ meaning $n < 3$ or $3M$, for $n > 3$. The other digit is simply the value to which a cell will be set when the rule is applied. Source: own work}
+	\caption{A subset of rules for an unknown cellular automaton which uses Moore neighborhood. Rules are identified with two digits or symbols: the first one describes what value a sum of neighbours $n$ triggers a rule, which can be a conditional expression like $3L$ meaning $n < 3$ or $3M$, for $n > 3$. The other digit is simply the value to which a cell will be set when the rule is applied. Source: own work}
 	\label{fig:examplecarules}
 \end{figure}
 
@@ -379,10 +380,10 @@ Observing the presented subset, it may be intuitive to see rules 3, 5 and 6 as a
 	\item if selected cell has less than 3 neighbours, it remains empty
 	\item otherwise, it becomes filled
 \end{itemize} 
-However, not knowing the full set of rules for this particular automaton, it cannot be concluded if those rules can be reduced in such way. For example, there might be rules for arrangements with 4, 7 or 8 neighbours which fill the cell instead of emptying it or rules that behave differently depending on neighbour positions. Without information about the rule set, one cannot prove which properties of the cell neighbourhood are measured during simulation, nor predict the results of automaton evolution. These properties may include the following:
+However, not knowing the full set of rules for this particular automaton, it cannot be concluded if those rules can be reduced in such way. For example, there might be rules for arrangements with 4, 7 or 8 neighbours which fill the cell instead of emptying it or rules that behave differently depending on neighbour positions. Without information about the rule set, one cannot prove which properties of the cell neighborhood are measured during simulation, nor predict the results of automaton evolution. These properties may include the following:
 
 \begin{itemize}
-	\item count of cells with state $s$ in neighbourhood,
+	\item count of cells with state $s$ in neighborhood,
 	\item state of selected cell,
 	\item state of adjacent cells (values associated with each cell),
 	\item positions of neighbours with state $s$ 
@@ -398,7 +399,7 @@ An example demonstrating such difficulty in reasoning about CA rules and their c
 
 \Cref{fig:applygol} shows an example of how these rules affect cells in a $5x5$ board during one simulation step. Cells outside the grid edges are assumed dead. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/applygol} 
 	\caption{Illustration of step transition in Game of Life. Alive cells which become dead in next turn are marked red, dead cells that become alive are marked green. Coloured cells were assigned a number equal to the count of their alive neighbours. Source: own work}
@@ -407,7 +408,7 @@ An example demonstrating such difficulty in reasoning about CA rules and their c
 
 Despite being based on simple rules, Game of Life is able to generate complex visual patterns, such as those shown in \cref{fig:p3oscillators}. While many of such cell arrangements have been found accidentally, there are organized efforts focused on finding and cataloguing them, such as the Life Wiki at \url{http://www.conwaylife.com/wiki/}. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/p3oscillators}
 	\caption{A collection of patterns found in Game of Life, which oscillate with period of 3 simulation steps. Image source: adapted from \url{http://copy.sh/life/?pattern=period3oscillators}}
@@ -418,7 +419,7 @@ Cellular automata have been used in map generation mechanisms for games, some of
 
 However, in order to develop a map generator using CA, a rule set which achieves stable board states is needed. Game of Life simulations show quick, but impermanent changes in local areas of the board, while allowing for creation of occasional stable structures. They are however somewhat rare, as \ref{fig:applygol} shows, and may be easily broken by future simulation steps, which makes them insufficient to easily compose larger structures with randomized processes.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\linewidth]{images/stilllife}
 	\caption{A collection of small ($n<8$, $n$ - number of cells in a pattern) still life patterns from Game of Life. Image source: adapted from \url{http://mathworld.wolfram.com/GameofLife.html}}
@@ -431,8 +432,8 @@ One of possible approaches to map generation which can create irregular shapes i
 \begin{itemize}
 	\item $r$ - percentage of floor cells in initial state,
 	\item $n$ - count of CA generations (steps) to perform,
-	\item $T$ - neighbourhood threshold value which defines inaccessible cells, 
-	\item $M$ - Moore neighbourhood size.
+	\item $T$ - neighborhood threshold value which defines inaccessible cells, 
+	\item $M$ - Moore neighborhood size.
 \end{itemize}
 
 As described in the article, results depend on automaton rules and parameters selected to transform the tile into derived states. Authors claim that it is possible to create structure for playable maps with this approach. The article contains images of generated tiles which show irregular, cave-like shapes and provides an illustration of a map constructed from them, with a roughly shaped area with a number of narrow connections between grander spaces. 
@@ -445,7 +446,7 @@ One of specific grammar subtypes are shape grammars, applied to a certain class 
 
 Shape grammars can be utilized as a formal foundation for PCG techniques and extended with probabilistic aspects \autocite{sportelli2014} to generate content for games. A domain specific language has also been developed on the foundations of grammar theory \autocite{Chen2018GIGLAD} for such purposes with success, as presented by \cref{fig:gigladomainspecificlanguagefor201904231555971576} adapted from the cited work. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{images/GIGL_A_Domain_Specific_Language_for_2019_04_23_1555971576}
 	\caption{Game levels generated with grammatical PCG. Image source: Work of Tiannan Chen, Stephen J. Guy on Grammatical Item Generation Language (GIGL) \autocite{Chen2018GIGLAD} }
@@ -514,13 +515,13 @@ The initial step required to implement a generator based on cellular automata is
 \begin{itemize}
 	\item Cell state - every cell has a state updated on each simulation step,
 	\item Grid - a space on which cells are placed,
-	\item Neighbourhood - each cell needs to know the state of its neighbours to update its state.
+	\item Neighborhood - each cell needs to know the state of its neighbors to update its state.
 \end{itemize}
 
 \subsubsection{Data structures}
 In order to represent state of a cell, a primitive data type is sufficient. Class model in \cref{fig:boardcell} presents an abstraction that can encapsulate a collection of cell states, along with two operations: retrieving the state of a cell in position $(x,y)$ from a grid and setting its state to a chosen value. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell01}
 	\caption{ Model of a $Board$ class, which holds cell states in its block of memory and lets its user change their states. Diagram source: own work} 
@@ -528,7 +529,7 @@ In order to represent state of a cell, a primitive data type is sufficient. Clas
 \end{figure}
 
 \subsubsection{Operations}
-While the $Board$ class is sufficient to represent the grid of cells and their states, the concept of a neighbourhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbours as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}. 
+While the $Board$ class is sufficient to represent the grid of cells and their states, the concept of a neighborhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbors as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}. 
 
 \begin{table}[h] 
 	\centering 
@@ -542,16 +543,16 @@ While the $Board$ class is sufficient to represent the grid of cells and their s
 		$(-1, 0)$ & $( 0, 0)$ & $( 1, 0)$ \\ \hline
 		$(-1, 1)$ & $( 0, 1)$ & $( 1, 1)$ \\ \hline
 	\end{tabular} 
-	\caption{Table on left: Moore neighbourhood, with numbered cells. \textit{S} denotes cell selected as a base for further operations. Table on right: Neighbour positions, relative to selected cell $(0,0)$ Source: own work}
+	\caption{Table on left: Moore neighborhood, with numbered cells. \textit{S} denotes cell selected as a base for further operations. Table on right: Neighbour positions, relative to selected cell $(0,0)$ Source: own work}
 	\label{tab:cellneighbors}
 \end{table}
 
-In CA simulations used for map generation by \autocite{johnson2010cellular}, summing the values of cells in neighbourhood is a required operation. Hence, it is useful to include it into the $Board$ abstraction as part of its interface, which yields a class presented on \cref{fig:boardcell2} with added method for computing sum of adjacent cell values around a cell with $(x,y)$ coordinates. The $nht$ parameter can be used to control which cells are treated as neighbours.
+In CA simulations used for map generation by \autocite{johnson2010cellular}, summing the values of cells in neighborhood is a required operation. Hence, it is useful to include it into the $Board$ abstraction as part of its interface, which yields a class presented on \cref{fig:boardcell2} with added method for computing sum of adjacent cell values around a cell with $(x,y)$ coordinates. The $nht$ parameter can be used to control which cells are treated as neighbors.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell02}
-	\caption{Model of a $Board$ class with a method to sum neighbour values. Diagram source: own work} 
+	\caption{Model of a $Board$ class with a method to sum neighbor values. Diagram source: own work} 
 	\label{fig:boardcell2}
 \end{figure} 
 
@@ -562,7 +563,7 @@ The model presented above is implemented by the $Board$ class. It allows to simu
 \begin{itemize}
 	\item $CellAt$ can access cell at position $(x,y)$ in the grid model and return its value, as shown on \cref{lst:board-cellat},
 	\item $SetCellAt$ works similarly to the previous method, accessing the cell at position $(x,y)$ and writing a new value provided by $state$ parameter, shown on \cref{lst:board-setcellat},
-	\item $SumNeighbours$ computes a sum of cell values in a neighbourhood of type $nht$ at position $(x,y)$, as shown on \cref{lst:board-sumneighbourhood} 
+	\item $SumNeighbours$ computes a sum of cell values in a neighborhood of type $nht$ at position $(x,y)$, as shown on \cref{lst:board-sumneighbourhood} 
 \end{itemize}
  
 
@@ -578,14 +579,14 @@ As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjac
 
 Although applying rules to a grid of cells does not require a specialized data structure, a class to encapsulate procedures used to do so separated from $Board$ class can be useful for later development. The $Ruleset$ class presented in \cref{fig:ruleset-board} is used to produce a new board state by applying rules encoded in its internal functions, which are used by $EvolveState$ method.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{diagrams/ruleset-board}
 	\caption{Model of $Ruleset$ class, which is meant to use a $Board$ instance to produce a new state of the cell grid in another $Board$ instance by rewriting its cell values. Source: own work}
 	\label{fig:ruleset-board}
 \end{figure}
 
-Such abstraction allows to later add an internal data structure to hold separate rules for each possible neighbourhood pattern, if needed. 
+Such abstraction allows to later add an internal data structure to hold separate rules for each possible neighborhood pattern, if needed. 
 
 \subsubsection{Operations}
 
@@ -598,7 +599,7 @@ As shown in \cref{fig:ruleset-board}, the operation which handles computation of
 \end{enumerate}
 
 
-\lstinputlisting[language=c, caption=Applying rules to cell grid, label={lst:evs}]{listings/evolvestate.txt}
+\lstinputlisting[language=c, caption=Applying rules to cell grid, label=lst:evs]{listings/evolvestate.txt}
 
 With basic CA operations organized this way, adding new rules requires implementing a new method in the $Ruleset$ class. Choosing a new set of rules is done via passing a correct parameter value to $EvolveState$ method, which can be done by binding the function call to user interface.
 
@@ -608,22 +609,22 @@ In order to visualize state of $Board$, all cell values need to be drawn as an i
 
 \subsubsection{Data structures}
 
-Before the cells can be represented as an image, their states must be converted to colour values in one of the formats interpreted by OpenGL functions. In order to do so, a class $SimpleTexture2D$ has been prepared, as shown in \cref{fig:texture}. 
+Before the cells can be represented as an image, their states must be converted to color values in one of the formats interpreted by OpenGL functions. In order to do so, a class $SimpleTexture2D$ has been prepared, as shown in \cref{fig:texture}. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{diagrams/texture}
 	\caption{Model of a $SimpleTexture2D$ class, which contains a collection of $Color RGBA$ elements. Source: own work}
 	\label{fig:texture}
 \end{figure}
 
-Colours are represented by a 32-bit unsigned integer, with 8 bits dedicated to each colour channel (Red, Green, Blue) and additional 8 bits for the opacity (Alpha) channel, defined by type $Color RGBA$ as shown in \cref{lst:colourRGBA}. 
+Colors are represented by a 32-bit unsigned integer, with 8 bits dedicated to each color channel (Red, Green, Blue) and additional 8 bits for the opacity (Alpha) channel, defined by type $Color RGBA$ as shown in \cref{lst:colourRGBA}. 
 
-\lstinputlisting[language=c, caption=Definition of ColourRGBA type, label={lst:colourRGBA}]{listings/colourRGBA.txt}
+\lstinputlisting[language=c, caption=Definition of ColorRGBA type, label={lst:colourRGBA}]{listings/colourRGBA.txt}
 
 In order to allow the program user a degree of control over the generation process, a rudimentary user interface has been prepared. \Cref{fig:uiwindows} shows the model of its classes. The class named $UserInterface$ acts as an update and rendering controller for each of the windows represented by the other classes in the model, which can call functions bound to UI controls they contain and show a visual representation of a $Board$ or $Map$ by using the data encapsulated by $SimpleTexture2D$.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/uiwindows}
 	\caption[User Interface model]{UI class model in map generator program. Source: own work}
@@ -635,9 +636,9 @@ In order to allow the program user a degree of control over the generation proce
 Methods provided by $SimpleTexture2D$ class allow to:
 
 \begin{itemize}
-	\item set individual colour values at specified position in the $texelsRGBA$ collection, necessary for rendering the $Board$ state
-	\item change the collection size, to allow support for $Board$s of different sizes,
-	\item set all colour values in the collection to a specified value,
+	\item set individual color values at specified position in the $texelsRGBA$ collection, necessary for rendering the $Board$ state
+	\item change $texelsRGBA$ size, to allow support for $Board$s of different sizes,
+	\item set all color values in the collection to a specified value,
 	\item request rendering of the contained data by OpenGL API.
 \end{itemize}  
 
@@ -647,13 +648,13 @@ Drawing cell states in tile generation and map grid windows is achieved by the $
 
 \subsection{Generating and merging tiles into maps}
 
-Generating tiles for map construction can be performed with methods implemented by $TileGenerator$ and $Ruleset$ classes. Internal mechanics of the $TileGenerator$ class allow it to initialize cells in the first generation to randomly selected states and then to use $Ruleset$ class to generate future states of the board. $Ruleset$ provides a set of rules which describe the possible transformations of a cell depending on the state of its neighbourhood, as described in previous sections. Tiles prepared by $TileGenerator$ can be transferred into the grid of tiles represented by the $Map$ class.
+Generating tiles for map construction can be performed with methods implemented by $TileGenerator$ and $Ruleset$ classes. Internal mechanics of the $TileGenerator$ class allow it to initialize cells in the first generation to randomly selected states and then to use $Ruleset$ class to generate future states of the board. $Ruleset$ provides a set of rules which describe the possible transformations of a cell depending on the state of its neighborhood, as described in previous sections. Tiles prepared by $TileGenerator$ can be transferred into the grid of tiles represented by the $Map$ class.
 
 \subsubsection{Data structures} 
  
 The map construction process is simulated by $TileGenerator$ and $Map$ classes. An ordered collection of $Board$ states is contained in both of them, but for different purposes. $TileGenerator$ uses the collection as a history of $Board$ state transformations. $Map$ uses its collection of $Board$ instances as a tile grid representation. \Cref{fig:tilegeneratormap} shows how these classes relate to each other.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{diagrams/tilegenerator_map}
 	\caption{ A model of interactions between TileGenerator, Board and Map classes. Source: own work}
@@ -668,16 +669,18 @@ Initializing the first $Board$ contained in $TileGenerator$ class with random st
 
 \lstinputlisting[language=c, caption=Tile generation rules, label={lst:rules}]{listings/rules_mapgen.txt}
 
-After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined in and selected by current $Ruleset$. \Cref{lst:rules} shows functions which transform cells, of which the first one applies following rules:
+After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined in and selected by current $Ruleset$. \Cref{lst:rules} shows functions which transform cells, of which the first one applies following rules, where $n$ is a sum of adjacent cell values:
 
 \begin{itemize}
-	\item every cell that has more than 5 neighbours will be set to $wall$ state, 
-	\item every cell that has less than 5 neighbours will be set to $floor$ state. 
+	\item $wall$ state with value 1 is set for cells with $n < 5$,
+	\item $floor$ state with value 0 is set for cells with $n > 5$.
 \end{itemize}
 
 Additional sets of rules should be defined similarly, by adding more methods to the $Ruleset$ class. 
 
-\begin{figure}[ht!]
+Generated tiles are saved in an ordered collection, to allow viewing the history of generation steps, The rules used to generate these tiles show an interesting property - after a few initial steps, values of most cells begin to alternate between $floor$ and $wall$ states.
+
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
@@ -724,13 +727,11 @@ Additional sets of rules should be defined similarly, by adding more methods to 
 		\includegraphics[height=4cm]{images/s_9}
 		\caption{Step 9 - further transformation} 
 	\end{subfigure} \hspace{1em} 
-	\label{fig:tilegen}
-	\caption{Stages of tile generation. Source: own work} 
+	\label{fig:gensteps}
+	\caption{A sequence of tile evolution steps, starting with a randomized board state. Each step involves computation of future cell states with rules $ n < 5 \mapsto 1$ and $n > 5 \mapsto 0$. Source: own work} 
 \end{figure}
 
-Generated tiles are saved in an ordered collection, to allow viewing the history of generation steps. One possible result of such process is presented by \cref{fig:tilegen}. The rules used to generate these tiles show an interesting property - after a few initial steps, values of most cells begin to alternate between $floor$ and $wall$ states.
-
-Such emergent condition can be thought of as a $balanced state$ of a tile, since rules seemingly cannot further modify the tile after a sufficient number of transformations. It is however possible that map designers may decide to use a tile before it becomes $balanced$. Furthermore, exploring different sets of rules for tile generation may reveal better rules for creation of useful tiles. Amount of time required to find them can be reduced by providing a user interface for rule definition and management.
+Such emergent condition can be thought of as a \textit{balanced state} of a tile, since rules seemingly cannot further modify the tile after a sufficient number of transformations. It is however possible that map designers may decide to use a tile before it becomes \textit{balanced}. Furthermore, exploring different sets of rules for tile generation may reveal better rules for creation of useful tiles. Amount of time required to find them can be reduced by providing a user interface for rule definition and management.
 
 \subsubsection{Merging tiles}
  
@@ -738,16 +739,16 @@ The process of merging generated tiles into a map consists of several steps and 
 
 Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requires user interaction. Any tile in the window showing current $Map$ state can be clicked by the user, which invokes the $TileReplace()$ method of the $Map$ class, effectively copying the tile state visible in the tile generation window to the map grid. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.9\textwidth}
 		\centering
-		\includegraphics[height=5cm]{images/mapnotiles}
+		\includegraphics[height=4cm]{images/mapnotiles}
 		\caption{Initial state - blank map, no tile was placed} 
 	\end{subfigure}  
 	\begin{subfigure}[t]{0.9\textwidth}
 		\centering
-		\includegraphics[height=5cm]{images/map4tiles}
+		\includegraphics[height=4cm]{images/map4tiles}
 		\caption{Partially filled map - after copying 4 prepared tiles} 
 	\end{subfigure} 
 	\caption{Tile and map windows used to construct maps from generated tiles. Source: own work}
@@ -756,7 +757,7 @@ Copying a tile state from the $TileGenerator$ collection to the $Map$ grid requi
 
 Once the map designer decides that the tile prepared in the generation window is a sufficient candidate to be used in a map, its state can be copied to the map grid by clicking a square slot in map window. Such action overwrites all cell states in selected space with those contained in the prepared tile. \Cref{fig:map_merging} shows two situations, where map designer starts with a blank map and proceeds to fill its grid with some of the tiles that were generated.
 
-To complete the map construction process, designers can then switch the map representation mode, which is done by function bound to button labelled as \texttt{Join tiles into map}. Doing so also reveals other buttons provided by $Map$ window, which can be used to make further adjustments. Switching the mode effectively copies the cells from each tile formerly placed in the grid into a bigger $Board$ and renders its visualization instead of the tile grid.
+To complete the map construction process, designers can then switch the map representation mode, which is done by function bound to button labeled as \texttt{Join tiles into map}. Doing so also reveals other buttons provided by $Map$ window, which can be used to make further adjustments. Switching the mode effectively copies the cells from each tile formerly placed in the grid into a bigger $Board$ and renders its visualization instead of the tile grid.
 
  
 %%%%%%%%%%%%%%%
@@ -772,9 +773,7 @@ The first experiment carried out using the generator was to build a 5x5 map out 
 	\item central tile - 11 steps.
 \end{itemize}
 
-Rules used to generate tiles for the map were identical to rules used before to generate tiles in \cref*{fig:tilegen}. Cells with more than 5 adjacent walls are filled and those with less than 5 are emptied.
-
- \begin{figure}[h]
+ \begin{figure}[H]
 	\centering
 	\includegraphics[height=5cm]{images/ex1}
 	\caption{Map constructed from a 5x5 grid of generated tiles. Source: own work}
@@ -782,7 +781,6 @@ Rules used to generate tiles for the map were identical to rules used before to 
 \end{figure}
 
 The resulting map shown in \cref{fig:ex1} has following properties:
-
 \begin{itemize}
 	\item impassable areas are encountered more frequently as distance from central tile increases,
 	\item impassable areas have greater sizes closer to central tile,
@@ -814,7 +812,7 @@ Other experimental maps, shown in \cref{fig:ex2} illustrates that controlled pla
 	\label{fig:ex2}
 \end{figure}
 
-Another experiment, shown in \cref{fig:r2ex1}, uses rules where the radius of Moore neighbourhood is increased $(r = 2)$ and walls are placed whenever there are more than 12 adjacent walls to the central cell. In this case, islands produced by transformation are not completely solid, which may be a useful feature to map designers.
+Another experiment, shown in \cref{fig:r2ex1}, uses rules where the radius of Moore neighborhood is increased $(r = 2)$ and walls are placed whenever there are more than 12 adjacent walls to the central cell. In this case, islands produced by transformation are not completely solid, which may be a useful feature to map designers.
 
 \begin{figure}[th]
 	\centering
@@ -828,13 +826,13 @@ Comparing \cref{fig:r2ex1} with \cref{fig:ex3rst2} shows how removal or addition
 \begin{figure}[th]
 	\centering
 	\includegraphics[height=5cm]{images/ex3rst2}
-	\caption{Another experiment with map construction. Two rules applied with neighbourhood of $r = 2$, placement of walls for $n > 12$, floor for $n < 12$. Source: own work}
+	\caption{Another experiment with map construction. Two rules applied with neighborhood of $r = 2$, placement of walls for $n > 12$, floor for $n < 12$. Source: own work}
 	\label{fig:ex3rst2}
 \end{figure}
 
 \Cref{fig:seqr2r3} shows a map composed of two tile evolution sequences, created with different sets of rules, transforming the identical initial board state.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[height=5cm]{images/ex2sequences}
 	\caption{Two sequences of tile evolution with same initial board state. Source: own work}
@@ -864,7 +862,7 @@ Observing the results presented in figures produced by implemented generator rev
 
 A degree of control achieved by introducing graphical user interface to the solution has provided a visual representation of how each tile evolves and an ability to select tiles with desired shapes for the map being constructed. Widgets of the interface provide control over some of generation parameters, which is useful for experimentation. Including new widgets for controlling other possible parameters and defining rules for the automaton would be vital for exploring what other kinds of shapes can be generated with cellular automata. 
  
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{images/interface_mapgen}
 	\caption{The interface of developed Map Generator program. Source: own work}
