@@ -1,100 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.2">
-  <zoom_level>11</zoom_level>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>12</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>693</x>
-      <y>495</y>
-      <w>231</w>
-      <h>121</h>
-    </coordinates>
-    <panel_attributes>WindowMapTile
---
-(...)
---
-- WindowElements() : void
-bg=orange
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>946</x>
-      <y>495</y>
-      <w>231</w>
-      <h>121</h>
-    </coordinates>
-    <panel_attributes>WindowMap
---
-(...)
---
-- WindowElements() : void
-bg=orange
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>462</x>
-      <y>495</y>
-      <w>209</w>
-      <h>121</h>
-    </coordinates>
-    <panel_attributes>WindowGeneratorControls
---
-(...)
---
-- WindowElements() : void
-bg=orange
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>814</x>
-      <y>352</y>
-      <w>253</w>
-      <h>165</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-layer=2</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0;210.0;80.0;210.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>550</x>
-      <y>352</y>
-      <w>297</w>
-      <h>165</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-layer=2</panel_attributes>
-    <additional_attributes>250.0;10.0;250.0;80.0;10.0;80.0;10.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>814</x>
-      <y>352</y>
-      <w>33</w>
-      <h>165</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-layer=2</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>737</x>
-      <y>198</y>
-      <w>308</w>
-      <h>165</h>
+      <x>744</x>
+      <y>156</y>
+      <w>336</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>/MapGenUIWindow/
 --
@@ -110,54 +23,24 @@ layer=1</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>231</x>
-      <y>495</y>
-      <w>209</w>
-      <h>121</h>
-    </coordinates>
-    <panel_attributes>WindowBoardControls
---
-(...)
---
-- WindowElements() : void
-bg=orange
-layer=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>286</x>
-      <y>352</y>
-      <w>561</w>
-      <h>165</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
-layer=2</panel_attributes>
-    <additional_attributes>490.0;10.0;490.0;80.0;10.0;80.0;10.0;130.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>209</x>
-      <y>143</y>
-      <w>990</w>
-      <h>495</h>
+      <x>396</x>
+      <y>108</y>
+      <w>708</w>
+      <h>420</h>
     </coordinates>
     <panel_attributes>symbol=component
-User Controls
-bg=white</panel_attributes>
+User Controls</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>231</x>
-      <y>198</y>
-      <w>297</w>
-      <h>165</h>
+      <x>408</x>
+      <y>180</y>
+      <w>168</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>UserInterface
 bg=orange
@@ -173,17 +56,136 @@ layer=2</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>517</x>
-      <y>253</y>
-      <w>242</w>
-      <h>55</h>
+      <x>564</x>
+      <y>180</y>
+      <w>204</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-
-m2=0..n
+m1=0
+m2=n
 r2=- windows
 manages &gt;
 layer=2</panel_attributes>
-    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+    <additional_attributes>10.0;100.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>432</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>WindowMap
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>480</y>
+      <w>228</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>WindowTileGenerator
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>852</x>
+      <y>432</y>
+      <w>168</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>WindowParameter
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>960</x>
+      <y>480</y>
+      <w>120</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>WindowMap
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>852</x>
+      <y>324</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>360</y>
+      <w>300</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;230.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>372</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>816</x>
+      <y>372</y>
+      <w>36</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1020</x>
+      <y>372</y>
+      <w>36</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>924</x>
+      <y>372</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
