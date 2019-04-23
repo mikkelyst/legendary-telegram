@@ -666,14 +666,14 @@ Initializing the first $Board$ contained in $TileGenerator$ class with random st
 
 \lstinputlisting[language=c, caption=Tile generation rules, label={lst:rules}]{listings/rules_mapgen.txt}
 
-After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined in and selected by current $Ruleset$. \Cref{lst:rules} shows a function that applies two rules:
+After the initial state of the $Board$ is prepared, $TileGenerator$ can then use $GenerateSteps()$ method to create $Board$ states following the initial one by applying operations defined in and selected by current $Ruleset$. \Cref{lst:rules} shows functions which transform cells, of which the first one applies following rules:
 
 \begin{itemize}
 	\item every cell that has more than 5 neighbours will be set to $wall$ state, 
 	\item every cell that has less than 5 neighbours will be set to $floor$ state. 
 \end{itemize}
 
-Additional sets of rules may be defined similarly, by adding more methods to the $Ruleset$ class. 
+Additional sets of rules should be defined similarly, by adding more methods to the $Ruleset$ class. 
 
 \begin{figure}[ht!]
 	\centering
