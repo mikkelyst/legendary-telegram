@@ -544,12 +544,12 @@ In order to represent state of a cell, a primitive data type is sufficient. Clas
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell01}
-	\caption{ Model of a \texttt{Board} class, which holds cell states in its block of memory and lets its user change their states. Diagram source: own work} 
+	\caption{ Model of a \textit{Board} class, which holds cell states in its block of memory and lets its user change their states. Diagram source: own work} 
 	\label{fig:boardcell}
 \end{figure}
 
 \subsubsection{Operations}
-While the \texttt{Board} class is sufficient to represent the grid of cells and their states, the concept of a neighborhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbors as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}. 
+While the \textit{Board} class is sufficient to represent the grid of cells and their states, the concept of a neighborhood is missing. It can be captured and represented by creating a procedure that selects a cell, and treats its neighbors as if an identifier is assigned to each of them, as shown in table \cref{tab:cellneighbors}. 
 
 \begin{table}[h] 
 	\centering 
@@ -567,23 +567,23 @@ While the \texttt{Board} class is sufficient to represent the grid of cells and 
 	\label{tab:cellneighbors}
 \end{table}
 
-In CA simulations used for map generation by \autocite{johnson2010cellular}, summing the values of cells in neighborhood is a required operation. Hence, it is useful to include it into the \texttt{Board} abstraction as part of its interface, which yields a class presented on \cref{fig:boardcell2} with added method for computing sum of adjacent cell values around a cell with $(x,y)$ coordinates. The $nht$ parameter can be used to control which cells are treated as neighbors.
+In CA simulations used for map generation by \autocite{johnson2010cellular}, summing the values of cells in neighborhood is a required operation. Hence, it is useful to include it into the \textit{Board} abstraction as part of its interface, which yields a class presented on \cref{fig:boardcell2} with added method for computing sum of adjacent cell values around a cell with $(x,y)$ coordinates. The $nht$ parameter can be used to control which cells are treated as neighbors.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\linewidth]{diagrams/boardcell02}
-	\caption{Model of a \texttt{Board} class with a method to sum neighbor values. Diagram source: own work} 
+	\caption{Model of a \textit{Board} class with a method to sum neighbor values. Diagram source: own work} 
 	\label{fig:boardcell2}
 \end{figure} 
 
 \subsubsection{Implementation}
  
-The model presented above is implemented by the \texttt{Board} class. It allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. \texttt{Board} class methods operate as follows:
+The model presented above is implemented by the \textit{Board} class. It allows to simulate some basic cellular automata based on rules which require a sum of values in cells adjacent to the selected cell to decide its future state. \textit{Board} class methods operate as follows:
 
 \begin{itemize}
-	\item \texttt{CellAt} can access cell at position $(x,y)$ in the grid model and return its value, as shown on \cref{lst:board-cellat},
-	\item \texttt{SetCellAt} works similarly to the previous method, accessing the cell at position $(x,y)$ and writing a new value provided by \textit{newState} parameter, shown on \cref{lst:board-setcellat},
-	\item \texttt{SumMooreNhd} computes a sum of cell values in a Moore neighborhood with radius \textit{rad} at position $(x,y)$, as shown on \cref{lst:board-sumneighbourhood}.
+	\item \textit{CellAt} can access cell at position $(x,y)$ in the grid model and return its value, as shown on \cref{lst:board-cellat},
+	\item \textit{SetCellAt} works similarly to the previous method, accessing the cell at position $(x,y)$ and writing a new value provided by \textit{newState} parameter, shown on \cref{lst:board-setcellat},
+	\item \textit{SumMooreNhd} computes a sum of cell values in a Moore neighborhood with radius \textit{rad} at position $(x,y)$, as shown on \cref{lst:board-sumneighbourhood}.
 \end{itemize}
  
 \pagebreak
@@ -596,12 +596,12 @@ As described in \cref{rozdzial.teoria}, basic CA rules check the values of adjac
 
 \subsubsection{Data structures}
 
-Although applying rules to a grid of cells does not require a specialized data structure, a class to encapsulate procedures used to do so separated from \texttt{Board} class can be useful for later development. The \texttt{Ruleset} class presented in \cref{fig:ruleset-board} is used to produce a new board state by applying rules encoded in its internal functions, which are used by \texttt{EvolveState} method.
+Although applying rules to a grid of cells does not require a specialized data structure, a class to encapsulate procedures used to do so separated from \textit{Board} class can be useful for later development. The \textit{Ruleset} class presented in \cref{fig:ruleset-board} is used to produce a new board state by applying rules encoded in its internal functions, which are used by \textit{EvolveState} method.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{diagrams/ruleset-board}
-	\caption{Model of \texttt{Ruleset} class, which is meant to use a \texttt{Board} instance to produce a new state of the cell grid in another \texttt{Board} instance by rewriting its cell values. Source: own work}
+	\caption{Model of \textit{Ruleset} class, which is meant to use a \textit{Board} instance to produce a new state of the cell grid in another \textit{Board} instance by rewriting its cell values. Source: own work}
 	\label{fig:ruleset-board}
 \end{figure}
 
@@ -609,7 +609,7 @@ Such abstraction allows to later add an internal data structure to hold separate
 
 \subsubsection{Operations}
 
-As shown in \cref{fig:ruleset-board}, the operation which handles computation of a new cell grid state is named \texttt{EvolveState}. It does so by calling one of its internal methods chosen by \textit{rules} parameter. \Cref{lst:evs} shows an implemented method which calls \texttt{Board} methods to perform the following steps:
+As shown in \cref{fig:ruleset-board}, the operation which handles computation of a new cell grid state is named \textit{EvolveState}. It does so by calling one of its internal methods chosen by \textit{rules} parameter. \Cref{lst:evs} shows an implemented method which calls \textit{Board} methods to perform the following steps:
 
 \begin{enumerate}
 	\item sum the values of cells adjacent to cell $(x,y)$,
@@ -620,28 +620,28 @@ As shown in \cref{fig:ruleset-board}, the operation which handles computation of
 
 \lstinputlisting[language=c, caption=Applying rules to cell grid, label=lst:evs]{listings/evolvestate.txt}
 
-With basic CA operations organized this way, adding new rules requires implementing a new method in the \texttt{Ruleset} class. Choosing a new set of rules is done via passing a correct parameter value to \texttt{EvolveState} method, which can be done by binding the function call to user interface.
+With basic CA operations organized this way, adding new rules requires implementing a new method in the \textit{Ruleset} class. Choosing a new set of rules is done via passing a correct parameter value to \textit{EvolveState} method, which can be done by binding the function call to user interface.
 
 \subsection{Presenting the board state}
 
-In order to visualize state of \texttt{Board}, all cell values need to be drawn as an image. To achieve this, OpenGL and ImGui libraries are used to create an environment in which it is possible to construct interface elements and render textures.    
+In order to visualize state of \textit{Board}, all cell values need to be drawn as an image. To achieve this, OpenGL and ImGui libraries are used to create an environment in which it is possible to construct interface elements and render textures.    
 
 \subsubsection{Data structures}
 
-Before the cells can be represented as an image, their states must be converted to color values in one of the formats interpreted by OpenGL functions. In order to do so, a class \texttt{SimpleTexture2D} has been prepared, as shown in \cref{fig:texture}. 
+Before the cells can be represented as an image, their states must be converted to color values in one of the formats interpreted by OpenGL functions. In order to do so, a class \textit{SimpleTexture2D} has been prepared, as shown in \cref{fig:texture}. 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{diagrams/texture}
-	\caption{Model of a \texttt{SimpleTexture2D} class, which contains a collection of \texttt{Color RGBA} elements. Source: own work}
+	\caption{Model of a \textit{SimpleTexture2D} class, which contains a collection of \textit{Color RGBA} elements. Source: own work}
 	\label{fig:texture}
 \end{figure}
 
-Colors are represented by a 32-bit unsigned integer, with 8 bits dedicated to each color channel (Red, Green, Blue) and additional 8 bits for the opacity (Alpha) channel, defined by type \texttt{Color RGBA} as shown in \cref{lst:colourRGBA}. 
+Colors are represented by a 32-bit unsigned integer, with 8 bits dedicated to each color channel (Red, Green, Blue) and additional 8 bits for the opacity (Alpha) channel, defined by type \textit{Color RGBA} as shown in \cref{lst:colourRGBA}. 
 
 \lstinputlisting[language=c, caption=Definition of ColorRGBA type, label={lst:colourRGBA}]{listings/colourRGBA.txt}
 
-In order to allow the program user a degree of control over the generation process, a rudimentary user interface has been prepared. \Cref{fig:uiwindows} shows the model of its classes. The class named \texttt{UserInterface} acts as an update and rendering controller for each of the windows represented by the other classes in the model, which can call functions bound to UI controls they contain and show a visual representation of a \texttt{Board} or \texttt{Map} by using the data encapsulated by \texttt{SimpleTexture2D}.
+In order to allow the program user a degree of control over the generation process, a rudimentary user interface has been prepared. \Cref{fig:uiwindows} shows the model of its classes. The class named \textit{UserInterface} acts as an update and rendering controller for each of the windows represented by the other classes in the model, which can call functions bound to UI controls they contain and show a visual representation of a \textit{Board} or \textit{Map} by using the data encapsulated by \textit{SimpleTexture2D}.
 
 \begin{figure}[H]
 	\centering
@@ -652,26 +652,26 @@ In order to allow the program user a degree of control over the generation proce
 
 \subsubsection{Operations}
 
-Methods provided by \texttt{SimpleTexture2D} class allow to:
+Methods provided by \textit{SimpleTexture2D} class allow to:
 
 \begin{itemize}
-	\item set individual color values at specified position in the \texttt{texelsRGBA} collection, necessary for rendering the \texttt{Board} state
-	\item change \texttt{texelsRGBA} size, to allow support for \texttt{Board}s of different sizes,
+	\item set individual color values at specified position in the \textit{texelsRGBA} collection, necessary for rendering the \textit{Board} state
+	\item change \textit{texelsRGBA} size, to allow support for \textit{Board}s of different sizes,
 	\item set all color values in the collection to a specified value,
 	\item request rendering of the contained data by OpenGL API.
 \end{itemize}  
 
-Such set of operations allows to achieve the goal of simple 2-dimensional image rendering, which can be used to visualize the state of all cells contained in one of the \texttt{Board} class instances.
+Such set of operations allows to achieve the goal of simple 2-dimensional image rendering, which can be used to visualize the state of all cells contained in one of the \textit{Board} class instances.
 
-Drawing cell states in tile generation and map grid windows is achieved by the \texttt{Board} class method, \texttt{DrawCellsToTexture}, described previously. Additionally, \texttt{Map} provides operations for drawing its state depending on the selected view mode - \texttt{DrawMap} and \texttt{DrawTileAt}.
+Drawing cell states in tile generation and map grid windows is achieved by the \textit{Board} class method, \textit{DrawCellsToTexture}, described previously. Additionally, \textit{Map} provides operations for drawing its state depending on the selected view mode - \textit{DrawMap} and \textit{DrawTileAt}.
 
 \subsection{Generating and merging tiles into maps}
 
-Generating tiles for map construction can be performed with methods implemented by \texttt{TileGenerator} and \texttt{Ruleset} classes. Internal mechanics of the \texttt{TileGenerator} class allow it to initialize cells in the first generation to randomly selected states and then to use \texttt{Ruleset} class to generate future states of the board. \texttt{Ruleset} provides a set of rules which describe the possible transformations of a cell depending on the state of its neighborhood, as described in previous sections. Tiles prepared by \texttt{TileGenerator} can be transferred into the grid of tiles represented by the \texttt{Map} class.
+Generating tiles for map construction can be performed with methods implemented by \textit{TileGenerator} and \textit{Ruleset} classes. Internal mechanics of the \textit{TileGenerator} class allow it to initialize cells in the first generation to randomly selected states and then to use \textit{Ruleset} class to generate future states of the board. \textit{Ruleset} provides a set of rules which describe the possible transformations of a cell depending on the state of its neighborhood, as described in previous sections. Tiles prepared by \textit{TileGenerator} can be transferred into the grid of tiles represented by the \textit{Map} class.
 
 \subsubsection{Data structures} 
  
-The map construction process is simulated by \texttt{TileGenerator} and \texttt{Map} classes. An ordered collection of \texttt{Board} states is contained in both of them, but for different purposes. \texttt{TileGenerator} uses the collection as a history of \texttt{Board} state transformations. \texttt{Map} uses its collection of \texttt{Board} instances as a tile grid representation. \Cref{fig:tilegeneratormap} shows how these classes relate to each other.
+The map construction process is simulated by \textit{TileGenerator} and \textit{Map} classes. An ordered collection of \textit{Board} states is contained in both of them, but for different purposes. \textit{TileGenerator} uses the collection as a history of \textit{Board} state transformations. \textit{Map} uses its collection of \textit{Board} instances as a tile grid representation. \Cref{fig:tilegeneratormap} shows how these classes relate to each other.
 
 \begin{figure}[H]
 	\centering
@@ -680,20 +680,20 @@ The map construction process is simulated by \texttt{TileGenerator} and \texttt{
 	\label{fig:tilegeneratormap}
 \end{figure}
 
-The \texttt{Map} class represents its state in two ways - as a collection of \texttt{Board} states and as a single \texttt{Board} instance with dimensions equal to tile width and height multiplied by their count along the Map borders - for example, a square map composed of 25 tiles with 64 by 128 size would have a width of 320 and a height of 640. Such dual representation allows the user to switch between two views onto the map - a tile grid view and a complete map view.
+The \textit{Map} class represents its state in two ways - as a collection of \textit{Board} states and as a single \textit{Board} instance with dimensions equal to tile width and height multiplied by their count along the Map borders - for example, a square map composed of 25 tiles with 64 by 128 size would have a width of 320 and a height of 640. Such dual representation allows the user to switch between two views onto the map - a tile grid view and a complete map view.
 
 \subsubsection{Generating tiles}
 
-Initializing the first \texttt{Board} contained in \texttt{TileGenerator} class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different, which is implemented by \texttt{InitGenAllRandom} method contained in \texttt{TileGenerator}.   
+Initializing the first \textit{Board} contained in \textit{TileGenerator} class with random states enables the generator to use it as a base for further transformations, while also ensuring that each generated tile will be different, which is implemented by \textit{InitGenAllRandom} method contained in \textit{TileGenerator}.   
 
-After the initial state of the \texttt{Board} is prepared, \texttt{TileGenerator} can then use \texttt{GenerateSteps} method to create \texttt{Board} states following the initial one by applying operations defined in and selected by current \texttt{Ruleset}. \Cref{lst:rules} shows functions which transform cells, of which the first one applies following rules, where $n$ is a sum of adjacent cell values:
+After the initial state of the \textit{Board} is prepared, \textit{TileGenerator} can then use \textit{GenerateSteps} method to create \textit{Board} states following the initial one by applying operations defined in and selected by current \textit{Ruleset}. \Cref{lst:rules} shows functions which transform cells, of which the first one applies following rules, where $n$ is a sum of adjacent cell values:
 
 \begin{itemize}
 	\item $wall$ state with value 1 is set for cells with $n < 5$,
 	\item $floor$ state with value 0 is set for cells with $n > 5$.
 \end{itemize}
 
-Additional sets of rules should be defined similarly, by adding more methods to the \texttt{Ruleset} class. 
+Additional sets of rules should be defined similarly, by adding more methods to the \textit{Ruleset} class. 
 
 \lstinputlisting[language=c, caption=Tile generation rules, label={lst:rules}]{listings/rules_mapgen.txt}
 
@@ -756,7 +756,7 @@ Such emergent condition can be thought of as a \textit{balanced state} of a tile
  
 The process of merging generated tiles into a map consists of several steps and begins with the decision to transfer a tile from the generator to map construction window.
 
-Copying a tile state from the \texttt{TileGenerator} collection to the \texttt{Map} grid requires user interaction. Any tile in the window showing current \texttt{Map} state can be clicked by the user, which invokes the \texttt{TileReplace} method of the \texttt{Map} class, effectively copying the tile state visible in tile generation window to map grid. 
+Copying a tile state from the \textit{TileGenerator} collection to the \textit{Map} grid requires user interaction. Any tile in the window showing current \textit{Map} state can be clicked by the user, which invokes the \textit{TileReplace} method of the \textit{Map} class, effectively copying the tile state visible in tile generation window to map grid. 
 
 \begin{figure}[H]
 	\centering
@@ -776,7 +776,7 @@ Copying a tile state from the \texttt{TileGenerator} collection to the \texttt{M
 
 Once the designer decides that the tile prepared in the generation window is a sufficient candidate to be used in a map, its state can be copied to map grid by clicking a square slot in map window. Such action overwrites all cell states in selected space with those contained in the prepared tile. \Cref{fig:map_merging} shows two situations, where map designer starts with a blank map and proceeds to fill its grid with some of the tiles that were generated.
 
-Map construction process can be then completed when designers switch map representation mode, which is done by function bound to button labeled as \textit{Join tiles into map}. Doing so also reveals other buttons provided by map window, which can be used to make further adjustments. Switching the mode effectively copies the cells from each tile formerly placed in the grid into a bigger \texttt{Board} and renders its visualization instead of tile grid.
+Map construction process can be then completed when designers switch map representation mode, which is done by function bound to button labeled as \textit{Join tiles into map}. Doing so also reveals other buttons provided by map window, which can be used to make further adjustments. Switching the mode effectively copies the cells from each tile formerly placed in the grid into a bigger \textit{Board} and renders its visualization instead of tile grid.
 
  
 %%%%%%%%%%%%%%%
@@ -847,14 +847,6 @@ Another experiment, shown in \cref{fig:r2ex1}, uses rules where the radius of Mo
 	\label{fig:ex3rst2}
 \end{figure}
 
-\Cref{fig:seqr2r3} shows a map composed of two tile evolution sequences, created with different sets of rules, transforming the identical initial board state.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\textwidth]{images/ex2sequences}
-	\caption{Two sequences of tile evolution with same initial board state, showing  Source: own work}
-	\label{fig:seqr2r3}
-\end{figure}
 
 
 
