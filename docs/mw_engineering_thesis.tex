@@ -13,6 +13,7 @@
 \usepackage{color}
 \usepackage[english]{babel} %%% SPRAWDZANIE PISOWNI EN
 %\usepackage[polish]{babel} %%% SPRAWDZANIE PISOWNI PL
+\usepackage[autostyle]{csquotes}
 
 %%% PAGE HEADERS COMMANDS %%%
 \usepackage{fancyhdr} % Page Headers and Footers
@@ -25,18 +26,8 @@
 
 % BIB REF COMMANDS
 \usepackage[nottoc,notlot,notlof]{tocbibind}
-\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}  
-\addbibresource{references.bib}
-
-%Bibliography sorting options 
-%option	description
-%nty	sort by name, title, year
-%nyt	sort by name, year, title
-%nyvt	sort by name, year, volume, title
-%anyt	sort by alphabetic label, name, year, title
-%anyvt	sort by alphabetic label, name, year, volume, title
-%ydtn	sort by year (descending), name, title
-%none	entries are processed in citation order
+\usepackage[backend=bibtex,style=numeric,autocite=plain,sorting=none]{biblatex}
+\addbibresource{references.bib} 
 
 % CODE LISTINGS COMMANDS
 \usepackage{verbatim} % Pre-formatted text environment 
@@ -74,8 +65,8 @@
 %\newtheorem{corollary}{Wniosek}[chapter] % przykład nowego środowiska 
 
 %%% TO DO notes
-\usepackage[textsize=footnotesize]{todonotes}
-% \usepackage[disable]{todonotes}
+%\usepackage[textsize=footnotesize]{todonotes}
+\usepackage[disable]{todonotes}
 \newcommand{\td}[1]{\todo[inline]{TO DO: #1}}
 
 %%% TOC HYPERLINKS %%%
@@ -883,8 +874,7 @@ Maps created with implemented generator contain emergent structures of cells sha
 %%%%%%%%%%%%%%%
 \section{Acknowledgments}
 
-The author of this thesis would like to express gratitude with special thanks to those who have encouraged him to continue the project, for their continued support and kindness.
-
+The author of this thesis would like to express gratitude with special thanks to those who have encouraged him to continue the project, for their continued support and kindness. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% KONIEC PRACY %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
